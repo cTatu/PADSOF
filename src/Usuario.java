@@ -1,11 +1,11 @@
 
 public abstract class Usuario {
-	private String nombre, NIF, apellido, contraseña;
+	private String nombres, NIF, apellidos, contraseña;
 
-	public Usuario(String nombre, String NIF, String apellido,String contraseña) {
-		this.nombre = nombre;
+	public Usuario(String nombres, String NIF, String apellidos,String contraseña) {
+		this.nombres = nombres;
 		this.NIF = NIF;
-		this.apellido = apellido;
+		this.apellidos = apellidos;
 		this.contraseña = contraseña;
 	}
 }
