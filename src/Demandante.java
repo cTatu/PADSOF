@@ -1,12 +1,11 @@
 import java.util.*;
 
-public class Demandante extends Cliente{
+public class Demandante{
 	
 	private List<Oferta> ofertasContratadas;
  
 	public Demandante(String NIF,String apellidos,String nombres,
 			String contraseña, String tarjetaCredito) {
-		super(nombres, NIF, apellidos, contraseña, tarjetaCredito, "D");
 		ofertasContratadas = new ArrayList<>();
 	}
 	

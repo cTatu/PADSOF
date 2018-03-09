@@ -1,15 +1,15 @@
 import java.io.Serializable;
 
-public abstract class Cliente  extends Usuario implements Serializable{
+public class Cliente implements Serializable{
 
-	private String tarjetaCredito, rol;
+	private String tarjetaCredito, nombres, apellidos, contraseña, NIF;
+	private Ofertante rolOfertante;
+	private Demandante rolDemandante;
 	
 	public Cliente(String nombres, String NIF, String apellidos, 
 			String contraseña,String tarjetaCredito,String rol) {
-		super(nombres, NIF, apellidos, contraseña);
 		
 		this.tarjetaCredito = tarjetaCredito;
-		this.rol = rol;
 	}
 
 	

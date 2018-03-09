@@ -14,15 +14,10 @@ public class InmaculadApp {
 		if (new File("listUsuarios.bin").exists()) {
 			FileInputStream fin = new FileInputStream("listUsuarios.bin");
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			Object obj = ois.readObject();
-			if (obj instanceof ArrayList) {
-			    clientes = (ArrayList<Cliente>) obj;
-				ois.close();
-				return;
-			}else {
-				ois.close();
-				throw new Exception("clientes: " + clientes);			
-			}
+			clientes = (List<Cliente>) ois.readObject();
+  
+			ois.close();
+			return;
 		}
 		
 		Scanner input = new Scanner(new File(filename));
