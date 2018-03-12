@@ -1,13 +1,14 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Demandante{
+public class Demandante implements Serializable{
 	
 	private List<Oferta> ofertasContratadas;
- 
-	public Demandante(String NIF,String apellidos,String nombres,
-			String contraseña, String tarjetaCredito) {
+	
+	public Demandante() {
+
 		ofertasContratadas = new ArrayList<>();
-	}
+	}		
 	
 	public void añadirOfertaContratada(Oferta ofertaContratada) {
 		if ( ! ofertasContratadas.contains(ofertaContratada))

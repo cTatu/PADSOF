@@ -37,14 +37,14 @@ public class InmaculadApp {
 
 	        switch (rol) {
 			case "O":
-	        	clientes.add(new Ofertante(NIF, nombreCompleto.split(",")[0], nombreCompleto.split(",")[1], contraseña, tarjetaCredito));
+	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contraseña, tarjetaCredito, new Ofertante(), null));
 				break;
 			case "D":
-	        	clientes.add(new Demandante(NIF, nombreCompleto.split(",")[0], nombreCompleto.split(",")[1], contraseña, tarjetaCredito));
+	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contraseña, tarjetaCredito, null, new Demandante()));
 				break;
 				
 			case "OD":
-	        	clientes.add(new ClienteDual(NIF, nombreCompleto.split(",")[0], nombreCompleto.split(",")[1], contraseña, tarjetaCredito));
+	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contraseña, tarjetaCredito, new Ofertante(), new Demandante()));
 				break;
 			default:
 				break;
@@ -68,7 +68,7 @@ public class InmaculadApp {
 		
 		try {
 			iaApp.cargarClientes("Recursos\\ClientesEjemplo.txt");
-			iaApp.guardarClientes();
+			// iaApp.guardarClientes();
 		} catch (Exception e) {
 
 			e.printStackTrace();

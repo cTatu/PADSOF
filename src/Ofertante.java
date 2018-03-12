@@ -1,11 +1,11 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Ofertante {
+public class Ofertante implements Serializable{
 
 	private List<Oferta> ofertas;
 	
-	public Ofertante(String NIF,String apellidos,String nombres,
-			String contraseña, String tarjetaCredito) {
+	public Ofertante() {
 		ofertas = new ArrayList<Oferta>();
 	}
 	
