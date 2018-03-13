@@ -1,12 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-
 public class InmaculadApp {
 	
 	List<Cliente> clientes; 
 	
-	public InmaculadApp() {
+	private InmaculadApp() {
 		clientes = new ArrayList<>();
 	}
 	
