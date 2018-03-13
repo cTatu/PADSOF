@@ -7,7 +7,7 @@ public class Cliente implements Serializable{
 	public Demandante rolDemandante;
 	
 	public Cliente(String nombres, String NIF, String apellidos, 
-			String contraseña,String tarjetaCredito,Ofertante rolOfertante, Demandante rolDemandante) {
+				String contraseña,String tarjetaCredito,Ofertante rolOfertante, Demandante rolDemandante) {
 		
 		this.rolOfertante = rolOfertante;
 		this.rolDemandante = rolDemandante; 
