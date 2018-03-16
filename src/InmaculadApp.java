@@ -1,16 +1,24 @@
 import java.io.*;
 import java.util.*;
 
+import es.uam.eps.padsof.telecard.TeleChargeAndPaySystem;
+
 public class InmaculadApp {
 	
 	private List<Cliente> clientes; 
 	private String contraseñaGerente;
 	
-	private InmaculadApp() {
+	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<>();
+		try {
+			cargarClientes(filename);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void cargarClientes(String filename) throws Exception {
+	private void cargarClientes(String filename) throws Exception {
 		if (new File("listUsuarios.bin").exists()) {
 			FileInputStream fin = new FileInputStream("listUsuarios.bin");
 			ObjectInputStream ois = new ObjectInputStream(fin);
@@ -64,15 +72,8 @@ public class InmaculadApp {
 	
 	
 	public static void main(String... args) {
-		InmaculadApp iaApp = new InmaculadApp();
+		InmaculadApp iaApp = new InmaculadApp("Recursos\\ClientesEjemplo.txt", "BD911");
 		
-		try {
-			iaApp.cargarClientes("Recursos\\ClientesEjemplo.txt");
-			// iaApp.guardarClientes();
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
 	}
 }
 
