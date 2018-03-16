@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 import es.uam.eps.padsof.telecard.TeleChargeAndPaySystem;
 
-public class Busqueda implements Serializable{
+public abstract class Busqueda implements Serializable{
 	
 	private int codigoPostal;
 	private double valoracion;
@@ -19,23 +19,13 @@ public class Busqueda implements Serializable{
 		this.tipo = tipo;
 	}
 	
-	public int getCodigoPostal() {
-		return codigoPostal;
-	}
+	public int getCodigoPostal;
 	
-	public double getValoracion() {
-		return valoracion;
-	}
+	public double getValoracion;
 	
-	public LocalDate getFechaInicio() {
-		return fechaInicio;
-	}
+	public LocalDate getFechaInicio;
 	
-	public LocalDate getFechaFin() {
-		return fechaFin;
-	}
+	public LocalDate getFechaFin;
 	
-	public TipoOferta getTipo() {
-		return tipo;
-	}
+	public TipoOferta getTipo;
 }
