@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public abstract class Oferta {
+public abstract class OfertaAlquiler {
 
 	private boolean reservada,contratada, aprobada;
 	private int precio;
@@ -8,7 +8,7 @@ public abstract class Oferta {
 	private LocalDate fechaInicio;
 	private String descripcion;
 	
-	public Oferta(int precio, float comision, LocalDate fechaInicio, String descripcion) {
+	public OfertaAlquiler(int precio, float comision, LocalDate fechaInicio, String descripcion) {
 		this.precio = precio;
 		this.comision = comision;
 		this.fechaInicio = fechaInicio;

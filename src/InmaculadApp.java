@@ -3,7 +3,8 @@ import java.util.*;
 
 public class InmaculadApp {
 	
-	List<Cliente> clientes; 
+	private List<Cliente> clientes; 
+	private String contraseñaGerente;
 	
 	private InmaculadApp() {
 		clientes = new ArrayList<>();

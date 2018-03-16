@@ -1,6 +1,8 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import es.uam.eps.padsof.telecard.TeleChargeAndPaySystem;
+
 public class Busqueda implements Serializable{
 	
 	private int codigoPostal;
