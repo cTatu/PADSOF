@@ -21,17 +21,29 @@ public abstract class Busqueda implements Serializable{
 		this.tipoDisponibilidad = tipoDisponibilidad;
 	}
 	
-	public abstract int getCodigoPostal();
+	public int getCodigoPostal() {
+		return codigoPostal;
+	}
 	
-	public abstract double getValoracion();
+	public double getValoracion() {
+		return valoracion;
+	}
 	
-	public abstract LocalDate getFechaInicio();
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
+	}
 	
-	public abstract  LocalDate getFechaFin();
+	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
 	
-	public abstract TipoOferta getTipoOferta();
+	public TipoOferta getTipoOferta() {
+		return tipoOferta;
+	}
 	
-	public abstract TipoDisponibilidad getTipoDisponibilidad();
+	public TipoDisponibilidad getTipoDisponibilidad() {
+		return tipoDisponibilidad;
+	}
 }
 
 

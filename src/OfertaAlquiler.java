@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public abstract class OfertaAlquiler {
+public abstract class OfertaAlquiler extends Oferta{
 
 	private boolean reservada,contratada, aprobada;
 	private int precio;

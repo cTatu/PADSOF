@@ -1,21 +1,46 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.RejectedExecutionException;
 
+import es.uam.eps.padsof.telecard.OrderRejectedException;
 import es.uam.eps.padsof.telecard.TeleChargeAndPaySystem;
+import fechasimulada.FechaSimulada;
 
 public class InmaculadApp {
 	
 	private List<Cliente> clientes; 
 	private String contraseñaGerente;
+	private Cliente usuarioConectado;
 	
 	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<>();
+		this.contraseñaGerente = constraseñaGerente;
+		this.usuarioConectado = new Cliente("", "", "", "", "", null, null);
+		
 		try {
 			cargarClientes(filename);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean conectarCliente(String NIF, String contraseña) {
+		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
+			usuarioConectado.setContraseña(contraseña);
+			usuarioConectado.gerente = true;
+			return true;
+		}
+		
+		for (Cliente cliente : clientes) {
+			if (cliente.getNIF().equals(NIF) && cliente.getContraseña().equals(contraseña)) {
+				usuarioConectado = cliente;
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	private void cargarClientes(String filename) throws Exception {
@@ -74,6 +99,8 @@ public class InmaculadApp {
 	public static void main(String... args) {
 		InmaculadApp iaApp = new InmaculadApp("Recursos\\ClientesEjemplo.txt", "BD911");
 		
+		System.out.println(iaApp.conectarCliente("", "BD911"));
+		System.out.println(iaApp.usuarioConectado);
 	}
 }
 
