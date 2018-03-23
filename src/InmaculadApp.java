@@ -7,11 +7,20 @@ import es.uam.eps.padsof.telecard.OrderRejectedException;
 import es.uam.eps.padsof.telecard.TeleChargeAndPaySystem;
 import fechasimulada.FechaSimulada;
 
-public class InmaculadApp {
+public class InmaculadApp implements Serializable{
 	
 	private List<Cliente> clientes; 
 	private String contraseñaGerente;
 	private Cliente usuarioConectado;
+	
+	private static InmaculadApp iApp = null;
+	
+	public static InmaculadApp getInstancia(String filename, String constraseñaGerente) {
+		if (iApp == null)
+			iApp = new InmaculadApp(filename, constraseñaGerente);
+		
+		return iApp;
+	}
 	
 	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<>();
@@ -19,7 +28,9 @@ public class InmaculadApp {
 		this.usuarioConectado = new Cliente("", "", "", "", "", null, null);
 		
 		try {
-			cargarClientes(filename);
+			cargarApp();
+			if (iApp == null)
+				cargarClientes(filename);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,20 +98,43 @@ public class InmaculadApp {
 	    input.close();
 	}
 	
-	public void guardarClientes() throws IOException {
-		FileOutputStream fout = new FileOutputStream("listUsuarios.bin");
+	public void guardarApp() throws IOException {
+		FileOutputStream fout = new FileOutputStream("APP.bin");
 		ObjectOutputStream oos = new ObjectOutputStream(fout);
-		oos.writeObject(clientes);
+		oos.writeObject(this);
 		
 		oos.close();
 	}
 	
+	private void cargarApp() {
+		if (new File("APP.bin").exists()) {
+			try {
+			FileInputStream fin = new FileInputStream("APP.bin");
+			ObjectInputStream ois = new ObjectInputStream(fin);
+			iApp = (InmaculadApp) ois.readObject();
+			
+			ois.close();
+			}catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+	
 	
 	public static void main(String... args) {
-		InmaculadApp iaApp = new InmaculadApp("Recursos\\ClientesEjemplo.txt", "BD911");
-		
-		System.out.println(iaApp.conectarCliente("", "BD911"));
-		System.out.println(iaApp.usuarioConectado);
+		if (new File("APP.bin").exists()) {
+			try {
+			FileInputStream fin = new FileInputStream("APP.bin");
+			ObjectInputStream ois = new ObjectInputStream(fin);
+			InmaculadApp iApp = (InmaculadApp) ois.readObject();
+			
+			System.out.println(iApp.clientes);
+			
+			ois.close();
+			}catch (Exception e) {
+				System.out.println(e);
+			}
+		}
 	}
 }
 

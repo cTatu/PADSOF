@@ -17,7 +17,7 @@ public class FechaSimulada {
 	 * 
 	 * @param numDias
 	 */
-	public static void avanzar(int numDias) {
+	public static void avanzar(Integer numDias) {
 		fechaSimulada = fechaSimulada.plusDays(numDias);
 	}
 	
@@ -47,7 +47,7 @@ public class FechaSimulada {
 	 * @param anyo
 	 * @return fecha simulada actual con los valores dados como parametros
 	 */
-	public static LocalDate fijarFecha(int dia, int mes, int anyo) {
+	public static LocalDate fijarFecha(Integer dia, Integer mes, Integer anyo) {
 		fechaSimulada = fechaSimulada.withDayOfMonth(dia).withMonth(mes).withYear(anyo);
 		return fechaSimulada;
 	}
