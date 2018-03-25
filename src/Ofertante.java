@@ -3,13 +3,13 @@ import java.util.*;
 
 public class Ofertante implements Serializable{
 
-	private List<OfertaAlquiler> ofertas;
+	private List<OfertaVivienda> ofertas;
 	
 	public Ofertante() {
-		ofertas = new ArrayList<OfertaAlquiler>();
+		ofertas = new ArrayList<OfertaVivienda>();
 	}
 	
-	public void añadirOfertas(OfertaAlquiler of) {
+	public void añadirOfertas(OfertaVivienda of) {
 		if ( ! ofertas.contains(of))
 			ofertas.add(of);
 	}

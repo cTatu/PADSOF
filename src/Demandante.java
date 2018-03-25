@@ -3,14 +3,14 @@ import java.util.*;
 
 public class Demandante implements Serializable{
 	
-	private List<OfertaAlquiler> ofertasContratadas;
+	private List<OfertaVivienda> ofertasContratadas;
 	
 	public Demandante() {
 
 		ofertasContratadas = new ArrayList<>();
 	}		
 	
-	public void añadirOfertaContratada(OfertaAlquiler ofertaContratada) {
+	public void añadirOfertaContratada(OfertaVivienda ofertaContratada) {
 		if ( ! ofertasContratadas.contains(ofertaContratada))
 			ofertasContratadas.add(ofertaContratada);
 	}

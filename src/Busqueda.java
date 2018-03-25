@@ -7,42 +7,37 @@ public abstract class Busqueda implements Serializable{
 	
 	private Integer codigoPostal;
 	private double valoracion;
-	private LocalDate fechaInicio, fechaFin;
+	private LocalDate fechaInicio;
 	private TipoOferta tipoOferta;
 	private TipoDisponibilidad tipoDisponibilidad;
 	
-	public Busqueda(Integer codigoPostal, double valoracion, LocalDate fechaInicio, LocalDate fechaFin,
+	public Busqueda(Integer codigoPostal, double valoracion, LocalDate fechaInicio, 
 				TipoOferta tipoOferta, TipoDisponibilidad tipoDisponibilidad) {
 		this.codigoPostal = codigoPostal;
 		this.valoracion = valoracion;
 		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
 		this.tipoOferta = tipoOferta;
 		this.tipoDisponibilidad = tipoDisponibilidad;
 	}
 	
 	public Integer getCodigoPostal() {
-		return codigoPostal;
+		return this.codigoPostal;
 	}
 	
 	public double getValoracion() {
-		return valoracion;
+		return this.valoracion;
 	}
 	
 	public LocalDate getFechaInicio() {
-		return fechaInicio;
-	}
-	
-	public LocalDate getFechaFin() {
-		return fechaFin;
+		return this.fechaInicio;
 	}
 	
 	public TipoOferta getTipoOferta() {
-		return tipoOferta;
+		return this.tipoOferta;
 	}
 	
 	public TipoDisponibilidad getTipoDisponibilidad() {
-		return tipoDisponibilidad;
+		return this.tipoDisponibilidad;
 	}
 }
 

@@ -20,12 +20,13 @@ public class Inmueble implements Serializable {
 		this.ofertas = new ArrayList<Oferta>();
 	}
 	
-	public boolean añadirOferta(Integer precio, LocalDate fechaInicio, String descripcion, TipoOferta tipo) {
-		boolean no_reservada = false, no_aprobada = false, no_contratada = false;
-		
-		if(tipo.equals(TipoOferta.VACACIONAL))
-			ofertas.add(new OfertaVacacional(precio, fechaInicio, no_reservada, no_aprobada, no_contratada, descripcion));
-		
+	public boolean añadirOfertaVivienda(Integer precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses ) {
+		ofertas.add(new OfertaVivienda(precio, fechaInicio, descripcion, duracionMeses));
+		return true;
+	}
+	
+	public boolean añadirOfertaVacacional(Integer precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin ) {
+		ofertas.add(new OfertaVacacional(precio, fechaInicio, descripcion, fechaFin));
 		return true;
 	}
 }
