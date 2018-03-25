@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Oferta {
+public abstract class Oferta implements Serializable{
 	
 	private Integer precio;
 	private LocalDate fechaInicio;
@@ -10,25 +11,28 @@ public abstract class Oferta {
 	private Float comision;
 	private String descripcion;
 	
-	public Oferta(Integer precio, LocalDate fechaInicio, Boolean reservada, Boolean aprobada, Boolean contratada, String descripcion) {
+	public Oferta(Integer precio, LocalDate fechaInicio, String descripcion) {
 		this.precio = precio;
 		this.fechaInicio = fechaInicio;
-		this.reservada = reservada;
-		this.aprobada = aprobada;
-		this.contratada = contratada;
+		this.reservada = false;
+		this.aprobada = false;
+		this.contratada = false;
 		this.descripcion = descripcion;
 	}
 	
 	public boolean aprobar() {
-		
+		aprobada = true;
+		return true;
 	}
 	
 	public boolean reservar(Usuario usuario) {
-		
+		reservada = true;
+		return true;
 	}
 
 	public boolean rechazar() {
-		
+		aprobada = false;
+		return true;
 	}
 	
 	public boolean editar() {

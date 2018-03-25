@@ -24,8 +24,8 @@ public class Inmueble implements Serializable {
 		boolean no_reservada = false, no_aprobada = false, no_contratada = false;
 		
 		if(tipo.equals(TipoOferta.VACACIONAL))
-			ofertas.add(new Oferta(precio, fechaInicio, no_reservada, no_aprobada, no_contratada, descripcion));
+			ofertas.add(new OfertaVacacional(precio, fechaInicio, no_reservada, no_aprobada, no_contratada, descripcion));
 		
-		
+		return true;
 	}
 }

@@ -1,22 +1,12 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class OfertaAlquiler extends Oferta{
+public abstract class OfertaAlquiler extends Oferta implements Serializable{
 
-	private boolean reservada,contratada, aprobada;
-	private Integer precio;
-	private float comision;
-	private LocalDate fechaInicio;
-	private String descripcion;
+	private Integer duracionMeses;
 	
-	public OfertaAlquiler(Integer precio, float comision, LocalDate fechaInicio, String descripcion) {
-		this.precio = precio;
-		this.comision = comision;
-		this.fechaInicio = fechaInicio;
-		this.descripcion = descripcion;
-		
-		this.reservada = false;
-		this.aprobada = false;
-		this.contratada = false;
+	public OfertaAlquiler(Integer precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses) {
+		super(precio,fechaInicio,descripcion);
+		this.duracionMeses = duracionMeses;
 	}
-
 }
