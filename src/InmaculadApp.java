@@ -9,15 +9,24 @@ import fechasimulada.FechaSimulada;
 
 public class InmaculadApp implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
 	private List<Cliente> clientes; 
 	private String contraseñaGerente;
 	private Cliente usuarioConectado;
-	
+
 	private static InmaculadApp iApp = null;
 	
 	public static InmaculadApp getInstancia(String filename, String constraseñaGerente) {
-		if (iApp == null)
+		if (iApp == null) {
 			iApp = new InmaculadApp(filename, constraseñaGerente);
+			try {
+				if(!iApp.cargarApp())
+					iApp.cargarClientes(filename);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return iApp;
 	}
@@ -26,15 +35,6 @@ public class InmaculadApp implements Serializable{
 		clientes = new ArrayList<>();
 		this.contraseñaGerente = constraseñaGerente;
 		this.usuarioConectado = new Cliente("", "", "", "", "", null, null);
-		
-		try {
-			cargarApp();
-			if (iApp == null)
-				cargarClientes(filename);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public boolean conectarCliente(String NIF, String contraseña) {
@@ -55,14 +55,6 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	private void cargarClientes(String filename) throws Exception {
-		if (new File("listUsuarios.bin").exists()) {
-			FileInputStream fin = new FileInputStream("listUsuarios.bin");
-			ObjectInputStream ois = new ObjectInputStream(fin);
-			clientes = (List<Cliente>) ois.readObject();
-  
-			ois.close();
-			return;
-		}
 		
 		Scanner input = new Scanner(new File(filename));
 	    input.useDelimiter(";|\n");
@@ -106,35 +98,34 @@ public class InmaculadApp implements Serializable{
 		oos.close();
 	}
 	
-	private void cargarApp() {
+	private boolean cargarApp() {
 		if (new File("APP.bin").exists()) {
 			try {
 			FileInputStream fin = new FileInputStream("APP.bin");
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			iApp = (InmaculadApp) ois.readObject();
+			InmaculadApp app = (InmaculadApp) ois.readObject();
 			
 			ois.close();
+			
+			iApp.clientes = app.clientes;
+			iApp.contraseñaGerente = app.contraseñaGerente;
+			iApp.usuarioConectado = app.usuarioConectado;
+			
+			return true;
 			}catch (Exception e) {
 				System.out.println(e);
+				return false;
 			}
 		}
+		
+		return false;
 	}
 	
 	
 	public static void main(String... args) {
-		if (new File("APP.bin").exists()) {
-			try {
-			FileInputStream fin = new FileInputStream("APP.bin");
-			ObjectInputStream ois = new ObjectInputStream(fin);
-			InmaculadApp iApp = (InmaculadApp) ois.readObject();
-			
-			System.out.println(iApp.clientes);
-			
-			ois.close();
-			}catch (Exception e) {
-				System.out.println(e);
-			}
-		}
+		InmaculadApp app = InmaculadApp.getInstancia("Recursos\\ClientesEjemplo.txt", "BD911");
+		
+		System.out.println(app.clientes);
 	}
 }
 
