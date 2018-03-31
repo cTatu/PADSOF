@@ -6,8 +6,8 @@ class Comentario extends Opinion {
 	private String texto;
 	private List<Opinion> opiniones;
 	
-	public Comentario(Cliente cliente, String texto) {
-		super(cliente);
+	public Comentario(Demandante demandante, String texto) {
+		super(demandante);
 		this.texto = texto;
 		this.opiniones = new ArrayList<Opinion>();
 	}
