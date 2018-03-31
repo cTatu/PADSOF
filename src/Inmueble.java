@@ -5,7 +5,7 @@ import java.util.*;
 public class Inmueble implements Serializable {
 	
 	private Integer codigoPostal;
-	private static Integer LastId;
+	private static Integer LastId = 1;
 	private final Integer id;
 	private String localizacion;
 	private Map<String,String> caracteristicas;
@@ -28,5 +28,15 @@ public class Inmueble implements Serializable {
 	public boolean añadirOfertaVacacional(Integer precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin ) {
 		ofertas.add(new OfertaVacacional(precio, fechaInicio, descripcion, fechaFin));
 		return true;
+	}
+	
+	public boolean cancelarOferta(Ofertante ofertante, LocalDate fechaInicio) {
+		for (Oferta oferta : ofertas) {
+			if (oferta.getOfertante().equals(ofertante) && oferta.getFechaInicio().isEqual(fechaInicio)) {
+				ofertas.remove(oferta);
+				return true;
+			}
+		}
+		return false;
 	}
 }

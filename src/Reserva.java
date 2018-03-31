@@ -1,11 +1,20 @@
 import java.time.LocalDate;
 
 public abstract class Reserva {
-	Boolean expirado;
+	Boolean expirado = false;
 	LocalDate fechaInicio;
-	Integer diasRestantes; // final static?????
 	
 	public Reserva(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+	
+	public boolean expirada() {
+		return this.expirado;
+	}	
+	
+	public int diasRestantes() {
+		/*fecha simulada*/
+		return 5;
+	}
+	
 }

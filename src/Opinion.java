@@ -1,9 +1,12 @@
 
 
 public abstract class Opinion {
-
-	public Opinion() {
-		// TODO Auto-generated constructor stub
+	
+	private Demandante demandante;
+	
+	public Opinion(Demandante d) {
+		this.demandante = d;
 	}
-
+	
+	public abstract boolean opinar(Opinion o);
 }

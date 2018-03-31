@@ -14,5 +14,4 @@ public class Demandante implements Serializable{
 		if ( ! ofertasContratadas.contains(ofertaContratada))
 			ofertasContratadas.add(ofertaContratada);
 	}
-
 }

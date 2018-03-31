@@ -12,8 +12,11 @@ public class InmaculadApp implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private List<Cliente> clientes; 
+	private List<Inmueble> inmuebles;
+	private List<Inmueble> inmuebles;
+	private List<Inmueble> inmuebles;
 	private String contraseñaGerente;
-	private Cliente usuarioConectado;
+	private Cliente clienteConectado;	
 
 	private static InmaculadApp iApp = null;
 	
@@ -33,20 +36,21 @@ public class InmaculadApp implements Serializable{
 	
 	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<>();
+		inmuebles = new ArrayList<>();
 		this.contraseñaGerente = constraseñaGerente;
-		this.usuarioConectado = new Cliente("", "", "", "", "", null, null);
+		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
 	}
 	
 	public boolean conectarCliente(String NIF, String contraseña) {
 		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
-			usuarioConectado.setContraseña(contraseña);
-			usuarioConectado.gerente = true;
+			clienteConectado.setContraseña(contraseña);
+			clienteConectado.gerente = true;
 			return true;
 		}
 		
 		for (Cliente cliente : clientes) {
 			if (cliente.getNIF().equals(NIF) && cliente.getContraseña().equals(contraseña)) {
-				usuarioConectado = cliente;
+				clienteConectado = cliente;
 				return true;
 			}
 		}
@@ -109,7 +113,7 @@ public class InmaculadApp implements Serializable{
 			
 			iApp.clientes = app.clientes;
 			iApp.contraseñaGerente = app.contraseñaGerente;
-			iApp.usuarioConectado = app.usuarioConectado;
+			iApp.clienteConectado = app.clienteConectado;
 			
 			return true;
 			}catch (Exception e) {
