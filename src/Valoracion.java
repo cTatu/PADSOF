@@ -3,8 +3,8 @@ public class Valoracion extends Opinion {
 	
 	private double Numero;
 	
-	public Valoracion(Cliente cliente, double numero) {
-		super(cliente);
+	public Valoracion(Demandante demandante, double numero) {
+		super(demandante);
 		this.Numero = numero;
 	}
 

@@ -52,10 +52,10 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	public boolean reservar(Cliente cliente) {
-
+		
 	}
 	
-	public double contratar(Usuario usuario) {
+	public double contratar(Cliente cliente) {
 		
 	}
 	
@@ -87,66 +87,11 @@ public abstract class Oferta implements Serializable{
 		return media;
 	}
 
-	
-	/*Getters y Setters*/
-	
-	public Integer getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
-	}
-
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
-	}
-
-	public Boolean getModerada() {
-		return moderada;
-	}
-
-	public void setModerada(Boolean moderada) {
-		this.moderada = moderada;
-	}
-
-	public Boolean getAprobada() {
-		return aprobada;
-	}
-
-	public void setAprobada(Boolean aprobada) {
-		this.aprobada = aprobada;
-	}
-
-	public Boolean getReservada() {
-		return reservada;
-	}
-
-	public void setReservada(Boolean reservada) {
-		this.reservada = reservada;
-	}
-
-	public Boolean getContratada() {
-		return contratada;
-	}
-
-	public void setContratada(Boolean contratada) {
-		this.contratada = contratada;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public void setModificaciones(Map<String, String> modificaciones) {
-		this.modificaciones = modificaciones;
 	}
 }
