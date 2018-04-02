@@ -40,6 +40,21 @@ public class InmaculadApp implements Serializable{
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
 	}
 	
+	public boolean crearInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
+		
+		inmuebles.add(new Inmueble(CP, localizacion, caracteristicas));
+		
+		return true;
+	}
+	
+	public boolean contratarOferta(Cliente cliente, Oferta oferta) {
+		
+	}
+	
+	public List<Oferta> buscar(Busqueda criteriosBusqueda, Cliente cliente){
+		
+	}
+	
 	public boolean conectarCliente(String NIF, String contraseña) {
 		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
 			clienteConectado.setContraseña(contraseña);
@@ -55,6 +70,14 @@ public class InmaculadApp implements Serializable{
 		}
 		
 		return false;
+	}
+	
+	public boolean login(String NIF, String contraseña){
+		
+	}
+	
+	public boolean cerrarSesion(Cliente cliente) {
+		
 	}
 	
 	private void cargarClientes(String filename) throws Exception {

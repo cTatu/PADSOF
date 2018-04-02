@@ -11,12 +11,12 @@ public class Inmueble implements Serializable {
 	private Map<String,String> caracteristicas;
 	private List<Oferta> ofertas; 
 	
-	public Inmueble(Integer codigoPostal, String localizacion) {
+	public Inmueble(Integer codigoPostal, String localizacion, Map<String,String> caracteristicas) {
 		this.id = LastId;
 		LastId ++;
 		this.codigoPostal = codigoPostal;
 		this.localizacion = localizacion;
-		this.caracteristicas = new HashMap<String, String>();
+		this.caracteristicas = caracteristicas;
 		this.ofertas = new ArrayList<Oferta>();
 	}
 	
