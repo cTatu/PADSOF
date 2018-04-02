@@ -6,8 +6,8 @@ public class OfertaVivienda extends Oferta implements Serializable{
 	private Integer duracionMeses;
 	private static final Double COMISION = 0.1; // Porcentaje
 	
-	public OfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses) {
-		super(precio,fechaInicio,descripcion);
+	public OfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Cliente ofertante) {
+		super(precio,fechaInicio,descripcion, ofertante);
 		this.duracionMeses = duracionMeses;
 	}
 	
@@ -24,16 +24,16 @@ public class OfertaVivienda extends Oferta implements Serializable{
 
 	@Override
 	public boolean expirar() {
-		
+		return false;
 	}
 	
 	@Override
-	public boolean reservar(Demandante demandante) {
-		if (reservada == false && demandante.getStatusVivienda() == false ) {
+	public boolean reservar(Cliente demandante) {
+		if (reservada == false && demandante.rolDemandante.getStatusVivienda() == false ) {
 			reservada = true;
-			reserva = new ReservaVivienda(java.time.LocalDate.now()); // fecha simulada?
+			ReservaVivienda reserva = new ReservaVivienda(java.time.LocalDate.now()); // fecha simulada?
 			this.demandante = demandante;
-			this.demandante.setrVivienda((ReservaVivienda)reserva);
+			this.demandante.rolDemandante.setrVivienda(reserva);
 			return true;
 		}
 		
@@ -42,8 +42,8 @@ public class OfertaVivienda extends Oferta implements Serializable{
 	
 	@Override
 	public boolean cancelarReserva() {		
-		if(reservada==true && demandante.getStatusVivienda() == true) {
-			demandante.eliminarReservaVivienda();
+		if(reservada==true && demandante.rolDemandante.getStatusVivienda() == true) {
+			demandante.rolDemandante.eliminarReservaVivienda();
 			demandante = null;
 			reserva = null;
 			reservada = false;

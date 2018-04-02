@@ -14,27 +14,20 @@ public abstract class Oferta implements Serializable{
 	private Map<String, String> modificaciones;
 	protected Reserva reserva;
 	private List<Opinion> opiniones;
-	private Ofertante ofertante;
-	protected Demandante demandante;
+	private Cliente ofertante;
+	protected Cliente demandante;
 	
 	public abstract double calcularComision();
 	public abstract boolean expirar();
-	public abstract boolean reservar(Demandante demandante);
+	public abstract boolean reservar(Cliente demandante);
 	public abstract boolean cancelarReserva();	
 	
-	public Oferta(Double precio, LocalDate fechaInicio, String descripcion) {
+	public Oferta(Double precio, LocalDate fechaInicio, String descripcion, Cliente ofertante) {
 		this.precio = precio;
 		this.fechaInicio = fechaInicio;
-		this.moderada = false;
-		this.aprobada = false;
-		this.reservada = false;
-		this.contratada = false;
 		this.descripcion = descripcion;
-		this.modificaciones = null;
-		this.reserva = null;
 		this.opiniones = new ArrayList<Opinion>();
-		this.ofertante = null;
-		this.demandante = null;
+		this.ofertante = ofertante;
 	}
 	
 	public boolean aprobar() {
@@ -58,8 +51,11 @@ public abstract class Oferta implements Serializable{
 			System.out.println(modificaciones);
 	}
 	
-	public double contratar(Demandante demandante) {
+	public Pago contratar(Cliente demandante) {
+		contratada = true;
+		this.demandante = demandante;
 		
+		return new Pago(demandante, ofertante, this);
 	}
 	
 	public boolean añadirOpinion(Opinion opinion) {
@@ -85,7 +81,7 @@ public abstract class Oferta implements Serializable{
 	
 	/*Getters y Setters*/
 	
-	public Ofertante getOfertante() {
+	public Cliente getOfertante() {
 		return ofertante;
 	}
 	
