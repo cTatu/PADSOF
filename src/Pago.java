@@ -1,3 +1,6 @@
+import es.uam.eps.padsof.telecard.FailedInternetConnectionException;
+import es.uam.eps.padsof.telecard.InvalidCardNumberException;
+import es.uam.eps.padsof.telecard.OrderRejectedException;
 import es.uam.eps.padsof.telecard.TeleChargeAndPaySystem;
 
 public class Pago {
@@ -34,8 +37,24 @@ public class Pago {
 			return false;
 		}				
 		
-		TeleChargeAndPaySystem.charge(demandante.getTarjetaCredito(), "Cobro", -cantidad);
+		try {
+			TeleChargeAndPaySystem.charge(demandante.getTarjetaCredito(), "Cobro", -cantidad);
+		}catch (FailedInternetConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OrderRejectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		TeleChargeAndPaySystem.charge(ofertante.getTarjetaCredito(), "Pago", cantidad*0.);
+		try {
+			TeleChargeAndPaySystem.charge(ofertante.getTarjetaCredito(), "Pago", cantidad*0.);
+		}catch (FailedInternetConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OrderRejectedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
