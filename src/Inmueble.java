@@ -20,21 +20,23 @@ public class Inmueble implements Serializable {
 		this.ofertas = new ArrayList<Oferta>();
 	}
 	
-	public boolean añadirOfertaVivienda(Integer precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses ) {
+	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses ) {
 		ofertas.add(new OfertaVivienda(precio, fechaInicio, descripcion, duracionMeses));
 		return true;
 	}
 	
-	public boolean añadirOfertaVacacional(Integer precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin ) {
+	public boolean añadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin ) {
 		ofertas.add(new OfertaVacacional(precio, fechaInicio, descripcion, fechaFin));
 		return true;
 	}
 	
 	public boolean cancelarOferta(Ofertante ofertante, LocalDate fechaInicio) {
+		boolean status;
 		for (Oferta oferta : ofertas) {
 			if (oferta.getOfertante().equals(ofertante) && oferta.getFechaInicio().isEqual(fechaInicio)) {
 				ofertas.remove(oferta);
-				return true;
+				status = ofertante.cancelarOferta(fechaInicio);
+				return status && true;
 			}
 		}
 		return false;

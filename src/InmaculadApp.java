@@ -13,8 +13,7 @@ public class InmaculadApp implements Serializable{
 	
 	private List<Cliente> clientes; 
 	private List<Inmueble> inmuebles;
-	private List<Inmueble> inmuebles;
-	private List<Inmueble> inmuebles;
+	private List<Pago> pagos;
 	private String contraseñaGerente;
 	private Cliente clienteConectado;	
 

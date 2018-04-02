@@ -16,9 +16,17 @@ public class Ofertante implements Serializable{
 			ofertas.add(of);
 	}
 	
-	public boolean cancelarOferta(Ofertante ofertante, LocalDate fechaInicio) {
+	public Double getSaldoPendiente() {
+		return saldoPendiente;
+	}
+	
+	public void setSaldoPendiente(Double saldoPendiente) {
+		this.saldoPendiente = saldoPendiente;
+	}
+	
+	public boolean cancelarOferta(LocalDate fechaInicio) {
 		for (Oferta oferta : ofertas) {
-			if (oferta.getOfertante().equals(ofertante) && oferta.getFechaInicio().isEqual(fechaInicio)) {
+			if (oferta.getFechaInicio().isEqual(fechaInicio)) {
 				ofertas.remove(oferta);
 				return true;
 			}

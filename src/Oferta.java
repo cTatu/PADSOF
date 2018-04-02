@@ -4,21 +4,25 @@ import java.util.*;
 
 public abstract class Oferta implements Serializable{
 	
-	protected Integer precio;
+	protected Double precio;
 	private LocalDate fechaInicio;
-	private Boolean moderada; /* Sirve para saber si la oferta ha sido moderada, asi diferenciar una oferta rechazada y una no moderada */
+	private Boolean moderada; /* Sirve para diferenciar una oferta rechazada y una no moderada */
 	private Boolean aprobada;
-	private Boolean reservada;
+	protected Boolean reservada;
 	private Boolean contratada;
 	private String descripcion;
-	private Ofertante ofertante;
 	private Map<String, String> modificaciones;
-	private List<Reserva> reservas;
+	protected Reserva reserva;
 	private List<Opinion> opiniones;
+	private Ofertante ofertante;
+	protected Demandante demandante;
 	
 	public abstract double calcularComision();
+	public abstract boolean expirar();
+	public abstract boolean reservar(Demandante demandante);
+	public abstract boolean cancelarReserva();	
 	
-	public Oferta(Integer precio, LocalDate fechaInicio, String descripcion) {
+	public Oferta(Double precio, LocalDate fechaInicio, String descripcion) {
 		this.precio = precio;
 		this.fechaInicio = fechaInicio;
 		this.moderada = false;
@@ -26,8 +30,11 @@ public abstract class Oferta implements Serializable{
 		this.reservada = false;
 		this.contratada = false;
 		this.descripcion = descripcion;
-		this.reservas = new ArrayList<Reserva>();
+		this.modificaciones = null;
+		this.reserva = null;
 		this.opiniones = new ArrayList<Opinion>();
+		this.ofertante = null;
+		this.demandante = null;
 	}
 	
 	public boolean aprobar() {
@@ -42,8 +49,8 @@ public abstract class Oferta implements Serializable{
 		return true;
 	}
 	
-	public Ofertante getOfertante() {
-		return ofertante;
+	public void añadirRectificacion(Map<String, String> rectificacion) {
+		this.modificaciones = rectificacion;
 	}
 	
 	public void mostrarModificaciones() {
@@ -51,25 +58,13 @@ public abstract class Oferta implements Serializable{
 			System.out.println(modificaciones);
 	}
 	
-	public boolean reservar(Cliente cliente) {
-		
-	}
-	
-	public double contratar(Cliente cliente) {
-		
-	}
-	
-	public boolean expirar() {
+	public double contratar(Demandante demandante) {
 		
 	}
 	
 	public boolean añadirOpinion(Opinion opinion) {
 		opiniones.add(opinion);
 		return true;
-	}
-	
-	public boolean añadirRectificacion(String rectificacion) {
-		
 	}
 	
 	public double calcularMedia() {
@@ -87,11 +82,70 @@ public abstract class Oferta implements Serializable{
 		return media;
 	}
 
+	
+	/*Getters y Setters*/
+	
+	public Ofertante getOfertante() {
+		return ofertante;
+	}
+	
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
+	}
+
+	public Boolean getModerada() {
+		return moderada;
+	}
+
+	public void setModerada(Boolean moderada) {
+		this.moderada = moderada;
+	}
+
+	public Boolean getAprobada() {
+		return aprobada;
+	}
+
+	public void setAprobada(Boolean aprobada) {
+		this.aprobada = aprobada;
+	}
+
+	public Boolean getReservada() {
+		return reservada;
+	}
+
+	public void setReservada(Boolean reservada) {
+		this.reservada = reservada;
+	}
+
+	public Boolean getContratada() {
+		return contratada;
+	}
+
+	public void setContratada(Boolean contratada) {
+		this.contratada = contratada;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setModificaciones(Map<String, String> modificaciones) {
+		this.modificaciones = modificaciones;
 	}
 }

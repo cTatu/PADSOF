@@ -6,6 +6,7 @@ public class Cliente implements Serializable{
 	public Ofertante rolOfertante;
 	public Demandante rolDemandante;
 	public boolean gerente;
+	private boolean bloqueado;
 	
 	public Cliente(String nombres, String NIF, String apellidos, 
 				String contraseña,String tarjetaCredito,Ofertante rolOfertante, Demandante rolDemandante) {		
@@ -16,11 +17,23 @@ public class Cliente implements Serializable{
 		this.apellidos = apellidos;
 		this.contraseña = contraseña;
 		this.tarjetaCredito = tarjetaCredito;
+		this.bloqueado = false;
 	}
-
+	
+	public boolean isBloqueado() {
+		return bloqueado;
+	}
+	
+	public void setBloqueado(boolean bloqueado) {
+		this.bloqueado = bloqueado;
+	}
 	
 	public void cambiarTartjeta(String tarjetaNueva) {
 		this.tarjetaCredito = tarjetaNueva;
+	}
+	
+	public String getTarjetaCredito() {
+		return this.tarjetaCredito;
 	}
 	
 	public String getNIF() {

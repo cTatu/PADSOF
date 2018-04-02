@@ -1,11 +1,12 @@
 import java.time.LocalDate;
 
 public abstract class Reserva {
-	Boolean expirado = false;
+	Boolean expirado;
 	LocalDate fechaInicio;
 	
 	public Reserva(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
+		this.expirado = false;
 	}
 	
 	public boolean expirada() {
