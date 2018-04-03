@@ -65,6 +65,20 @@ public class InmaculadApp implements Serializable{
 		return resultados;
 	}
 	
+	public List<OfertaVivienda> buscarVivienda(BusquedaVivienda criteriosBusqueda, Cliente cliente){
+		List<OfertaVivienda> resultados = new ArrayList<>();
+		
+		for(Inmueble inmueble: inmuebles) {
+			for(Oferta oferta: inmueble.getOfertas()) {
+				if(criteriosBusqueda.comprobarOferta(oferta, inmueble.getCodigoPostal()) == true) {
+					resultados.add((OfertaVivienda)oferta);
+				}
+			}
+		}
+		
+		return resultados;
+	}
+	
 	public boolean conectarCliente(String NIF, String contraseña) {
 		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
 			clienteConectado.setContraseña(contraseña);
