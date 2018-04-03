@@ -20,8 +20,8 @@ public class Inmueble implements Serializable {
 		this.ofertas = new ArrayList<Oferta>();
 	}
 	
-	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses ) {
-		ofertas.add(new OfertaVivienda(precio, fechaInicio, descripcion, duracionMeses));
+	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Cliente ofertante) {
+		ofertas.add(new OfertaVivienda(precio, fechaInicio, descripcion, duracionMeses, ofertante));
 		return true;
 	}
 	
@@ -40,5 +40,13 @@ public class Inmueble implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	public List<Oferta> getOfertas() {
+		return ofertas;
+	}
+
+	public Integer getCodigoPostal() {
+		return codigoPostal;
 	}
 }

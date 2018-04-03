@@ -5,11 +5,11 @@ import es.uam.eps.padsof.telecard.TeleChargeAndPaySystem;
 
 public abstract class Busqueda implements Serializable{
 	
-	private Integer codigoPostal;
-	private double valoracion;
-	private LocalDate fechaInicio;
-	private TipoOferta tipoOferta;
-	private TipoDisponibilidad tipoDisponibilidad;
+	protected Integer codigoPostal;
+	protected double valoracion;
+	protected LocalDate fechaInicio;
+	protected TipoOferta tipoOferta;
+	protected TipoDisponibilidad tipoDisponibilidad;
 	
 	public Busqueda(Integer codigoPostal, double valoracion, LocalDate fechaInicio, 
 				TipoOferta tipoOferta, TipoDisponibilidad tipoDisponibilidad) {
@@ -39,6 +39,8 @@ public abstract class Busqueda implements Serializable{
 	public TipoDisponibilidad getTipoDisponibilidad() {
 		return this.tipoDisponibilidad;
 	}
+	
+	public abstract boolean comprobarOferta(Oferta oferta, int CP);
 }
 
 

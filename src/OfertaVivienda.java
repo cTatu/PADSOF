@@ -24,7 +24,7 @@ public class OfertaVivienda extends Oferta implements Serializable{
 
 	@Override
 	public boolean expirar() {
-		return false;
+		
 	}
 	
 	@Override

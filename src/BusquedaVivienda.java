@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.*;
 
 public class BusquedaVivienda extends Busqueda implements Serializable{
 	
@@ -14,4 +15,20 @@ public class BusquedaVivienda extends Busqueda implements Serializable{
 	public Integer getDuracionMeses() {
 		return this.duracionMeses;
 	}
+	
+	public boolean cumpleCriterios(Object o) {
+		if(o instanceof Oferta) {
+			OfertaVivienda oferta = (OfertaVivienda)o;
+			return (oferta.calcularMedia() >= valoracion) && (oferta.getFechaInicio().equals(fechaInicio)) 
+					&& (oferta.getDuracionMeses() == duracionMeses);						
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean comprobarOferta(Oferta oferta, int CP) {
+		return this.cumpleCriterios(oferta) && (codigoPostal == CP);
+	}
+
+
 }

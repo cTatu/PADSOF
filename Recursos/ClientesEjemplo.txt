@@ -2,4 +2,3 @@ Rol;NIF;Full Name;Password;Credit Card Number
 O;51999111X;Garcia Serrano, Ana Maria;pezEspada;9999666633330000
 D;55555111Z;Perez Lopez, Jose Luis;NoSeSaBe;777722228888555
 OD;54444111D;Martin Garcia, Ana Maria;olvidame;99995555999966663333
-
