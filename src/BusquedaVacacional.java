@@ -15,18 +15,22 @@ public class BusquedaVacacional extends Busqueda implements Serializable{
 		return this.fechaFin;
 	}
 	
-	public boolean cumpleCriterios(Object o) {
-		if(o instanceof Oferta) {
-			OfertaVacacional oferta = (OfertaVacacional)o;
-			return (oferta.calcularMedia() >= valoracion) && (oferta.getFechaInicio().equals(fechaInicio)) 
-					&& (oferta.getFechaFin() == fechaFin);						
-		}
-		return false;
-	}
-	
 	@Override
-	public boolean comprobarOferta(Oferta oferta, int CP) {
-		return this.cumpleCriterios(oferta) && (codigoPostal == CP);
+	public boolean comprobarOferta(Oferta oferta, Integer CP) {
+		boolean cumple = false;
+		
+		if(oferta instanceof OfertaVacacional) {
+			// pulir
+			if (super.tipoDisponibilidad.equals(TipoDisponibilidad.CONTRATADO) && oferta.getContratada())
+				cumple = true;
+			else if (super.tipoDisponibilidad.equals(TipoDisponibilidad.RESERVADO) && oferta.getReservada())
+				cumple = true;
+			
+			cumple = cumple && (oferta.calcularMedia() >= valoracion) && (oferta.getFechaInicio().equals(fechaInicio)) 
+					&& (((OfertaVacacional) oferta).getFechaFin().isAfter(fechaFin));						
+		}
+
+		return cumple && super.codigoPostal.equals(CP);
 	}
 
 }

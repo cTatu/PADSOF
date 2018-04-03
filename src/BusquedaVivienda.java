@@ -26,7 +26,7 @@ public class BusquedaVivienda extends Busqueda implements Serializable{
 	}
 	
 	@Override
-	public boolean comprobarOferta(Oferta oferta, int CP) {
+	public boolean comprobarOferta(Oferta oferta, Integer CP) {
 		return this.cumpleCriterios(oferta) && (codigoPostal == CP);
 	}
 

@@ -18,4 +18,8 @@ public abstract class Reserva {
 		return 5;
 	}
 	
+	public boolean contratar() {
+		
+	}
+	
 }

@@ -33,6 +33,10 @@ public class InmaculadApp implements Serializable{
 		return iApp;
 	}
 	
+	public static InmaculadApp getInstancia() {
+		return iApp;
+	}
+	
 	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<>();
 		inmuebles = new ArrayList<>();
@@ -47,9 +51,9 @@ public class InmaculadApp implements Serializable{
 		return true;
 	}
 	
-	public boolean contratarOferta(Cliente cliente, Oferta oferta) {
+	/*public boolean contratarOferta(Cliente cliente, Oferta oferta) {
 		
-	}
+	}*/
 	
 	public List<OfertaVacacional> buscarVacacional(BusquedaVacacional criteriosBusqueda, Cliente cliente){
 		List<OfertaVacacional> resultados = new ArrayList<>();
@@ -79,7 +83,7 @@ public class InmaculadApp implements Serializable{
 		return resultados;
 	}
 	
-	public boolean conectarCliente(String NIF, String contraseña) {
+	public boolean iniciarSesion(String NIF, String contraseña) {
 		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
 			clienteConectado.setContraseña(contraseña);
 			clienteConectado.gerente = true;
@@ -96,12 +100,14 @@ public class InmaculadApp implements Serializable{
 		return false;
 	}
 	
-	public boolean login(String NIF, String contraseña){
-		
-	}
-	
-	public boolean cerrarSesion(Cliente cliente) {
-		
+	public boolean cerrarSesion() {
+		this.clienteConectado = null;
+		try {
+			guardarApp();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	private void cargarClientes(String filename) throws Exception {
@@ -148,7 +154,7 @@ public class InmaculadApp implements Serializable{
 		oos.close();
 	}
 	
-	private boolean cargarApp() {
+	public boolean cargarApp() {
 		if (new File("APP.bin").exists()) {
 			try {
 			FileInputStream fin = new FileInputStream("APP.bin");
@@ -172,11 +178,6 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	
-	public static void main(String... args) {
-		InmaculadApp app = InmaculadApp.getInstancia("Recursos\\ClientesEjemplo.txt", "BD911");
-		
-		System.out.println(app.clientes);
-	}
 }
 
 

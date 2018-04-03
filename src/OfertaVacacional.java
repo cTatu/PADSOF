@@ -1,10 +1,14 @@
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
+
+import fechasimulada.FechaSimulada;
 
 public class OfertaVacacional extends Oferta implements Serializable{
 	
 	private LocalDate fechaFin;
 	private static final Double COMISION = 2.0;  // Porcentaje
+	private static final int DIAS_DISPONIBLE = 5;
 	
 	public OfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin) {
 		super(precio,fechaInicio,descripcion);
@@ -24,16 +28,18 @@ public class OfertaVacacional extends Oferta implements Serializable{
 
 	@Override
 	public boolean expirar() {
-		
+		if (Period.between(FechaSimulada.getHoy(), this.fechaFin.plusDays(DIAS_DISPONIBLE)).isNegative())
+			return true;
+		return false;
 	}
 	
 	@Override
-	public boolean reservar(Demandante demandante) {
-		if (reservada == false && demandante.getStatusVacacional() == false ) {
+	public boolean reservar(Cliente demandante) {
+		if (reservada == false && demandante.rolDemandante.getStatusVacacional() == false ) {
 			reservada = true;
-			reserva = new ReservaVacacional(java.time.LocalDate.now()); // fecha simulada?
+			reserva = new ReservaVacacional(FechaSimulada.getHoy()); // fecha simulada?
 			this.demandante = demandante;
-			this.demandante.setrVacacional((ReservaVacacional)reserva);
+			this.demandante.rolDemandante.setrVacacional((ReservaVacacional)reserva);
 			return true;
 		}
 		
@@ -42,8 +48,8 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	
 	@Override
 	public boolean cancelarReserva() {		
-		if(reservada==true && demandante.getStatusVacacional() == true) {
-			demandante.eliminarReservaVacacional();
+		if(reservada && demandante.rolDemandante.getStatusVacacional()) {
+			demandante.rolDemandante.eliminarReservaVacacional();
 			demandante = null;
 			reserva = null;
 			reservada = false;

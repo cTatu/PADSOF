@@ -40,7 +40,7 @@ public abstract class Busqueda implements Serializable{
 		return this.tipoDisponibilidad;
 	}
 	
-	public abstract boolean comprobarOferta(Oferta oferta, int CP);
+	public abstract boolean comprobarOferta(Oferta oferta, Integer CP);
 }
 
 
