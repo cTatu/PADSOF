@@ -1,20 +1,40 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * 
+ */
 public class OfertaVivienda extends Oferta implements Serializable{
 
 	private Integer duracionMeses;
 	private static final Double COMISION = 0.1; // Porcentaje
 	
+	/**
+	 * 
+	 *
+	 * @param precio 
+	 * @param fechaInicio 
+	 * @param descripcion 
+	 * @param duracionMeses 
+	 * @param ofertante 
+	 */
 	public OfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Cliente ofertante) {
 		super(precio,fechaInicio,descripcion, ofertante);
 		this.duracionMeses = duracionMeses;
 	}
 	
+	/**
+	 * 
+	 *
+	 * @return 
+	 */
 	public Integer getDuracionMeses() {
 		return this.duracionMeses;
 	}
 
+	/* (non-Javadoc)
+	 * @see Oferta#calcularComision()
+	 */
 	@Override
 	public double calcularComision() {
 		double comisionEuros = 0.0;
@@ -22,11 +42,17 @@ public class OfertaVivienda extends Oferta implements Serializable{
 		return comisionEuros;
 	}
 
+	/* (non-Javadoc)
+	 * @see Oferta#expirar()
+	 */
 	@Override
 	public boolean expirar() {
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see Oferta#reservar(Cliente)
+	 */
 	@Override
 	public boolean reservar(Cliente demandante) {
 		if (reservada == false && demandante.rolDemandante.getStatusVivienda() == false ) {
@@ -40,6 +66,9 @@ public class OfertaVivienda extends Oferta implements Serializable{
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see Oferta#cancelarReserva()
+	 */
 	@Override
 	public boolean cancelarReserva() {		
 		if(reservada==true && demandante.rolDemandante.getStatusVivienda() == true) {

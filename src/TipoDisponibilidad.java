@@ -1,5 +1,9 @@
 
+/**
+ * 
+ */
 public enum TipoDisponibilidad {
 	CONTRATADO, 
-	RESERVADO;
+	RESERVADO,
+	DISPONIBLE;
 }
