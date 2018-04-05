@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import busqueda.Busqueda;
 import busqueda.BusquedaVacacional;
 import busqueda.BusquedaVivienda;
 import cliente.Cliente;
@@ -318,11 +319,16 @@ public class InmaculadApp implements Serializable{
 		return false;
 	}
 	
-	// ARREGLAR
 	public boolean contratarReserva(TipoOferta tipo) {
 		Reserva reserva = clienteConectado.rolDemandante.getReserva(tipo);
-		if (reserva != null)
+		
+		if (reserva != null) {
+			if (reserva.expirada()) {
+				eliminarOfertasExpiradas();
+				return false;
+			}
 			return contratarOferta(reserva.getOferta());
+		}
 		return false;
 	}
 
@@ -350,46 +356,17 @@ public class InmaculadApp implements Serializable{
 	 * @param metodo 
 	 * @return 
 	 */
-	public List<OfertaVacacional> buscarVacacional(BusquedaVacacional criteriosBusqueda, Cliente cliente, TipoOrdenar metodo){
-		List<OfertaVacacional> resultados = new ArrayList<>();
+	public List<Oferta> buscarOfertas(Busqueda criteriosBusqueda,TipoOrdenar metodo){
+		List<Oferta> resultados = new ArrayList<>();
 		
 		for(Inmueble inmueble: inmuebles) {
-			for(Oferta oferta: inmueble.getOfertas()) {
-				if(!oferta.getAprobada())
-					continue;
-				if(criteriosBusqueda.comprobarOferta(oferta, inmueble.getCodigoPostal()) == true) {
-					resultados.add((OfertaVacacional)oferta);
-				}
-			}
-		}
-		
-		if(metodo.equals(TipoOrdenar.PRECIO))
-			Collections.sort(resultados, new CompararPrecio());
-		else if(metodo.equals(TipoOrdenar.FECHA))
-			Collections.sort(resultados, new CompararFecha());
-		else if(metodo.equals(TipoOrdenar.VALORACION))
-			Collections.sort(resultados, new CompararValoracion());
-		else if(metodo.equals(TipoOrdenar.DISPONIBILIDAD))
-			Collections.sort(resultados, new CompararDisponibilidad());
-		
-		return resultados;
-	}
-	
-	/**
-	 * 
-	 *
-	 * @param criteriosBusqueda 
-	 * @param cliente 
-	 * @param metodo 
-	 * @return 
-	 */
-	public List<OfertaVivienda> buscarVivienda(BusquedaVivienda criteriosBusqueda, Cliente cliente, TipoOrdenar metodo){
-		List<OfertaVivienda> resultados = new ArrayList<>();
-		
-		for(Inmueble inmueble: inmuebles) {
-			for(Oferta oferta: inmueble.getOfertas()) {
-				if(criteriosBusqueda.comprobarOferta(oferta, inmueble.getCodigoPostal()) == true) {
-					resultados.add((OfertaVivienda)oferta);
+			if (inmueble.getCodigoPostal().equals(criteriosBusqueda.getCodigoPostal())) {
+				for(Oferta oferta: inmueble.getOfertas()) {
+					if(oferta.getAprobada() 
+							&& 
+					criteriosBusqueda.comprobarOferta(oferta)) {
+						resultados.add(oferta);
+					}
 				}
 			}
 		}

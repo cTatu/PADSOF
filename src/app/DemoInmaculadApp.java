@@ -36,7 +36,7 @@ public class DemoInmaculadApp{
 		
 		System.out.println(app.añadirOfertaVacacional(550.0, FechaSimulada.getHoy().minusDays(5),
 							"Perfecto para vacaciones", 
-							FechaSimulada.getHoy().plusDays(2), 1));
+							FechaSimulada.getHoy().plusDays(10), 1));
 		
 		System.out.println(app.añadirOfertaVivienda(800.0, FechaSimulada.getHoy().minusDays(30), 
 							"Perfecto para vivir", 24, 1, 300.0));
@@ -67,7 +67,7 @@ public class DemoInmaculadApp{
 		
 		app.reservarOferta(app.getOfertas().get(0));
 		
-		FechaSimulada.avanzar(20);
+		FechaSimulada.avanzar(4);
 		
 		System.out.println("RESERVA-VACACIONAL: " + app.contratarReserva(TipoOferta.VACACIONAL));
 		
@@ -80,7 +80,14 @@ public class DemoInmaculadApp{
 		
 		System.out.println(app.getOfertas().get(0).calcularMedia());
 		
-		System.out.println();
+		app.cerrarSesion(false);
+		app.iniciarSesion("X1130055", "secreta");  // como otro usuario
+		
+		Comentario comentario2 = new Comentario(app.clienteConectado().rolDemandante, "Me ha ofendido tu comentario");
+		System.out.println(app.getOfertas().get(0).getComentarios().get(0).opinar(comentario2));
+		System.out.println(app.getOfertas().get(0).getComentarios().get(0).opinar(new Valoracion(app.clienteConectado().rolDemandante, 0.5)));
+	
+		app.bus
 	}
 
 }

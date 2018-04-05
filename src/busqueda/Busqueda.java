@@ -14,8 +14,7 @@ public abstract class Busqueda implements Serializable{
 	
 	protected Integer codigoPostal;
 	protected double valoracion;
-	protected LocalDate fechaInicio;
-	protected TipoOferta tipoOferta;
+	protected LocalDate fechaInicio1, fechaInicio2;
 	protected TipoDisponibilidad tipoDisponibilidad;
 	
 	/**
@@ -26,12 +25,12 @@ public abstract class Busqueda implements Serializable{
 	 * @param tipoOferta 
 	 * @param tipoDisponibilidad 
 	 */
-	public Busqueda(Integer codigoPostal, double valoracion, LocalDate fechaInicio, 
-				TipoOferta tipoOferta, TipoDisponibilidad tipoDisponibilidad) {
+	public Busqueda(Integer codigoPostal, double valoracion, LocalDate fechaInicio1, 
+			LocalDate fechaInicio2,TipoDisponibilidad tipoDisponibilidad) {
 		this.codigoPostal = codigoPostal;
 		this.valoracion = valoracion;
-		this.fechaInicio = fechaInicio;
-		this.tipoOferta = tipoOferta;
+		this.fechaInicio1 = fechaInicio1;
+		this.fechaInicio2 = fechaInicio2;
 		this.tipoDisponibilidad = tipoDisponibilidad;
 	}
 	
@@ -52,15 +51,12 @@ public abstract class Busqueda implements Serializable{
 	/**
 	 * @return Fecha Inicio
 	 */
-	public LocalDate getFechaInicio() {
-		return this.fechaInicio;
+	public LocalDate getFechaInicio1() {
+		return this.fechaInicio1;
 	}
 	
-	/**
-	 * @return Tipo Oferta
-	 */
-	public TipoOferta getTipoOferta() {
-		return this.tipoOferta;
+	public LocalDate getFechaInicio2() {
+		return this.fechaInicio2;
 	}
 	
 	/**
@@ -76,7 +72,7 @@ public abstract class Busqueda implements Serializable{
 	 * @param CP 
 	 * @return Boolean, true si entra en los criterios de busqueda, false de lo contrario
 	 */
-	public abstract boolean comprobarOferta(Oferta oferta, Integer CP);
+	public abstract boolean comprobarOferta(Oferta oferta);
 }
 
 

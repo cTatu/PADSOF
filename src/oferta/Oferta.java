@@ -2,13 +2,17 @@ package oferta;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import cliente.Cliente;
+import javafx.print.Collation;
+import opinion.Comentario;
 import opinion.Opinion;
 import opinion.Valoracion;
 import reserva.Reserva;
+import sun.text.resources.ext.CollationData_sk;
 
 /**
  * Implementacion de oferta (abstracta) y métodos para manejarlas
@@ -276,5 +280,15 @@ public abstract class Oferta implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 		this.moderada = false;
+	}
+	
+	public List<Comentario> getComentarios(){
+		List<Comentario> comentarios = new ArrayList<Comentario>();
+		for (Opinion opinion : opiniones) {
+			if(opinion instanceof Comentario)
+				comentarios.add((Comentario) opinion);
+		}
+		
+		return Collections.unmodifiableList(comentarios);
 	}
 }

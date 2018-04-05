@@ -2,6 +2,7 @@ package inmueble;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -94,11 +95,13 @@ public class Inmueble implements Serializable {
 	
 	public Integer eliminarOfertasExpiradas() {
 		Integer ofExp = 0;
-		for (Oferta ofertaLista : ofertas) {
-			if (ofertaLista.expirar()) {
-				ofertas.remove(ofertaLista);
-				ofExp++;
-			}
+		
+		for (Iterator<Oferta> iterator = ofertas.iterator(); iterator.hasNext(); ) {
+		    Oferta oferta = iterator.next();
+		    if (oferta.expirar()) {
+		        iterator.remove();
+		        ofExp++;
+		    }
 		}
 		return ofExp;	
 	}

@@ -1,5 +1,7 @@
 package busqueda;
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.Duration;
 import java.time.LocalDate;
 
 import oferta.Oferta;
@@ -24,9 +26,9 @@ public class BusquedaVacacional extends Busqueda implements Serializable{
 	 * @param tipoDisponibilidad 
 	 * @param fechaFin 
 	 */
-	public BusquedaVacacional(Integer codigoPostal, double valoracion, LocalDate fechaInicio, 
-			TipoOferta tipoOferta, TipoDisponibilidad tipoDisponibilidad, LocalDate fechaFin) {
-		super(codigoPostal, valoracion, fechaInicio, tipoOferta, tipoDisponibilidad);
+	public BusquedaVacacional(Integer codigoPostal, double valoracion, LocalDate fechaInicio1,
+			LocalDate fechaInicio2,TipoOferta tipoOferta, TipoDisponibilidad tipoDisponibilidad, LocalDate fechaFin) {
+		super(codigoPostal, valoracion, fechaInicio1, fechaInicio2, tipoDisponibilidad);
 		this.fechaFin = fechaFin;
 	}	
 	
@@ -42,21 +44,24 @@ public class BusquedaVacacional extends Busqueda implements Serializable{
 	 * @see Busqueda#comprobarOferta(Oferta, java.lang.Integer)
 	 */
 	@Override
-	public boolean comprobarOferta(Oferta oferta, Integer CP) {
+	public boolean comprobarOferta(Oferta oferta) {
 		boolean cumple = false;
 		
 		if(oferta instanceof OfertaVacacional) {
-			// pulir
+			if ((oferta.getFechaInicio().isAfter(super.getFechaInicio1()) ||  oferta.getFechaInicio().isEqual(super.getFechaInicio1()))
+					&& 
+					(oferta.getFechaInicio().isBefore(super.getFechaInicio2()) || oferta.getFechaInicio().isEqual(super.getFechaInicio2()) ))
+				cumple = true;
 			if (super.tipoDisponibilidad.equals(TipoDisponibilidad.CONTRATADO) && oferta.getContratada())
 				cumple = true;
 			else if (super.tipoDisponibilidad.equals(TipoDisponibilidad.RESERVADO) && oferta.getReservada())
 				cumple = true;
 			
-			cumple = cumple && (oferta.calcularMedia() >= valoracion) && (oferta.getFechaInicio().equals(fechaInicio)) 
-					&& (((OfertaVacacional) oferta).getFechaFin().isAfter(fechaFin));						
+			if (oferta.calcularMedia() >= valoracion)
+				cumple = true;				
 		}
 
-		return cumple && super.codigoPostal.equals(CP);
+		return cumple;
 	}
 
 }
