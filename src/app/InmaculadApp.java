@@ -362,8 +362,14 @@ public class InmaculadApp implements Serializable{
 	 * @return 
 	 */
 	public List<Oferta> buscarOfertas(Busqueda criteriosBusqueda,TipoOrdenar metodo){
-		List<Oferta> resultados = new ArrayList<>();
+		if(clienteConectado.rolDemandante == null)
+			return null;
 		
+		if(clienteConectado.getContraseña().isEmpty())
+			criteriosBusqueda.setToDisponible();
+		
+		List<Oferta> resultados = new ArrayList<>();
+
 		for(Inmueble inmueble: inmuebles) {
 			if (inmueble.getCodigoPostal().equals(criteriosBusqueda.getCodigoPostal())) {
 				for(Oferta oferta: inmueble.getOfertas()) {

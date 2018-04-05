@@ -2,6 +2,7 @@ package inmueble;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -124,8 +125,8 @@ public class Inmueble implements Serializable {
 	 *
 	 * @return 
 	 */
-	public UnmodifiableListSet<Oferta> getOfertas(){
-		return new UnmodifiableListSet<Oferta>(ofertas);
+	public List<Oferta> getOfertas(){
+		return Collections.unmodifiableList(ofertas);
 	}
 
 	/**

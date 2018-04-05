@@ -45,7 +45,7 @@ public class DemoInmaculadApp{
 							"Perfecto para vacaciones", 
 							FechaSimulada.getHoy().plusDays(10), 1));
 		
-		System.out.println(app.añadirOfertaVacacional(120.0, FechaSimulada.getHoy().minusDays(50),
+		System.out.println(app.añadirOfertaVacacional(1200.0, FechaSimulada.getHoy().minusDays(50),
 				"Es mejor que la anterior", 
 				FechaSimulada.getHoy().plusDays(10), 1));
 		
@@ -105,10 +105,10 @@ public class DemoInmaculadApp{
 		LocalDate fecha2 = LocalDate.of(2020, 05, 8);
 		LocalDate fechaFin = LocalDate.of(2015, 05, 21);
 		
-		Busqueda criterios = new BusquedaVacacional(28845, 5, fecha1, fecha2, TipoDisponibilidad.CONTRATADO, fechaFin);
+		Busqueda criterios = new BusquedaVacacional(28845, 3, fecha1, fecha2, TipoDisponibilidad.CONTRATADO, fechaFin);
 		
 		System.out.println(
-				app.buscarOfertas(criterios, TipoOrdenar.FECHA)
+				app.buscarOfertas(criterios, TipoOrdenar.DISPONIBILIDAD)
 				);
 	}
 

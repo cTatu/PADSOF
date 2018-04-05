@@ -32,15 +32,22 @@ public class CompararDisponibilidad implements Comparator<Oferta>{
 		
 		switch(disp_A) {
 		case DISPONIBLE :
-			if(disp_B.equals(TipoDisponibilidad.DISPONIBLE)) return 0;
-			else return -1;
+			if(!disp_B.equals(TipoDisponibilidad.DISPONIBLE)) 
+				return 0;
+			else 
+				return -1;
 		case RESERVADO :
-			if(disp_B.equals(TipoDisponibilidad.RESERVADO)) return 0;
-			else if(disp_B.equals(TipoDisponibilidad.DISPONIBLE)) return 1;
-			else return -1;
+			if(!disp_B.equals(TipoDisponibilidad.RESERVADO)) 
+				return 0;
+			else if(disp_B.equals(TipoDisponibilidad.DISPONIBLE)) 
+				return 1;
+			else 
+				return -1;
 		case CONTRATADO : 
-			if(disp_B.equals(TipoDisponibilidad.CONTRATADO)) return 0;
-			else return 1;
+			if(!disp_B.equals(TipoDisponibilidad.CONTRATADO)) 
+				return 0;
+			else 
+				return 1;
 		}
 		
 		return 0;

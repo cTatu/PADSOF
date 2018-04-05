@@ -66,6 +66,10 @@ public abstract class Busqueda implements Serializable{
 		return this.tipoDisponibilidad;
 	}
 	
+	public void setToDisponible() {
+		tipoDisponibilidad = TipoDisponibilidad.DISPONIBLE;
+	}
+	
 	/**
 	 * 
 	 * @param oferta 

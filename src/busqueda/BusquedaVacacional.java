@@ -52,13 +52,10 @@ public class BusquedaVacacional extends Busqueda implements Serializable{
 					&& 
 					(oferta.getFechaInicio().isBefore(super.getFechaInicio2()) || oferta.getFechaInicio().isEqual(super.getFechaInicio2()) ))
 				cumple = true;
-			if (super.tipoDisponibilidad.equals(TipoDisponibilidad.CONTRATADO) && oferta.getContratada())
-				cumple = true;
-			else if (super.tipoDisponibilidad.equals(TipoDisponibilidad.RESERVADO) && oferta.getReservada())
-				cumple = true;
+			cumple = cumple && (super.tipoDisponibilidad.equals(TipoDisponibilidad.CONTRATADO) && oferta.getContratada());
+			cumple = cumple || (super.tipoDisponibilidad.equals(TipoDisponibilidad.RESERVADO) && oferta.getReservada());
 			
-			if (oferta.calcularMedia() >= valoracion)
-				cumple = true;				
+			cumple = cumple && (oferta.calcularMedia() >= valoracion);			
 		}
 
 		return cumple;
