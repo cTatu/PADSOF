@@ -16,7 +16,6 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	
 	private LocalDate fechaFin;
 	private static final Double COMISION = 1.02;  // Porcentaje
-	private static final int DIAS_DISPONIBLE = 5;
 	
 	/**
 	 * 
@@ -54,7 +53,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	 */
 	@Override
 	public boolean expirar() {
-		if (Period.between(FechaSimulada.getHoy(), this.fechaFin.plusDays(DIAS_DISPONIBLE)).isNegative())
+		if (FechaSimulada.getHoy().isAfter(fechaFin))
 			return true;
 		return false;
 	}

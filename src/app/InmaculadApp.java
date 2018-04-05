@@ -32,6 +32,7 @@ import oferta.OfertaVivienda;
 import reserva.Reserva;
 import reserva.ReservaVacacional;
 import reserva.ReservaVivienda;
+import tipos.TipoOferta;
 import tipos.TipoOrdenar;
 
 /**
@@ -200,6 +201,12 @@ public class InmaculadApp implements Serializable{
 		return ofExp;
 	}
 	
+	public boolean añadirRectificacion(Oferta oferta, Map<String, String> rectificacion) {
+		if (!this.clienteConectado.gerente)
+			return false;
+		return oferta.añadirRectificacion(rectificacion);
+	}
+	
 	/**
 	 * 
 	 *
@@ -260,6 +267,9 @@ public class InmaculadApp implements Serializable{
 		if (clienteConectado.isBloqueado() || clienteConectado.rolDemandante == null)
 			return false;
 		
+		if (!clienteConectado.rolDemandante.puedeContratar(oferta))
+			return false;
+		
 		if (!TeleChargeAndPaySystem.isValidCardNumber(clienteConectado.getTarjetaCredito())) {
 			clienteConectado.setBloqueado(true);
 			return false;
@@ -309,14 +319,13 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	// ARREGLAR
-	public boolean contratarReserva(Reserva reserva) {
-		if (clienteConectado.rolDemandante == null)
-			return false;
-		
-		return reserva.contratar(clienteConectado);
+	public boolean contratarReserva(TipoOferta tipo) {
+		Reserva reserva = clienteConectado.rolDemandante.getReserva(tipo);
+		if (reserva != null)
+			return contratarOferta(reserva.getOferta());
+		return false;
 	}
-	
-	
+
 	public boolean reservarOferta(Oferta oferta) {
 		if (oferta.getReservada() || clienteConectado.rolDemandante == null)
 			return false;

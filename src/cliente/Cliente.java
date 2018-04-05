@@ -1,6 +1,8 @@
 package cliente;
 import java.io.Serializable;
 
+import tipos.TipoOferta;
+
 /**
  * Implementacion de Cliente que contiene informacion sobre estos
  * @author David Pascual y Cristian Tatu

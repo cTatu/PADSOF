@@ -103,6 +103,7 @@ public class Inmueble implements Serializable {
 		return ofExp;	
 	}
 	
+	
 	/**
 	 * 
 	 *

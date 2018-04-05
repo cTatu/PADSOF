@@ -78,9 +78,10 @@ public abstract class Oferta implements Serializable{
 	 *
 	 * @param rectificacion 
 	 */
-	public void añadirRectificacion(Map<String, String> rectificacion) {
+	public boolean añadirRectificacion(Map<String, String> rectificacion) {
 		this.rectificaciones = rectificacion;
 		this.moderada = true;
+		return true;
 	}
 	
 	/**
@@ -221,7 +222,7 @@ public abstract class Oferta implements Serializable{
 	public void setAprobada(Boolean aprobada) {
 		this.aprobada = aprobada;
 	}
-
+	
 	/**
 	 * 
 	 *

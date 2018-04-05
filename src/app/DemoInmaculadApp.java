@@ -65,10 +65,11 @@ public class DemoInmaculadApp{
 		
 		FechaSimulada.avanzar(20);
 		
-		// ARREGLAR
-		System.out.println(app.contratarReserva(app.clienteConectado().rolDemandante.getReservaVacacional()));
+		System.out.println("RESERVA-VACACIONAL: " + app.contratarReserva(TipoOferta.VACACIONAL));
 		
-		app.contratarOferta(app.getOfertas().get(0));
+		System.out.println("OFERTA-VACACIONAL: " + app.contratarOferta(app.getOfertas().get(0)));
+		
+		
 	}
 
 }

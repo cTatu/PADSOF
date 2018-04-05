@@ -89,6 +89,13 @@ public class Demandante implements Serializable{
 		else
 			return true;
 	}
+	
+	public Reserva getReserva(TipoOferta tipo) {
+		if (tipo.equals(TipoOferta.VACACIONAL))
+			return rVacacional;
+		else
+			return rVivienda;
+	}
 
 	/**
 	 * Establece una nueva reserva vacional del demandante
@@ -114,5 +121,13 @@ public class Demandante implements Serializable{
 	
 	public ReservaVivienda getReservaVivienda() {
 		return rVivienda;
+	}
+
+	public boolean puedeContratar(Oferta oferta) {
+		for (Oferta ofertaContratada : ofertasContratadas) {
+			if (ofertaContratada.equals(oferta))
+				return false;
+		}
+		return true;
 	}
 }

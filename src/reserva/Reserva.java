@@ -49,5 +49,9 @@ public abstract class Reserva implements Comparable<Reserva>{
 	public boolean contratar(Cliente demandante) {
 		return ofertaReservada.contratar(demandante);
 	}
+
+	public Oferta getOferta() {
+		return ofertaReservada;
+	}
 	
 }
