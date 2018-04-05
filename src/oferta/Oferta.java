@@ -141,6 +141,22 @@ public abstract class Oferta implements Serializable{
 		return media;
 	}
 
+	public String toString() {
+		String print = (
+				"\nOferta\n" + 
+				"\t" + "Precio: " + precio + "\n" +
+				"\t" + "FechaInicio: " + fechaInicio + "\n" +
+				"\t" + "Tipo: "
+				);
+		if (this instanceof OfertaVacacional) {
+			print = print.concat("Vacacional\n");
+			print = print.concat("\tFechaFin: " + ((OfertaVacacional)this).getFechaFin());
+		}else {
+			print = print.concat("Vivienda\n");
+			print = print.concat("\tDuracionMeses: " + ((OfertaVivienda)this).getDuracionMeses());
+		}
+		return print;
+	}
 	
 	/*Getters y Setters*/
 	

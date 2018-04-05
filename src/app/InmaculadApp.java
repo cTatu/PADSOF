@@ -45,6 +45,7 @@ public class InmaculadApp implements Serializable{
 	
 	private List<Cliente> clientes; 
 	private List<Inmueble> inmuebles;
+	private List<Oferta> ofertasContratadas;
 	private String contraseñaGerente;
 	private Cliente clienteConectado;	
 	private static InmaculadApp iApp = null;
@@ -86,8 +87,9 @@ public class InmaculadApp implements Serializable{
 	 * @param constraseñaGerente 
 	 */
 	private InmaculadApp(String filename, String constraseñaGerente) {
-		clientes = new ArrayList<>();
-		inmuebles = new ArrayList<>();
+		clientes = new ArrayList<Cliente>();
+		inmuebles = new ArrayList<Inmueble>();
+		ofertasContratadas = new ArrayList<Oferta>();
 		this.contraseñaGerente = constraseñaGerente;
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
 	}
@@ -285,7 +287,6 @@ public class InmaculadApp implements Serializable{
 		for (int i = 0; i < 5; i++) {
 			try {
 				TeleChargeAndPaySystem.charge(clienteConectado.getTarjetaCredito(), "Cobro", -oferta.calcularComision(), true);
-				oferta.contratar(clienteConectado);
 				break;
 			}catch (FailedInternetConnectionException e) {
 				if (i == 4) {
@@ -302,7 +303,11 @@ public class InmaculadApp implements Serializable{
 		for (int i = 0; i < 5; i++) {
 			try {
 				TeleChargeAndPaySystem.charge(oferta.getOfertante().getTarjetaCredito(), "Pago", oferta.getPrecio(), true);
-				return oferta.contratar(clienteConectado);
+				if (oferta.contratar(clienteConectado)) {
+					ofertasContratadas.add(oferta);
+					return true;
+				}					
+				return false;
 			}catch (FailedInternetConnectionException e) {
 				if (i == 4) {
 					e.printStackTrace();

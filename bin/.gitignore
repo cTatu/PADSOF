@@ -1,6 +1,12 @@
-/oferta/
-/inmueble/
 /app/
-/cliente/
-/reserva/
 /busqueda/
+/cliente/
+/comparator/
+/fechasimulada/
+/inmueble/
+/junit/
+/oferta/
+/opinion/
+/reserva/
+/test/
+/tipos/

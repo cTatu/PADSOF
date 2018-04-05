@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import InmaculadApp;
+import app.InmaculadApp;
 
 public class GuardarCargar {
 

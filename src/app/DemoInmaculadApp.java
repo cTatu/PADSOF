@@ -1,14 +1,21 @@
 package app;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
+import org.junit.runners.MethodSorters;
+
+import busqueda.*;
 import fechasimulada.FechaSimulada;
+import jdk.vm.ci.meta.Local;
 import oferta.Oferta;
 import opinion.Comentario;
 import opinion.Valoracion;
+import tipos.TipoDisponibilidad;
 import tipos.TipoOferta;
+import tipos.TipoOrdenar;
 
 /**
  * Clase con main para demo de la aplicación
@@ -38,6 +45,10 @@ public class DemoInmaculadApp{
 							"Perfecto para vacaciones", 
 							FechaSimulada.getHoy().plusDays(10), 1));
 		
+		System.out.println(app.añadirOfertaVacacional(120.0, FechaSimulada.getHoy().minusDays(50),
+				"Es mejor que la anterior", 
+				FechaSimulada.getHoy().plusDays(10), 1));
+		
 		System.out.println(app.añadirOfertaVivienda(800.0, FechaSimulada.getHoy().minusDays(30), 
 							"Perfecto para vivir", 24, 1, 300.0));
 		
@@ -60,7 +71,9 @@ public class DemoInmaculadApp{
 		
 		app.getOfertasPendientes().size();
 		
-		app.rechazarOferta(app.getOfertasPendientes().get(0));
+		app.aprobarOferta(app.getOfertasPendientes().get(0));
+		
+		app.aprobarOferta(app.getOfertasPendientes().get(0));
 		
 		app.cerrarSesion(false);
 		app.iniciarSesion("55555111Z", "NoSeSaBe");  // como demandante
@@ -87,7 +100,16 @@ public class DemoInmaculadApp{
 		System.out.println(app.getOfertas().get(0).getComentarios().get(0).opinar(comentario2));
 		System.out.println(app.getOfertas().get(0).getComentarios().get(0).opinar(new Valoracion(app.clienteConectado().rolDemandante, 0.5)));
 	
-		app.bus
+		// la oferta creada anteriormente tiene fecha inicio 2015 05 6
+		LocalDate fecha1 = LocalDate.of(2010, 05, 1);
+		LocalDate fecha2 = LocalDate.of(2020, 05, 8);
+		LocalDate fechaFin = LocalDate.of(2015, 05, 21);
+		
+		Busqueda criterios = new BusquedaVacacional(28845, 5, fecha1, fecha2, TipoDisponibilidad.CONTRATADO, fechaFin);
+		
+		System.out.println(
+				app.buscarOfertas(criterios, TipoOrdenar.FECHA)
+				);
 	}
 
 }

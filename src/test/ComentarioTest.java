@@ -39,7 +39,7 @@ public class ComentarioTest {
 	 */
 	@Test
 	public void testOpinar() {
-		o1.opinar(o2, o3);
+		o1.opinar(o2);
 	}
 
 	/**
