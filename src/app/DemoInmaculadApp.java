@@ -2,8 +2,12 @@ package app;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 import fechasimulada.FechaSimulada;
 import oferta.Oferta;
+import opinion.Comentario;
+import opinion.Valoracion;
 import tipos.TipoOferta;
 
 /**
@@ -69,7 +73,14 @@ public class DemoInmaculadApp{
 		
 		System.out.println("OFERTA-VACACIONAL: " + app.contratarOferta(app.getOfertas().get(0)));
 		
+		Comentario comentario = new Comentario(app.clienteConectado().rolDemandante, "El agua esta fria");
+		app.getOfertas().get(0).añadirOpinion(comentario);
+		app.getOfertas().get(0).añadirOpinion(new Valoracion(app.clienteConectado().rolDemandante, 4.5));
+		app.getOfertas().get(0).añadirOpinion(new Valoracion(app.clienteConectado().rolDemandante, 1.5));
 		
+		System.out.println(app.getOfertas().get(0).calcularMedia());
+		
+		System.out.println();
 	}
 
 }
