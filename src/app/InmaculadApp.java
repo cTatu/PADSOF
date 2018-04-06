@@ -490,9 +490,11 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Cargar clientes.
+	 * Lee los usuarios del fichero especificado en el constructor
+	 * construyendo para cada linea del ficheor un nuevo cliente con los datos
+	 * propios del archivo.
 	 *
-	 * @param filename the filename
+	 * @param filename el nu¡ombre del fichero texto con los clientes
 	 * @throws Exception the exception
 	 */
 	private void cargarClientes(String filename) throws Exception {
