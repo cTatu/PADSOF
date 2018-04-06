@@ -1,4 +1,5 @@
 package reserva;
+
 import java.time.LocalDate;
 
 import cliente.Cliente;
@@ -11,7 +12,7 @@ import oferta.Oferta;
  */
 
 public abstract class Reserva implements Comparable<Reserva>{
-	private LocalDate fechaInicio;
+	private LocalDate fechaInicio, fechaReserva;
 	private Oferta ofertaReservada;
 	/**
 	 * Constructor
@@ -20,6 +21,7 @@ public abstract class Reserva implements Comparable<Reserva>{
 	 */
 	public Reserva(Oferta ofertaReservada) {
 		this.fechaInicio = ofertaReservada.getFechaInicio();
+		this.fechaReserva = FechaSimulada.getHoy(); 
 		this.ofertaReservada = ofertaReservada;
 	}
 	
@@ -29,7 +31,7 @@ public abstract class Reserva implements Comparable<Reserva>{
 	 * @return boolean
 	 */
 	public boolean expirada() {
-		if (FechaSimulada.getHoy().isAfter(fechaInicio.plusDays(5)))
+		if (FechaSimulada.getHoy().isAfter(fechaReserva.plusDays(5)))
 			return true;
 		
 		return false;
@@ -42,14 +44,15 @@ public abstract class Reserva implements Comparable<Reserva>{
 	}
 	
 	/**
-	 * 
-	 *
 	 * @return boolean
 	 */
 	public boolean contratar(Cliente demandante) {
 		return ofertaReservada.contratar(demandante);
 	}
-
+	
+	/**
+	 * @return oferta reservada
+	 */
 	public Oferta getOferta() {
 		return ofertaReservada;
 	}

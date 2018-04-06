@@ -33,7 +33,7 @@ public class Comentario extends Opinion {
 		opiniones.add(o);
 		return true;
 	}
-	
+
 	/**
 	 * Calcula la media de las valoraciones de este comentario. Si no existen valoraciones devuelve un -1.
 	 *
@@ -55,6 +55,20 @@ public class Comentario extends Opinion {
 		media = total / n;
 		
 		return media;
+	}
+
+	/**
+	 * @return las opiniones
+	 */
+	public List<Opinion> getOpiniones() {
+		return opiniones;
+	}
+
+	/**
+	 * @return texto
+	 */
+	public String getTexto() {
+		return texto;
 	}
 
 }

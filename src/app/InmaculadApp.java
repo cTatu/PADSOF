@@ -141,7 +141,7 @@ public class InmaculadApp implements Serializable{
 		if (!clienteConectado.gerente)
 			return false;
 		
-		cliente.cambiarTartjeta(tarjetaNueva);
+		cliente.cambiarTarjeta(tarjetaNueva);
 		return true;
 	}
 	

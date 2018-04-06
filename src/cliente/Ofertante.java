@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import oferta.Oferta;
-import oferta.OfertaVivienda;
 
 /**
  * Implementacion de la clase ofertante y sus funcionalidades
@@ -28,7 +27,7 @@ public class Ofertante implements Serializable{
 	 *
 	 * @param oferta de vivienda
 	 */
-	public void añadirOfertas(OfertaVivienda of) {
+	public void añadirOfertas(Oferta of) {
 		if ( ! ofertas.contains(of))
 			ofertas.add(of);
 	}
@@ -63,6 +62,13 @@ public class Ofertante implements Serializable{
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @return lista de ofertas del ofertante
+	 */
+	public List<Oferta> getOfertas() {
+		return ofertas;
 	}
 
 }

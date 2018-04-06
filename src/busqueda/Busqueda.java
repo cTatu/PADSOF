@@ -71,7 +71,7 @@ public abstract class Busqueda implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Comprueba si la oferta pasada por agumento cumple los criterios
 	 * @param oferta 
 	 * @param CP 
 	 * @return Boolean, true si entra en los criterios de busqueda, false de lo contrario

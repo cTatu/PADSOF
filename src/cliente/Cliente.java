@@ -1,6 +1,6 @@
 package cliente;
-import java.io.Serializable;
 
+import java.io.Serializable;
 import tipos.TipoOferta;
 
 /**
@@ -55,7 +55,7 @@ public class Cliente implements Serializable{
 	 * Cambia la tarjeta y desbloquea al cliente
 	 * @param tarjetaNueva 
 	 */
-	public void cambiarTartjeta(String tarjetaNueva) {
+	public void cambiarTarjeta(String tarjetaNueva) {
 		this.tarjetaCredito = tarjetaNueva;
 		this.bloqueado = false;
 	}
