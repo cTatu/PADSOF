@@ -534,7 +534,7 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Guardar app.
+	 * Guarda el obejto de la aplicacion actual con todos los objetos que lo contienen.
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -547,9 +547,10 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Cargar app.
+	 * Lee el fichero que se haya guardado si existe y carga todos los atributos y datos
+	 * en el nuevo puntero de la apliacion.
 	 *
-	 * @return true, if successful
+	 * @return true si se han cargado exitosamente
 	 */
 	public boolean cargarApp() {
 		if (new File("APP.bin").exists()) {
@@ -571,6 +572,8 @@ public class InmaculadApp implements Serializable{
 		
 		return false;
 	}
+	
+	/* Getters y setters */
 	
 	/**
 	 * Gets the inmuebles.
