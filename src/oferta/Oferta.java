@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package oferta;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,63 +15,90 @@ import opinion.Opinion;
 import opinion.Valoracion;
 import reserva.Reserva;
 
+// TODO: Auto-generated Javadoc
 /**
- * Implementacion de oferta (abstracta) y métodos para manejarlas
+ * Implementacion de oferta (abstracta) y métodos para manejarlas.
+ *
  * @author David Pascual y Cristian Tatu
  */
 public abstract class Oferta implements Serializable{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 805522050049933034L;
+	
+	/** The precio. */
 	protected Double precio;
+	
+	/** The fecha inicio. */
 	private LocalDate fechaInicio;
+	
+	/** The moderada. */
 	private Boolean moderada = false; /* Sirve para diferenciar una oferta rechazada y una no moderada */
+	
+	/** The aprobada. */
 	private Boolean aprobada = false;
+	
+	/** The reservada. */
 	protected Boolean reservada = false;
+	
+	/** The contratada. */
 	private Boolean contratada = false;
+	
+	/** The descripcion. */
 	private String descripcion;
+	
+	/** The rectificaciones. */
 	private Map<String, String> rectificaciones;
+	
+	/** The reserva. */
 	protected Reserva reserva;
+	
+	/** The opiniones. */
 	private List<Opinion> opiniones;
+	
+	/** The ofertante. */
 	private Cliente ofertante;
+	
+	/** The demandante. */
 	protected Cliente demandante;
 	
 	/**
-	 * 
+	 * Calcular comision.
+	 *
 	 * @return Comision calculada sobre el precio
 	 */
 	public abstract Double calcularComision();
 	
 	/**
-	 * 
-	 * @return 
+	 * Expirar.
+	 *
+	 * @return true, if successful
 	 */
 	public abstract boolean expirar();
 	
 	/**
-	 * 
+	 * Reservar.
 	 *
-	 * @param demandante 
-	 * @return 
+	 * @param reserva the reserva
+	 * @param demandante the demandante
+	 * @return true, if successful
 	 */
 	public abstract boolean reservar(Reserva reserva, Cliente demandante);
 	
 	/**
-	 * 
+	 * Cancelar reserva.
 	 *
-	 * @return 
+	 * @return true, if successful
 	 */
 	public abstract boolean cancelarReserva();	
 	
 	/**
-	 * 
+	 * Instantiates a new oferta.
 	 *
-	 * @param precio 
-	 * @param fechaInicio 
-	 * @param descripcion 
-	 * @param ofertante 
+	 * @param precio the precio
+	 * @param fechaInicio the fecha inicio
+	 * @param descripcion the descripcion
+	 * @param ofertante the ofertante
 	 */
 	public Oferta(Double precio, LocalDate fechaInicio, String descripcion, Cliente ofertante) {
 		this.precio = precio;
@@ -76,13 +106,15 @@ public abstract class Oferta implements Serializable{
 		this.descripcion = descripcion;
 		this.opiniones = new ArrayList<Opinion>();
 		this.ofertante = ofertante;
+		this.demandante = null;
 	}
-	
+
 	
 	/**
-	 * 
+	 * Añadir rectificacion.
 	 *
-	 * @param rectificacion 
+	 * @param rectificacion the rectificacion
+	 * @return true, if successful
 	 */
 	public boolean añadirRectificacion(Map<String, String> rectificacion) {
 		this.rectificaciones = rectificacion;
@@ -91,7 +123,7 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Mostrar rectificaciones.
 	 */
 	public void mostrarRectificaciones() {
 		if (this.rectificaciones != null)
@@ -99,10 +131,10 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Contratar.
 	 *
-	 * @param demandante 
-	 * @return 
+	 * @param demandante the demandante
+	 * @return true, if successful
 	 */
 	public boolean contratar(Cliente demandante) {
 		demandante.rolDemandante.añadirOfertaContratada(this);
@@ -113,10 +145,10 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Añadir opinion.
 	 *
-	 * @param opinion 
-	 * @return 
+	 * @param opinion the opinion
+	 * @return true, if successful
 	 */
 	public boolean añadirOpinion(Opinion opinion) {
 		opiniones.add(opinion);
@@ -124,9 +156,9 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Calcular media.
 	 *
-	 * @return 
+	 * @return the double
 	 */
 	public Double calcularMedia() {
 		Double total=0.0, media=0.0;
@@ -146,6 +178,9 @@ public abstract class Oferta implements Serializable{
 		return media;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString() {
 		String print = (
 				"\nOferta\n" + 
@@ -166,27 +201,27 @@ public abstract class Oferta implements Serializable{
 	/*Getters y Setters*/
 	
 	/**
-	 * 
+	 * Gets the ofertante.
 	 *
-	 * @return 
+	 * @return the ofertante
 	 */
 	public Cliente getOfertante() {
 		return ofertante;
 	}
 	
 	/**
-	 * 
+	 * Gets the precio.
 	 *
-	 * @return 
+	 * @return the precio
 	 */
 	public Double getPrecio() {
 		return precio;
 	}
 
 	/**
-	 * 
+	 * Sets the precio.
 	 *
-	 * @param precio 
+	 * @param precio the new precio
 	 */
 	public void setPrecio(Double precio) {
 		this.precio = precio;
@@ -194,18 +229,18 @@ public abstract class Oferta implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Gets the fecha inicio.
 	 *
-	 * @return 
+	 * @return the fecha inicio
 	 */
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
 	/**
-	 * 
+	 * Sets the fecha inicio.
 	 *
-	 * @param fechaInicio 
+	 * @param fechaInicio the new fecha inicio
 	 */
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
@@ -213,96 +248,101 @@ public abstract class Oferta implements Serializable{
 	}
 
 	/**
-	 * 
+	 * Gets the moderada.
 	 *
-	 * @return 
+	 * @return the moderada
 	 */
 	public Boolean getModerada() {
 		return moderada;
 	}
 
 	/**
-	 * 
+	 * Sets the moderada.
 	 *
-	 * @param moderada 
+	 * @param moderada the new moderada
 	 */
 	public void setModerada(Boolean moderada) {
 		this.moderada = moderada;
 	}
 
 	/**
-	 * 
+	 * Gets the aprobada.
 	 *
-	 * @return 
+	 * @return the aprobada
 	 */
 	public Boolean getAprobada() {
 		return aprobada;
 	}
 
 	/**
-	 * 
+	 * Sets the aprobada.
 	 *
-	 * @param aprobada 
+	 * @param aprobada the new aprobada
 	 */
 	public void setAprobada(Boolean aprobada) {
 		this.aprobada = aprobada;
 	}
 	
 	/**
-	 * 
+	 * Gets the reservada.
 	 *
-	 * @return 
+	 * @return the reservada
 	 */
 	public Boolean getReservada() {
 		return reservada;
 	}
 
 	/**
-	 * 
+	 * Sets the reservada.
 	 *
-	 * @param reservada 
+	 * @param reservada the new reservada
 	 */
 	public void setReservada(Boolean reservada) {
 		this.reservada = reservada;
 	}
 
 	/**
-	 * 
+	 * Gets the contratada.
 	 *
-	 * @return 
+	 * @return the contratada
 	 */
 	public Boolean getContratada() {
 		return contratada;
 	}
 
 	/**
-	 * 
+	 * Sets the contratada.
 	 *
-	 * @param contratada 
+	 * @param contratada the new contratada
 	 */
 	public void setContratada(Boolean contratada) {
 		this.contratada = contratada;
 	}
 
 	/**
-	 * 
+	 * Gets the descripcion.
 	 *
-	 * @return 
+	 * @return the descripcion
 	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	/**
-	 * 
+	 * Sets the descripcion.
 	 *
-	 * @param descripcion 
+	 * @param descripcion the new descripcion
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 		this.moderada = false;
 	}
 	
+	/**
+	 * Gets the comentarios.
+	 *
+	 * @return the comentarios
+	 */
 	public List<Comentario> getComentarios(){
 		List<Comentario> comentarios = new ArrayList<Comentario>();
 		for (Opinion opinion : opiniones) {
@@ -311,5 +351,41 @@ public abstract class Oferta implements Serializable{
 		}
 		
 		return Collections.unmodifiableList(comentarios);
+	}
+
+	/**
+	 * Gets the demandante.
+	 *
+	 * @return the demandante
+	 */
+	public Cliente getDemandante() {
+		return demandante;
+	}
+
+	/**
+	 * Gets the opiniones.
+	 *
+	 * @return the opiniones
+	 */
+	public List<Opinion> getOpiniones() {
+		return opiniones;
+	}
+
+	/**
+	 * Sets the demandante.
+	 *
+	 * @param demandante the demandante to set
+	 */
+	public void setDemandante(Cliente demandante) {
+		this.demandante = demandante;
+	}
+
+	/**
+	 * Gets the reserva.
+	 *
+	 * @return the reserva
+	 */
+	public Reserva getReserva() {
+		return reserva;
 	}
 }

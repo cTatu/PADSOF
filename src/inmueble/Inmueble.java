@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package inmueble;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,14 +14,13 @@ import cliente.Cliente;
 import oferta.Oferta;
 
 /**
- * 
+ * Implementación de Inmueble y manejo de sus características
  */
 public class Inmueble implements Serializable {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4351471372769065186L;
+	
 	private Integer codigoPostal;
 	private static Integer LastId = 1;
 	private final Integer ID;
@@ -27,11 +29,11 @@ public class Inmueble implements Serializable {
 	private List<Oferta> ofertas;
 	
 	/**
-	 * 
+	 * Constructor
 	 *
-	 * @param codigoPostal 
+	 * @param codigoPostal
 	 * @param localizacion 
-	 * @param caracteristicas 
+	 * @param caracteristicas
 	 */
 	public Inmueble(Integer codigoPostal, String localizacion, Map<String,String> caracteristicas) {
 		this.ID = LastId;
@@ -43,20 +45,20 @@ public class Inmueble implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Devuelve el ID del inmueble.
 	 *
-	 * @return 
+	 * @return ID Integer
 	 */
 	public Integer getID() {
 		return ID;
 	}
 
 	/**
-	 * 
+	 * Cancelar oferta de este imnueble.
 	 *
-	 * @param ofertante 
+	 * @param ofertante de la oferta
 	 * @param fechaInicio 
-	 * @return 
+	 * @return true si se elimina, false de los contrario
 	 */
 	public boolean cancelarOferta(Cliente ofertante, LocalDate fechaInicio) {
 		boolean status;
@@ -71,10 +73,10 @@ public class Inmueble implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Método para que el gerente pueda aprobar una oferta pasada por parámetro
 	 *
-	 * @param oferta 
-	 * @return 
+	 * @param oferta a moderar
+	 * @return true si encuentra la oferta, false de lo contrario
 	 */
 	public boolean aprobarOferta(Oferta oferta) {
 		for (Oferta ofertaLista : ofertas) {
@@ -86,6 +88,13 @@ public class Inmueble implements Serializable {
 		return false;
 	}
 	
+	/**
+	 * Añade una/s rectificacion/es a la ofertaa pasada por parametro
+	 *
+	 * @param oferta the oferta
+	 * @param rectif the rectif
+	 * @return true si se han añadido, false si no ha encontrado la oferta
+	 */
 	public boolean addRectificacion(Oferta oferta, Map<String, String> rectif) {
 		for (Oferta ofertaLista : ofertas) {
 			if (ofertaLista.equals(oferta)) {
@@ -96,6 +105,11 @@ public class Inmueble implements Serializable {
 		return false;
 	}
 	
+	/**
+	 * Elimina ofertas expiradas.
+	 *
+	 * @return numero de ofertas eliminadas
+	 */
 	public Integer eliminarOfertasExpiradas() {
 		Integer ofExp = 0;
 		
@@ -111,10 +125,10 @@ public class Inmueble implements Serializable {
 	
 	
 	/**
-	 * 
+	 * Método para que el gerente pueda rechazar una oferta pasada por parámetro
 	 *
-	 * @param oferta 
-	 * @return 
+	 * @param oferta a rechazar
+	 * @return true si se rechaza, false si la oferta no se ha encontrado
 	 */
 	public boolean rechazarOferta(Oferta oferta) {
 		if (!oferta.getAprobada())
@@ -122,46 +136,70 @@ public class Inmueble implements Serializable {
 		return false;
 	}
 	
+	/* Getters y Setters */
+	
 	/**
-	 * 
+	 * Gets the ofertas.
 	 *
-	 * @return 
+	 * @return the ofertas
 	 */
 	public List<Oferta> getOfertas(){
 		return Collections.unmodifiableList(ofertas);
 	}
 
 	/**
-	 * 
+	 * Adds the ofertas.
 	 *
-	 * @param oferta 
-	 * @return 
+	 * @param oferta the oferta
+	 * @return true, if successful
 	 */
 	public boolean addOfertas(Oferta oferta) {
-		return ofertas.add(oferta);
+		if (!ofertas.contains(oferta))
+			return ofertas.add(oferta);
+		return false;
 	}
 
 	/**
-	 * 
+	 * Gets the codigo postal.
 	 *
-	 * @return 
+	 * @return the codigo postal
 	 */
 	public Integer getCodigoPostal() {
 		return codigoPostal;
 	}
 
+	/**
+	 * Gets the caracteristicas.
+	 *
+	 * @return the caracteristicas
+	 */
 	public Map<String,String> getCaracteristicas() {
 		return caracteristicas;
 	}
 
+	/**
+	 * Sets the caracteristicas.
+	 *
+	 * @param caracteristicas the caracteristicas
+	 */
 	public void setCaracteristicas(Map<String,String> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 
+	/**
+	 * Gets the localizacion.
+	 *
+	 * @return the localizacion
+	 */
 	public String getLocalizacion() {
 		return localizacion;
 	}
 
+	/**
+	 * Sets the localizacion.
+	 *
+	 * @param localizacion the new localizacion
+	 */
 	public void setLocalizacion(String localizacion) {
 		this.localizacion = localizacion;
 	}

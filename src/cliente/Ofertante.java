@@ -1,35 +1,39 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package cliente;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import inmueble.Inmueble;
 import oferta.Oferta;
 
 /**
- * Implementacion de la clase ofertante y sus funcionalidades
- * @author David Pascual y Cristian Tatu
+ * Implementacion de la clase ofertante y sus funcionalidades.
  */
 public class Ofertante implements Serializable{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -6258867457223383549L;
+	
 	private List<Oferta> ofertas;
+	private List<Inmueble> inmuebles;
 	private Double saldoPendiente = 0.0;
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public Ofertante() {
 		ofertas = new ArrayList<Oferta>();
+		inmuebles = new ArrayList<Inmueble>();
 	}
 	
 	/**
-	 * Añade una nueva oferta a su lista de ofertas publicadas
+	 * Añade una nueva oferta a su lista de ofertas publicadas.
 	 *
-	 * @param oferta de vivienda
+	 * @param oferta a añadir
 	 */
 	public void añadirOfertas(Oferta of) {
 		if ( ! ofertas.contains(of))
@@ -37,6 +41,20 @@ public class Ofertante implements Serializable{
 	}
 	
 	/**
+	 * Añade un nuevo inmueble a la lista.
+	 *
+	 * @param inmueble Objeto inmueble creado
+	 * @return true, if successful
+	 */
+	public boolean añadirInmuebles(Inmueble inmueble) {
+		if ( ! inmuebles.contains(inmueble))
+			return inmuebles.add(inmueble);
+		return false;
+	}
+	
+	/**
+	 * Gets the saldo pendiente.
+	 *
 	 * @return saldoPendiente (Pago pendiente por recibir)
 	 */
 	public Double getSaldoPendiente() {
@@ -44,7 +62,7 @@ public class Ofertante implements Serializable{
 	}
 	
 	/**
-	 * Establece nuevo saldo pendiente por recibir
+	 * Establece nuevo saldo pendiente por recibir.
 	 *
 	 * @param saldoPendiente (Pago pendiente por recibir)
 	 */
@@ -53,7 +71,7 @@ public class Ofertante implements Serializable{
 	}
 	
 	/**
-	 * Cancela una oferta borrándola de la lista de ofertas publicadas
+	 * Cancela una oferta borrándola de la lista de ofertas publicadas.
 	 *
 	 * @param fechaInicio de la oferta
 	 * @return boolean
@@ -69,6 +87,8 @@ public class Ofertante implements Serializable{
 	}
 
 	/**
+	 * Gets the ofertas.
+	 *
 	 * @return lista de ofertas del ofertante
 	 */
 	public List<Oferta> getOfertas() {

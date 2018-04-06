@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package busqueda;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -5,15 +8,14 @@ import java.time.LocalDate;
 import oferta.Oferta;
 import tipos.TipoDisponibilidad;
 
+
 /**
- * Implementacion (abstracta) de la clase busqueda
+ * Implementacion (abstracta) de la clase busqueda.
+ *
  * @author David Pascual y Cristian Tatu
  */
 public abstract class Busqueda implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5718937815988103385L;
 	protected Integer codigoPostal;
 	protected Double valoracion;
@@ -21,11 +23,12 @@ public abstract class Busqueda implements Serializable{
 	protected TipoDisponibilidad tipoDisponibilidad;
 	
 	/**
-	 * Constructor
+	 * Constructor.
+	 *
 	 * @param codigoPostal 
 	 * @param valoracion 
-	 * @param fechaInicio 
-	 * @param tipoOferta 
+	 * @param fechaInicio1 
+	 * @param fechaInicio2 // Rango de fechas
 	 * @param tipoDisponibilidad 
 	 */
 	public Busqueda(Integer codigoPostal, Double valoracion, LocalDate fechaInicio1, 
@@ -38,6 +41,8 @@ public abstract class Busqueda implements Serializable{
 	}
 	
 	/**
+	 * Gets the codigo postal.
+	 *
 	 * @return Código Postal
 	 */
 	public Integer getCodigoPostal() {
@@ -45,6 +50,8 @@ public abstract class Busqueda implements Serializable{
 	}
 	
 	/**
+	 * Gets the valoracion.
+	 *
 	 * @return Valoracion
 	 */
 	public Double getValoracion() {
@@ -52,31 +59,43 @@ public abstract class Busqueda implements Serializable{
 	}
 	
 	/**
+	 * Gets the fecha inicio 1.
+	 *
 	 * @return Fecha Inicio
 	 */
 	public LocalDate getFechaInicio1() {
 		return this.fechaInicio1;
 	}
 	
+	/**
+	 * Gets the fecha inicio 2.
+	 *
+	 * @return the fecha inicio 2
+	 */
 	public LocalDate getFechaInicio2() {
 		return this.fechaInicio2;
 	}
 	
 	/**
+	 * Gets the tipo disponibilidad.
+	 *
 	 * @return Tipo disponibilidad
 	 */
 	public TipoDisponibilidad getTipoDisponibilidad() {
 		return this.tipoDisponibilidad;
 	}
 	
+	/**
+	 * Cambia la disponibilidad a disponible.
+	 */
 	public void setToDisponible() {
 		tipoDisponibilidad = TipoDisponibilidad.DISPONIBLE;
 	}
 	
 	/**
-	 * Comprueba si la oferta pasada por agumento cumple los criterios
+	 * Comprueba si la oferta pasada por agumento cumple los criterios.
+	 *
 	 * @param oferta 
-	 * @param CP 
 	 * @return Boolean, true si entra en los criterios de busqueda, false de lo contrario
 	 */
 	public abstract boolean comprobarOferta(Oferta oferta);

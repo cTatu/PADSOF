@@ -12,8 +12,9 @@ import org.junit.Test;
 import cliente.Cliente;
 import cliente.Demandante;
 
+// TODO: Auto-generated Javadoc
 /**
- * Test para Cliente
+ * Test para Cliente.
  */
 public class ClienteTest {
 

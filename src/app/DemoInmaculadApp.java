@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package app;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -12,14 +15,16 @@ import tipos.TipoDisponibilidad;
 import tipos.TipoOferta;
 import tipos.TipoOrdenar;
 
+// TODO: Auto-generated Javadoc
 /**
- * Clase con main para demo de la aplicación
+ * Clase con main para demo de la aplicación.
+ *
  * @author David Pascual y Cristian Tatu
  */
 public class DemoInmaculadApp{
 
 	/**
-	 * Demostrador de funcionamiento de la aplicación InmaculadApp
+	 * Demostrador de funcionamiento de la aplicación InmaculadApp.
 	 *
 	 * @param args Los argumentos con los que se inicia la aplicacion
 	 */
@@ -47,7 +52,7 @@ public class DemoInmaculadApp{
 		app.añadirOfertaVivienda(800.0, FechaSimulada.getHoy().minusDays(30), 
 							"Perfecto para vivir", 24, 1, 300.0);
 		
-		app.cerrarSesion(false);
+		app.cerrarSesion(true);
 		app.iniciarSesion("", "BD911"); 	// como gerente
 		
 		Oferta aux = app.getOfertasPendientes().get(0);
@@ -66,7 +71,7 @@ public class DemoInmaculadApp{
 		
 		app.aprobarOferta(app.getOfertasPendientes().get(0));
 		
-		app.cerrarSesion(false);
+		app.cerrarSesion(true);
 		app.iniciarSesion("55555111Z", "NoSeSaBe");  // como demandante
 		
 		app.reservarOferta(app.getOfertas().get(0));
@@ -84,7 +89,7 @@ public class DemoInmaculadApp{
 		
 		app.getOfertas().get(0).calcularMedia();
 		
-		app.cerrarSesion(false);
+		app.cerrarSesion(true);
 		app.iniciarSesion("X1130055", "secreta");  // como otro usuario
 		
 		Comentario comentario2 = new Comentario(app.clienteConectado().rolDemandante, "Me ha ofendido tu comentario");
@@ -100,6 +105,8 @@ public class DemoInmaculadApp{
 		Busqueda criterios = new BusquedaVacacional(28845, 3.0, fecha1, fecha2, TipoDisponibilidad.CONTRATADO, fechaFin);
 		
 		app.buscarOfertas(criterios, TipoOrdenar.DISPONIBILIDAD);
+		
+		app.cerrarSesion(true);
 	}
 
 }

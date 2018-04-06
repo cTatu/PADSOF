@@ -1,10 +1,11 @@
 package fechasimulada;
 
 import java.time.LocalDate;
+
 /**
- * Clase auxiliar para permitir pruebas con "fechas simuladas" y controladas
- * @author Profesores PADSOF
+ * Clase auxiliar para permitir pruebas con "fechas simuladas" y controladas.
  *
+ * @author Profesores PADSOF
  */
 public class FechaSimulada {
 	
@@ -13,16 +14,16 @@ public class FechaSimulada {
 	                     =  LocalDate.now().withDayOfMonth(1).withMonth(3).withYear(2017);
 
 	/**
-	 * Avanza numDias la fecha simulada actual, o la retrasa si numDias es negativo
-	 * 
-	 * @param numDias
+	 * Avanza numDias la fecha simulada actual, o la retrasa si numDias es negativo.
+	 *
+	 * @param numDias 
 	 */
 	public static void avanzar(Integer numDias) {
 		fechaSimulada = fechaSimulada.plusDays(numDias);
 	}
 	
 	/**
-	 * Restablece la fecha simulada a la fecha real de hoy en ejecucion
+	 * Restablece la fecha simulada a la fecha real de hoy en ejecucion.
 	 */
 	public static void restablecerHoyReal() {
 		fechaSimulada =  LocalDate.now();
@@ -41,10 +42,11 @@ public class FechaSimulada {
 	}
 	
 	/**
-	 * Se fija la fecha simulada con los valores de dia, mes y anyo dados como parametros
+	 * Se fija la fecha simulada con los valores de dia, mes y anyo dados como parametros.
+	 *
 	 * @param dia
-	 * @param mes
-	 * @param anyo
+	 * @param mes 
+	 * @param anyo 
 	 * @return fecha simulada actual con los valores dados como parametros
 	 */
 	public static LocalDate fijarFecha(Integer dia, Integer mes, Integer anyo) {

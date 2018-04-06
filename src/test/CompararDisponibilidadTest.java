@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package test;
 
 import static org.junit.Assert.*;
@@ -11,10 +14,21 @@ import fechasimulada.FechaSimulada;
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompararDisponibilidadTest.
+ */
 public class CompararDisponibilidadTest {
+	
+	/** The oferta 2. */
 	private Oferta oferta1, oferta2;
+	
+	/** The comp. */
 	private CompararDisponibilidad comp;
 	
+	/**
+	 * Inicializar.
+	 */
 	@Before
 	public void inicializar() {
 		comp = new CompararDisponibilidad();
@@ -25,17 +39,26 @@ public class CompararDisponibilidadTest {
 		oferta2 = new OfertaVacacional(525.0,FechaSimulada.getHoy().plusDays(15),"Descripcion2", FechaSimulada.getHoy().minusDays(5),ofertante);
 	}
 	
+	/**
+	 * Comp disp iguales.
+	 */
 	@Test
 	public void CompDispIguales() {
 		assertTrue(comp.compare(oferta1, oferta2) == 0);
 	}
 	
+	/**
+	 * Comp disp mayor.
+	 */
 	@Test
 	public void CompDispMayor() {
 		oferta1.setReservada(true);
 		assertTrue(comp.compare(oferta1, oferta2) > 0);
 	}
 	
+	/**
+	 * Comp disp menor.
+	 */
 	@Test
 	public void CompDispMenor() {
 		oferta2.setReservada(true);

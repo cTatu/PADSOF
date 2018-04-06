@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package oferta;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -5,28 +8,32 @@ import java.time.LocalDate;
 import cliente.Cliente;
 import fechasimulada.FechaSimulada;
 import reserva.Reserva;
+import reserva.ReservaVacacional;
 import tipos.TipoOferta;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
+ * The Class OfertaVacacional.
  */
 public class OfertaVacacional extends Oferta implements Serializable{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 9106231765182642664L;
+	
+	/** The fecha fin. */
 	private LocalDate fechaFin;
-	private static final Double COMISION = 1.02;  // Porcentaje
+	
+	/** The Constant COMISION. */
+	public static final Double COMISION = 1.02;  // Porcentaje
 	
 	/**
-	 * 
+	 * Instantiates a new oferta vacacional.
 	 *
-	 * @param precio 
-	 * @param fechaInicio 
-	 * @param descripcion 
-	 * @param fechaFin 
-	 * @param ofertante 
+	 * @param precio the precio
+	 * @param fechaInicio the fecha inicio
+	 * @param descripcion the descripcion
+	 * @param fechaFin the fecha fin
+	 * @param ofertante the ofertante
 	 */
 	public OfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Cliente ofertante) {
 		super(precio,fechaInicio,descripcion, ofertante);
@@ -34,9 +41,9 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Gets the fecha fin.
 	 *
-	 * @return 
+	 * @return the fecha fin
 	 */
 	public LocalDate getFechaFin() {
 		return this.fechaFin;
@@ -55,9 +62,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	 */
 	@Override
 	public boolean expirar() {
-		if (FechaSimulada.getHoy().isAfter(fechaFin))
-			return true;
-		return false;
+		return FechaSimulada.getHoy().isAfter(fechaFin);
 	}
 	
 	/* (non-Javadoc)
@@ -68,7 +73,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 		if (reservada == false && demandante.rolDemandante.getStatusVacacional() == false ) {
 			reservada = true;
 			this.demandante = demandante;
-			demandante.rolDemandante.añadirReserva(reserva);
+			demandante.rolDemandante.setrVacacional((ReservaVacacional)reserva);
 			return true;
 		}
 		
@@ -89,5 +94,14 @@ public class OfertaVacacional extends Oferta implements Serializable{
 		}
 
 		return false;
+	}
+
+	/**
+	 * Gets the comision.
+	 *
+	 * @return the comision
+	 */
+	public static Double getComision() {
+		return COMISION;
 	}
 }

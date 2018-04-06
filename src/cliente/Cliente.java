@@ -1,17 +1,18 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package cliente;
 
 import java.io.Serializable;
 
 /**
- * Implementacion de Cliente que contiene informacion sobre estos
- * @author David Pascual y Cristian Tatu
+ * Implementacion de Cliente que contiene informacion sobre estos.
  */
 public class Cliente implements Serializable{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2221416256357316348L;
+	
 	private String tarjetaCredito, nombres, apellidos, contraseña, NIF;
 	public Ofertante rolOfertante;
 	public Demandante rolDemandante;
@@ -19,7 +20,8 @@ public class Cliente implements Serializable{
 	private boolean bloqueado;
 	
 	/**
-	 * Constructor
+	 * Constructor.
+	 *
 	 * @param nombres 
 	 * @param NIF 
 	 * @param apellidos 
@@ -41,6 +43,8 @@ public class Cliente implements Serializable{
 	}
 	
 	/**
+	 * Checks if is bloqueado.
+	 *
 	 * @return boolean, si un cliente está bloqueado
 	 */
 	public boolean isBloqueado() {
@@ -48,15 +52,18 @@ public class Cliente implements Serializable{
 	}
 	
 	/**
-	 * @param bloqueado 
+	 * Sets the bloqueado.
+	 *
+	 * @param bloqueado the new bloqueado
 	 */
 	public void setBloqueado(boolean bloqueado) {
 		this.bloqueado = bloqueado;
 	}
 	
 	/**
-	 * Cambia la tarjeta y desbloquea al cliente
-	 * @param tarjetaNueva 
+	 * Cambia la tarjeta y desbloquea al cliente.
+	 *
+	 * @param tarjetaNueva the tarjeta nueva
 	 */
 	public void cambiarTarjeta(String tarjetaNueva) {
 		this.tarjetaCredito = tarjetaNueva;
@@ -64,6 +71,8 @@ public class Cliente implements Serializable{
 	}
 	
 	/**
+	 * Gets the tarjeta credito.
+	 *
 	 * @return Tarjeta de credito
 	 */
 	public String getTarjetaCredito() {
@@ -71,6 +80,8 @@ public class Cliente implements Serializable{
 	}
 	
 	/**
+	 * Gets the nif.
+	 *
 	 * @return NIF
 	 */
 	public String getNIF() {
@@ -78,6 +89,8 @@ public class Cliente implements Serializable{
 	}
 	
 	/**
+	 * Gets the contraseña.
+	 *
 	 * @return contraseña
 	 */
 	public String getContraseña() {
@@ -85,13 +98,18 @@ public class Cliente implements Serializable{
 	}
 	
 	/**
-	 * @param contraseña 
+	 * Sets the contraseña.
+	 *
+	 * @param contraseña the new contraseña
 	 */
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
 	
 	/**
+	 * To string.
+	 *
+	 * @return the string
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -116,19 +134,48 @@ public class Cliente implements Serializable{
 				);
 	}
 
+	/**
+	 * Gets the nombres.
+	 *
+	 * @return el nombre del cliente
+	 */
 	public String getNombres() {
 		return nombres;
 	}
 
+	/**
+	 * Sets the nombres.
+	 *
+	 * @param nuevo nombre
+	 */
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
 
+	/**
+	 * Gets the apellidos.
+	 *
+	 * @return apellidos del cliente
+	 */
 	public String getApellidos() {
 		return apellidos;
 	}
 
+	/**
+	 * Sets the apellidos.
+	 *
+	 * @param apellidos the new apellidos
+	 */
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
+	}
+
+	/**
+	 * Gets the rol demandante.
+	 *
+	 * @return the rolDemandante
+	 */
+	public Demandante getRolDemandante() {
+		return rolDemandante;
 	}
 }

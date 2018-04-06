@@ -16,20 +16,31 @@ import opinion.Opinion;
 import opinion.Valoracion;
 
 
+// TODO: Auto-generated Javadoc
 /**
- * 
- * Test JUnit para comentario
+ * Test JUnit para comentario.
  */
 public class ComentarioTest {
 	
+	/** The d 3. */
 	Demandante d1, d2, d3;
+	
+	/** The c 1. */
 	Comentario c1;
-	Opinion o1, o2, o3;
+	
+	/** The o 4. */
+	Opinion o1, o2, o3, o4;
+	
+	/** The opiniones. */
 	List<Opinion> opiniones;
+	
+	/** The comentario. */
 	Comentario comentario;
 	
 	/**
-	 * @throws java.lang.Exception
+	 * Sets the up.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -53,7 +64,7 @@ public class ComentarioTest {
 	public void testOpinar() {
 		d2 = new Demandante();
 		d3 = new Demandante();
-		o1 = new Valoracion(d2, 4);
+		o1 = new Valoracion(d2, 4.0);
 		o2 = new Comentario(d3,"texto");
 		c1.opinar(o1);
 		c1.opinar(o2);
@@ -67,12 +78,14 @@ public class ComentarioTest {
 	 */
 	@Test
 	public void testCalcularMedia() {
-		o1 = new Valoracion(d2, 5);
-		o2 = new Valoracion(d2, 4);
-		o3 = new Valoracion(d2, 2);
+		o1 = new Valoracion(d2, 5.0);
+		o2 = new Valoracion(d2, 4.0);
+		o3 = new Valoracion(d2, 2.0);
+		o4 = new Comentario(d2, "comentario");
 		c1.opinar(o1);
 		c1.opinar(o2);
 		c1.opinar(o3);
+		c1.opinar(o4);
 
 		assertEquals((5+4+2)/3.0, c1.calcularMedia(), .1);
 	}

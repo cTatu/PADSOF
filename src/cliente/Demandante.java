@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package cliente;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,22 +13,20 @@ import reserva.ReservaVivienda;
 import tipos.TipoOferta;
 
 /**
- * Implementación de la clase demandate y sus funcionalidades
- * @author David Pascual y Cristian Tatu
+ * Implementación de la clase demandate y sus funcionalidades.
  */
 public class Demandante implements Serializable{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -197674966444958454L;
+	
 	private List<Oferta> ofertasContratadas;
 	private ReservaVacacional rVacacional;
 	private ReservaVivienda rVivienda;
 	private List<Reserva> historialReservas;
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public Demandante() {
 		ofertasContratadas = new ArrayList<>();
@@ -33,36 +34,43 @@ public class Demandante implements Serializable{
 	}		
 	
 	/**
-	 * Añade una oferta que ha sido contratada por este demandante a la lista de sus ofertas constratadas
+	 * Añade una oferta que ha sido contratada por este demandante a la lista de sus ofertas constratadas.
 	 *
-	 * @param ofertaContratada 
+	 * @param ofertaContratada a añadir
 	 */
 	public void añadirOfertaContratada(Oferta ofertaContratada) {
 		if ( ! ofertasContratadas.contains(ofertaContratada))
 			ofertasContratadas.add(ofertaContratada);
 	}
 	
-	public boolean puedeReservar(Reserva reserva) {
-		if (reserva instanceof ReservaVacacional) {
-			if (rVacacional != null)
+	/**
+	 * Sirve para comprobar que una oferta no fuese previamente contratada
+	 *
+	 * @param oferta 
+	 * @return true si no fue contratada antes, false de lo contrario
+	 */
+	public boolean puedeContratar(Oferta oferta) {
+		for (Oferta ofertaContratada : ofertasContratadas) {
+			if (ofertaContratada.equals(oferta))
 				return false;
-			rVacacional = (ReservaVacacional) reserva;
-		}else {
-			if (rVivienda != null)
-				return false;
-			rVivienda = (ReservaVivienda) reserva;
-		}
-		
-		for (Reserva reservaHistorial : historialReservas) {
-			if (reserva.equals(reservaHistorial))
-				return false;				
 		}
 		return true;
 	}
 	
+	/**
+	 * Añadir reserva.
+	 *
+	 * @param reserva a añadir
+	 * @return true si se realiza satifactoriamente, false de lo contario o si no ha pasado los controles
+	 */
 	public boolean añadirReserva(Reserva reserva) {
 		if (!puedeReservar(reserva))
 			return false;
+		
+		if (reserva instanceof ReservaVacacional)
+			rVacacional = (ReservaVacacional) reserva;
+		else
+			rVivienda = (ReservaVivienda) reserva;
 		
 		if (!historialReservas.contains(reserva))
 			return historialReservas.add(reserva);
@@ -70,7 +78,24 @@ public class Demandante implements Serializable{
 	}
 	
 	/**
-	 * Elimina la reserva en funcion del tipo
+	 * Sirve para comprobar que una oferta no fuese previamente reservada
+	 *
+	 * @param reserva a comprobar
+	 * @return true si no fue reservada antes, false de lo contrario
+	 */
+	public boolean puedeReservar(Reserva reserva) {
+		for (Reserva reservaHistorial : historialReservas) {
+			if (reserva.equals(reservaHistorial))
+				return false;				
+		}
+		return true;
+	}
+	
+	/**
+	 * Elimina la reserva en funcion del tipo.
+	 *
+	 * @param tipo 
+	 * @return true si se elimina, false de lo contrario
 	 */
 	public boolean eliminarReserva(TipoOferta tipo) {
 		if (tipo.equals(TipoOferta.VACACIONAL))
@@ -81,8 +106,9 @@ public class Demandante implements Serializable{
 		return true;
 	}
 	
+	
 	/**
-	 * Comprueba si tiene alguna reserva vacacional en curso
+	 * Comprueba si tiene alguna reserva vacacional en curso.
 	 *
 	 * @return boolean
 	 */
@@ -94,7 +120,7 @@ public class Demandante implements Serializable{
 	}
 	
 	/**
-	 * Comprueba si tiene alguna reserva de vivienda en curso
+	 * Comprueba si tiene alguna reserva de vivienda en curso.
 	 *
 	 * @return boolean
 	 */
@@ -105,6 +131,12 @@ public class Demandante implements Serializable{
 			return true;
 	}
 	
+	/**
+	 * Gets the reserva.
+	 *
+	 * @param tipo 
+	 * @return the reserva
+	 */
 	public Reserva getReserva(TipoOferta tipo) {
 		if (tipo.equals(TipoOferta.VACACIONAL))
 			return rVacacional;
@@ -113,40 +145,44 @@ public class Demandante implements Serializable{
 	}
 
 	/**
-	 * Establece una nueva reserva vacional del demandante
+	 * Establece una nueva reserva vacional del demandante.
 	 *
-	 * @param rVacacional 
+	 * @param nueva reserva
 	 */
 	public void setrVacacional(ReservaVacacional rVacacional) {
 		this.rVacacional = rVacacional;
 	}
 
 	/**
-	 * Establece una nueva reserva de vivienda del demandante
+	 * Establece una nueva reserva de vivienda del demandante.
 	 *
-	 * @param rAlquiler 
+	 * @param nueva reseva
 	 */
 	public void setrVivienda(ReservaVivienda rAlquiler) {
 		this.rVivienda = rAlquiler;
 	}
 	
+	/**
+	 * Gets the reserva vacacional.
+	 *
+	 * @return the reserva vacacional
+	 */
 	public ReservaVacacional getReservaVacacional() {
 		return rVacacional;
 	}
 	
+	/**
+	 * Gets the reserva vivienda.
+	 *
+	 * @return the reserva vivienda
+	 */
 	public ReservaVivienda getReservaVivienda() {
 		return rVivienda;
 	}
 
-	public boolean puedeContratar(Oferta oferta) {
-		for (Oferta ofertaContratada : ofertasContratadas) {
-			if (ofertaContratada.equals(oferta))
-				return false;
-		}
-		return true;
-	}
-
 	/**
+	 * Gets the ofertas contratadas.
+	 *
 	 * @return the ofertasContratadas
 	 */
 	public List<Oferta> getOfertasContratadas() {
@@ -154,6 +190,8 @@ public class Demandante implements Serializable{
 	}
 
 	/**
+	 * Gets the historial reservas.
+	 *
 	 * @return the historialReservas
 	 */
 	public List<Reserva> getHistorialReservas() {
@@ -161,6 +199,8 @@ public class Demandante implements Serializable{
 	}
 
 	/**
+	 * Gets the reserva vacacional.
+	 *
 	 * @return the rVacacional
 	 */
 	public ReservaVacacional getrVacacional() {
@@ -168,6 +208,8 @@ public class Demandante implements Serializable{
 	}
 
 	/**
+	 * Gets the r vivienda.
+	 *
 	 * @return the rVivienda
 	 */
 	public ReservaVivienda getrVivienda() {

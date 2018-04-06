@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package comparator;
 
 import java.util.Comparator;
@@ -6,12 +9,16 @@ import oferta.Oferta;
 import tipos.TipoDisponibilidad;
 
 /**
- * Comparator para ordenar las búsquedas según la disponibilidad
- * @author David Pascual y Cristian Tatu
+ * Comparator para ordenar las búsquedas según la disponibilidad.
  */
 public class CompararDisponibilidad implements Comparator<Oferta>{
 
 	/**
+	 * Comparator
+	 *
+	 * @param oferta a 
+	 * @param oferta b
+	 * @return comparacion
 	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
 	 */
 	public int compare(Oferta a, Oferta b) {

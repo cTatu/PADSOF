@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package app;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,26 +37,39 @@ import reserva.ReservaVivienda;
 import tipos.TipoOferta;
 import tipos.TipoOrdenar;
 
+// TODO: Auto-generated Javadoc
 /**
- * 
+ * Implementacion de la clase de la App.
  */
 public class InmaculadApp implements Serializable{
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The clientes. */
 	private List<Cliente> clientes; 
+	
+	/** The inmuebles. */
 	private List<Inmueble> inmuebles;
+	
+	/** The ofertas contratadas. */
 	private List<Oferta> ofertasContratadas;
+	
+	/** The contraseña gerente. */
 	private String contraseñaGerente;
+	
+	/** The cliente conectado. */
 	private Cliente clienteConectado;	
+	
+	/** The i app. */
 	private static InmaculadApp iApp = null;
 	
 	/**
-	 * 
+	 * Gets the instancia.
 	 *
-	 * @param filename 
-	 * @param constraseñaGerente 
-	 * @return 
+	 * @param filename the filename
+	 * @param constraseñaGerente the constraseña gerente
+	 * @return the instancia
 	 */
 	public static InmaculadApp getInstancia(String filename, String constraseñaGerente) {
 		if (iApp == null) {
@@ -70,19 +86,19 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Gets the instancia.
 	 *
-	 * @return 
+	 * @return the instancia
 	 */
 	public static InmaculadApp getInstancia() {
 		return iApp;
 	}
 	
 	/**
-	 * 
+	 * Instantiates a new inmaculad app.
 	 *
-	 * @param filename 
-	 * @param constraseñaGerente 
+	 * @param filename the filename
+	 * @param constraseñaGerente the constraseña gerente
 	 */
 	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<Cliente>();
@@ -93,27 +109,31 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Crear inmueble.
 	 *
-	 * @param CP 
-	 * @param localizacion 
-	 * @param caracteristicas 
-	 * @return 
+	 * @param CP the cp
+	 * @param localizacion the localizacion
+	 * @param caracteristicas the caracteristicas
+	 * @return true, if successful
 	 */
 	public boolean crearInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
 		
 		if (clienteConectado.rolOfertante == null)
 			return false;
 		
-		inmuebles.add(new Inmueble(CP, localizacion, caracteristicas));
-		
-		return true;
+		Inmueble inmueble = new Inmueble(CP, localizacion, caracteristicas);
+		inmuebles.add(inmueble);
+		return clienteConectado.rolOfertante.añadirInmuebles(inmueble);
 	}
 	
-	
+	/**
+	 * Efectuar pagos pendientes.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean efectuarPagosPendientes() {
 		for (Cliente cliente : clientes) {
-			if (!cliente.rolOfertante.getSaldoPendiente().equals(0.0) && !cliente.isBloqueado()) {
+			if (cliente.rolOfertante != null && !cliente.rolOfertante.getSaldoPendiente().equals(0.0) && !cliente.isBloqueado()) {
 				Double cantidad = cliente.rolOfertante.getSaldoPendiente();
 				return transaccionACliente(cantidad, cliente);
 			}
@@ -122,6 +142,13 @@ public class InmaculadApp implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * Transaccion A cliente.
+	 *
+	 * @param cantidad the cantidad
+	 * @param cliente the cliente
+	 * @return true, if successful
+	 */
 	public boolean transaccionACliente(Double cantidad,Cliente cliente) {
 		for (int i = 0; i < 5; i++) {
 			try {
@@ -140,7 +167,13 @@ public class InmaculadApp implements Serializable{
 		return false;
 	}
 	
-	
+	/**
+	 * Modificar tarjeta credito.
+	 *
+	 * @param cliente the cliente
+	 * @param tarjetaNueva the tarjeta nueva
+	 * @return true, if successful
+	 */
 	public boolean modificarTarjetaCredito(Cliente cliente,String tarjetaNueva) {
 		if (!clienteConectado.gerente)
 			return false;
@@ -151,14 +184,15 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Añadir oferta vivienda.
 	 *
-	 * @param precio 
-	 * @param fechaInicio 
-	 * @param descripcion 
-	 * @param duracionMeses 
-	 * @param ID 
-	 * @return 
+	 * @param precio the precio
+	 * @param fechaInicio the fecha inicio
+	 * @param descripcion the descripcion
+	 * @param duracionMeses the duracion meses
+	 * @param ID the id
+	 * @param fianza the fianza
+	 * @return true, if successful
 	 */
 	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Integer ID, Double fianza) {
 		if (clienteConectado.rolOfertante == null)
@@ -176,14 +210,14 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Añadir oferta vacacional.
 	 *
-	 * @param precio 
-	 * @param fechaInicio 
-	 * @param descripcion 
-	 * @param fechaFin 
-	 * @param ID 
-	 * @return 
+	 * @param precio the precio
+	 * @param fechaInicio the fecha inicio
+	 * @param descripcion the descripcion
+	 * @param fechaFin the fecha fin
+	 * @param ID the id
+	 * @return true, if successful
 	 */
 	public boolean añadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Integer ID) {
 		if (clienteConectado.rolOfertante == null)
@@ -200,6 +234,11 @@ public class InmaculadApp implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * Eliminar ofertas expiradas.
+	 *
+	 * @return the integer
+	 */
 	public Integer eliminarOfertasExpiradas() {
 		Integer ofExp = 0;
 		for (Inmueble inmueble : inmuebles) {
@@ -209,17 +248,13 @@ public class InmaculadApp implements Serializable{
 		return ofExp;
 	}
 	
-	public boolean añadirRectificacion(Oferta oferta, Map<String, String> rectificacion) {
-		if (!this.clienteConectado.gerente)
-			return false;
-		return oferta.añadirRectificacion(rectificacion);
-	}
+
 	
 	/**
-	 * 
+	 * Aprobar oferta.
 	 *
-	 * @param oferta 
-	 * @return 
+	 * @param oferta the oferta
+	 * @return true, if successful
 	 */
 	public boolean aprobarOferta(Oferta oferta) {
 		if (!clienteConectado.gerente)
@@ -233,6 +268,13 @@ public class InmaculadApp implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * Adds the rectificacion.
+	 *
+	 * @param oferta the oferta
+	 * @param rectif the rectif
+	 * @return true, if successful
+	 */
 	public boolean addRectificacion(Oferta oferta, Map<String, String> rectif) {
 		if (!clienteConectado.gerente)
 			return false;
@@ -247,10 +289,10 @@ public class InmaculadApp implements Serializable{
 	
 	
 	/**
-	 * 
+	 * Rechazar oferta.
 	 *
-	 * @param oferta 
-	 * @return 
+	 * @param oferta the oferta
+	 * @return true, if successful
 	 */
 	public boolean rechazarOferta(Oferta oferta) {
 		if (!clienteConectado.gerente)
@@ -266,10 +308,10 @@ public class InmaculadApp implements Serializable{
 	
 	
 	/**
-	 * 
+	 * Contratar oferta.
 	 *
-	 * @param oferta 
-	 * @return 
+	 * @param oferta the oferta
+	 * @return true, if successful
 	 */
 	public boolean contratarOferta(Oferta oferta) {
 		if (clienteConectado.isBloqueado() || clienteConectado.rolDemandante == null)
@@ -292,9 +334,17 @@ public class InmaculadApp implements Serializable{
 		if (!transaccionACliente(-oferta.calcularComision(), clienteConectado))
 			return false;
 		
+		clienteConectado.rolDemandante.añadirOfertaContratada(oferta);
+		
 		return transaccionACliente(oferta.getPrecio(), oferta.getOfertante());
 	}
 	
+	/**
+	 * Contratar reserva.
+	 *
+	 * @param tipo the tipo
+	 * @return true, if successful
+	 */
 	public boolean contratarReserva(TipoOferta tipo) {
 		Reserva reserva = clienteConectado.rolDemandante.getReserva(tipo);
 		
@@ -309,6 +359,12 @@ public class InmaculadApp implements Serializable{
 		return false;
 	}
 
+	/**
+	 * Reservar oferta.
+	 *
+	 * @param oferta the oferta
+	 * @return true, if successful
+	 */
 	public boolean reservarOferta(Oferta oferta) {
 		if (oferta.getReservada() || clienteConectado.rolDemandante == null)
 			return false;
@@ -326,12 +382,11 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Buscar ofertas.
 	 *
-	 * @param criteriosBusqueda 
-	 * @param cliente 
-	 * @param metodo 
-	 * @return 
+	 * @param criteriosBusqueda the criterios busqueda
+	 * @param metodo the metodo
+	 * @return the list
 	 */
 	public List<Oferta> buscarOfertas(Busqueda criteriosBusqueda,TipoOrdenar metodo){
 		if(clienteConectado.rolDemandante == null)
@@ -367,14 +422,15 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Iniciar sesion.
 	 *
-	 * @param NIF 
-	 * @param contraseña 
-	 * @return 
+	 * @param NIF the nif
+	 * @param contraseña the contraseña
+	 * @return true, if successful
 	 */
 	public boolean iniciarSesion(String NIF, String contraseña) {
 		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
+			this.clienteConectado = new Cliente("", "", "", "", "", null, null);
 			clienteConectado.setContraseña(contraseña);
 			clienteConectado.gerente = true;
 			eliminarOfertasExpiradas();
@@ -393,10 +449,10 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Cerrar sesion.
 	 *
 	 * @param GuardarNoGuardar Si es true la aplicacion se guarda en el disco, si es false no.
-	 * @return 
+	 * @return true, if successful
 	 */
 	public boolean cerrarSesion(boolean GuardarNoGuardar) {
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
@@ -413,10 +469,10 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Cargar clientes.
 	 *
-	 * @param filename 
-	 * @throws Exception 
+	 * @param filename the filename
+	 * @throws Exception the exception
 	 */
 	private void cargarClientes(String filename) throws Exception {
 		
@@ -455,9 +511,9 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Guardar app.
 	 *
-	 * @throws IOException 
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void guardarApp() throws IOException {
 		FileOutputStream fout = new FileOutputStream("APP.bin");
@@ -468,9 +524,9 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Cargar app.
 	 *
-	 * @return 
+	 * @return true, if successful
 	 */
 	public boolean cargarApp() {
 		if (new File("APP.bin").exists()) {
@@ -494,18 +550,18 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Gets the inmuebles.
 	 *
-	 * @return 
+	 * @return the inmuebles
 	 */
 	public List<Inmueble> getInmuebles(){
 		return Collections.unmodifiableList(inmuebles);
 	}
 	
 	/**
-	 * 
+	 * Gets the ofertas pendientes.
 	 *
-	 * @return 
+	 * @return the ofertas pendientes
 	 */
 	public List <Oferta> getOfertasPendientes(){
 		if (clienteConectado.gerente) {
@@ -522,9 +578,9 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Gets the ofertas.
 	 *
-	 * @return 
+	 * @return the ofertas
 	 */
 	public List<Oferta> getOfertas(){
 		List<Oferta> of = new ArrayList<Oferta>();
@@ -536,10 +592,10 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Gets the inmueble by ID.
 	 *
-	 * @param ID 
-	 * @return 
+	 * @param ID the id
+	 * @return the inmueble by ID
 	 */
 	public Inmueble getInmuebleByID(Integer ID) {
 		for (Inmueble inmueble: inmuebles) {
@@ -550,14 +606,29 @@ public class InmaculadApp implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Cliente conectado.
+	 *
+	 * @return the cliente
+	 */
 	public Cliente clienteConectado() {
 		return clienteConectado;
 	}
 
+	/**
+	 * Gets the ofertas contratadas.
+	 *
+	 * @return the ofertas contratadas
+	 */
 	public List<Oferta> getOfertasContratadas() {
 		return ofertasContratadas;
 	}
 
+	/**
+	 * Sets the ofertas contratadas.
+	 *
+	 * @param ofertasContratadas the new ofertas contratadas
+	 */
 	public void setOfertasContratadas(List<Oferta> ofertasContratadas) {
 		this.ofertasContratadas = ofertasContratadas;
 	}

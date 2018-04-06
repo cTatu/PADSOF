@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package test;
 
 import static org.junit.Assert.*;
@@ -18,12 +21,24 @@ import oferta.OfertaVivienda;
 import opinion.Valoracion;
 import tipos.TipoDisponibilidad;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BusquedaTest.
+ */
 public class BusquedaTest {
 
+	/** The busqueda V. */
 	private Busqueda busquedaV;
+	
+	/** The cliente. */
 	private Cliente cliente;
+	
+	/** The oferta 1. */
 	private Oferta oferta1;
 	
+	/**
+	 * Inicializar.
+	 */
 	@Before
 	public void inicializar() {
 		FechaSimulada.fijarFecha(6, 12, 1980);
@@ -36,6 +51,9 @@ public class BusquedaTest {
 				"Descripcion", FechaSimulada.getHoy().plusMonths(3),cliente);
 	}
 	
+	/**
+	 * Comprobar oferta vacacional test.
+	 */
 	@Test
 	public void ComprobarOfertaVacacionalTest() {
 
@@ -48,6 +66,9 @@ public class BusquedaTest {
 		assertTrue(busquedaV.comprobarOferta(oferta1));
 	}
 	
+	/**
+	 * Comprobar oferta vivienda test.
+	 */
 	@Test
 	public void ComprobarOfertaViviendaTest() {
 		oferta1 = new OfertaVivienda(3200.0, FechaSimulada.getHoy().plusDays(3), 
@@ -55,35 +76,52 @@ public class BusquedaTest {
 		
 		assertFalse(busquedaV.comprobarOferta(oferta1));
 		
-		busquedaV = new BusquedaVivienda(26650, 3.4, 
+		busquedaV = new BusquedaVivienda(26650, 0.0, 
 				FechaSimulada.getHoy().minusDays(2), FechaSimulada.getHoy().plusDays(5), 
 				TipoDisponibilidad.RESERVADO, 4);
+		
+		oferta1.setReservada(true);
 		
 		assertTrue(busquedaV.comprobarOferta(oferta1));
 	}
 	
+	/**
+	 * Test get codigo postal.
+	 */
 	@Test
 	public void testGetCodigoPostal() {
 		assertTrue(busquedaV.getCodigoPostal().equals(26650));
 	}
 	
+	/**
+	 * Test get valoracion.
+	 */
 	@Test
 	public void testGetValoracion() {
 		assertTrue(busquedaV.getValoracion().equals(3.4));
 	}
 	
+	/**
+	 * Test get fecha inicio 1.
+	 */
 	@Test
 	public void testGetFechaInicio1() {
 		assertTrue(busquedaV.getFechaInicio1().isEqual(
 				LocalDate.of(1980, 12, 4)));
 	}
 	
+	/**
+	 * Test get fecha inicio 2.
+	 */
 	@Test
 	public void testGetFechaInicio2() {
 		assertTrue(busquedaV.getFechaInicio2().isEqual(
 				LocalDate.of(1980, 12, 11)));
 	}
 	
+	/**
+	 * Test get tipo disp.
+	 */
 	@Test
 	public void testGetTipoDisp() {
 		assertTrue(busquedaV.getTipoDisponibilidad().equals(TipoDisponibilidad.RESERVADO));

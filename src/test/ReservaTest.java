@@ -19,19 +19,31 @@ import oferta.OfertaVacacional;
 import reserva.Reserva;
 import reserva.ReservaVacacional;
 
+// TODO: Auto-generated Javadoc
 /**
- * Test para Reserva
+ * Test para Reserva.
  */
 public class ReservaTest {
 	
+	/** The r 2. */
 	Reserva r1, r2;
+	
+	/** The o 2. */
 	Oferta o1, o2;
+	
+	/** The c 2. */
 	Cliente c1, c2;
+	
+	/** The d 1. */
 	Demandante d1;
+	
+	/** The ofertante. */
 	Ofertante ofertante;
 	
 	/**
-	 * @throws java.lang.Exception
+	 * Sets the up.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -98,6 +110,16 @@ public class ReservaTest {
 	 */
 	@Test
 	public void testContratar() {
-		fail("Not yet implemented"); // TODO
+		ofertante = new Ofertante();		
+		d1 = new Demandante();
+		c1 = new Cliente("Pepe", "12233444A", "ap1 ap2", 
+				"clave", "0000111122223333", ofertante, d1);
+		
+		FechaSimulada.fijarFecha(1, 06, 2015);
+		o1 = new OfertaVacacional(800.0, FechaSimulada.getHoy(), "descripcion", FechaSimulada.getHoy().plusDays(15), c1);
+		FechaSimulada.fijarFecha(1, 03, 2015);
+		r1 = new ReservaVacacional(o1);
+		
+		assertTrue(r1.contratar(c1));
 	}
 }

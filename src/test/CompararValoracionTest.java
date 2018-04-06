@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package test;
 
 import static org.junit.Assert.*;
@@ -12,11 +15,24 @@ import oferta.Oferta;
 import oferta.OfertaVacacional;
 import opinion.Valoracion;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompararValoracionTest.
+ */
 public class CompararValoracionTest {
+	
+	/** The oferta 2. */
 	private Oferta oferta1, oferta2;
+	
+	/** The comp. */
 	private CompararValoracion comp;
+	
+	/** The cliente. */
 	private Cliente cliente;
 	
+	/**
+	 * Inicializar.
+	 */
 	@Before
 	public void inicializar() {
 		comp = new CompararValoracion();
@@ -30,16 +46,25 @@ public class CompararValoracionTest {
 		oferta1.añadirOpinion(new Valoracion(cliente.rolDemandante, 4.5));
 	}
 	
+	/**
+	 * Comp valoracion iguales.
+	 */
 	@Test
 	public void CompValoracionIguales() {
 		assertFalse(comp.compare(oferta1, oferta2) == 0);
 	}
 	
+	/**
+	 * Comp valoracion O 1 mayor.
+	 */
 	@Test
 	public void CompValoracionO1Mayor() {
 		assertTrue(comp.compare(oferta1, oferta2) < 0);
 	}
 
+	/**
+	 * Comp valoracion O 2 mayor.
+	 */
 	@Test
 	public void CompValoracionO2Mayor() {
 		oferta2.añadirOpinion(new Valoracion(cliente.rolDemandante, 4.8));
