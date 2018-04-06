@@ -11,7 +11,7 @@ import oferta.Oferta;
  * @author David Pascual y Cristian Tatu
  */
 
-public abstract class Reserva implements Comparable<Reserva>{
+public abstract class Reserva {
 	private LocalDate fechaReserva;
 	private Oferta ofertaReservada;
 	/**
@@ -37,8 +37,10 @@ public abstract class Reserva implements Comparable<Reserva>{
 	}	
 	
 	@Override
-	public boolean equals(Reserva reserva) {
-		if (reserva.ofertaReservada.equals(this.ofertaReservada))
+	public boolean equals(Object o) {
+		Reserva r = (Reserva) o;
+		//if(!(o instanceof Reserva)) return false;
+		if (this.ofertaReservada.equals(r.ofertaReservada))
 			return true;
 		return false;
 	}

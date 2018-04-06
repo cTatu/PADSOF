@@ -80,17 +80,17 @@ public class ReservaTest {
 		FechaSimulada.fijarFecha(1, 03, 2015); // Ambas reservas en la misma fecha
 		r2 = new ReservaVacacional(o2);
 		
-		assertTrue(r1.equals(r2));
+		assertFalse(r1.equals(r2));
 		
 		FechaSimulada.fijarFecha(1, 04, 2015); // Reserva r2 despues que la r1
 		((Reserva) r2).setFechaReserva(FechaSimulada.getHoy());
 		
-		assertTrue(r1.compareTo(r2) < 0);
+		assertFalse(r1.equals(r2));
 		
 		FechaSimulada.fijarFecha(1, 01, 2015); // Reserva r2 antes que la r1
 		((Reserva) r2).setFechaReserva(FechaSimulada.getHoy());
 		
-		assertTrue(r1.compareTo(r2) > 0);
+		assertFalse(r1.equals(r2));
 	}
 
 	/**
