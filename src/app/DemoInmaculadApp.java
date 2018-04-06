@@ -97,7 +97,7 @@ public class DemoInmaculadApp{
 		LocalDate fecha2 = LocalDate.of(2020, 05, 8);
 		LocalDate fechaFin = LocalDate.of(2015, 05, 21);
 		
-		Busqueda criterios = new BusquedaVacacional(28845, 3, fecha1, fecha2, TipoDisponibilidad.CONTRATADO, fechaFin);
+		Busqueda criterios = new BusquedaVacacional(28845, 3.0, fecha1, fecha2, TipoDisponibilidad.CONTRATADO, fechaFin);
 		
 		app.buscarOfertas(criterios, TipoOrdenar.DISPONIBILIDAD);
 	}

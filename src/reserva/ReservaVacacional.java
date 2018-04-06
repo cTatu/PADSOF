@@ -17,4 +17,9 @@ public class ReservaVacacional extends Reserva {
 		super(oferta);
 	}
 
+	@Override
+	public int compareTo(Reserva reserva) {
+		return super.fechaReserva.compareTo(reserva.fechaReserva);
+	}
+
 }

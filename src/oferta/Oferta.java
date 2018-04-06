@@ -39,7 +39,7 @@ public abstract class Oferta implements Serializable{
 	 * 
 	 * @return Comision calculada sobre el precio
 	 */
-	public abstract double calcularComision();
+	public abstract Double calcularComision();
 	
 	/**
 	 * 
@@ -128,9 +128,9 @@ public abstract class Oferta implements Serializable{
 	 *
 	 * @return 
 	 */
-	public double calcularMedia() {
-		double total=0.0, media=0.0;
-		int n=0;
+	public Double calcularMedia() {
+		Double total=0.0, media=0.0;
+		Integer n=0;
 		
 		for(Opinion o: opiniones) {
 			if(o instanceof Valoracion) {
@@ -138,6 +138,9 @@ public abstract class Oferta implements Serializable{
 				n++;
 			}
 		}
+		if (n.equals(0))
+			return 0.0;
+		
 		media = total / n;
 		
 		return media;
@@ -176,7 +179,7 @@ public abstract class Oferta implements Serializable{
 	 *
 	 * @return 
 	 */
-	public double getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
@@ -185,7 +188,7 @@ public abstract class Oferta implements Serializable{
 	 *
 	 * @param precio 
 	 */
-	public void setPrecio(double precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 		this.moderada = false;
 	}

@@ -3,7 +3,6 @@
  */
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -62,10 +61,11 @@ public class ReservaTest {
 	}
 
 	/**
+	 * Comprobamos el correcto funcionamiento del override del equals implementado
 	 * Test method for {@link reserva.Reserva#compareTo(reserva.Reserva)}.
 	 */
 	@Test
-	public void testCompareTo() {
+	public void testEquals() {
 		ofertante = new Ofertante();		
 		c1 = new Cliente("Pepe", "12233444A", "ap1 ap2", 
 				"clave", "0000111122223333", ofertante, null);

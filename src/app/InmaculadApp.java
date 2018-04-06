@@ -160,7 +160,7 @@ public class InmaculadApp implements Serializable{
 	 * @param ID 
 	 * @return 
 	 */
-	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Integer ID, double fianza) {
+	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Integer ID, Double fianza) {
 		if (clienteConectado.rolOfertante == null)
 			return false;
 		
@@ -303,7 +303,8 @@ public class InmaculadApp implements Serializable{
 				eliminarOfertasExpiradas();
 				return false;
 			}
-			return contratarOferta(reserva.getOferta());
+			if (contratarOferta(reserva.getOferta()))
+				return this.clienteConectado.rolDemandante.eliminarReserva(reserva.getTipo());
 		}
 		return false;
 	}

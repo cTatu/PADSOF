@@ -27,7 +27,7 @@ public class BusquedaVivienda extends Busqueda implements Serializable{
 	 * @param tipoDisponibilidad 
 	 * @param duracionMeses 
 	 */
-	public BusquedaVivienda(Integer codigoPostal, double valoracion, LocalDate fechaInicio1, 
+	public BusquedaVivienda(Integer codigoPostal, Double valoracion, LocalDate fechaInicio1, 
 			LocalDate fechaInicio2, TipoDisponibilidad tipoDisponibilidad, Integer duracionMeses) {
 		super(codigoPostal, valoracion, fechaInicio1,fechaInicio2, tipoDisponibilidad);
 		this.duracionMeses = duracionMeses;

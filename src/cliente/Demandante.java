@@ -43,6 +43,16 @@ public class Demandante implements Serializable{
 	}
 	
 	public boolean puedeReservar(Reserva reserva) {
+		if (reserva instanceof ReservaVacacional) {
+			if (rVacacional != null)
+				return false;
+			rVacacional = (ReservaVacacional) reserva;
+		}else {
+			if (rVivienda != null)
+				return false;
+			rVivienda = (ReservaVivienda) reserva;
+		}
+		
 		for (Reserva reservaHistorial : historialReservas) {
 			if (reserva.equals(reservaHistorial))
 				return false;				
@@ -51,22 +61,24 @@ public class Demandante implements Serializable{
 	}
 	
 	public boolean añadirReserva(Reserva reserva) {
-		if (reserva instanceof ReservaVacacional)
-			rVacacional = (ReservaVacacional) reserva;
-		else
-			rVivienda = (ReservaVivienda) reserva;
+		if (!puedeReservar(reserva))
+			return false;
 		
-		return historialReservas.add(reserva);
+		if (!historialReservas.contains(reserva))
+			return historialReservas.add(reserva);
+		return false;
 	}
 	
 	/**
 	 * Elimina la reserva en funcion del tipo
 	 */
-	public void eliminarReserva(TipoOferta tipo) {
+	public boolean eliminarReserva(TipoOferta tipo) {
 		if (tipo.equals(TipoOferta.VACACIONAL))
 			rVacacional = null;
 		else if (tipo.equals(TipoOferta.VIVIENDA))
-			rVivienda = null;			
+			rVivienda = null;	
+		
+		return true;
 	}
 	
 	/**
@@ -132,5 +144,33 @@ public class Demandante implements Serializable{
 				return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @return the ofertasContratadas
+	 */
+	public List<Oferta> getOfertasContratadas() {
+		return ofertasContratadas;
+	}
+
+	/**
+	 * @return the historialReservas
+	 */
+	public List<Reserva> getHistorialReservas() {
+		return historialReservas;
+	}
+
+	/**
+	 * @return the rVacacional
+	 */
+	public ReservaVacacional getrVacacional() {
+		return rVacacional;
+	}
+
+	/**
+	 * @return the rVivienda
+	 */
+	public ReservaVivienda getrVivienda() {
+		return rVivienda;
 	}
 }

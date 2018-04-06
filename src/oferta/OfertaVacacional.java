@@ -46,7 +46,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	 * @see Oferta#calcularComision()
 	 */
 	@Override
-	public double calcularComision() {
+	public Double calcularComision() {
 		return precio*COMISION;
 	}
 

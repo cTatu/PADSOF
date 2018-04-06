@@ -27,7 +27,7 @@ public class BusquedaVacacional extends Busqueda implements Serializable{
 	 * @param tipoDisponibilidad 
 	 * @param fechaFin 
 	 */
-	public BusquedaVacacional(Integer codigoPostal, double valoracion, LocalDate fechaInicio1,
+	public BusquedaVacacional(Integer codigoPostal, Double valoracion, LocalDate fechaInicio1,
 			LocalDate fechaInicio2, TipoDisponibilidad tipoDisponibilidad, LocalDate fechaFin) {
 		super(codigoPostal, valoracion, fechaInicio1, fechaInicio2, tipoDisponibilidad);
 		this.fechaFin = fechaFin;

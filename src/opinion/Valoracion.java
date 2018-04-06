@@ -7,7 +7,7 @@ import cliente.Demandante;
  */
 public class Valoracion extends Opinion {
 	
-	private double Numero;
+	private Double Numero;
 	
 	/**
 	 * Constructor
@@ -15,9 +15,12 @@ public class Valoracion extends Opinion {
 	 * @param demandante 
 	 * @param numero 
 	 */
-	public Valoracion(Demandante demandante, double numero) {
+	public Valoracion(Demandante demandante, Double numero) {
 		super(demandante);
-		this.Numero = numero;
+		if (numero > 5)
+			this.Numero = 5.0;
+		else
+			this.Numero = numero;
 	}
 
 	/**
@@ -31,7 +34,7 @@ public class Valoracion extends Opinion {
 	/**
 	 * @return  numero (valoracion)
 	 */
-	public double getNumero() {
+	public Double getNumero() {
 		return Numero;
 	}
 }

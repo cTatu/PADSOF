@@ -39,8 +39,8 @@ public class Comentario extends Opinion {
 	 *
 	 * @return 
 	 */
-	public double calcularMedia() {
-		double total=0.0, media=0.0;
+	public Double calcularMedia() {
+		Double total=0.0, media=0.0;
 		int n=0;
 		
 		for(Opinion o: opiniones) {
@@ -50,7 +50,8 @@ public class Comentario extends Opinion {
 			}
 		}
 		
-		if(n==0) return -1;
+		if(n==0) 
+			return -1.0;
 		
 		media = total / n;
 		

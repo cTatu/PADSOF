@@ -6,18 +6,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cliente.Cliente;
-import comparator.CompararDisponibilidad;
+import comparator.CompararFecha;
 import fechasimulada.FechaSimulada;
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 
-public class CompararDisponibilidadTest {
+public class CompararFechaTest {
 	private Oferta oferta1, oferta2;
-	private CompararDisponibilidad comp;
+	private CompararFecha comp;
 	
 	@Before
 	public void inicializar() {
-		comp = new CompararDisponibilidad();
+		comp = new CompararFecha();
 		FechaSimulada.fijarFecha(1, 1, 2000);
 		Cliente ofertante = new Cliente("Don","X123456", "Prueba", "password", "1234567898765432",
 				null, null);
@@ -26,19 +26,17 @@ public class CompararDisponibilidadTest {
 	}
 	
 	@Test
-	public void CompDispIguales() {
-		assertTrue(comp.compare(oferta1, oferta2) == 0);
+	public void CompFechaIguales() {
+		assertFalse(comp.compare(oferta1, oferta2) == 0);
 	}
 	
 	@Test
-	public void CompDispMayor() {
-		oferta1.setReservada(true);
+	public void CompFechaMayor() {
 		assertTrue(comp.compare(oferta1, oferta2) > 0);
 	}
 	
 	@Test
-	public void CompDispMenor() {
-		oferta2.setReservada(true);
-		assertTrue(comp.compare(oferta1, oferta2) < 0);
+	public void CompFechaMenor() {
+		assertTrue(comp.compare(oferta2, oferta1) < 0);
 	}
 }

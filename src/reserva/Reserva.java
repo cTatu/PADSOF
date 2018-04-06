@@ -5,14 +5,15 @@ import java.time.LocalDate;
 import cliente.Cliente;
 import fechasimulada.FechaSimulada;
 import oferta.Oferta;
+import tipos.TipoOferta;
 
 /**
  * Clase que sirve para manejar las reservas
  * @author David Pascual y Cristian Tatu
  */
 
-public abstract class Reserva {
-	private LocalDate fechaReserva;
+public abstract class Reserva implements Comparable<Reserva>{
+	protected LocalDate fechaReserva;
 	private Oferta ofertaReservada;
 	/**
 	 * Constructor
@@ -30,19 +31,14 @@ public abstract class Reserva {
 	 * @return boolean
 	 */
 	public boolean expirada() {
-		if (FechaSimulada.getHoy().isAfter(fechaReserva.plusDays(5)))
-			return true;
-		
-		return false;
+		return FechaSimulada.getHoy().isAfter(fechaReserva.plusDays(5));
 	}	
 	
 	@Override
 	public boolean equals(Object o) {
 		Reserva r = (Reserva) o;
-		//if(!(o instanceof Reserva)) return false;
-		if (this.ofertaReservada.equals(r.ofertaReservada))
-			return true;
-		return false;
+		
+		return r.ofertaReservada == this.ofertaReservada;
 	}
 	
 	/**
@@ -65,5 +61,11 @@ public abstract class Reserva {
 	public Oferta getOferta() {
 		return ofertaReservada;
 	}
-	
+
+	public TipoOferta getTipo() {
+		if (this instanceof ReservaVacacional)
+			return TipoOferta.VACACIONAL;
+		else 
+			return TipoOferta.VIVIENDA;
+	}
 }

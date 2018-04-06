@@ -16,7 +16,7 @@ public abstract class Busqueda implements Serializable{
 	 */
 	private static final long serialVersionUID = -5718937815988103385L;
 	protected Integer codigoPostal;
-	protected double valoracion;
+	protected Double valoracion;
 	protected LocalDate fechaInicio1, fechaInicio2;
 	protected TipoDisponibilidad tipoDisponibilidad;
 	
@@ -28,7 +28,7 @@ public abstract class Busqueda implements Serializable{
 	 * @param tipoOferta 
 	 * @param tipoDisponibilidad 
 	 */
-	public Busqueda(Integer codigoPostal, double valoracion, LocalDate fechaInicio1, 
+	public Busqueda(Integer codigoPostal, Double valoracion, LocalDate fechaInicio1, 
 			LocalDate fechaInicio2,TipoDisponibilidad tipoDisponibilidad) {
 		this.codigoPostal = codigoPostal;
 		this.valoracion = valoracion;
@@ -47,7 +47,7 @@ public abstract class Busqueda implements Serializable{
 	/**
 	 * @return Valoracion
 	 */
-	public double getValoracion() {
+	public Double getValoracion() {
 		return this.valoracion;
 	}
 	
