@@ -87,7 +87,7 @@ public class InmaculadApp implements Serializable{
 	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<Cliente>();
 		inmuebles = new ArrayList<Inmueble>();
-		ofertasContratadas = new ArrayList<Oferta>();
+		setOfertasContratadas(new ArrayList<Oferta>());
 		this.contraseñaGerente = constraseñaGerente;
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
 	}
@@ -115,19 +115,25 @@ public class InmaculadApp implements Serializable{
 		for (Cliente cliente : clientes) {
 			if (!cliente.rolOfertante.getSaldoPendiente().equals(0.0) && !cliente.isBloqueado()) {
 				Double cantidad = cliente.rolOfertante.getSaldoPendiente();
-				for (int i = 0; i < 5; i++) {
-					try {
-						TeleChargeAndPaySystem.charge(cliente.getTarjetaCredito(), "Pago: " + cantidad, cantidad);
-						return true;
-					}catch (FailedInternetConnectionException e) {
-						if (i == 4)
-							e.printStackTrace();
-						continue;
-					} catch (OrderRejectedException e) {
-						clienteConectado.setBloqueado(true);
-						return false;
-					}
-				}
+				return transaccionACliente(cantidad, cliente);
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean transaccionACliente(Double cantidad,Cliente cliente) {
+		for (int i = 0; i < 5; i++) {
+			try {
+				TeleChargeAndPaySystem.charge(cliente.getTarjetaCredito(), "Pago: " + cantidad, cantidad);
+				return true;
+			}catch (FailedInternetConnectionException e) {
+				if (i == 4)
+					e.printStackTrace();
+				continue;
+			} catch (OrderRejectedException e) {
+				clienteConectado.setBloqueado(true);
+				return false;
 			}
 		}
 		
@@ -140,6 +146,7 @@ public class InmaculadApp implements Serializable{
 			return false;
 		
 		cliente.cambiarTarjeta(tarjetaNueva);
+		efectuarPagosPendientes();
 		return true;
 	}
 	
@@ -282,44 +289,10 @@ public class InmaculadApp implements Serializable{
 			return false;
 		}				
 		
-		for (int i = 0; i < 5; i++) {
-			try {
-				TeleChargeAndPaySystem.charge(clienteConectado.getTarjetaCredito(), "Cobro", -oferta.calcularComision(), true);
-				break;
-			}catch (FailedInternetConnectionException e) {
-				if (i == 4) {
-					e.printStackTrace();
-				return false;
-				}
-				continue;
-			} catch (OrderRejectedException e) {
-				clienteConectado.setBloqueado(true);
-				return false;
-			}
-		}
+		if (!transaccionACliente(-oferta.calcularComision(), clienteConectado))
+			return false;
 		
-		for (int i = 0; i < 5; i++) {
-			try {
-				TeleChargeAndPaySystem.charge(oferta.getOfertante().getTarjetaCredito(), "Pago", oferta.getPrecio(), true);
-				if (oferta.contratar(clienteConectado)) {
-					ofertasContratadas.add(oferta);
-					return true;
-				}					
-				return false;
-			}catch (FailedInternetConnectionException e) {
-				if (i == 4) {
-					e.printStackTrace();
-					return false;
-				}
-				continue;
-			} catch (OrderRejectedException e) {
-				oferta.getOfertante().setBloqueado(true);
-				oferta.getOfertante().rolOfertante.setSaldoPendiente(oferta.getPrecio());
-				return false;
-			}
-	 	}
-		
-		return false;
+		return transaccionACliente(oferta.getPrecio(), oferta.getOfertante());
 	}
 	
 	public boolean contratarReserva(TipoOferta tipo) {
@@ -421,7 +394,7 @@ public class InmaculadApp implements Serializable{
 	/**
 	 * 
 	 *
-	 * @param GuardarNoGuardar 
+	 * @param GuardarNoGuardar Si es true la aplicacion se guarda en el disco, si es false no.
 	 * @return 
 	 */
 	public boolean cerrarSesion(boolean GuardarNoGuardar) {
@@ -578,6 +551,14 @@ public class InmaculadApp implements Serializable{
 	
 	public Cliente clienteConectado() {
 		return clienteConectado;
+	}
+
+	public List<Oferta> getOfertasContratadas() {
+		return ofertasContratadas;
+	}
+
+	public void setOfertasContratadas(List<Oferta> ofertasContratadas) {
+		this.ofertasContratadas = ofertasContratadas;
 	}
 }
 

@@ -12,7 +12,7 @@ import oferta.Oferta;
  */
 
 public abstract class Reserva implements Comparable<Reserva>{
-	private LocalDate fechaInicio, fechaReserva;
+	private LocalDate fechaReserva;
 	private Oferta ofertaReservada;
 	/**
 	 * Constructor
@@ -20,7 +20,6 @@ public abstract class Reserva implements Comparable<Reserva>{
 	 * @param fechaInicio 
 	 */
 	public Reserva(Oferta ofertaReservada) {
-		this.fechaInicio = ofertaReservada.getFechaInicio();
 		this.fechaReserva = FechaSimulada.getHoy(); 
 		this.ofertaReservada = ofertaReservada;
 	}
@@ -37,12 +36,20 @@ public abstract class Reserva implements Comparable<Reserva>{
 		return false;
 	}	
 	
-	public int compareTo(Reserva reserva) {
+	@Override
+	public boolean equals(Reserva reserva) {
 		if (reserva.ofertaReservada.equals(this.ofertaReservada))
-			return 0;
-		return this.fechaInicio.compareTo(reserva.fechaInicio);
+			return true;
+		return false;
 	}
 	
+	/**
+	 * @param fechaReserva the fechaReserva to set
+	 */
+	public void setFechaReserva(LocalDate fechaReserva) {
+		this.fechaReserva = fechaReserva;
+	}
+
 	/**
 	 * @return boolean
 	 */

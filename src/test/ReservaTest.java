@@ -3,6 +3,7 @@
  */
 package test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -28,7 +29,7 @@ public class ReservaTest {
 	Oferta o1, o2;
 	Cliente c1, c2;
 	Demandante d1;
-	Ofertante ofertante1;
+	Ofertante ofertante;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -43,9 +44,9 @@ public class ReservaTest {
 	 */
 	@Test
 	public void testExpirada() {
-		ofertante1 = new Ofertante();
+		ofertante = new Ofertante();
 		c1 = new Cliente("Pepe", "12233444A", "ap1 ap2", 
-				"clave", "0000111122223333", ofertante1, null);
+				"clave", "0000111122223333", ofertante, null);
 		FechaSimulada.fijarFecha(1, 06, 2015);
 		o1 = new OfertaVacacional(800.0, FechaSimulada.getHoy(), "descripcion", FechaSimulada.getHoy().plusDays(15), c1);
 		
@@ -65,7 +66,31 @@ public class ReservaTest {
 	 */
 	@Test
 	public void testCompareTo() {
-		fail("Not yet implemented"); // TODO
+		ofertante = new Ofertante();		
+		c1 = new Cliente("Pepe", "12233444A", "ap1 ap2", 
+				"clave", "0000111122223333", ofertante, null);
+		
+		FechaSimulada.fijarFecha(1, 06, 2015);
+		o1 = new OfertaVacacional(800.0, FechaSimulada.getHoy(), "descripcion", FechaSimulada.getHoy().plusDays(15), c1);
+		FechaSimulada.fijarFecha(1, 03, 2015);
+		r1 = new ReservaVacacional(o1);
+		
+		FechaSimulada.fijarFecha(1, 07, 2015);
+		o2 = new OfertaVacacional(800.0, FechaSimulada.getHoy(), "descripcion", FechaSimulada.getHoy().plusDays(10), c2);
+		FechaSimulada.fijarFecha(1, 03, 2015); // Ambas reservas en la misma fecha
+		r2 = new ReservaVacacional(o2);
+		
+		assertTrue(r1.equals(r2));
+		
+		FechaSimulada.fijarFecha(1, 04, 2015); // Reserva r2 despues que la r1
+		((Reserva) r2).setFechaReserva(FechaSimulada.getHoy());
+		
+		assertTrue(r1.compareTo(r2) < 0);
+		
+		FechaSimulada.fijarFecha(1, 01, 2015); // Reserva r2 antes que la r1
+		((Reserva) r2).setFechaReserva(FechaSimulada.getHoy());
+		
+		assertTrue(r1.compareTo(r2) > 0);
 	}
 
 	/**
