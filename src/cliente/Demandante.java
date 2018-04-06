@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import oferta.Oferta;
-import oferta.OfertaVivienda;
 import reserva.Reserva;
 import reserva.ReservaVacacional;
 import reserva.ReservaVivienda;
@@ -16,6 +15,10 @@ import tipos.TipoOferta;
  */
 public class Demandante implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -197674966444958454L;
 	private List<Oferta> ofertasContratadas;
 	private ReservaVacacional rVacacional;
 	private ReservaVivienda rVivienda;

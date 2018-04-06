@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import oferta.Oferta;
 import tipos.TipoDisponibilidad;
-import tipos.TipoOferta;
 
 /**
  * Implementacion (abstracta) de la clase busqueda
@@ -12,6 +11,10 @@ import tipos.TipoOferta;
  */
 public abstract class Busqueda implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5718937815988103385L;
 	protected Integer codigoPostal;
 	protected double valoracion;
 	protected LocalDate fechaInicio1, fechaInicio2;

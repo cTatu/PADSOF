@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import busqueda.Busqueda;
-import busqueda.BusquedaVacacional;
-import busqueda.BusquedaVivienda;
 import cliente.Cliente;
 import cliente.Demandante;
 import cliente.Ofertante;

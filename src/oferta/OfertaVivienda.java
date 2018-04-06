@@ -3,9 +3,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import cliente.Cliente;
-import fechasimulada.FechaSimulada;
 import reserva.Reserva;
-import reserva.ReservaVivienda;
 import tipos.TipoOferta;
 
 /**
@@ -13,6 +11,10 @@ import tipos.TipoOferta;
  */
 public class OfertaVivienda extends Oferta implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3472125510702214429L;
 	private Integer duracionMeses;
 	private static final Double COMISION = 1.001; // Porcentaje
 	private Double fianza;
@@ -29,7 +31,7 @@ public class OfertaVivienda extends Oferta implements Serializable{
 	public OfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Cliente ofertante, Double fianza) {
 		super(precio,fechaInicio,descripcion, ofertante);
 		this.duracionMeses = duracionMeses;
-		this.fianza = fianza;
+		this.setFianza(fianza);
 	}
 	
 	/**
@@ -86,5 +88,13 @@ public class OfertaVivienda extends Oferta implements Serializable{
 		}
 
 		return false;
+	}
+
+	public Double getFianza() {
+		return fianza;
+	}
+
+	public void setFianza(Double fianza) {
+		this.fianza = fianza;
 	}
 }

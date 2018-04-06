@@ -14,7 +14,7 @@ public abstract class Opinion {
 	 * @param demandante 
 	 */
 	public Opinion(Demandante demandante) {
-		this.demandante = demandante;
+		this.setDemandante(demandante);
 	}
 	
 	/**
@@ -24,4 +24,12 @@ public abstract class Opinion {
 	 * @return 
 	 */
 	public abstract boolean opinar(Opinion o);
+
+	public Demandante getDemandante() {
+		return demandante;
+	}
+
+	public void setDemandante(Demandante demandante) {
+		this.demandante = demandante;
+	}
 }

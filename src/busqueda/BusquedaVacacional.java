@@ -1,13 +1,10 @@
 package busqueda;
 import java.io.Serializable;
-import java.sql.Date;
-import java.time.Duration;
 import java.time.LocalDate;
 
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 import tipos.TipoDisponibilidad;
-import tipos.TipoOferta;
 
 /**
  * Implentacion de BusquedaVacacional que hereda de busqueda y usa el campo fechaFin
@@ -15,6 +12,10 @@ import tipos.TipoOferta;
  */
 public class BusquedaVacacional extends Busqueda implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1284017795159016673L;
 	private LocalDate fechaFin;
 
 	/**

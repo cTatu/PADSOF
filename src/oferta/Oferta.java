@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import cliente.Cliente;
-import javafx.print.Collation;
 import opinion.Comentario;
 import opinion.Opinion;
 import opinion.Valoracion;
 import reserva.Reserva;
-import sun.text.resources.ext.CollationData_sk;
 
 /**
  * Implementacion de oferta (abstracta) y métodos para manejarlas
@@ -20,6 +18,10 @@ import sun.text.resources.ext.CollationData_sk;
  */
 public abstract class Oferta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 805522050049933034L;
 	protected Double precio;
 	private LocalDate fechaInicio;
 	private Boolean moderada = false; /* Sirve para diferenciar una oferta rechazada y una no moderada */

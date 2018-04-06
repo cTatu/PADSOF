@@ -1,7 +1,6 @@
 package cliente;
 
 import java.io.Serializable;
-import tipos.TipoOferta;
 
 /**
  * Implementacion de Cliente que contiene informacion sobre estos
@@ -9,6 +8,10 @@ import tipos.TipoOferta;
  */
 public class Cliente implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2221416256357316348L;
 	private String tarjetaCredito, nombres, apellidos, contraseña, NIF;
 	public Ofertante rolOfertante;
 	public Demandante rolDemandante;
@@ -29,9 +32,9 @@ public class Cliente implements Serializable{
 				String contraseña,String tarjetaCredito,Ofertante rolOfertante, Demandante rolDemandante) {		
 		this.rolOfertante = rolOfertante;
 		this.rolDemandante = rolDemandante; 
-		this.nombres = nombres;
+		this.setNombres(nombres);
 		this.NIF = NIF;
-		this.apellidos = apellidos;
+		this.setApellidos(apellidos);
 		this.contraseña = contraseña;
 		this.tarjetaCredito = tarjetaCredito;
 		this.bloqueado = false;
@@ -111,5 +114,21 @@ public class Cliente implements Serializable{
 				 "NIF: " + NIF + "\n" +
 				 "Contraseña: " + contraseña				
 				);
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 }

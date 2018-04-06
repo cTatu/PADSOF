@@ -12,6 +12,10 @@ import oferta.Oferta;
  */
 public class Ofertante implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6258867457223383549L;
 	private List<Oferta> ofertas;
 	private Double saldoPendiente = 0.0;
 	

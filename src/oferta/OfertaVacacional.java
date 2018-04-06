@@ -1,12 +1,10 @@
 package oferta;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 
 import cliente.Cliente;
 import fechasimulada.FechaSimulada;
 import reserva.Reserva;
-import reserva.ReservaVacacional;
 import tipos.TipoOferta;
 
 /**
@@ -14,6 +12,10 @@ import tipos.TipoOferta;
  */
 public class OfertaVacacional extends Oferta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9106231765182642664L;
 	private LocalDate fechaFin;
 	private static final Double COMISION = 1.02;  // Porcentaje
 	

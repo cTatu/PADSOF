@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.javafx.collections.UnmodifiableListSet;
-
 import cliente.Cliente;
 import oferta.Oferta;
 
@@ -17,6 +15,10 @@ import oferta.Oferta;
  */
 public class Inmueble implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4351471372769065186L;
 	private Integer codigoPostal;
 	private static Integer LastId = 1;
 	private final Integer ID;
@@ -35,8 +37,8 @@ public class Inmueble implements Serializable {
 		this.ID = LastId;
 		LastId ++;
 		this.codigoPostal = codigoPostal;
-		this.localizacion = localizacion;
-		this.caracteristicas = caracteristicas;
+		this.setLocalizacion(localizacion);
+		this.setCaracteristicas(caracteristicas);
 		this.ofertas = new ArrayList<Oferta>();
 	}
 	
@@ -146,5 +148,21 @@ public class Inmueble implements Serializable {
 	 */
 	public Integer getCodigoPostal() {
 		return codigoPostal;
+	}
+
+	public Map<String,String> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(Map<String,String> caracteristicas) {
+		this.caracteristicas = caracteristicas;
+	}
+
+	public String getLocalizacion() {
+		return localizacion;
+	}
+
+	public void setLocalizacion(String localizacion) {
+		this.localizacion = localizacion;
 	}
 }

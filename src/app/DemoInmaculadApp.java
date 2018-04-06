@@ -3,13 +3,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
-
-import org.junit.runners.MethodSorters;
-
 import busqueda.*;
 import fechasimulada.FechaSimulada;
-import jdk.vm.ci.meta.Local;
 import oferta.Oferta;
 import opinion.Comentario;
 import opinion.Valoracion;

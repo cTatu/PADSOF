@@ -4,9 +4,7 @@ import java.time.LocalDate;
 
 import oferta.Oferta;
 import oferta.OfertaVivienda;
-import sun.swing.text.CountingPrintable;
 import tipos.TipoDisponibilidad;
-import tipos.TipoOferta;
 
 /**
  * Implentacion de BusquedaVivienda que hereda de busqueda y usa el campo duracionMeses
@@ -14,6 +12,10 @@ import tipos.TipoOferta;
  */
 public class BusquedaVivienda extends Busqueda implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 28767109159527037L;
 	private Integer duracionMeses;
 	
 	/**
