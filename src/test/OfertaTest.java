@@ -25,19 +25,13 @@ import opinion.Comentario;
 import opinion.Opinion;
 import opinion.Valoracion;
 
-// TODO: Auto-generated Javadoc
 /**
  * Test para Oferta.
  */
 public class OfertaTest {
 	
-	/** The ofertante. */
 	Ofertante ofertante;
-	
-	/** The c. */
 	Cliente c;
-	
-	/** The oferta. */
 	Oferta oferta;
 	
 	/**

@@ -6,25 +6,21 @@ import java.io.Serializable;
 
 import cliente.Demandante;
 
-// TODO: Auto-generated Javadoc
 /**
- * Implementacion de la clase valoracion.
- *
- * @author David Pascual y Cristian Tatu
+ * Implementacion de la clase valoracion que hereda de la clase abstracta Opinion.
  */
 public class Valoracion extends Opinion implements Serializable{
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -1213187773390893092L;
-	
-	/** The Numero. */
+
 	private Double Numero;
 	
 	/**
 	 * Constructor.
 	 *
-	 * @param demandante the demandante
-	 * @param numero the numero
+	 * @param demandante 
+	 * @param numero 
 	 */
 	public Valoracion(Demandante demandante, Double numero) {
 		super(demandante);
@@ -35,10 +31,8 @@ public class Valoracion extends Opinion implements Serializable{
 	}
 
 	/**
-	 * Opinar.
-	 *
-	 * @param o the o
-	 * @return true, if successful
+	 * @param opinion
+	 * @return false ya que no se pueden opinar las valoraciones
 	 * @see Opinion#opinar(Opinion)
 	 */
 	@Override

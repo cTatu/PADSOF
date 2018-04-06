@@ -20,11 +20,8 @@ import fechasimulada.FechaSimulada;
 import tipos.TipoDisponibilidad;
 import tipos.TipoOrdenar;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class InmaculadAppTest.
- *
- * @author Cristian Tatu
+ * Test para la app InmaculadApp.
  */
 public class InmaculadAppTest {
 	

@@ -12,19 +12,16 @@ import opinion.Comentario;
 import opinion.Opinion;
 import opinion.Valoracion;
 
-// TODO: Auto-generated Javadoc
 /**
  * Test JUnit para valoracion.
  */
 public class ValoracionTest {
 	
-	/** The d 1. */
 	Demandante d1 = new Demandante();
-	
-	/** The v. */
 	Valoracion v = new Valoracion(d1,4.0);
 
 	/**
+	 * Test para comprobar que se valora corretamente
 	 * Test method for {@link opinion.Valoracion#opinar(opinion.Opinion)}.
 	 */
 	@Test
@@ -38,6 +35,7 @@ public class ValoracionTest {
 	}
 
 	/**
+	 * Test getter
 	 * Test method for {@link opinion.Valoracion#getNumero()}.
 	 */
 	@Test

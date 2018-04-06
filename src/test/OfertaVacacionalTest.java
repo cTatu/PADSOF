@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 
@@ -22,18 +21,14 @@ import oferta.OfertaVacacional;
 import reserva.Reserva;
 import reserva.ReservaVacacional;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class OfertaVacacionalTest.
  *
  * @author David
  */
 public class OfertaVacacionalTest {
-	
-	/** The c 2. */
+
 	Cliente c1, c2;
-	
-	/** The ov. */
 	OfertaVacacional ov;
 	
 	/**
@@ -51,6 +46,7 @@ public class OfertaVacacionalTest {
 	}
 
 	/**
+	 * Comprueba que se calcule bien la comision
 	 * Test method for {@link oferta.OfertaVacacional#calcularComision()}.
 	 */
 	@Test
@@ -59,6 +55,7 @@ public class OfertaVacacionalTest {
 	}
 
 	/**
+	 * Test para asegurar que expirar funciona bien
 	 * Test method for {@link oferta.OfertaVacacional#expirar()}.
 	 */
 	@Test
@@ -77,6 +74,7 @@ public class OfertaVacacionalTest {
 	}
 
 	/**
+	 * Test que comprueba que se reserve bien y que no se pueda reservar 2 veces
 	 * Test method for {@link oferta.OfertaVacacional#reservar(reserva.Reserva, cliente.Cliente)}.
 	 */
 	@Test
@@ -93,6 +91,7 @@ public class OfertaVacacionalTest {
 	}
 
 	/**
+	 * Test para asegurar el funcionamiento de cancelarReserva y que no se pueda cancelar una oferta no reservada
 	 * Test method for {@link oferta.OfertaVacacional#cancelarReserva()}.
 	 */
 	@Test

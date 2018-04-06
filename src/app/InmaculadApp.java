@@ -37,39 +37,39 @@ import reserva.ReservaVivienda;
 import tipos.TipoOferta;
 import tipos.TipoOrdenar;
 
-// TODO: Auto-generated Javadoc
 /**
  * Implementacion de la clase de la App.
  */
 public class InmaculadApp implements Serializable{
 	
-	/** The Constant serialVersionUID. */
+	/** Constante de serializacion serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/** The clientes. */
+	/** Lista clientes. */
 	private List<Cliente> clientes; 
 	
-	/** The inmuebles. */
+	/** Lista inmuebles. */
 	private List<Inmueble> inmuebles;
 	
-	/** The ofertas contratadas. */
+	/** Lista ofertas contratadas. */
 	private List<Oferta> ofertasContratadas;
 	
-	/** The contraseña gerente. */
+	/** Contraseña gerente. */
 	private String contraseñaGerente;
 	
-	/** The cliente conectado. */
+	/** Cliente conectado. */
 	private Cliente clienteConectado;	
 	
-	/** The i app. */
+	/** Singleton */
 	private static InmaculadApp iApp = null;
 	
 	/**
-	 * Gets the instancia.
+	 * Devuelve la unico instancia que se puede crear en la aplicacion
+	 * implementando el patron singleton
 	 *
-	 * @param filename the filename
-	 * @param constraseñaGerente the constraseña gerente
-	 * @return the instancia
+	 * @param filename Fichero de con los clientes
+	 * @param constraseñaGerente La constraseña gerente
+	 * @return unica instancia singleton
 	 */
 	public static InmaculadApp getInstancia(String filename, String constraseñaGerente) {
 		if (iApp == null) {
@@ -86,19 +86,19 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Gets the instancia.
+	 * Devuelve la instancia sin crear
 	 *
-	 * @return the instancia
+	 * @return instancia
 	 */
 	public static InmaculadApp getInstancia() {
 		return iApp;
 	}
 	
 	/**
-	 * Instantiates a new inmaculad app.
+	 * Constructor de la aplicacion que inicializa los atributos
 	 *
-	 * @param filename the filename
-	 * @param constraseñaGerente the constraseña gerente
+	 * @param filename Fichero de con los clientes
+	 * @param constraseñaGerente La constraseña gerente
 	 */
 	private InmaculadApp(String filename, String constraseñaGerente) {
 		clientes = new ArrayList<Cliente>();
@@ -109,12 +109,13 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Crear inmueble.
+	 * Crear un nuevo inmueble a partir de los parametros
+	 * y lo añade a la lista de los inmuebles de la App y a la del ofertante
 	 *
-	 * @param CP the cp
-	 * @param localizacion the localizacion
-	 * @param caracteristicas the caracteristicas
-	 * @return true, if successful
+	 * @param CP codigo postal
+	 * @param localizacion localizacion del inmueble
+	 * @param caracteristicas mapa de caracteristicas del inmueble
+	 * @return true si se ha añadido correctamente
 	 */
 	public boolean crearInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
 		
@@ -127,9 +128,10 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Efectuar pagos pendientes.
+	 * Se comprueban todos los clientes en busca de alguno que tenga un pago pendiente
+	 * y se le intenta pagar la cantidad deudada
 	 *
-	 * @return true, if successful
+	 * @return true si la transaccion ha tenido exito
 	 */
 	public boolean efectuarPagosPendientes() {
 		for (Cliente cliente : clientes) {
@@ -143,11 +145,13 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Transaccion A cliente.
+	 * Realiza la operacion con el sistema de pagos TeleChargePay y controlando las
+	 * señales de error. Si no hay conexion a internet lo intantara 5 veces antes de 
+	 * saltar la excepcion
 	 *
-	 * @param cantidad the cantidad
-	 * @param cliente the cliente
-	 * @return true, if successful
+	 * @param cantidad cantidad que se va a pagar o cobrar
+	 * @param cliente a que cliente
+	 * @return true si ha tenido exito el pago
 	 */
 	public boolean transaccionACliente(Double cantidad,Cliente cliente) {
 		for (int i = 0; i < 5; i++) {
@@ -168,11 +172,11 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Modificar tarjeta credito.
+	 * Modificar tarjeta credito. Solo el gerente puede hacerlo
 	 *
-	 * @param cliente the cliente
-	 * @param tarjetaNueva the tarjeta nueva
-	 * @return true, if successful
+	 * @param cliente el cliente al que se le va a modificar la tarjeta
+	 * @param tarjetaNueva el nuevo numero de tarjeta
+	 * @return true si es el gerente
 	 */
 	public boolean modificarTarjetaCredito(Cliente cliente,String tarjetaNueva) {
 		if (!clienteConectado.gerente)
@@ -184,15 +188,16 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Añadir oferta vivienda.
+	 * Crea una oferta de tipo vivienda y la añade a la lista de las ofertas
+	 * del inmueble especificado a traves del ID.
 	 *
-	 * @param precio the precio
-	 * @param fechaInicio the fecha inicio
-	 * @param descripcion the descripcion
-	 * @param duracionMeses the duracion meses
-	 * @param ID the id
-	 * @param fianza the fianza
-	 * @return true, if successful
+	 * @param precio el precio de la oferta
+	 * @param fechaInicio la fecha inicio
+	 * @param descripcion una descripcion
+	 * @param duracionMeses la duracion en meses
+	 * @param ID el ID del inmueble
+	 * @param fianza la fianza
+	 * @return true si se ha encontrado el inmueble y ademas si se ha añadido bien a las listas
 	 */
 	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Integer ID, Double fianza) {
 		if (clienteConectado.rolOfertante == null)
@@ -210,14 +215,15 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Añadir oferta vacacional.
+	 * Crea una oferta de tipo vacacional y la añade a la lista de las ofertas
+	 * del inmueble especificado a traves del ID.
 	 *
-	 * @param precio the precio
-	 * @param fechaInicio the fecha inicio
-	 * @param descripcion the descripcion
-	 * @param fechaFin the fecha fin
-	 * @param ID the id
-	 * @return true, if successful
+	 * @param precio el precio
+	 * @param fechaInicio la fecha de inicio
+	 * @param descripcion una descripcion
+	 * @param fechaFin la fecha de fin
+	 * @param ID el ID del inmueble
+	 * @return true si se ha encontrado el inmueble y ademas si se ha añadido bien a las listas
 	 */
 	public boolean añadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Integer ID) {
 		if (clienteConectado.rolOfertante == null)
@@ -235,9 +241,10 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Eliminar ofertas expiradas.
+	 * Recorre la lista de todos los inmuebles y elimina las ofertas que hayan
+	 * caducado dentro de cada uno.
 	 *
-	 * @return the integer
+	 * @return el numero total de ofertas que se han tenido que borrar
 	 */
 	public Integer eliminarOfertasExpiradas() {
 		Integer ofExp = 0;
@@ -251,10 +258,11 @@ public class InmaculadApp implements Serializable{
 
 	
 	/**
-	 * Aprobar oferta.
+	 * La aprobacion de la oferta se hace por parte del gerente.
+	 * El metodo busca la oferta especifica en todos los inmuebles.
 	 *
-	 * @param oferta the oferta
-	 * @return true, if successful
+	 * @param oferta la oferta a aprobar
+	 * @return si se ha encontrado la oferta y se ha podido aprobar
 	 */
 	public boolean aprobarOferta(Oferta oferta) {
 		if (!clienteConectado.gerente)
@@ -269,11 +277,12 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Adds the rectificacion.
+	 * Añade un mapa de dos String a una oferta representando las rectificaciones
+	 * que el gerente ha recomendado hacer.
 	 *
-	 * @param oferta the oferta
-	 * @param rectif the rectif
-	 * @return true, if successful
+	 * @param oferta la oferta a la que se quiere añadir rectificacion
+	 * @param rectif el mapa conteniendo las rectificaciones
+	 * @return true si es el gerente el que realiza la accion y si ha añadido exitosamente el mapa
 	 */
 	public boolean addRectificacion(Oferta oferta, Map<String, String> rectif) {
 		if (!clienteConectado.gerente)
@@ -289,10 +298,11 @@ public class InmaculadApp implements Serializable{
 	
 	
 	/**
-	 * Rechazar oferta.
+	 * Rechazar la oferta se hace por el gerente y borra totalmente la oferta
+	 * del sistema.
 	 *
-	 * @param oferta the oferta
-	 * @return true, if successful
+	 * @param oferta la oferta que se quiere borrar
+	 * @return true si se ha encontrado la oferta y si se ha borrado exitosamente
 	 */
 	public boolean rechazarOferta(Oferta oferta) {
 		if (!clienteConectado.gerente)
@@ -308,10 +318,13 @@ public class InmaculadApp implements Serializable{
 	
 	
 	/**
-	 * Contratar oferta.
+	 * Metodo principal para contratar una oferta, compruba que
+	 * los dos clientes no tengan una tarjeta de credito invalida y 
+	 * si superan la comprobacion se procede al cobro y pago del demandante y 
+	 * ofertante respectivamente.
 	 *
-	 * @param oferta the oferta
-	 * @return true, if successful
+	 * @param oferta la oferta que se quiere contratar
+	 * @return true si el usuario conectado tiene rol de demandante y ademas que las operaciones hayan tenido exito
 	 */
 	public boolean contratarOferta(Oferta oferta) {
 		if (clienteConectado.isBloqueado() || clienteConectado.rolDemandante == null)
@@ -340,10 +353,11 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Contratar reserva.
+	 * Contrata la oferta que esta vinculada a la reserva. Primero eliminando cualquier
+	 * reserva que haya expirado y despues intentando contratar la oferta.
 	 *
-	 * @param tipo the tipo
-	 * @return true, if successful
+	 * @param tipo el tipo de la reserva que se quiere contratar
+	 * @return true si el usuario tiene una reserva de ese tipo y ademas se haya podido contratar
 	 */
 	public boolean contratarReserva(TipoOferta tipo) {
 		Reserva reserva = clienteConectado.rolDemandante.getReserva(tipo);
@@ -360,10 +374,11 @@ public class InmaculadApp implements Serializable{
 	}
 
 	/**
-	 * Reservar oferta.
+	 * Metodo principal para la reserva de ofertas, se comprueba que tipo es la oferta
+	 * y seguidametne se compruba si el demadnante conectado puede reservarla.
 	 *
-	 * @param oferta the oferta
-	 * @return true, if successful
+	 * @param oferta la oferta que se quiere reservar
+	 * @return true si el usaurio es demandante y ademas que cumpla los requisitos de la reserva
 	 */
 	public boolean reservarOferta(Oferta oferta) {
 		if (oferta.getReservada() || clienteConectado.rolDemandante == null)
@@ -382,11 +397,14 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Buscar ofertas.
+	 * En el objeto de Busqueda se guardan todos los parametros por los que se quiere
+	 * buscar una oferta. Recorriendo todas las ofertas se comprueba a traves del metodo
+	 * propio de Busqueda si la oferta cumple los requisitos añadiendola a la lista.
+	 * Al final se ordena la lista por el orden especificado en TipoOrdenar.
 	 *
-	 * @param criteriosBusqueda the criterios busqueda
-	 * @param metodo the metodo
-	 * @return the list
+	 * @param criteriosBusqueda los criterios busqueda para las ofertas
+	 * @param metodo el metodo que se usara al ordenar
+	 * @return la lista con las ofertas de la busqueda
 	 */
 	public List<Oferta> buscarOfertas(Busqueda criteriosBusqueda,TipoOrdenar metodo){
 		if(clienteConectado.rolDemandante == null)
@@ -422,11 +440,13 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Iniciar sesion.
+	 * Inicia sesion en la aplicacion comprobando primeramente si la contraseña es del
+	 * gerente. Si no, se comprueba en la lista de los clientes con el NIF y la contraseña
+	 * en busca de alguna coincidencia.
 	 *
-	 * @param NIF the nif
-	 * @param contraseña the contraseña
-	 * @return true, if successful
+	 * @param NIF el NIF para iniciar sesion
+	 * @param contraseña la contraseña
+	 * @return true si se ha encontrado el cliente buscado o si es el gerente
 	 */
 	public boolean iniciarSesion(String NIF, String contraseña) {
 		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
@@ -449,10 +469,11 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Cerrar sesion.
+	 * Al cerrar sesion el cliente conectado se limpia y la aplicaicon guarda una copia 
+	 * de seguridad en el disco.
 	 *
 	 * @param GuardarNoGuardar Si es true la aplicacion se guarda en el disco, si es false no.
-	 * @return true, if successful
+	 * @return true o lanza excepcion de IO
 	 */
 	public boolean cerrarSesion(boolean GuardarNoGuardar) {
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);

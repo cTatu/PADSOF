@@ -12,13 +12,13 @@ import org.junit.Test;
 import cliente.Cliente;
 import cliente.Demandante;
 
-// TODO: Auto-generated Javadoc
 /**
  * Test para Cliente.
  */
 public class ClienteTest {
 
 	/**
+	 * Testea el cambio de tarjeta
 	 * Test method for {@link cliente.Cliente#cambiarTartjeta(java.lang.String)}.
 	 */
 	@Test

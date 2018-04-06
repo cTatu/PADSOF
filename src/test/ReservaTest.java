@@ -5,7 +5,6 @@ package test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,25 +18,15 @@ import oferta.OfertaVacacional;
 import reserva.Reserva;
 import reserva.ReservaVacacional;
 
-// TODO: Auto-generated Javadoc
 /**
  * Test para Reserva.
  */
 public class ReservaTest {
 	
-	/** The r 2. */
 	Reserva r1, r2;
-	
-	/** The o 2. */
 	Oferta o1, o2;
-	
-	/** The c 2. */
 	Cliente c1, c2;
-	
-	/** The d 1. */
 	Demandante d1;
-	
-	/** The ofertante. */
 	Ofertante ofertante;
 	
 	/**
@@ -106,6 +95,7 @@ public class ReservaTest {
 	}
 
 	/**
+	 * Con la ayuda de fecha simulada comprobamos que se contrata correctamente
 	 * Test method for {@link reserva.Reserva#contratar(cliente.Cliente)}.
 	 */
 	@Test

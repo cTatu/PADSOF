@@ -7,9 +7,8 @@ import java.io.Serializable;
 
 import oferta.Oferta;
 
-// TODO: Auto-generated Javadoc
 /**
- * Clase heredada para poder instanciar las reservar de tipo vacacional.
+ * Clase heredada para poder instanciar las reservas de tipo vacacional.
  *
  * @author David Pascual y Cristian Tatu
  */
@@ -21,13 +20,14 @@ public class ReservaVacacional extends Reserva implements Serializable{
 	/**
 	 * Constructor.
 	 *
-	 * @param oferta the oferta
+	 * @param oferta
 	 */
 	public ReservaVacacional(Oferta oferta) {
 		super(oferta);
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * comparable override implementado
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override

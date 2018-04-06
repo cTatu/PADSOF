@@ -6,34 +6,30 @@ import java.io.Serializable;
 
 import cliente.Demandante;
 
-// TODO: Auto-generated Javadoc
 /**
  * Clase super (abstract) que implementa la clase opinion.
- *
- * @author David Pascual y Cristian Tatu
  */
 public abstract class Opinion implements Serializable{
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 46290625341616983L;
-	
-	/** The demandante. */
+
 	private Demandante demandante;
 	
 	/**
 	 * Constructor.
 	 *
-	 * @param demandante the demandante
+	 * @param demandante 
 	 */
 	public Opinion(Demandante demandante) {
 		this.setDemandante(demandante);
 	}
 	
 	/**
-	 * Genera una nueva opinión.
+	 * Genera una nueva opinión de una opinion
 	 *
-	 * @param o the o
-	 * @return true, if successful
+	 * @param opinion
+	 * @return true si es un comentario, false si es una valoración ( no se puede)
 	 */
 	public abstract boolean opinar(Opinion o);
 

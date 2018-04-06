@@ -7,11 +7,8 @@ import java.io.Serializable;
 
 import oferta.Oferta;
 
-// TODO: Auto-generated Javadoc
 /**
- * Clase heredada para poder instanciar las reservar de tipo vivienda.
- *
- * @author David Pascual y Cristian Tatu
+ * Clase heredada para poder instanciar las reservas de tipo vivienda.
  */
 public class ReservaVivienda extends Reserva implements Serializable{
 
@@ -21,13 +18,14 @@ public class ReservaVivienda extends Reserva implements Serializable{
 	/**
 	 * Constructor.
 	 *
-	 * @param oferta the oferta
+	 * @param oferta
 	 */
 	public ReservaVivienda(Oferta oferta) {
 		super(oferta);
 	}
 	
-	/* (non-Javadoc)
+	/**
+	 * comparable override implementado
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override

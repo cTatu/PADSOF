@@ -8,28 +8,22 @@ import java.util.List;
 
 import cliente.Demandante;
 
-// TODO: Auto-generated Javadoc
 /**
  * Implementacion de comentario que hereda de Opinion y guarda a su vez las opiniones de los comentarios.
- *
- * @author David Pascual y Cristian Tatu
  */
 public class Comentario extends Opinion implements Serializable{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7106442786135209718L;
-	
-	/** The texto. */
+
 	private String texto;
-	
-	/** The opiniones. */
 	private List<Opinion> opiniones;
 	
 	/**
 	 * Constructor.
 	 *
-	 * @param demandante the demandante
-	 * @param texto the texto
+	 * @param demandante
+	 * @param texto 
 	 */
 	public Comentario(Demandante demandante, String texto) {
 		super(demandante);
@@ -38,10 +32,9 @@ public class Comentario extends Opinion implements Serializable{
 	}
 
 	/**
-	 * Opinar.
-	 *
-	 * @param o the o
-	 * @return true, if successful
+	 * Añade opinion la opinión
+	 * @param opinion a añadir
+	 * @return true
 	 * @see Opinion#opinar(Opinion)
 	 */
 	@Override
@@ -53,7 +46,7 @@ public class Comentario extends Opinion implements Serializable{
 	/**
 	 * Calcula la media de las valoraciones de este comentario. Si no existen valoraciones devuelve un -1.
 	 *
-	 * @return the double
+	 * @return media calculada
 	 */
 	public Double calcularMedia() {
 		Double total=0.0, media=0.0;
@@ -84,7 +77,7 @@ public class Comentario extends Opinion implements Serializable{
 	}
 
 	/**
-	 * Gets the texto.
+	 * Getter del texto del comentario
 	 *
 	 * @return texto
 	 */

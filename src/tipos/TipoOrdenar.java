@@ -3,20 +3,17 @@
  */
 package tipos;
 
-// TODO: Auto-generated Javadoc
 /**
  * Tipos de orden que se pueden usar para mostrar los resultados de las búsquedas.
- *
- * @author David Pascual y Cristian Tatu
  */
 public enum TipoOrdenar {
 	
-	/** The fecha. */
+	/** Fecha. */
 	FECHA, 
- /** The valoracion. */
+ /** Valoracion. */
  VALORACION, 
- /** The precio. */
+ /** Precio. */
  PRECIO, 
- /** The disponibilidad. */
+ /** Disponibilidad. */
  DISPONIBILIDAD;
 }

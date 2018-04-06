@@ -11,29 +11,25 @@ import reserva.Reserva;
 import reserva.ReservaVacacional;
 import tipos.TipoOferta;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class OfertaVacacional.
+ * Clase OfertaVacacional que hereda de la clase abstracta Oferta
  */
 public class OfertaVacacional extends Oferta implements Serializable{
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 9106231765182642664L;
 	
-	/** The fecha fin. */
 	private LocalDate fechaFin;
-	
-	/** The Constant COMISION. */
-	public static final Double COMISION = 1.02;  // Porcentaje
+	public static final Double COMISION = 1.02; 
 	
 	/**
-	 * Instantiates a new oferta vacacional.
+	 * Constructor
 	 *
-	 * @param precio the precio
-	 * @param fechaInicio the fecha inicio
-	 * @param descripcion the descripcion
-	 * @param fechaFin the fecha fin
-	 * @param ofertante the ofertante
+	 * @param precio 
+	 * @param fechaInicio 
+	 * @param descripcion 
+	 * @param fechaFin
+	 * @param ofertante 
 	 */
 	public OfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Cliente ofertante) {
 		super(precio,fechaInicio,descripcion, ofertante);
@@ -49,7 +45,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 		return this.fechaFin;
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#calcularComision()
 	 */
 	@Override
@@ -57,7 +53,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 		return precio*COMISION;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#expirar()
 	 */
 	@Override
@@ -65,7 +61,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 		return FechaSimulada.getHoy().isAfter(fechaFin);
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#reservar(Cliente)
 	 */
 	@Override
@@ -80,7 +76,7 @@ public class OfertaVacacional extends Oferta implements Serializable{
 		return false;
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#cancelarReserva()
 	 */
 	@Override

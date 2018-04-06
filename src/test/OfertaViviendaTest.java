@@ -20,18 +20,12 @@ import oferta.OfertaVivienda;
 import reserva.Reserva;
 import reserva.ReservaVivienda;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class OfertaViviendaTest.
- *
- * @author David
+ * Test para OfertaVivienda.
  */
 public class OfertaViviendaTest {
 	
-	/** The c 2. */
 	Cliente c1, c2;
-	
-	/** The ov. */
 	OfertaVivienda ov;
 
 	/**
@@ -49,6 +43,7 @@ public class OfertaViviendaTest {
 	}
 
 	/**
+	 * Comprueba que se calcule bien la comision
 	 * Test method for {@link oferta.OfertaVivienda#calcularComision()}.
 	 */
 	@Test
@@ -57,6 +52,7 @@ public class OfertaViviendaTest {
 	}
 
 	/**
+	 * Test que comprueba que se reserve bien y que no se pueda reservar 2 veces
 	 * Test method for {@link oferta.OfertaVivienda#reservar(reserva.Reserva, cliente.Cliente)}.
 	 */
 	@Test
@@ -73,6 +69,7 @@ public class OfertaViviendaTest {
 	}
 
 	/**
+	 * Test para asegurar el funcionamiento de cancelarReserva y que no se pueda cancelar una oferta no reservada
 	 * Test method for {@link oferta.OfertaVivienda#cancelarReserva()}.
 	 */
 	@Test

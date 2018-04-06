@@ -14,16 +14,12 @@ import fechasimulada.FechaSimulada;
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class CompararDisponibilidadTest.
+ * Test deCompararDisponibilidad.
  */
 public class CompararDisponibilidadTest {
 	
-	/** The oferta 2. */
 	private Oferta oferta1, oferta2;
-	
-	/** The comp. */
 	private CompararDisponibilidad comp;
 	
 	/**

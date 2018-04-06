@@ -23,13 +23,11 @@ import reserva.ReservaVacacional;
 import reserva.ReservaVivienda;
 import tipos.TipoOferta;
 
-// TODO: Auto-generated Javadoc
 /**
  * Test para Demandante.
  */
 public class DemandanteTest {
 	
-	/** The demandante. */
 	Demandante demandante;
 	
 	/**

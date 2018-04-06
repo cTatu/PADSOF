@@ -18,20 +18,14 @@ import oferta.Oferta;
 import oferta.OfertaVacacional;
 import oferta.OfertaVivienda;
 
-// TODO: Auto-generated Javadoc
 /**
  * Test para Ofertante.
  */
 public class OfertanteTest {
 	
-	/** The ofertante. */
 	Ofertante ofertante = new Ofertante();
-	
-	/** The cliente. */
 	Cliente cliente = new Cliente("Pepe", "12233444A", "ap1 ap2", 
 				"clave", "0000111122223333", ofertante, null);
-	
-	/** The o 3. */
 	Oferta o1, o2, o3;
 	
 	/**

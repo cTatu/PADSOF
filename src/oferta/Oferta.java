@@ -15,90 +15,65 @@ import opinion.Opinion;
 import opinion.Valoracion;
 import reserva.Reserva;
 
-// TODO: Auto-generated Javadoc
 /**
  * Implementacion de oferta (abstracta) y métodos para manejarlas.
- *
- * @author David Pascual y Cristian Tatu
  */
 public abstract class Oferta implements Serializable{
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 805522050049933034L;
 	
-	/** The precio. */
 	protected Double precio;
-	
-	/** The fecha inicio. */
+
 	private LocalDate fechaInicio;
-	
-	/** The moderada. */
 	private Boolean moderada = false; /* Sirve para diferenciar una oferta rechazada y una no moderada */
-	
-	/** The aprobada. */
 	private Boolean aprobada = false;
-	
-	/** The reservada. */
 	protected Boolean reservada = false;
-	
-	/** The contratada. */
 	private Boolean contratada = false;
-	
-	/** The descripcion. */
 	private String descripcion;
-	
-	/** The rectificaciones. */
 	private Map<String, String> rectificaciones;
-	
-	/** The reserva. */
 	protected Reserva reserva;
-	
-	/** The opiniones. */
 	private List<Opinion> opiniones;
-	
-	/** The ofertante. */
 	private Cliente ofertante;
-	
-	/** The demandante. */
 	protected Cliente demandante;
 	
 	/**
-	 * Calcular comision.
+	 * Calcula el precio total de la oferta incluyendo la comision
 	 *
 	 * @return Comision calculada sobre el precio
 	 */
 	public abstract Double calcularComision();
 	
 	/**
-	 * Expirar.
+	 * Comprueba si una oferta esta expira
 	 *
-	 * @return true, if successful
+	 * @return true, si lo esta
 	 */
 	public abstract boolean expirar();
 	
 	/**
-	 * Reservar.
+	 * Pone la oferta en reservado con los respectivos cambios que supone hacer
 	 *
-	 * @param reserva the reserva
-	 * @param demandante the demandante
-	 * @return true, if successful
+	 * @param reserva 
+	 * @param demandante de la oferta
+	 * @return true si se ha reservado, false si ya esta reservada o el demandante ya tiene una reserva en marcha
 	 */
 	public abstract boolean reservar(Reserva reserva, Cliente demandante);
 	
 	/**
-	 * Cancelar reserva.
+	 * Cancela la reserva de una oferta
 	 *
-	 * @return true, if successful
+	 * @return true si se cancela, false si no estaba reservada
 	 */
 	public abstract boolean cancelarReserva();	
 	
 	/**
-	 * Instantiates a new oferta.
+	 * Constructor
 	 *
-	 * @param precio the precio
-	 * @param fechaInicio the fecha inicio
-	 * @param descripcion the descripcion
-	 * @param ofertante the ofertante
+	 * @param precio 
+	 * @param fechaInicio 
+	 * @param descripcion 
+	 * @param ofertante 
 	 */
 	public Oferta(Double precio, LocalDate fechaInicio, String descripcion, Cliente ofertante) {
 		this.precio = precio;
@@ -111,10 +86,10 @@ public abstract class Oferta implements Serializable{
 
 	
 	/**
-	 * Añadir rectificacion.
+	 * Añade rectificacion a la oferta
 	 *
-	 * @param rectificacion the rectificacion
-	 * @return true, if successful
+	 * @param rectificacion 
+	 * @return true
 	 */
 	public boolean añadirRectificacion(Map<String, String> rectificacion) {
 		this.rectificaciones = rectificacion;
@@ -123,7 +98,7 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * Mostrar rectificaciones.
+	 * Muestra las rectificaciones por pantalla
 	 */
 	public void mostrarRectificaciones() {
 		if (this.rectificaciones != null)
@@ -131,10 +106,10 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * Contratar.
+	 * Cambia el estado de una oferta a contratado, con los cambios que lleva hacer
 	 *
-	 * @param demandante the demandante
-	 * @return true, if successful
+	 * @param demandante que contrata
+	 * @return true 
 	 */
 	public boolean contratar(Cliente demandante) {
 		demandante.rolDemandante.añadirOfertaContratada(this);
@@ -145,10 +120,10 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * Añadir opinion.
+	 * Añadie una opinion a la oferta.
 	 *
-	 * @param opinion the opinion
-	 * @return true, if successful
+	 * @param opinion 
+	 * @return true
 	 */
 	public boolean añadirOpinion(Opinion opinion) {
 		opiniones.add(opinion);
@@ -156,9 +131,9 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * Calcular media.
+	 * Calcula la media de las valoraciones de la oferta.
 	 *
-	 * @return the double
+	 * @return media calculada
 	 */
 	public Double calcularMedia() {
 		Double total=0.0, media=0.0;

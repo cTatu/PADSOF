@@ -21,19 +21,13 @@ import oferta.OfertaVivienda;
 import opinion.Valoracion;
 import tipos.TipoDisponibilidad;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class BusquedaTest.
+ * Test de busqueda
  */
 public class BusquedaTest {
 
-	/** The busqueda V. */
 	private Busqueda busquedaV;
-	
-	/** The cliente. */
 	private Cliente cliente;
-	
-	/** The oferta 1. */
 	private Oferta oferta1;
 	
 	/**

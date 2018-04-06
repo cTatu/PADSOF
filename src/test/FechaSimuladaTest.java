@@ -12,9 +12,8 @@ import org.junit.Test;
 
 import fechasimulada.FechaSimulada;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class FechaSimuladaTest.
+ * Test FechaSimulada.
  */
 public class FechaSimuladaTest {
 	

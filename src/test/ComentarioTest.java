@@ -15,26 +15,15 @@ import opinion.Comentario;
 import opinion.Opinion;
 import opinion.Valoracion;
 
-
-// TODO: Auto-generated Javadoc
 /**
  * Test JUnit para comentario.
  */
 public class ComentarioTest {
 	
-	/** The d 3. */
 	Demandante d1, d2, d3;
-	
-	/** The c 1. */
 	Comentario c1;
-	
-	/** The o 4. */
 	Opinion o1, o2, o3, o4;
-	
-	/** The opiniones. */
 	List<Opinion> opiniones;
-	
-	/** The comentario. */
 	Comentario comentario;
 	
 	/**
@@ -50,6 +39,7 @@ public class ComentarioTest {
     
 
 	/**
+	 * Test para comprobar el String de un comentario al instanciar
 	 * Test method for {@link Comentario#Comentario(Demandante, java.lang.String)}.
 	 */
 	@Test
@@ -58,6 +48,7 @@ public class ComentarioTest {
 	}
 	
 	/**
+	 * Comprueba que se opine correctamente
 	 * Test method for {@link Comentario#opinar(Opinion)}.
 	 */
 	@Test
@@ -74,6 +65,7 @@ public class ComentarioTest {
 	}
 
 	/**
+	 * Test para que se calcule la media corectamente
 	 * Test method for {@link Comentario#calcularMedia()}.
 	 */
 	@Test

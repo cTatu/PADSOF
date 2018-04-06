@@ -7,37 +7,30 @@ import java.time.LocalDate;
 
 import cliente.Cliente;
 import reserva.Reserva;
-import reserva.ReservaVacacional;
 import reserva.ReservaVivienda;
 import tipos.TipoOferta;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class OfertaVivienda.
+ * Clase OfertaVivienda que hereda de la clase Oferta abstracta
  */
 public class OfertaVivienda extends Oferta implements Serializable{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3472125510702214429L;
-	
-	/** The duracion meses. */
+
 	private Integer duracionMeses;
-	
-	/** The Constant COMISION. */
 	public static final Double COMISION = 1.001; // Porcentaje
-	
-	/** The fianza. */
 	private Double fianza;
 	
 	/**
-	 * Instantiates a new oferta vivienda.
+	 * Constructor
 	 *
-	 * @param precio the precio
-	 * @param fechaInicio the fecha inicio
-	 * @param descripcion the descripcion
-	 * @param duracionMeses the duracion meses
-	 * @param ofertante the ofertante
-	 * @param fianza the fianza
+	 * @param precio 
+	 * @param fechaInicio 
+	 * @param descripcion
+	 * @param duracionMeses
+	 * @param ofertante
+	 * @param fianza
 	 */
 	public OfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Cliente ofertante, Double fianza) {
 		super(precio,fechaInicio,descripcion, ofertante);
@@ -54,7 +47,7 @@ public class OfertaVivienda extends Oferta implements Serializable{
 		return this.duracionMeses;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#calcularComision()
 	 */
 	@Override
@@ -62,7 +55,7 @@ public class OfertaVivienda extends Oferta implements Serializable{
 		return precio*COMISION;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#expirar()
 	 */
 	@Override
@@ -70,7 +63,7 @@ public class OfertaVivienda extends Oferta implements Serializable{
 		return false;
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#reservar(Cliente)
 	 */
 	@Override
@@ -85,7 +78,7 @@ public class OfertaVivienda extends Oferta implements Serializable{
 		return false;
 	}
 	
-	/* (non-Javadoc)
+	/**
 	 * @see Oferta#cancelarReserva()
 	 */
 	@Override

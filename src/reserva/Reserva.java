@@ -11,11 +11,8 @@ import fechasimulada.FechaSimulada;
 import oferta.Oferta;
 import tipos.TipoOferta;
 
-// TODO: Auto-generated Javadoc
 /**
  * Clase que sirve para manejar las reservas.
- *
- * @author David Pascual y Cristian Tatu
  */
 
 public abstract class Reserva implements Comparable<Reserva>, Serializable{
@@ -23,16 +20,13 @@ public abstract class Reserva implements Comparable<Reserva>, Serializable{
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8811063928953223555L;
 	
-	/** The fecha reserva. */
 	protected LocalDate fechaReserva;
-	
-	/** The oferta reservada. */
 	private Oferta ofertaReservada;
 	
 	/**
 	 * Constructor.
 	 *
-	 * @param ofertaReservada the oferta reservada
+	 * @param ofertaReservada
 	 */
 	public Reserva(Oferta ofertaReservada) {
 		this.fechaReserva = FechaSimulada.getHoy(); 
@@ -48,7 +42,8 @@ public abstract class Reserva implements Comparable<Reserva>, Serializable{
 		return FechaSimulada.getHoy().isAfter(fechaReserva.plusDays(5));
 	}	
 	
-	/* (non-Javadoc)
+	/**
+	 * Override de equals para comparar reservas
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -68,10 +63,10 @@ public abstract class Reserva implements Comparable<Reserva>, Serializable{
 	}
 
 	/**
-	 * Contratar.
+	 * Contrata una reserva.
 	 *
-	 * @param demandante the demandante
-	 * @return boolean
+	 * @param demandante de la reserva
+	 * @return true si fue exitoso
 	 */
 	public boolean contratar(Cliente demandante) {
 		return ofertaReservada.contratar(demandante);

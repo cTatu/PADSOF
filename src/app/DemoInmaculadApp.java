@@ -15,7 +15,6 @@ import tipos.TipoDisponibilidad;
 import tipos.TipoOferta;
 import tipos.TipoOrdenar;
 
-// TODO: Auto-generated Javadoc
 /**
  * Clase con main para demo de la aplicación.
  *

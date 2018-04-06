@@ -17,11 +17,8 @@ import inmueble.Inmueble;
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class InmuebleTest.
- *
- * @author Cristian Tatu
+ * Test para Inmueble.
  */
 public class InmuebleTest {
 	

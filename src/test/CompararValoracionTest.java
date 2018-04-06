@@ -15,19 +15,13 @@ import oferta.Oferta;
 import oferta.OfertaVacacional;
 import opinion.Valoracion;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class CompararValoracionTest.
+ * Clase CompararValoracion.
  */
 public class CompararValoracionTest {
 	
-	/** The oferta 2. */
 	private Oferta oferta1, oferta2;
-	
-	/** The comp. */
 	private CompararValoracion comp;
-	
-	/** The cliente. */
 	private Cliente cliente;
 	
 	/**
