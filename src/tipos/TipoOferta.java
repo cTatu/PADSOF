@@ -3,7 +3,6 @@
  */
 package tipos;
 
-// TODO: Auto-generated Javadoc
 /**
  * Tipos de oferta.
  *
