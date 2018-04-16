@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -14,17 +13,18 @@ import javax.swing.JTextField;
 
 public class BusquedaPanel extends JPanel implements ActionListener {
 
-	// componentes privados del panel, pero aún NO AÑADIDOS
+	// componentes privados del panel, pero anin NO AniADIDOS
 	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
 	private JSpinner campoCP = new JSpinner();
 	
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
 	private JSpinner campoValoracion = new JSpinner();	
 	
-	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1:");
+	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1: (DD.MM.YYYY)");
+	private JTextField fechaInicio1 = new JTextField();
 	
-	 // No existe esa clase
-	JDatePickerImpl campoFechaInicio2 = new JDatePickerImpl(datePanel);
+	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (DD.MM.YYYY)");
+	private JTextField fechaInicio2 = new JTextField();
 	
 	private JButton botonBuscar = new JButton("Buscar");
 	
@@ -34,10 +34,17 @@ public class BusquedaPanel extends JPanel implements ActionListener {
 		// asociar acciones a componentes
 		botonBuscar.addActionListener( this );
 		
-		// añadir componentes a "this" panel
-		this.add(etiqueta);
-		this.add(campo);
-		this.add(boton);
+		// aniadir componentes a "this" panel
+		this.add(etiquetaCP);
+		this.add(campoCP);
+		this.add(etiquetaValoracion);
+		this.add(campoValoracion);
+		
+		this.add(etiquetaFechaInicio1);
+		this.add(fechaInicio1);
+		
+		this.add(etiquetaFechaInicio2);
+		this.add(fechaInicio2);
 	}
 
 	// En el futuro, puede ser util tener getters como este:
@@ -45,7 +52,7 @@ public class BusquedaPanel extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent ev) {
-		  JOptionPane.showMessageDialog(null, this.campo.getText());
+		  //JOptionPane.showMessageDialog(null, this.campo.getText());
 	}
 
 }

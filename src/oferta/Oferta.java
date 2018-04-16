@@ -16,7 +16,7 @@ import opinion.Valoracion;
 import reserva.Reserva;
 
 /**
- * Implementacion de oferta (abstracta) y métodos para manejarlas.
+ * Implementacion de oferta (abstracta) y mnitodos para manejarlas.
  */
 public abstract class Oferta implements Serializable{
 	
@@ -86,12 +86,12 @@ public abstract class Oferta implements Serializable{
 
 	
 	/**
-	 * Añade rectificacion a la oferta
+	 * Aniade rectificacion a la oferta
 	 *
 	 * @param rectificacion 
 	 * @return true
 	 */
-	public boolean añadirRectificacion(Map<String, String> rectificacion) {
+	public boolean aniadirRectificacion(Map<String, String> rectificacion) {
 		this.rectificaciones = rectificacion;
 		this.moderada = true;
 		return true;
@@ -112,7 +112,7 @@ public abstract class Oferta implements Serializable{
 	 * @return true 
 	 */
 	public boolean contratar(Cliente demandante) {
-		demandante.rolDemandante.añadirOfertaContratada(this);
+		demandante.rolDemandante.aniadirOfertaContratada(this);
 		contratada = true;
 		this.demandante = demandante;
 		
@@ -120,12 +120,12 @@ public abstract class Oferta implements Serializable{
 	}
 	
 	/**
-	 * Añadie una opinion a la oferta.
+	 * Aniadie una opinion a la oferta.
 	 *
 	 * @param opinion 
 	 * @return true
 	 */
-	public boolean añadirOpinion(Opinion opinion) {
+	public boolean aniadirOpinion(Opinion opinion) {
 		opiniones.add(opinion);
 		return true;
 	}

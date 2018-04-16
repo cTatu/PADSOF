@@ -14,7 +14,7 @@ import cliente.Cliente;
 import oferta.Oferta;
 
 /**
- * Implementación de Inmueble y manejo de sus características
+ * Implementacinin de Inmueble y manejo de sus caracternisticas
  */
 public class Inmueble implements Serializable {
 	
@@ -73,7 +73,7 @@ public class Inmueble implements Serializable {
 	}
 	
 	/**
-	 * Método para que el gerente pueda aprobar una oferta pasada por parámetro
+	 * Mnitodo para que el gerente pueda aprobar una oferta pasada por parnimetro
 	 *
 	 * @param oferta a moderar
 	 * @return true si encuentra la oferta, false de lo contrario
@@ -89,16 +89,16 @@ public class Inmueble implements Serializable {
 	}
 	
 	/**
-	 * Añade una/s rectificacion/es a la ofertaa pasada por parametro
+	 * Aniade una/s rectificacion/es a la ofertaa pasada por parametro
 	 *
 	 * @param oferta the oferta
 	 * @param rectif the rectif
-	 * @return true si se han añadido, false si no ha encontrado la oferta
+	 * @return true si se han aniadido, false si no ha encontrado la oferta
 	 */
 	public boolean addRectificacion(Oferta oferta, Map<String, String> rectif) {
 		for (Oferta ofertaLista : ofertas) {
 			if (ofertaLista.equals(oferta)) {
-				oferta.añadirRectificacion(rectif);
+				oferta.aniadirRectificacion(rectif);
 				return true;
 			}
 		}
@@ -125,7 +125,7 @@ public class Inmueble implements Serializable {
 	
 	
 	/**
-	 * Método para que el gerente pueda rechazar una oferta pasada por parámetro
+	 * Mnitodo para que el gerente pueda rechazar una oferta pasada por parnimetro
 	 *
 	 * @param oferta a rechazar
 	 * @return true si se rechaza, false si la oferta no se ha encontrado

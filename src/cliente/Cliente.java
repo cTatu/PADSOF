@@ -13,7 +13,7 @@ public class Cliente implements Serializable{
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2221416256357316348L;
 	
-	private String tarjetaCredito, nombres, apellidos, contraseña, NIF;
+	private String tarjetaCredito, nombres, apellidos, contrasenia, NIF;
 	public Ofertante rolOfertante;
 	public Demandante rolDemandante;
 	public boolean gerente;
@@ -25,19 +25,19 @@ public class Cliente implements Serializable{
 	 * @param nombres 
 	 * @param NIF 
 	 * @param apellidos 
-	 * @param contraseña 
+	 * @param contrasenia 
 	 * @param tarjetaCredito 
 	 * @param rolOfertante 
 	 * @param rolDemandante 
 	 */
 	public Cliente(String nombres, String NIF, String apellidos, 
-				String contraseña,String tarjetaCredito,Ofertante rolOfertante, Demandante rolDemandante) {		
+				String contrasenia,String tarjetaCredito,Ofertante rolOfertante, Demandante rolDemandante) {		
 		this.rolOfertante = rolOfertante;
 		this.rolDemandante = rolDemandante; 
 		this.setNombres(nombres);
 		this.NIF = NIF;
 		this.setApellidos(apellidos);
-		this.contraseña = contraseña;
+		this.contrasenia = contrasenia;
 		this.tarjetaCredito = tarjetaCredito;
 		this.bloqueado = false;
 	}
@@ -45,7 +45,7 @@ public class Cliente implements Serializable{
 	/**
 	 * Checks if is bloqueado.
 	 *
-	 * @return boolean, si un cliente está bloqueado
+	 * @return boolean, si un cliente estni bloqueado
 	 */
 	public boolean isBloqueado() {
 		return bloqueado;
@@ -89,21 +89,21 @@ public class Cliente implements Serializable{
 	}
 	
 	/**
-	 * Gets the contraseña.
+	 * Gets the contrasenia.
 	 *
-	 * @return contraseña
+	 * @return contrasenia
 	 */
-	public String getContraseña() {
-		return this.contraseña;
+	public String getContrasenia() {
+		return this.contrasenia;
 	}
 	
 	/**
-	 * Sets the contraseña.
+	 * Sets the contrasenia.
 	 *
-	 * @param contraseña the new contraseña
+	 * @param contrasenia the new contrasenia
 	 */
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 	
 	/**
@@ -130,7 +130,7 @@ public class Cliente implements Serializable{
 		
 		return ( "Rol: " + rol + "\n" +
 				 "NIF: " + NIF + "\n" +
-				 "Contraseña: " + contraseña				
+				 "Contrasenia: " + contrasenia				
 				);
 	}
 

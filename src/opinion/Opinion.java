@@ -26,10 +26,10 @@ public abstract class Opinion implements Serializable{
 	}
 	
 	/**
-	 * Genera una nueva opinión de una opinion
+	 * Genera una nueva opininin de una opinion
 	 *
 	 * @param opinion
-	 * @return true si es un comentario, false si es una valoración ( no se puede)
+	 * @return true si es un comentario, false si es una valoracinin ( no se puede)
 	 */
 	public abstract boolean opinar(Opinion o);
 

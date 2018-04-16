@@ -41,11 +41,11 @@ public class DemandanteTest {
 	}
 
 	/**
-	 * Comprobamos que se añadan correctamente las ofertas contratadas y que no se agreguen duplicados
-	 * Test method for {@link cliente.Demandante#añadirOfertaContratada(oferta.Oferta)}.
+	 * Comprobamos que se aniadan correctamente las ofertas contratadas y que no se agreguen duplicados
+	 * Test method for {@link cliente.Demandante#aniadirOfertaContratada(oferta.Oferta)}.
 	 */
 	@Test
-	public void testAñadirOfertaContratada() {
+	public void testAniadirOfertaContratada() {
 		Oferta o1, o2, o3;
 		
 		Ofertante ofertante1 = new Ofertante();
@@ -55,12 +55,12 @@ public class DemandanteTest {
 		
 		Ofertante ofertante2 = new Ofertante();
 		Cliente c2 = new Cliente("Juan", "56677888B", "ap_1 ap_2", 
-				"contraseña", "4444555566667777", ofertante2, null);
+				"contrasenia", "4444555566667777", ofertante2, null);
 		o2 = new OfertaVivienda( 900.0, LocalDate.of(2018,9,1), "descripcion", 16, c2, 600.0);
 		
-		demandante.añadirOfertaContratada(o1);
-		demandante.añadirOfertaContratada(o2);
-		demandante.añadirOfertaContratada(o3);
+		demandante.aniadirOfertaContratada(o1);
+		demandante.aniadirOfertaContratada(o2);
+		demandante.aniadirOfertaContratada(o3);
 		
 		assertEquals( 2, demandante.getOfertasContratadas().size()); // No se agrega el duplicado
 		assertEquals( o1, demandante.getOfertasContratadas().get(0));
@@ -69,11 +69,11 @@ public class DemandanteTest {
 
 	
 	/**
-	 * Comprobamos que se añadan correctamente las ofertas reservadas y que no se agreguen duplicados
-	 * Test method for {@link cliente.Demandante#añadirReserva(reserva.Reserva)}.
+	 * Comprobamos que se aniadan correctamente las ofertas reservadas y que no se agreguen duplicados
+	 * Test method for {@link cliente.Demandante#aniadirReserva(reserva.Reserva)}.
 	 */
 	@Test
-	public void testAñadirReserva() {
+	public void testAniadirReserva() {
 		Oferta o1, o2, o3;
 		Reserva r1, r2, r3;
 		
@@ -86,13 +86,13 @@ public class DemandanteTest {
 		
 		Ofertante ofertante2 = new Ofertante();
 		Cliente c2 = new Cliente("Juan", "56677888B", "ap_1 ap_2", 
-				"contraseña", "4444555566667777", ofertante2, null);
+				"contrasenia", "4444555566667777", ofertante2, null);
 		o2 = new OfertaVivienda( 900.0, LocalDate.of(2018,9,1), "descripcion", 16, c2, 600.0);
 		r2 = new ReservaVivienda(o2);
 		
-		demandante.añadirReserva(r1);
-		demandante.añadirReserva(r2);
-		demandante.añadirReserva(r3);
+		demandante.aniadirReserva(r1);
+		demandante.aniadirReserva(r2);
+		demandante.aniadirReserva(r3);
 		
 		assertEquals( 2, demandante.getHistorialReservas().size()); // No se agrega el duplicado
 		assertEquals( r1, demandante.getHistorialReservas().get(0));
@@ -118,18 +118,18 @@ public class DemandanteTest {
 		
 		Ofertante ofertante2 = new Ofertante();
 		Cliente c2 = new Cliente("Juan", "56677888B", "ap_1 ap_2", 
-				"contraseña", "4444555566667777", ofertante2, null);
+				"contrasenia", "4444555566667777", ofertante2, null);
 		o2 = new OfertaVivienda( 900.0, LocalDate.of(2018,9,1), "descripcion", 16, c2, 600.0);
 		r2 = new ReservaVivienda(o2);
 		
 		Ofertante ofertante3 = new Ofertante();
 		Cliente c3 = new Cliente("Pedro", "87777888B", "ap_1_ ap_2_", 
-				"contraseñaa", "4444444466667777", ofertante3, null);
+				"contraseniaa", "4444444466667777", ofertante3, null);
 		o4 = new OfertaVivienda( 700.0, LocalDate.of(2018,11,8), "texto", 20, c3, 850.0);
 		r4 = new ReservaVivienda(o4);
 
-		demandante.añadirReserva(r1);
-		demandante.añadirReserva(r2);
+		demandante.aniadirReserva(r1);
+		demandante.aniadirReserva(r2);
 		
 		assertFalse(demandante.puedeReservar(r3));
 		
@@ -154,12 +154,12 @@ public class DemandanteTest {
 		
 		Ofertante ofertante2 = new Ofertante();
 		Cliente c2 = new Cliente("Juan", "56677888B", "ap_1 ap_2", 
-				"contraseña", "4444555566667777", ofertante2, null);
+				"contrasenia", "4444555566667777", ofertante2, null);
 		o2 = new OfertaVivienda( 900.0, LocalDate.of(2018,9,1), "descripcion", 16, c2, 600.0);
 		r2 = new ReservaVivienda(o2);
 		
-		demandante.añadirReserva(r1);
-		demandante.añadirReserva(r2);
+		demandante.aniadirReserva(r1);
+		demandante.aniadirReserva(r2);
 		
 		assertTrue(demandante.getStatusVacacional());
 		assertTrue(demandante.getStatusVivienda());
@@ -187,16 +187,16 @@ public class DemandanteTest {
 		
 		Ofertante ofertante2 = new Ofertante();
 		Cliente c2 = new Cliente("Juan", "56677888B", "ap_1 ap_2", 
-				"contraseña", "4444555566667777", ofertante2, null);
+				"contrasenia", "4444555566667777", ofertante2, null);
 		o2 = new OfertaVivienda( 900.0, LocalDate.of(2018,9,1), "descripcion", 16, c2, 600.0);
 		
 		Ofertante ofertante3 = new Ofertante();
 		Cliente c3 = new Cliente("Pedro", "87777888B", "ap_1_ ap_2_", 
-				"contraseñaa", "4444444466667777", ofertante3, null);
+				"contraseniaa", "4444444466667777", ofertante3, null);
 		o4 = new OfertaVivienda( 700.0, LocalDate.of(2018,11,8), "texto", 20, c3, 850.0);
 		
-		demandante.añadirOfertaContratada(o1);
-		demandante.añadirOfertaContratada(o2);
+		demandante.aniadirOfertaContratada(o1);
+		demandante.aniadirOfertaContratada(o2);
 		
 		assertFalse(demandante.puedeContratar(o3));
 		assertTrue(demandante.puedeContratar(o4));		

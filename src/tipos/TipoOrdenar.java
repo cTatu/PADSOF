@@ -4,7 +4,7 @@
 package tipos;
 
 /**
- * Tipos de orden que se pueden usar para mostrar los resultados de las búsquedas.
+ * Tipos de orden que se pueden usar para mostrar los resultados de las bnisquedas.
  */
 public enum TipoOrdenar {
 	

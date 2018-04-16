@@ -106,7 +106,7 @@ public class InmuebleTest {
 	}
 	
 	/**
-	 * Hacer pasar el tiempo para que la oferta añadida expire y asi borrarla.
+	 * Hacer pasar el tiempo para que la oferta aniadida expire y asi borrarla.
 	 */
 	@Test
 	public void InmuebleEliminarExpiradasTest() {

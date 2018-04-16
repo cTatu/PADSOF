@@ -38,17 +38,17 @@ public class OfertanteTest {
 	}
 
 	/**
-	 * Comprueba que no se añadan ofertas duplicadas y que se añadan correctamente
-	 * Test method for {@link cliente.Ofertante#añadirOfertas(oferta.OfertaVivienda)}.
+	 * Comprueba que no se aniadan ofertas duplicadas y que se aniadan correctamente
+	 * Test method for {@link cliente.Ofertante#aniadirOfertas(oferta.OfertaVivienda)}.
 	 */
 	@Test
-	public void testAñadirOfertas() {
+	public void testAniadirOfertas() {
 		o1 = o2 = new OfertaVacacional( 500.0,  LocalDate.of(2018,6,1), "descripcion", LocalDate.of(2018,6,15), cliente);
 		o3 = new OfertaVivienda( 500.0, LocalDate.of(2018,10,1), "descripcion 2", 20, cliente, 1000.0); 
 		
-		ofertante.añadirOfertas(o1);
-		ofertante.añadirOfertas(o3);
-		ofertante.añadirOfertas(o2);
+		ofertante.aniadirOfertas(o1);
+		ofertante.aniadirOfertas(o3);
+		ofertante.aniadirOfertas(o2);
 		
 		assertEquals( 2, ofertante.getOfertas().size());
 		assertEquals( o1, ofertante.getOfertas().get(0));
@@ -56,7 +56,7 @@ public class OfertanteTest {
 	}
 
 	/**
-	 * Comprueba salida correcta, que se ha cancelado correctamente, y tamaño de la lista
+	 * Comprueba salida correcta, que se ha cancelado correctamente, y tamanio de la lista
 	 * Test method for {@link cliente.Ofertante#cancelarOferta(java.time.LocalDate)}.
 	 */
 	@Test
@@ -64,8 +64,8 @@ public class OfertanteTest {
 		o1 = new OfertaVacacional( 500.0,  LocalDate.of(2018,6,1), "descripcion", LocalDate.of(2018,6,15), cliente);
 		o2 = new OfertaVivienda( 500.0, LocalDate.of(2018,10,1), "descripcion 2", 20, cliente, 1000.0); 
 		
-		ofertante.añadirOfertas(o1);
-		ofertante.añadirOfertas(o2);
+		ofertante.aniadirOfertas(o1);
+		ofertante.aniadirOfertas(o2);
 		
 		assertTrue(ofertante.cancelarOferta(LocalDate.of(2018,6,1)));
 		assertFalse(ofertante.getOfertas().contains(o1));

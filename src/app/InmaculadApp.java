@@ -54,8 +54,8 @@ public class InmaculadApp implements Serializable{
 	/** Lista ofertas contratadas. */
 	private List<Oferta> ofertasContratadas;
 	
-	/** Contraseña gerente. */
-	private String contraseñaGerente;
+	/** Contrasenia gerente. */
+	private String contraseniaGerente;
 	
 	/** Cliente conectado. */
 	private Cliente clienteConectado;	
@@ -68,12 +68,12 @@ public class InmaculadApp implements Serializable{
 	 * implementando el patron singleton
 	 *
 	 * @param filename Fichero de con los clientes
-	 * @param constraseñaGerente La constraseña gerente
+	 * @param constraseniaGerente La constrasenia gerente
 	 * @return unica instancia singleton
 	 */
-	public static InmaculadApp getInstancia(String filename, String constraseñaGerente) {
+	public static InmaculadApp getInstancia(String filename, String constraseniaGerente) {
 		if (iApp == null) {
-			iApp = new InmaculadApp(filename, constraseñaGerente);
+			iApp = new InmaculadApp(filename, constraseniaGerente);
 			try {
 				if(!iApp.cargarApp())
 					iApp.cargarClientes(filename);
@@ -98,24 +98,24 @@ public class InmaculadApp implements Serializable{
 	 * Constructor de la aplicacion que inicializa los atributos
 	 *
 	 * @param filename Fichero de con los clientes
-	 * @param constraseñaGerente La constraseña gerente
+	 * @param constraseniaGerente La constrasenia gerente
 	 */
-	private InmaculadApp(String filename, String constraseñaGerente) {
+	private InmaculadApp(String filename, String constraseniaGerente) {
 		clientes = new ArrayList<Cliente>();
 		inmuebles = new ArrayList<Inmueble>();
 		setOfertasContratadas(new ArrayList<Oferta>());
-		this.contraseñaGerente = constraseñaGerente;
+		this.contraseniaGerente = constraseniaGerente;
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
 	}
 	
 	/**
 	 * Crear un nuevo inmueble a partir de los parametros
-	 * y lo añade a la lista de los inmuebles de la App y a la del ofertante
+	 * y lo aniade a la lista de los inmuebles de la App y a la del ofertante
 	 *
 	 * @param CP codigo postal
 	 * @param localizacion localizacion del inmueble
 	 * @param caracteristicas mapa de caracteristicas del inmueble
-	 * @return true si se ha añadido correctamente
+	 * @return true si se ha aniadido correctamente
 	 */
 	public boolean crearInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
 		
@@ -124,7 +124,7 @@ public class InmaculadApp implements Serializable{
 		
 		Inmueble inmueble = new Inmueble(CP, localizacion, caracteristicas);
 		inmuebles.add(inmueble);
-		return clienteConectado.rolOfertante.añadirInmuebles(inmueble);
+		return clienteConectado.rolOfertante.aniadirInmuebles(inmueble);
 	}
 	
 	/**
@@ -146,7 +146,7 @@ public class InmaculadApp implements Serializable{
 	
 	/**
 	 * Realiza la operacion con el sistema de pagos TeleChargePay y controlando las
-	 * señales de error. Si no hay conexion a internet lo intantara 5 veces antes de 
+	 * seniales de error. Si no hay conexion a internet lo intantara 5 veces antes de 
 	 * saltar la excepcion
 	 *
 	 * @param cantidad cantidad que se va a pagar o cobrar
@@ -188,7 +188,7 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Crea una oferta de tipo vivienda y la añade a la lista de las ofertas
+	 * Crea una oferta de tipo vivienda y la aniade a la lista de las ofertas
 	 * del inmueble especificado a traves del ID.
 	 *
 	 * @param precio el precio de la oferta
@@ -197,9 +197,9 @@ public class InmaculadApp implements Serializable{
 	 * @param duracionMeses la duracion en meses
 	 * @param ID el ID del inmueble
 	 * @param fianza la fianza
-	 * @return true si se ha encontrado el inmueble y ademas si se ha añadido bien a las listas
+	 * @return true si se ha encontrado el inmueble y ademas si se ha aniadido bien a las listas
 	 */
-	public boolean añadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Integer ID, Double fianza) {
+	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, String descripcion, Integer duracionMeses, Integer ID, Double fianza) {
 		if (clienteConectado.rolOfertante == null)
 			return false;
 		
@@ -215,7 +215,7 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Crea una oferta de tipo vacacional y la añade a la lista de las ofertas
+	 * Crea una oferta de tipo vacacional y la aniade a la lista de las ofertas
 	 * del inmueble especificado a traves del ID.
 	 *
 	 * @param precio el precio
@@ -223,9 +223,9 @@ public class InmaculadApp implements Serializable{
 	 * @param descripcion una descripcion
 	 * @param fechaFin la fecha de fin
 	 * @param ID el ID del inmueble
-	 * @return true si se ha encontrado el inmueble y ademas si se ha añadido bien a las listas
+	 * @return true si se ha encontrado el inmueble y ademas si se ha aniadido bien a las listas
 	 */
-	public boolean añadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Integer ID) {
+	public boolean aniadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Integer ID) {
 		if (clienteConectado.rolOfertante == null)
 			return false;
 		
@@ -277,12 +277,12 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Añade un mapa de dos String a una oferta representando las rectificaciones
+	 * Aniade un mapa de dos String a una oferta representando las rectificaciones
 	 * que el gerente ha recomendado hacer.
 	 *
-	 * @param oferta la oferta a la que se quiere añadir rectificacion
+	 * @param oferta la oferta a la que se quiere aniadir rectificacion
 	 * @param rectif el mapa conteniendo las rectificaciones
-	 * @return true si es el gerente el que realiza la accion y si ha añadido exitosamente el mapa
+	 * @return true si es el gerente el que realiza la accion y si ha aniadido exitosamente el mapa
 	 */
 	public boolean addRectificacion(Oferta oferta, Map<String, String> rectif) {
 		if (!clienteConectado.gerente)
@@ -347,7 +347,7 @@ public class InmaculadApp implements Serializable{
 		if (!transaccionACliente(-oferta.calcularComision(), clienteConectado))
 			return false;
 		
-		clienteConectado.rolDemandante.añadirOfertaContratada(oferta);
+		clienteConectado.rolDemandante.aniadirOfertaContratada(oferta);
 		
 		return transaccionACliente(oferta.getPrecio(), oferta.getOfertante());
 	}
@@ -399,7 +399,7 @@ public class InmaculadApp implements Serializable{
 	/**
 	 * En el objeto de Busqueda se guardan todos los parametros por los que se quiere
 	 * buscar una oferta. Recorriendo todas las ofertas se comprueba a traves del metodo
-	 * propio de Busqueda si la oferta cumple los requisitos añadiendola a la lista.
+	 * propio de Busqueda si la oferta cumple los requisitos aniadiendola a la lista.
 	 * Al final se ordena la lista por el orden especificado en TipoOrdenar.
 	 *
 	 * @param criteriosBusqueda los criterios busqueda para las ofertas
@@ -410,7 +410,7 @@ public class InmaculadApp implements Serializable{
 		if(clienteConectado.rolDemandante == null)
 			return null;
 		
-		if(clienteConectado.getContraseña().isEmpty())
+		if(clienteConectado.getContrasenia().isEmpty())
 			criteriosBusqueda.setToDisponible();
 		
 		List<Oferta> resultados = new ArrayList<>();
@@ -440,25 +440,25 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Inicia sesion en la aplicacion comprobando primeramente si la contraseña es del
-	 * gerente. Si no, se comprueba en la lista de los clientes con el NIF y la contraseña
+	 * Inicia sesion en la aplicacion comprobando primeramente si la contrasenia es del
+	 * gerente. Si no, se comprueba en la lista de los clientes con el NIF y la contrasenia
 	 * en busca de alguna coincidencia.
 	 *
 	 * @param NIF el NIF para iniciar sesion
-	 * @param contraseña la contraseña
+	 * @param contrasenia la contrasenia
 	 * @return true si se ha encontrado el cliente buscado o si es el gerente
 	 */
-	public boolean iniciarSesion(String NIF, String contraseña) {
-		if (NIF.isEmpty() && contraseña.equals(contraseñaGerente)) {
+	public boolean iniciarSesion(String NIF, String contrasenia) {
+		if (NIF.isEmpty() && contrasenia.equals(contraseniaGerente)) {
 			this.clienteConectado = new Cliente("", "", "", "", "", null, null);
-			clienteConectado.setContraseña(contraseña);
+			clienteConectado.setContrasenia(contrasenia);
 			clienteConectado.gerente = true;
 			eliminarOfertasExpiradas();
 			return true;
 		}
 		
 		for (Cliente cliente : clientes) {
-			if (cliente.getNIF().equals(NIF) && cliente.getContraseña().equals(contraseña)) {
+			if (cliente.getNIF().equals(NIF) && cliente.getContrasenia().equals(contrasenia)) {
 				clienteConectado = cliente;
 				eliminarOfertasExpiradas();
 				return true;
@@ -494,7 +494,7 @@ public class InmaculadApp implements Serializable{
 	 * construyendo para cada linea del ficheor un nuevo cliente con los datos
 	 * propios del archivo.
 	 *
-	 * @param filename el nu¡ombre del fichero texto con los clientes
+	 * @param filename el nuniombre del fichero texto con los clientes
 	 * @throws Exception the exception
 	 */
 	private void cargarClientes(String filename) throws Exception {
@@ -511,19 +511,19 @@ public class InmaculadApp implements Serializable{
 	        }
 	        String NIF = input.next();
 	        String nombreCompleto = input.next();
-	        String contraseña = input.next();
+	        String contrasenia = input.next();
 	        String tarjetaCredito = input.next();
 	        tarjetaCredito = tarjetaCredito.replace("\r", "");
 	        
 	        switch (rol) {
 			case "O":
-	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contraseña, tarjetaCredito, new Ofertante(), null));
+	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, new Ofertante(), null));
 				break;
 			case "D":
-	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contraseña, tarjetaCredito, null, new Demandante()));
+	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, null, new Demandante()));
 				break;
 			case "OD":
-	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contraseña, tarjetaCredito, new Ofertante(), new Demandante()));
+	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, new Ofertante(), new Demandante()));
 				break;
 			default:
 				break;

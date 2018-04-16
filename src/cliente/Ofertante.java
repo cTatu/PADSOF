@@ -31,22 +31,22 @@ public class Ofertante implements Serializable{
 	}
 	
 	/**
-	 * Añade una nueva oferta a su lista de ofertas publicadas.
+	 * Aniade una nueva oferta a su lista de ofertas publicadas.
 	 *
-	 * @param oferta a añadir
+	 * @param oferta a aniadir
 	 */
-	public void añadirOfertas(Oferta of) {
+	public void aniadirOfertas(Oferta of) {
 		if ( ! ofertas.contains(of))
 			ofertas.add(of);
 	}
 	
 	/**
-	 * Añade un nuevo inmueble a la lista.
+	 * Aniade un nuevo inmueble a la lista.
 	 *
 	 * @param inmueble Objeto inmueble creado
 	 * @return true, if successful
 	 */
-	public boolean añadirInmuebles(Inmueble inmueble) {
+	public boolean aniadirInmuebles(Inmueble inmueble) {
 		if ( ! inmuebles.contains(inmueble))
 			return inmuebles.add(inmueble);
 		return false;
@@ -71,7 +71,7 @@ public class Ofertante implements Serializable{
 	}
 	
 	/**
-	 * Cancela una oferta borrándola de la lista de ofertas publicadas.
+	 * Cancela una oferta borrnindola de la lista de ofertas publicadas.
 	 *
 	 * @param fechaInicio de la oferta
 	 * @return boolean

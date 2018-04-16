@@ -16,14 +16,14 @@ import tipos.TipoOferta;
 import tipos.TipoOrdenar;
 
 /**
- * Clase con main para demo de la aplicación.
+ * Clase con main para demo de la aplicacinin.
  *
  * @author David Pascual y Cristian Tatu
  */
 public class DemoInmaculadApp{
 
 	/**
-	 * Demostrador de funcionamiento de la aplicación InmaculadApp.
+	 * Demostrador de funcionamiento de la aplicacinin InmaculadApp.
 	 *
 	 * @param args Los argumentos con los que se inicia la aplicacion
 	 */
@@ -40,22 +40,22 @@ public class DemoInmaculadApp{
 		
 		FechaSimulada.fijarFecha(11, 05, 2015);
 		
-		app.añadirOfertaVacacional(550.0, FechaSimulada.getHoy().minusDays(5),
+		app.aniadirOfertaVacacional(550.0, FechaSimulada.getHoy().minusDays(5),
 							"Perfecto para vacaciones", 
 							FechaSimulada.getHoy().plusDays(10), 1);
 		
-		app.añadirOfertaVacacional(1200.0, FechaSimulada.getHoy().minusDays(50),
+		app.aniadirOfertaVacacional(1200.0, FechaSimulada.getHoy().minusDays(50),
 				"Es mejor que la anterior", 
 				FechaSimulada.getHoy().plusDays(10), 1);
 		
-		app.añadirOfertaVivienda(800.0, FechaSimulada.getHoy().minusDays(30), 
+		app.aniadirOfertaVivienda(800.0, FechaSimulada.getHoy().minusDays(30), 
 							"Perfecto para vivir", 24, 1, 300.0);
 		
 		app.cerrarSesion(true);
 		app.iniciarSesion("", "BD911"); 	// como gerente
 		
 		Oferta aux = app.getOfertasPendientes().get(0);
-		aux.añadirRectificacion(
+		aux.aniadirRectificacion(
 						new HashMap<String, String>(Map.of("FechaInicio", "Demasiado tarde"))
 						
 				);
@@ -82,9 +82,9 @@ public class DemoInmaculadApp{
 		app.contratarOferta(app.getOfertas().get(0));
 		
 		Comentario comentario = new Comentario(app.clienteConectado().rolDemandante, "El agua esta fria");
-		app.getOfertas().get(0).añadirOpinion(comentario);
-		app.getOfertas().get(0).añadirOpinion(new Valoracion(app.clienteConectado().rolDemandante, 4.5));
-		app.getOfertas().get(0).añadirOpinion(new Valoracion(app.clienteConectado().rolDemandante, 1.5));
+		app.getOfertas().get(0).aniadirOpinion(comentario);
+		app.getOfertas().get(0).aniadirOpinion(new Valoracion(app.clienteConectado().rolDemandante, 4.5));
+		app.getOfertas().get(0).aniadirOpinion(new Valoracion(app.clienteConectado().rolDemandante, 1.5));
 		
 		app.getOfertas().get(0).calcularMedia();
 		

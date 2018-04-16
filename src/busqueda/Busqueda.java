@@ -43,7 +43,7 @@ public abstract class Busqueda implements Serializable{
 	/**
 	 * Gets the codigo postal.
 	 *
-	 * @return Código Postal
+	 * @return Cnidigo Postal
 	 */
 	public Integer getCodigoPostal() {
 		return this.codigoPostal;

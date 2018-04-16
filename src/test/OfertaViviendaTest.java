@@ -36,7 +36,7 @@ public class OfertaViviendaTest {
 	@Before
 	public void setUp() throws Exception {
 		c1 = new Cliente("Juan", "56677888B", "ap_1 ap_2", 
-				"contraseña", "4444555566667777", new Ofertante(), null);
+				"contrasenia", "4444555566667777", new Ofertante(), null);
 		ov = new OfertaVivienda( 900.0, LocalDate.of(2018,9,1), "descripcion", 20, c1, 1000.0);
 		c2 = new Cliente("Pepe", "12233444A", "ap1 ap2", 
 				"clave", "0000111122223333", null, new Demandante());

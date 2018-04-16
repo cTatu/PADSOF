@@ -8,7 +8,7 @@ import java.util.Comparator;
 import oferta.Oferta;
 
 /**
- * Comparator para ordenar las búsquedas según la fecha (más cercanas primero).
+ * Comparator para ordenar las bnisquedas segnin la fecha (mnis cercanas primero).
  */
 public class CompararFecha implements Comparator<Oferta>{
 	

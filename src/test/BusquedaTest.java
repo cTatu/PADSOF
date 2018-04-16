@@ -51,7 +51,7 @@ public class BusquedaTest {
 	@Test
 	public void ComprobarOfertaVacacionalTest() {
 
-		oferta1.añadirOpinion(new Valoracion(cliente.rolDemandante, 5.0));
+		oferta1.aniadirOpinion(new Valoracion(cliente.rolDemandante, 5.0));
 		
 		assertFalse(busquedaV.comprobarOferta(oferta1));
 		

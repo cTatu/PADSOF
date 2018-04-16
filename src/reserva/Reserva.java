@@ -34,7 +34,7 @@ public abstract class Reserva implements Comparable<Reserva>, Serializable{
 	}
 	
 	/**
-	 * Estado de la expiración de la resera.
+	 * Estado de la expiracinin de la resera.
 	 *
 	 * @return boolean
 	 */

@@ -36,8 +36,8 @@ public class CompararValoracionTest {
 		oferta1 = new OfertaVacacional(250.0,FechaSimulada.getHoy().plusDays(20),"Descripcion", FechaSimulada.getHoy(),cliente);
 		oferta2 = new OfertaVacacional(525.0,FechaSimulada.getHoy().plusDays(15),"Descripcion2", FechaSimulada.getHoy().minusDays(5),cliente);
 	
-		oferta1.añadirOpinion(new Valoracion(cliente.rolDemandante, 3.2));
-		oferta1.añadirOpinion(new Valoracion(cliente.rolDemandante, 4.5));
+		oferta1.aniadirOpinion(new Valoracion(cliente.rolDemandante, 3.2));
+		oferta1.aniadirOpinion(new Valoracion(cliente.rolDemandante, 4.5));
 	}
 	
 	/**
@@ -61,8 +61,8 @@ public class CompararValoracionTest {
 	 */
 	@Test
 	public void CompValoracionO2Mayor() {
-		oferta2.añadirOpinion(new Valoracion(cliente.rolDemandante, 4.8));
-		oferta2.añadirOpinion(new Valoracion(cliente.rolDemandante, 5.0));
+		oferta2.aniadirOpinion(new Valoracion(cliente.rolDemandante, 4.8));
+		oferta2.aniadirOpinion(new Valoracion(cliente.rolDemandante, 5.0));
 		
 		assertTrue(comp.compare(oferta1, oferta2) > 0);
 	}

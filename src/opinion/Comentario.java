@@ -32,8 +32,8 @@ public class Comentario extends Opinion implements Serializable{
 	}
 
 	/**
-	 * Añade opinion la opinión
-	 * @param opinion a añadir
+	 * Aniade opinion la opininin
+	 * @param opinion a aniadir
 	 * @return true
 	 * @see Opinion#opinar(Opinion)
 	 */

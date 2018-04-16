@@ -13,7 +13,7 @@ import reserva.ReservaVivienda;
 import tipos.TipoOferta;
 
 /**
- * Implementación de la clase demandate y sus funcionalidades.
+ * Implementacinin de la clase demandate y sus funcionalidades.
  */
 public class Demandante implements Serializable{
 	
@@ -34,11 +34,11 @@ public class Demandante implements Serializable{
 	}		
 	
 	/**
-	 * Añade una oferta que ha sido contratada por este demandante a la lista de sus ofertas constratadas.
+	 * Aniade una oferta que ha sido contratada por este demandante a la lista de sus ofertas constratadas.
 	 *
-	 * @param ofertaContratada a añadir
+	 * @param ofertaContratada a aniadir
 	 */
-	public void añadirOfertaContratada(Oferta ofertaContratada) {
+	public void aniadirOfertaContratada(Oferta ofertaContratada) {
 		if ( ! ofertasContratadas.contains(ofertaContratada))
 			ofertasContratadas.add(ofertaContratada);
 	}
@@ -58,12 +58,12 @@ public class Demandante implements Serializable{
 	}
 	
 	/**
-	 * Añadir reserva.
+	 * Aniadir reserva.
 	 *
-	 * @param reserva a añadir
+	 * @param reserva a aniadir
 	 * @return true si se realiza satifactoriamente, false de lo contario o si no ha pasado los controles
 	 */
-	public boolean añadirReserva(Reserva reserva) {
+	public boolean aniadirReserva(Reserva reserva) {
 		if (!puedeReservar(reserva))
 			return false;
 		

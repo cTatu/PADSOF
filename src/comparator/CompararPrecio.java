@@ -8,7 +8,7 @@ import java.util.Comparator;
 import oferta.Oferta;
 
 /**
- * Comparator para ordenar las búsquedas según el precio (menor a mayor).
+ * Comparator para ordenar las bnisquedas segnin el precio (menor a mayor).
  */
 public class CompararPrecio implements Comparator<Oferta>{
 	

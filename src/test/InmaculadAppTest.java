@@ -104,21 +104,21 @@ public class InmaculadAppTest {
 		app.iniciarSesion("55555111Z", "NoSeSaBe");  // como demandante
 		FechaSimulada.fijarFecha(22, 06, 2155);
 		
-		assertFalse(app.añadirOfertaVacacional(320.0, 
+		assertFalse(app.aniadirOfertaVacacional(320.0, 
 				FechaSimulada.getHoy(), "El coche volador aparca en la azotea", 
 				FechaSimulada.getHoy().plusDays(50), 1));
 		
 		app.cerrarSesion(false);
 		app.iniciarSesion("", "BD911"); 	// como gerente
 		
-		assertFalse(app.añadirOfertaVacacional(320.0, 
+		assertFalse(app.aniadirOfertaVacacional(320.0, 
 				FechaSimulada.getHoy(), "El coche volador aparca en la azotea", 
 				FechaSimulada.getHoy().plusDays(50), 1));
 		
 		app.cerrarSesion(false);
 		app.iniciarSesion("51999111X", "pezEspada"); // como ofertante
 
-		assertTrue(app.añadirOfertaVacacional(320.0, 
+		assertTrue(app.aniadirOfertaVacacional(320.0, 
 				FechaSimulada.getHoy(), "El coche volador aparca en la azotea", 
 				FechaSimulada.getHoy().plusDays(50), 1));
 		
@@ -135,7 +135,7 @@ public class InmaculadAppTest {
 		app.iniciarSesion("51999111X", "pezEspada"); // como ofertante
 		FechaSimulada.fijarFecha(22, 06, 2155);
 		
-		assertTrue(app.añadirOfertaVacacional(880.0, 
+		assertTrue(app.aniadirOfertaVacacional(880.0, 
 				FechaSimulada.getHoy(), "Buena vista", 
 				FechaSimulada.getHoy().plusDays(22), 1));
 		
@@ -163,7 +163,7 @@ public class InmaculadAppTest {
 		app.cerrarSesion(false);
 		app.iniciarSesion("55555111Z", "NoSeSaBe");  // como demandante
 		
-		// False por haberle cambiado la tarjeta anteriormente a un numero inválido
+		// False por haberle cambiado la tarjeta anteriormente a un numero invnilido
 		assertFalse(app.contratarOferta(app.getOfertas().get(0)));
 		
 		app.cerrarSesion(false);
@@ -188,7 +188,7 @@ public class InmaculadAppTest {
 		
 		assertTrue(app.crearInmueble(2884, "Gibraltar", caracteristicas));
 		
-		assertTrue(app.añadirOfertaVacacional(120.0, 
+		assertTrue(app.aniadirOfertaVacacional(120.0, 
 				FechaSimulada.getHoy(), "Oferta limitada", 
 				FechaSimulada.getHoy().plusDays(10), 1));
 		
@@ -230,7 +230,7 @@ public class InmaculadAppTest {
 		
 		assertTrue(app.crearInmueble(2884, "Gibraltar", caracteristicas));
 		
-		assertTrue(app.añadirOfertaVacacional(120.0, 
+		assertTrue(app.aniadirOfertaVacacional(120.0, 
 				FechaSimulada.getHoy(), "Oferta limitada", 
 				FechaSimulada.getHoy().plusDays(10), 1));
 		

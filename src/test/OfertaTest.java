@@ -43,22 +43,22 @@ public class OfertaTest {
 	public void setUp() throws Exception {
 		ofertante = new Ofertante();
 		c = new Cliente("Juan", "56677888B", "ap_1 ap_2", 
-				"contraseña", "4444555566667777", ofertante, null);
+				"contrasenia", "4444555566667777", ofertante, null);
 		oferta = new OfertaVivienda( 900.0, LocalDate.of(2018,9,1), "descripcion", 16, c, 600.0);
 	}
 
 	/**
-	 * Test method for {@link oferta.Oferta#añadirRectificacion(java.util.Map)}.
+	 * Test method for {@link oferta.Oferta#aniadirRectificacion(java.util.Map)}.
 	 */
 	@Test
-	public void testAñadirRectificacion() {
-		assertTrue(oferta.añadirRectificacion(
+	public void testAniadirRectificacion() {
+		assertTrue(oferta.aniadirRectificacion(
 				new HashMap<String, String>(Map.of("Luz", "Muy poca dentro de las habitaciones"))
 					));
 	}
 
 	/**
-	 * Comprueba que se modifican los campos correctamente y que la contratación se agregó en la clase demandante
+	 * Comprueba que se modifican los campos correctamente y que la contratacinin se agregni en la clase demandante
 	 * Test method for {@link oferta.Oferta#contratar(cliente.Cliente)}.
 	 */
 	@Test
@@ -78,18 +78,18 @@ public class OfertaTest {
 	}
 
 	/**
-	 * Comprueba que se añaden las opiniones a la lista correctamente
-	 * Test method for {@link oferta.Oferta#añadirOpinion(opinion.Opinion)}.
+	 * Comprueba que se aniaden las opiniones a la lista correctamente
+	 * Test method for {@link oferta.Oferta#aniadirOpinion(opinion.Opinion)}.
 	 */
 	@Test
-	public void testAñadirOpinion() {		
+	public void testAniadirOpinion() {		
 		Demandante d1 = new Demandante();
 		Opinion comentario = new Comentario( d1, "Comentario");
 		Demandante d2 = new Demandante();
 		Opinion valoracion = new Valoracion( d2, 5.0);
 		
-		oferta.añadirOpinion(comentario);
-		oferta.añadirOpinion(valoracion);
+		oferta.aniadirOpinion(comentario);
+		oferta.aniadirOpinion(valoracion);
 		
 		assertEquals( comentario, oferta.getOpiniones().get(0));
 		assertEquals( valoracion, oferta.getOpiniones().get(1));
@@ -106,10 +106,10 @@ public class OfertaTest {
 		Opinion o3 = new Valoracion(new Demandante(), 2.0);
 		Opinion o4 = new Comentario(new Demandante(), "comentario"); // Sirve para comprobar que distingue las valoraciones de los comentarios para hacer la media
 		
-		oferta.añadirOpinion(o1);
-		oferta.añadirOpinion(o2);
-		oferta.añadirOpinion(o3);
-		oferta.añadirOpinion(o4);
+		oferta.aniadirOpinion(o1);
+		oferta.aniadirOpinion(o2);
+		oferta.aniadirOpinion(o3);
+		oferta.aniadirOpinion(o4);
 
 		assertEquals((5+4+2)/3.0, oferta.calcularMedia(), .1);
 	}
