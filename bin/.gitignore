@@ -1,11 +1,5 @@
-/app/
-/busqueda/
-/cliente/
-/comparator/
-/inmueble/
-/oferta/
-/opinion/
+/controlador/
+/Main.class
+/gui/
+/modelo/
 /paneles/
-/reserva/
-/test/
-/tipos/

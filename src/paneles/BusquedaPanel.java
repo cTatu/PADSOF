@@ -1,9 +1,11 @@
 package paneles;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,7 +20,7 @@ public class BusquedaPanel extends JPanel implements ActionListener {
 	private JSpinner campoCP = new JSpinner();
 	
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
-	private JSpinner campoValoracion = new JSpinner();	
+	private JTextField campoValoracion = new JTextField();	
 	
 	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1: (DD.MM.YYYY)");
 	private JTextField fechaInicio1 = new JTextField();
@@ -26,11 +28,16 @@ public class BusquedaPanel extends JPanel implements ActionListener {
 	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (DD.MM.YYYY)");
 	private JTextField fechaInicio2 = new JTextField();
 	
-	private JButton botonBuscar = new JButton("Buscar");
+	private JButton botonBuscar = new JButton("\nBuscar");
 	
 	public BusquedaPanel() {
-		this.setLayout(new FlowLayout());
+		//this.setLayout(new FlowLayout());
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+		fechaInicio1.setPreferredSize( new Dimension( 70, 24 ) );
+		fechaInicio2.setPreferredSize( new Dimension( 70, 24 ) );
+		campoValoracion.setPreferredSize( new Dimension( 24, 24 ) );
+		
 		// asociar acciones a componentes
 		botonBuscar.addActionListener( this );
 		
@@ -45,6 +52,8 @@ public class BusquedaPanel extends JPanel implements ActionListener {
 		
 		this.add(etiquetaFechaInicio2);
 		this.add(fechaInicio2);
+		
+		this.add(botonBuscar);
 	}
 
 	// En el futuro, puede ser util tener getters como este:
