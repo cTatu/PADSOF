@@ -1,6 +1,8 @@
 package gui;
 import controlador.*;
 import paneles.BusquedaPanel;
+import paneles.BusquedaVacacionalPanel;
+import paneles.BusquedaViviendaPanel;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -8,7 +10,7 @@ import java.awt.*;
 
 
 public class Gui extends JFrame implements ChangeListener {
-	private BusquedaPanel panelBusqueda;
+	private JFrame panelBusqueda;
 	private JTabbedPane pestañas = new JTabbedPane();
 	private Controlador controlador;
 	
@@ -20,12 +22,14 @@ public class Gui extends JFrame implements ChangeListener {
 		contenedor.setLayout(new FlowLayout());
 		
 		// crear componentes
-		panelBusqueda = new BusquedaPanel();
-		pestañas.addTab("Buscar",  panelBusqueda);
-		pestañas.setSelectedIndex(0); // 0 means first
+		panelBusqueda = new BusquedaViviendaPanel();
+		panelBusqueda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panelBusqueda.setVisible(true);
+		
+		//pestañas.addTab("Buscar",  panelBusqueda);
+		//pestañas.setSelectedIndex(0); // 0 means first
 		
 		// añadir componentes al contenedor
-		contenedor.add(panelBusqueda);
 		contenedor.add(pestañas);
 		// this.pack();
 		
@@ -55,10 +59,8 @@ public class Gui extends JFrame implements ChangeListener {
 	@Override
 	public void stateChanged(ChangeEvent ev) {
      // solamente a efectos de seguimiento del programa
-   	 /*System.out.println( pestañas.getSelectedIndex() );
+   	 System.out.println( pestañas.getSelectedIndex() );
    	 System.out.println( pestañas.getSelectedComponent() );
-   	 this.panelPares.limpiaCampo();
-   	 this.panelPalindromos.limpiaCampo();*/
 	}
 
 	public void loginResult(boolean loginOK) {

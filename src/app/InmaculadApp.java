@@ -450,9 +450,8 @@ public class InmaculadApp implements Serializable{
 	 */
 	public boolean iniciarSesion(String NIF, String contrasenia) {
 		if (NIF.isEmpty() && contrasenia.equals(contraseniaGerente)) {
-			this.clienteConectado = new Cliente("", "", "", "", "", null, null);
-			clienteConectado.setContrasenia(contrasenia);
-			clienteConectado.gerente = true;
+			this.clienteConectado.setContrasenia(contrasenia);
+			this.clienteConectado.gerente = true;
 			eliminarOfertasExpiradas();
 			return true;
 		}
@@ -647,7 +646,7 @@ public class InmaculadApp implements Serializable{
 	 * @return the ofertas contratadas
 	 */
 	public List<Oferta> getOfertasContratadas() {
-		return ofertasContratadas;
+		return Collections.unmodifiableList(ofertasContratadas);
 	}
 
 	/**

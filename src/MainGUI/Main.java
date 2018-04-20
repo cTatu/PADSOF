@@ -1,3 +1,4 @@
+package MainGUI;
 import controlador.Controlador;
 import modelo.Aplicacion;
 import gui.Gui;

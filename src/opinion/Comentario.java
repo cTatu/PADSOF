@@ -4,6 +4,7 @@
 package opinion;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cliente.Demandante;
@@ -32,7 +33,7 @@ public class Comentario extends Opinion implements Serializable{
 	}
 
 	/**
-	 * Aniade opinion la opininin
+	 * Añade opinion la opinion
 	 * @param opinion a aniadir
 	 * @return true
 	 * @see Opinion#opinar(Opinion)
@@ -73,7 +74,7 @@ public class Comentario extends Opinion implements Serializable{
 	 * @return las opiniones
 	 */
 	public List<Opinion> getOpiniones() {
-		return opiniones;
+		return Collections.unmodifiableList(opiniones);
 	}
 
 	/**

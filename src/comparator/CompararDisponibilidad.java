@@ -9,7 +9,7 @@ import oferta.Oferta;
 import tipos.TipoDisponibilidad;
 
 /**
- * Comparator para ordenar las bnisquedas segnin la disponibilidad.
+ * Comparator para ordenar las busquedas segun la disponibilidad.
  */
 public class CompararDisponibilidad implements Comparator<Oferta>{
 

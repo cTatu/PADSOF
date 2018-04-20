@@ -343,7 +343,7 @@ public abstract class Oferta implements Serializable{
 	 * @return the opiniones
 	 */
 	public List<Opinion> getOpiniones() {
-		return opiniones;
+		return Collections.unmodifiableList(opiniones);
 	}
 
 	/**
