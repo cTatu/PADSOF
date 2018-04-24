@@ -1,12 +1,15 @@
 package gui;
-import controlador.*;
-import paneles.BusquedaPanel;
-import paneles.BusquedaVacacionalPanel;
-import paneles.BusquedaViviendaPanel;
+import java.awt.Container;
+import java.awt.FlowLayout;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import controlador.Controlador;
+import paneles.BusquedaViviendaPanel;
+import paneles.LoginPanel;
 
 
 public class Gui extends JFrame implements ChangeListener {
