@@ -38,4 +38,10 @@ public class LoginPanel extends JPanel implements ActionListener {
 		this.add(botonLogin);
 	}
 
+
+	public void setDefaultCloseOperation(int exitOnClose) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -14,6 +14,7 @@ import paneles.LoginPanel;
 
 public class Gui extends JFrame implements ChangeListener {
 	private JFrame panelBusqueda;
+	private LoginPanel panelLogin;
 	private JTabbedPane pestañas = new JTabbedPane();
 	private Controlador controlador;
 	
@@ -28,6 +29,10 @@ public class Gui extends JFrame implements ChangeListener {
 		panelBusqueda = new BusquedaViviendaPanel();
 		panelBusqueda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panelBusqueda.setVisible(true);
+		
+		panelLogin = new LoginPanel();
+		panelLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panelLogin.setVisible(true);
 		
 		//pestañas.addTab("Buscar",  panelBusqueda);
 		//pestañas.setSelectedIndex(0); // 0 means first

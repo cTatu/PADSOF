@@ -14,7 +14,7 @@ public class BusquedaPanel extends JFrame implements ActionListener {
 
 	// componentes privados del panel, pero anin NO AniADIDOS
 	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
-	private JSpinner campoCP = new JSpinner();
+	private JTextField campoCP = new JTextField();
 	
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
 	private JTextField campoValoracion = new JTextField();	
