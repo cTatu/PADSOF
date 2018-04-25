@@ -60,6 +60,8 @@ public class InmaculadApp implements Serializable{
 	/** Cliente conectado. */
 	private Cliente clienteConectado;	
 	
+	private boolean sesionIniciada;
+	
 	/** Singleton */
 	private static InmaculadApp iApp = null;
 	
@@ -124,6 +126,7 @@ public class InmaculadApp implements Serializable{
 		
 		Inmueble inmueble = new Inmueble(CP, localizacion, caracteristicas);
 		inmuebles.add(inmueble);
+		setSesionIniciada(false);
 		return clienteConectado.rolOfertante.aniadirInmuebles(inmueble);
 	}
 	
@@ -484,7 +487,7 @@ public class InmaculadApp implements Serializable{
 				e.printStackTrace();
 			}
 		}
-		
+		sesionIniciada = false;
 		return true;
 	}
 	
@@ -656,6 +659,15 @@ public class InmaculadApp implements Serializable{
 	 */
 	public void setOfertasContratadas(List<Oferta> ofertasContratadas) {
 		this.ofertasContratadas = ofertasContratadas;
+	}
+
+	public boolean isSesionIniciada() {
+		return sesionIniciada;
+	}
+
+	public boolean setSesionIniciada(boolean sesionIniciada) {
+		this.sesionIniciada = sesionIniciada;
+		return sesionIniciada;
 	}
 }
 

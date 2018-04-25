@@ -169,13 +169,17 @@ public class Cliente implements Serializable{
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-
-	/**
-	 * Gets the rol demandante.
-	 *
-	 * @return the rolDemandante
-	 */
-	public Demandante getRolDemandante() {
-		return rolDemandante;
+	
+	public String toStringRol() {
+		StringBuilder stringBuilder = new StringBuilder();
+		if (rolOfertante != null)
+			stringBuilder.append("O");
+		if(rolDemandante != null)
+			stringBuilder.append("D");
+		
+		return stringBuilder.toString();
 	}
 }
+
+
+

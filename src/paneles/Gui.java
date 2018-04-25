@@ -1,22 +1,29 @@
-package gui;
+package paneles;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import controlador.Controlador;
-import paneles.BusquedaViviendaPanel;
-import paneles.LoginPanel;
+import app.InmaculadApp;
+import sun.security.provider.certpath.ldap.JdkLDAP;
 
 
-public class Gui extends JFrame implements ChangeListener {
-	private JFrame panelBusqueda;
+public class Gui extends JFrame implements ChangeListener, ActionListener {
+	private JPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
 	private JTabbedPane pestañas = new JTabbedPane();
-	private Controlador controlador;
+	private InmaculadApp app;
+	
+	private JButton botonSesion = new JButton("Iniciar Sesion");
+	protected JLabel rolEtiqueta = new JLabel("Invitado");
 	
 	public Gui(String titulo) {
 		super(titulo); // antes: JFrame ventana = new JFrame("Mi GUI");
@@ -26,29 +33,29 @@ public class Gui extends JFrame implements ChangeListener {
 		contenedor.setLayout(new FlowLayout());
 		
 		// crear componentes
-		panelBusqueda = new BusquedaViviendaPanel();
-		panelBusqueda.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panelBusqueda.setVisible(true);
+		panelBusquedaOfertas = new BusquedaTablaPanel();
 		
-		panelLogin = new LoginPanel();
-		panelLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		panelLogin.setVisible(true);
+		contenedor.add(botonSesion);
+		contenedor.add(rolEtiqueta);
 		
-		//pestañas.addTab("Buscar",  panelBusqueda);
+		pestañas.addTab("Buscar",  panelBusquedaOfertas);
 		//pestañas.setSelectedIndex(0); // 0 means first
 		
 		// añadir componentes al contenedor
 		contenedor.add(pestañas);
 		// this.pack();
+
 		
 		// visibilidad inicial
-		pestañas.setVisible( false );
+		pestañas.setVisible( true );
 		
 		// Propuesta: PERMITIR REGRESAR A PANEL LOGIN DESDE CUALQUIER PESTAÑA
 		// Proposed work: ALLOW RETURN TO PANEL LOGIN FROM ANY TAB
 		
 		// Para realizar acciones al cambiar de pestañas
 		pestañas.addChangeListener( this );
+		
+		botonSesion.addActionListener(this);
 
 		// mostrar this, en otros ejemplos era ventana, ahora this
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,11 +63,15 @@ public class Gui extends JFrame implements ChangeListener {
 		this.setVisible(true);	
 	}
 
-	public void setControlador(Controlador c) {
-		this.controlador = c;
+	public void setApp(InmaculadApp app) {
+		this.app = app;
 	}
-	public Controlador getControlador() {
-		return this.controlador;
+	public InmaculadApp getApp() {
+		return this.app;
+	}
+	
+	public JButton getBotonSesion() {
+		return this.botonSesion;
 	}
 	
 	
@@ -69,6 +80,19 @@ public class Gui extends JFrame implements ChangeListener {
      // solamente a efectos de seguimiento del programa
    	 System.out.println( pestañas.getSelectedIndex() );
    	 System.out.println( pestañas.getSelectedComponent() );
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent ev) {
+		if (!app.isSesionIniciada()) {
+			panelLogin = new LoginPanel(this);
+			panelLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			panelLogin.setVisible(true);
+		}else {
+			app.cerrarSesion(false);
+			botonSesion.setText("Iniciar Sesion");
+			rolEtiqueta.setText("Invitado");
+		}
 	}
 
 	public void loginResult(boolean loginOK) {
