@@ -1,4 +1,4 @@
-package paneles;
+package gui.vista;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,7 +13,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import app.InmaculadApp;
-import sun.security.provider.certpath.ldap.JdkLDAP;
+import gui.controlador.Controlador;
 
 
 public class Gui extends JFrame implements ChangeListener, ActionListener {
@@ -21,6 +21,7 @@ public class Gui extends JFrame implements ChangeListener, ActionListener {
 	private LoginPanel panelLogin;
 	private JTabbedPane pestañas = new JTabbedPane();
 	private InmaculadApp app;
+	private Controlador controlador;
 	
 	private JButton botonSesion = new JButton("Iniciar Sesion");
 	protected JLabel rolEtiqueta = new JLabel("Invitado");
@@ -63,11 +64,18 @@ public class Gui extends JFrame implements ChangeListener, ActionListener {
 		this.setVisible(true);	
 	}
 
-	public void setApp(InmaculadApp app) {
+	/*public void setApp(InmaculadApp app) {
 		this.app = app;
 	}
 	public InmaculadApp getApp() {
 		return this.app;
+	}*/
+	
+	public void setControlador(Controlador c) {
+		this.controlador = c;
+	}
+	public Controlador getControlador() {
+		return this.controlador;
 	}
 	
 	public JButton getBotonSesion() {

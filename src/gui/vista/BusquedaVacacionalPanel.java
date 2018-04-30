@@ -1,4 +1,4 @@
-package paneles;
+package gui.vista;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;

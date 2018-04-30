@@ -1,6 +1,7 @@
-package paneles;
+package gui.vista;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
 
 public class BusquedaViviendaPanel extends BusquedaPanel {
 	private JLabel etiquetaMeses = new JLabel("Duracion Meses:");
