@@ -74,7 +74,7 @@ public class OfertaTest {
 		
 		assertTrue(oferta.getContratada());
 		assertNotNull(oferta.getDemandante());
-		assertEquals( oferta, demandante.getRolDemandante().getOfertasContratadas().get(0));
+		assertEquals( oferta, demandante.rolDemandante.getOfertasContratadas().get(0));
 	}
 
 	/**

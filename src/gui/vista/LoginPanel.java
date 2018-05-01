@@ -14,13 +14,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class LoginPanel extends JFrame implements ActionListener {
+import gui.layout.RelativeLayout;
+
+public class LoginPanel extends JPanel implements ActionListener {
 
 	private JLabel etiquetaNIF = new JLabel("NIF:");
-	private JTextField campoNIF = new JTextField();
+	private JTextField campoNIF = new JTextField(10);
 	
 	private JLabel etiquetaContrasenia = new JLabel("Contraseña");
-	private JTextField campoContrasenia = new JPasswordField();
+	private JTextField campoContrasenia = new JPasswordField(10);
 	
 	private JButton botonLogin = new JButton("Login");
 	
@@ -28,46 +30,30 @@ public class LoginPanel extends JFrame implements ActionListener {
 	
 	public LoginPanel(Gui gui) {
 		this.gui = gui;
-		//this.setLayout(new FlowLayout());
-		this.setLayout(new GridLayout(0,2));
-		
-		this.setSize(400, 150);
-			
-		// aniadir componentes a "this" panel
-		this.getContentPane().add(etiquetaNIF);
-		this.getContentPane().add(campoNIF);
-						
-		this.getContentPane().add(etiquetaContrasenia);
-		this.getContentPane().add(campoContrasenia);
-		
-		JPanel pb = new JPanel();
-		pb.add(botonLogin);
-		this.add(pb, BorderLayout.CENTER);
 
-		// asociar acciones a componentes
+		this.setLayout(new RelativeLayout(RelativeLayout.Y_AXIS));
+			
+		JPanel panelNIF = new JPanel(new GridLayout(0, 2));
+			panelNIF.add(etiquetaNIF);
+			panelNIF.add(campoNIF);
+						
+		JPanel panelPasswd = new JPanel(new GridLayout(0, 2));
+			panelPasswd.add(etiquetaContrasenia);
+			panelPasswd.add(campoContrasenia);
+		
+		JPanel panelBoton = new JPanel();
+		panelBoton.add(botonLogin);
+		
+		this.add(panelNIF);
+		this.add(panelPasswd);
+		this.add(panelBoton);		
+
 		botonLogin.addActionListener( this );
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (gui.getApp().setSesionIniciada(this.gui.getApp().iniciarSesion(campoNIF.getText()
-												, 
-										campoContrasenia.getText()))) {
-			
-			gui.rolEtiqueta.setText(gui.getApp().clienteConectado().getNombres() 
-									+ ": " + 
-									gui.getApp().clienteConectado().toStringRol());
-			gui.getBotonSesion().setText("Cerrar Sesion");
-			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-		}
-		else
-			JOptionPane.showMessageDialog(null, "Error Login", "Los datos introducidos no son correctos", JOptionPane.ERROR_MESSAGE);
-	}
-
-
-	public void setDefaultCloseOperation(int exitOnClose) {
-		// TODO Auto-generated method stub
-		
+		gui.getControlador().login( campoNIF.getText(), campoContrasenia.getText() );
 	}
 
 }

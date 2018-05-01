@@ -1,78 +1,66 @@
 package gui.vista;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
 
-import tipos.TipoDisponibilidad;
+import gui.layout.RelativeLayout;
 
+public class BusquedaPanel extends JPanel implements ActionListener {
+	
+private ButtonGroup grupoRadioButton = new ButtonGroup();
+	
+	private JRadioButton OpcionBusquedaVivienda = new JRadioButton("Vivienda");
+	private JRadioButton OpcionBusquedaVacacional = new JRadioButton("Vacacional");
+	
+	private BusquedaVacacionalPanel bsqdVac;
+	private BusquedaViviendaPanel bsqdViv;
+	
+	private Gui gui;
 
-public class BusquedaPanel extends JFrame implements ActionListener {
+	public BusquedaPanel(Gui gui) {
+		this.setLayout(new RelativeLayout(RelativeLayout.Y_AXIS));
+		
+		
+		bsqdVac = new BusquedaVacacionalPanel(gui);
+		bsqdViv = new BusquedaViviendaPanel(gui);
+		grupoRadioButton.add(OpcionBusquedaVacacional);
+		grupoRadioButton.add(OpcionBusquedaVivienda);
+		
+		grupoRadioButton.setSelected(OpcionBusquedaVacacional.getModel(), true);
 
-	// componentes privados del panel, pero anin NO AniADIDOS
-	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
-	private JTextField campoCP = new JTextField();
-	
-	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
-	private JTextField campoValoracion = new JTextField();	
-	
-	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1: (DD.MM.YYYY)");
-	private JTextField fechaInicio1 = new JTextField();
-	
-	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (DD.MM.YYYY)");
-	private JTextField fechaInicio2 = new JTextField();
-	
-	private JLabel etiquetaDisponibilidad = new JLabel("Tipo de Disponibilidad: ");
-	private JComboBox<TipoDisponibilidad> disponibilidad = new JComboBox<TipoDisponibilidad>(TipoDisponibilidad.values());
-	
-	private JButton botonBuscar = new JButton("\nBuscar");
-	
-	public BusquedaPanel() {
-		//this.setLayout(new FlowLayout());
-		//this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setLayout(new GridLayout(0,2));
-
-		fechaInicio1.setPreferredSize( new Dimension( 70, 24 ) );
-		fechaInicio2.setPreferredSize( new Dimension( 70, 24 ) );
-		campoValoracion.setPreferredSize( new Dimension( 24, 24 ) );
-		campoCP.setPreferredSize( new Dimension( 24, 24 ) );
+		JPanel panelRadioBotones = new JPanel(new GridLayout(0,2));
+			panelRadioBotones.add(OpcionBusquedaVacacional);
+			panelRadioBotones.add(OpcionBusquedaVivienda);
+					
+		OpcionBusquedaVacacional.addActionListener(this);
+		OpcionBusquedaVivienda.addActionListener(this);
 		
-		this.setSize(400, 200);
-		
-		// asociar acciones a componentes
-		botonBuscar.addActionListener( this );
-		
-		// aniadir componentes a "this" panel
-		this.getContentPane().add(etiquetaCP);
-		this.getContentPane().add(campoCP);
-		this.getContentPane().add(etiquetaValoracion);
-		this.getContentPane().add(campoValoracion);
-		
-		this.getContentPane().add(etiquetaFechaInicio1);
-		this.getContentPane().add(fechaInicio1);
-		
-		this.getContentPane().add(etiquetaFechaInicio2);
-		this.getContentPane().add(fechaInicio2);
-		
-		this.getContentPane().add(etiquetaDisponibilidad);
-		this.getContentPane().add(disponibilidad);
-		
-		this.getContentPane().add(botonBuscar);
+		this.add(panelRadioBotones);
+		this.add(bsqdVac);
 	}
 
-	// En el futuro, puede ser util tener getters como este:
-	// public String getText() {    return this.campo.getText();  }
-	
 	@Override
-	public void actionPerformed(ActionEvent ev) {
-		  //JOptionPane.showMessageDialog(null, this.campo.getText());
+	public void actionPerformed(ActionEvent e) {
+		this.remove(1);
+		
+		if(grupoRadioButton.getSelection().equals(OpcionBusquedaVacacional.getModel()))
+			this.add(bsqdVac);
+		else
+			this.add(bsqdViv);
+		
+		this.revalidate();
+		this.repaint();
 	}
+	
+	
 
 }
