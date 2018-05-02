@@ -17,6 +17,10 @@ public class Controlador {
 	public void login(String NIF, String password) {
 		this.gui.loginResult( this.app.iniciarSesion( NIF, password ) );
 	}
+	
+	public void cerrarSesion(boolean GuardarNoGuardar) {
+		this.gui.cerrarSesionResult( this.app.cerrarSesion( true ));
+	}
 
 	public void buscar(BusquedaVacacional criterios) {
 		//this.gui.		

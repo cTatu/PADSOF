@@ -47,7 +47,7 @@ public class LoginPanel extends JPanel implements ActionListener {
 		this.add(panelNIF);
 		this.add(panelPasswd);
 		this.add(panelBoton);		
-
+		
 		botonLogin.addActionListener( this );
 	}
 	

@@ -6,23 +6,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import app.InmaculadApp;
 import gui.controlador.Controlador;
 
 
-public class Gui extends JFrame implements ChangeListener {
+public class Gui extends JFrame implements ChangeListener, ActionListener {
 	private BusquedaPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
-	private AniadirOfertaPanel panelAniadirOferta;
+	private AniadirOfertaPanel panelAniadirOfertaVacacional;
+	private AniadirOfertaPanel panelAniadirOfertaVivienda;
 	private JTabbedPane tabsInvitado = new JTabbedPane();
 	private JTabbedPane tabsCliente = new JTabbedPane();
 	private Controlador controlador;
+	private JButton cerrarSesion = new JButton("Cerrar Sesion\n");
 	
 	public Gui(String titulo) {
 		super(titulo); // antes: JFrame ventana = new JFrame("Mi GUI");
@@ -34,25 +33,31 @@ public class Gui extends JFrame implements ChangeListener {
 		// crear componentes
 		panelLogin = new LoginPanel(this);
 		panelBusquedaOfertas = new BusquedaPanel(this);
-		panelAniadirOferta = new AniadirOfertaPanel(this);
+		panelAniadirOfertaVacacional = new AniadirOfertaVacacionalPanel(this);
+		panelAniadirOfertaVivienda = new AniadirOfertaViviendaPanel(this);
 		
 		tabsInvitado.addTab("Login", panelLogin);
 		tabsInvitado.addTab("Buscar",  panelBusquedaOfertas);
 		
-		tabsCliente.addTab("Oferta", panelAniadirOferta);
+		tabsCliente.addTab("Nueva Oferta vacacional", panelAniadirOfertaVacacional);
+		tabsCliente.addTab("Nueva Oferta vivienda", panelAniadirOfertaVivienda);
 		
 		// aniadir componentes al contenedor
+		contenedor.add(cerrarSesion);
 		contenedor.add(tabsInvitado);
 		contenedor.add(tabsCliente);
 		
 		// visibilidad inicial
 		tabsInvitado.setVisible( true );
 		tabsCliente.setVisible( false );
+		cerrarSesion.setVisible( false );
 				
 		
 		
 		// Propuesta: PERMITIR REGRESAR A PANEL LOGIN DESDE CUALQUIER PESTAniA
 		// Proposed work: ALLOW RETURN TO PANEL LOGIN FROM ANY TAB
+		cerrarSesion.addChangeListener(this);
+		cerrarSesion.addActionListener( this );
 		
 		// Para realizar acciones al cambiar de tabs
 		tabsInvitado.addChangeListener( this );
@@ -82,8 +87,25 @@ public class Gui extends JFrame implements ChangeListener {
 		if (loginOK) { 
 			tabsInvitado.setVisible( false );
 			tabsCliente.setVisible( true );
+			cerrarSesion.setVisible( true );
 		} else {
 			this.panelLogin.setError("login incorrecto");
 		}
+	}
+
+
+	public void cerrarSesionResult(boolean cerrarSesionOK) {
+		if (cerrarSesionOK) {
+			tabsInvitado.setVisible( true );
+			tabsCliente.setVisible( false );
+			cerrarSesion.setVisible( false );
+		} 
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		this.getControlador().cerrarSesion( true );
+		
 	}
 }

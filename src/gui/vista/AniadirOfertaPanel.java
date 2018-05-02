@@ -2,6 +2,7 @@ package gui.vista;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,7 +32,8 @@ public class AniadirOfertaPanel extends JPanel implements ActionListener{
 	
 	public AniadirOfertaPanel(Gui gui) {
 		this.gui = gui;
-		this.setLayout(new FlowLayout());		
+		this.setLayout(new GridLayout(0,2));	
+
 		
 		// this.setPreferredSize(new Dimension(400, 200));
 		fechaInicio.setPreferredSize( new Dimension( 70, 24 ) );
@@ -43,8 +45,12 @@ public class AniadirOfertaPanel extends JPanel implements ActionListener{
 		
 		// añadir componentes al panel
 		this.add(precio);
+		this.add(campoPrecio);
 		this.add(fianza);
+		this.add(campoFianza);
 		this.add(descripcion);
+		this.add(campoDescripcion);
+		this.add(etiquetaFechaInicio);
 		this.add(fechaInicio);
 		this.add(botonBuscar);
 	}
