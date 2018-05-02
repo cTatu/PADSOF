@@ -19,7 +19,9 @@ import gui.controlador.Controlador;
 public class Gui extends JFrame implements ChangeListener {
 	private BusquedaPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
-	private JTabbedPane tabs = new JTabbedPane();
+	private AniadirOfertaPanel panelAniadirOferta;
+	private JTabbedPane tabsInvitado = new JTabbedPane();
+	private JTabbedPane tabsCliente = new JTabbedPane();
 	private Controlador controlador;
 	
 	public Gui(String titulo) {
@@ -32,19 +34,29 @@ public class Gui extends JFrame implements ChangeListener {
 		// crear componentes
 		panelLogin = new LoginPanel(this);
 		panelBusquedaOfertas = new BusquedaPanel(this);
+		panelAniadirOferta = new AniadirOfertaPanel(this);
 		
-		tabs.addTab("Login", panelLogin);
-		tabs.addTab("Buscar",  panelBusquedaOfertas);
+		tabsInvitado.addTab("Login", panelLogin);
+		tabsInvitado.addTab("Buscar",  panelBusquedaOfertas);
+		
+		tabsCliente.addTab("Oferta", panelAniadirOferta);
 		
 		// aniadir componentes al contenedor
-		contenedor.add(tabs);
+		contenedor.add(tabsInvitado);
+		contenedor.add(tabsCliente);
+		
+		// visibilidad inicial
+		tabsInvitado.setVisible( true );
+		tabsCliente.setVisible( false );
+				
 		
 		
 		// Propuesta: PERMITIR REGRESAR A PANEL LOGIN DESDE CUALQUIER PESTAniA
 		// Proposed work: ALLOW RETURN TO PANEL LOGIN FROM ANY TAB
 		
 		// Para realizar acciones al cambiar de tabs
-		tabs.addChangeListener( this );
+		tabsInvitado.addChangeListener( this );
+		tabsCliente.addChangeListener(this);
 
 		// mostrar this, en otros ejemplos era ventana, ahora this
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,8 +79,11 @@ public class Gui extends JFrame implements ChangeListener {
 	}
 
 	public void loginResult(boolean loginOK) {
-		if (loginOK) {
-		
+		if (loginOK) { 
+			tabsInvitado.setVisible( false );
+			tabsCliente.setVisible( true );
+		} else {
+			this.panelLogin.setError("login incorrecto");
 		}
 	}
 }

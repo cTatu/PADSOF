@@ -55,5 +55,12 @@ public class LoginPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		gui.getControlador().login( campoNIF.getText(), campoContrasenia.getText() );
 	}
+	
+	// Propuesta: CAMBIA LA FORMA/LUGAR/MECANISMO PARA MOSTRAR ERROR
+	// Proposed work: CHANGE THE WAY/PLACE/MECHANISM TO DISPLAY ERROR
+	public void setError(String error) {	
+		campoContrasenia.setText(error);
+		campoContrasenia.setForeground(java.awt.Color.red);
+	}
 
 }

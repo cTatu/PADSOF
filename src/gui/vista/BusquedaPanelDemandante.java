@@ -16,7 +16,7 @@ public abstract class BusquedaPanelDemandante extends JPanel implements ActionLi
 
 	// componentes privados del panel, pero anin NO AniADIDOS
 	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
-	protected JSpinner campoCP = new JSpinner();
+	protected JTextField campoCP = new JTextField();
 	
 	
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
