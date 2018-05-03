@@ -1,5 +1,7 @@
 package gui.controlador;
 
+import java.time.LocalDate;
+
 import app.InmaculadApp;
 import busqueda.BusquedaVacacional;
 import gui.vista.Gui;
@@ -24,6 +26,17 @@ public class Controlador {
 
 	public void buscar(BusquedaVacacional criterios) {
 		//this.gui.		
+	}
+	
+	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, 
+			String descripcion, Integer duracionMeses, Integer ID, Double fianza) {
+		
+		return this.app.aniadirOfertaVivienda(precio, fechaInicio, descripcion, duracionMeses, ID, fianza);
+	}
+	
+	public boolean aniadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Integer ID) {
+		
+		return this.app.aniadirOfertaVacacional(precio, fechaInicio, descripcion, fechaFin, ID);
 	}
 
 }

@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AniadirOfertaPanel extends JPanel implements ActionListener{
+public class AniadirOfertaPanel extends JPanel {
 	
 	private JLabel precio = new JLabel("Precio: (Euros)");
 	private JTextField campoPrecio = new JTextField();
@@ -26,7 +26,7 @@ public class AniadirOfertaPanel extends JPanel implements ActionListener{
 	private JLabel etiquetaFechaInicio = new JLabel("Fecha Inicio : (DD.MM.YYYY)");
 	private JTextField fechaInicio = new JTextField();
 	
-	private JButton botonBuscar = new JButton("\nGuardar");
+	protected JButton botonGuardar = new JButton("\nGuardar");
 	
 	private Gui gui;
 	
@@ -41,8 +41,6 @@ public class AniadirOfertaPanel extends JPanel implements ActionListener{
 		descripcion.setPreferredSize( new Dimension( 70, 50 ) );
 		precio.setPreferredSize( new Dimension( 24, 24 ) );
 		
-		botonBuscar.addActionListener( this );
-		
 		// añadir componentes al panel
 		this.add(precio);
 		this.add(campoPrecio);
@@ -53,12 +51,6 @@ public class AniadirOfertaPanel extends JPanel implements ActionListener{
 		this.add(etiquetaFechaInicio);
 		this.add(fechaInicio);
 		this.add(botonBuscar);
-	}
-
-	public void actionPerformed(ActionEvent ev) {
-		String mensaje;
-		mensaje = "Tu oferta se ha guardado, en espera de ser aprobada";
-		JOptionPane.showMessageDialog(null, mensaje);
 	}
 		
 }
