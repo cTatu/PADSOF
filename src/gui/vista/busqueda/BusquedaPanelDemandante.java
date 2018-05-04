@@ -1,4 +1,4 @@
-package gui.vista;
+package gui.vista.busqueda;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import gui.vista.Gui;
 import tipos.TipoDisponibilidad;
 
 
@@ -16,7 +17,7 @@ public abstract class BusquedaPanelDemandante extends JPanel implements ActionLi
 
 	// componentes privados del panel, pero anin NO AniADIDOS
 	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
-	protected JTextField campoCP = new JTextField();
+	protected JSpinner campoCP = new JSpinner();
 	
 	
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");

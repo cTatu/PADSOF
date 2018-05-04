@@ -15,30 +15,28 @@ import javax.swing.JTextField;
 public class AniadirOfertaPanel extends JPanel {
 	
 	private JLabel precio = new JLabel("Precio: (Euros)");
-	private JTextField campoPrecio = new JTextField();
+	protected JTextField campoPrecio = new JTextField();
 	
 	private JLabel fianza = new JLabel("Precio: (Euros)");
-	private JTextField campoFianza = new JTextField();
+	protected JTextField campoFianza = new JTextField();
 	
 	private JLabel descripcion = new JLabel("Descripcion: ");
-	private JTextField campoDescripcion = new JTextField();		
+	protected JTextField campoDescripcion = new JTextField();		
 	
 	private JLabel etiquetaFechaInicio = new JLabel("Fecha Inicio : (DD.MM.YYYY)");
-	private JTextField fechaInicio = new JTextField();
+	protected JTextField fechaInicio = new JTextField();
 	
 	protected JButton botonGuardar = new JButton("\nGuardar");
 	
-	private Gui gui;
+	protected Gui gui;
 	
 	public AniadirOfertaPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridLayout(0,2));	
 
-		
-		// this.setPreferredSize(new Dimension(400, 200));
-		fechaInicio.setPreferredSize( new Dimension( 70, 24 ) );
-		fianza.setPreferredSize( new Dimension( 70, 24 ) );
-		descripcion.setPreferredSize( new Dimension( 70, 50 ) );
+		fechaInicio.setPreferredSize( new Dimension( 24, 24 ) );
+		fianza.setPreferredSize( new Dimension( 24, 24 ) );
+		descripcion.setPreferredSize( new Dimension( 24, 24 ) );
 		precio.setPreferredSize( new Dimension( 24, 24 ) );
 		
 		// añadir componentes al panel
@@ -50,7 +48,7 @@ public class AniadirOfertaPanel extends JPanel {
 		this.add(campoDescripcion);
 		this.add(etiquetaFechaInicio);
 		this.add(fechaInicio);
-		this.add(botonBuscar);
+		this.add(botonGuardar);
 	}
 		
 }

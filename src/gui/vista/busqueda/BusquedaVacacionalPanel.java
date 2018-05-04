@@ -1,4 +1,4 @@
-package gui.vista;
+package gui.vista.busqueda;
 
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import busqueda.BusquedaVacacional;
+import gui.vista.Gui;
 import tipos.TipoDisponibilidad;
 
 public class BusquedaVacacionalPanel extends BusquedaPanelDemandante {

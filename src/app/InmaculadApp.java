@@ -664,6 +664,10 @@ public class InmaculadApp implements Serializable{
 	public boolean isSesionIniciada() {
 		return sesionIniciada;
 	}
+	
+	public boolean isGerente() {
+		return clienteConectado.gerente;
+	}
 
 	public boolean setSesionIniciada(boolean sesionIniciada) {
 		this.sesionIniciada = sesionIniciada;

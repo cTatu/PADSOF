@@ -10,5 +10,4 @@ public class Main {
 		Controlador  controlador = new Controlador(gui, app);
 		gui.setControlador( controlador );		
 	}
-
 }

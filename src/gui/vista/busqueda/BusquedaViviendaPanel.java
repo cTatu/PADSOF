@@ -1,9 +1,11 @@
-package gui.vista;
+package gui.vista.busqueda;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
+
+import gui.vista.Gui;
 
 public class BusquedaViviendaPanel extends BusquedaPanelDemandante {
 	

@@ -1,4 +1,4 @@
-package gui.vista;
+package gui.vista.busqueda;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +13,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 
 import gui.layout.RelativeLayout;
+import gui.vista.Gui;
 
 public class BusquedaPanel extends JPanel implements ActionListener {
 	
@@ -27,8 +28,8 @@ private ButtonGroup grupoRadioButton = new ButtonGroup();
 	private Gui gui;
 
 	public BusquedaPanel(Gui gui) {
+		this.gui = gui;
 		this.setLayout(new RelativeLayout(RelativeLayout.Y_AXIS));
-		
 		
 		bsqdVac = new BusquedaVacacionalPanel(gui);
 		bsqdViv = new BusquedaViviendaPanel(gui);

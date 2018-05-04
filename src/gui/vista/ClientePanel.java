@@ -12,6 +12,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import gui.layout.RelativeLayout;
+
 public class ClientePanel extends JPanel implements ChangeListener, ActionListener {
 	
 	private AniadirOfertaPanel panelAniadirOfertaVacacional;
@@ -23,7 +25,7 @@ public class ClientePanel extends JPanel implements ChangeListener, ActionListen
 	
 	public ClientePanel(Gui gui) {
 		this.gui = gui;
-		this.setLayout(new FlowLayout());
+		this.setLayout(new BorderLayout());
 		
 		panelAniadirOfertaVacacional = new AniadirOfertaVacacionalPanel(gui);
 		panelAniadirOfertaVivienda = new AniadirOfertaViviendaPanel(gui);
@@ -31,8 +33,11 @@ public class ClientePanel extends JPanel implements ChangeListener, ActionListen
 		tabsCliente.addTab("Nueva Oferta vacacional", panelAniadirOfertaVacacional);
 		tabsCliente.addTab("Nueva Oferta vivienda", panelAniadirOfertaVivienda);
 		
-		// aniadir componentes al contenedor.
-		this.add(cerrarSesion);
+
+		JPanel panelBotonCerrarSesion = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+			panelBotonCerrarSesion.add(cerrarSesion);
+			
+		this.add(panelBotonCerrarSesion,BorderLayout.NORTH);
 		this.add(tabsCliente);
 
 		cerrarSesion.addChangeListener(this);

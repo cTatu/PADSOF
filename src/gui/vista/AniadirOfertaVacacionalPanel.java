@@ -2,6 +2,8 @@ package gui.vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,16 +24,17 @@ public class AniadirOfertaVacacionalPanel extends AniadirOfertaPanel implements 
 	}
 	
 	public void actionPerformed(ActionEvent ev) {
-		/*String mensaje;
-		mensaje = "Tu oferta se ha guardado, en espera de ser aprobada";
-		JOptionPane.showMessageDialog(null, mensaje);
-		
 		String mensaje;
-		if ( this.gui.getControlador().aniadirOfertaVacacional( this.campoPrecio.getText(), this.fechaInicio.getText(), 
-				this.campoDescripcion.getText(), this.fechaFin.getText(), this.ID ) )
-		     mensaje = "Yes, " + this.campo.getText() + " es palíndromo";
-		else mensaje = "No es palídromo. Try again ...";
-		JOptionPane.showMessageDialog(null, mensaje);*/
+		
+		/*if ( this.gui.getControlador().aniadirOfertaVacacional( Double.parseDouble(this.campoPrecio.getText()), 
+				LocalDate.parse(super.fechaInicio.getText(), DateTimeFormatter.ISO_LOCAL_DATE), 
+				this.campoDescripcion.getText(), 
+				LocalDate.parse(this.fechaFin.getText(), DateTimeFormatter.ISO_LOCAL_DATE), 
+				Integer.parseInt(Integer.parseInt(this.campoID.getText()) ))){
+					
+					mensaje = "Tu oferta se ha guardado, en espera de ser aprobada";
+					JOptionPane.showMessageDialog(null, mensaje);
+		}*/
 	}
 
 }

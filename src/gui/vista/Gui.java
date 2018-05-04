@@ -14,6 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import gui.controlador.Controlador;
+import gui.vista.busqueda.BusquedaPanel;
 
 
 public class Gui extends JFrame implements ChangeListener {
