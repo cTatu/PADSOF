@@ -16,7 +16,7 @@ import gui.vista.usuario.GerentePanel;
 import gui.vista.usuario.OfertantePanel;
 
 
-public class Gui extends JFrame implements ChangeListener {
+public class Gui extends JFrame {
 	private BusquedaPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
 	private GerentePanel panelGerente;
@@ -57,9 +57,6 @@ public class Gui extends JFrame implements ChangeListener {
 		panelClienteDual.setVisible( false );
 		panelOfertante.setVisible( false );
 		panelDemandante.setVisible( false );
-		
-		// Para realizar acciones al cambiar de tabs
-		tabsInvitado.addChangeListener(this);
 
 		// mostrar this, en otros ejemplos era ventana, ahora this
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +83,7 @@ public class Gui extends JFrame implements ChangeListener {
 			}
 			else if( this.controlador.isDemandante() ) {
 				panelDemandante.setVisible( true );
+				panelBusquedaOfertas.setVisibleUsuarioRegistrado(true);
 			}
 			else{
 				panelOfertante.setVisible( true );
@@ -103,8 +101,7 @@ public class Gui extends JFrame implements ChangeListener {
 		} 
 	}
 	
-	@Override
-	public void stateChanged(ChangeEvent ev) {
-
+	public void addOfertaTablaBusqueda(Object[] oferta) {
+		this.panelBusquedaOfertas.addOfertasTabla(oferta);
 	}
 }
