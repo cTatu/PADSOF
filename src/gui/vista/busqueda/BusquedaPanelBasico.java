@@ -33,10 +33,10 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
 	protected JSpinner campoCP = new JSpinner();
 
-	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1: (YYYY-MM-DD)");
+	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1: (DD/MM/YYYY)");
 	protected JTextField fechaInicio1 = new JTextField();
 	
-	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (YYYY-MM-DD)");
+	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (DD/MM/YYYY)");
 	protected JTextField fechaInicio2 = new JTextField();
 	
 	/*** Usuario Registrado ***/
@@ -50,9 +50,11 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	protected Gui gui;
 	protected JTable tablaOfertas;
 
-	protected Optional<Integer> duracionMeses;
-	protected Optional<Double> valoracion;
-	protected Optional<String> fechaFin,tipoDisponibilidad, tipoOferta;
+	protected Optional<Integer> duracionMeses = Optional.empty();
+	protected Optional<Double> valoracion = Optional.empty();
+	protected Optional<String> fechaFin = Optional.empty(),
+							   tipoDisponibilidad = Optional.empty(), 
+							   tipoOferta = Optional.empty();
 
 	public BusquedaPanelBasico(Gui gui, boolean visible) {
 			this.setLayout(new GridBagLayout());

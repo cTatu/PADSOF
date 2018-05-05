@@ -104,8 +104,8 @@ public class Gui extends JFrame {
 		} 
 	}
 	
-	public void addOfertaTablaBusqueda(Object[] oferta) {
-		this.panelBusquedaOfertas.addOfertasTabla(oferta);
+	public void addOfertaTablaBusqueda(Object... ofertas) {
+		this.panelBusquedaOfertas.addOfertasTabla(ofertas);
 	}
 
 
@@ -133,5 +133,10 @@ public class Gui extends JFrame {
 			panelGerente.limpiarTabla();
 			controlador.rellenarTablaOfertasPendientes();
 		}
+	}
+
+
+	public void avisoBusquedaVacia() {
+		JOptionPane.showMessageDialog(this, "La busqueda no ha tenido ningun resultado", "Busqueda Fallida", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

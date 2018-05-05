@@ -75,6 +75,7 @@ public class Controlador {
 			ofertasTabla.put(i, oferta);
 			this.gui.addOfertaTablaBusqueda(camposOferta.toArray());
 		}
+		this.gui.avisoBusquedaVacia();
 	}
 	
 	public void buscar(Integer codigoPostal, LocalDate fechaInicio1, LocalDate fechaInicio2, LocalDate fechaFin,

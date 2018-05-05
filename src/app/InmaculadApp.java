@@ -419,11 +419,6 @@ public class InmaculadApp implements Serializable{
 	 * @return la lista con las ofertas de la busqueda
 	 */
 	public List<Oferta> buscarOfertas(Busqueda criteriosBusqueda,TipoOrdenar metodo){
-		if(clienteConectado.rolDemandante == null)
-			return null;
-		
-		if(clienteConectado.getContrasenia().isEmpty())
-			criteriosBusqueda.setToDisponible();
 		
 		List<Oferta> resultados = new ArrayList<>();
 

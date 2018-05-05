@@ -26,9 +26,9 @@ public class AniadirOfertaVacacionalPanel extends AniadirOfertaPanel implements 
 		String mensaje;
 		
 		/*if ( this.gui.getControlador().aniadirOfertaVacacional( Double.parseDouble(this.campoPrecio.getText()), 
-				LocalDate.parse(super.fechaInicio.getText(), DateTimeFormatter.ISO_LOCAL_DATE), 
+				LocalDate.parse(super.fechaInicio.getText(), DateTimeFormatter.ofPattern("d/MM/yyyy")), 
 				this.campoDescripcion.getText(), 
-				LocalDate.parse(this.fechaFin.getText(), DateTimeFormatter.ISO_LOCAL_DATE), 
+				LocalDate.parse(this.fechaFin.getText(), DateTimeFormatter.ofPattern("d/MM/yyyy")), 
 				Integer.parseInt(Integer.parseInt(this.campoID.getText()) ))){
 					
 					mensaje = "Tu oferta se ha guardado, en espera de ser aprobada";

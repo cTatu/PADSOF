@@ -64,7 +64,7 @@ public class GerentePanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!ofertasPendientes.atras())
-			gui.getControlador().cerrarSesion(false);
+			gui.getControlador().cerrarSesion(true);
 		else
 			botonAtras.setText("Cerrar Sesion");
 	}
