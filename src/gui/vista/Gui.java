@@ -67,7 +67,7 @@ public class Gui extends JFrame implements ChangeListener {
 	public void loginResult(boolean loginOK) {
 		if (loginOK) { 
 			tabsInvitado.setVisible( false );
-			panelCliente.setVisible( true );
+			panelCliente.setVisible( true );	
 		} else {
 			JOptionPane.showMessageDialog(this, "NIF o contraseña incorrectos", "Login error", JOptionPane.ERROR_MESSAGE);
 		}

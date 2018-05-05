@@ -12,8 +12,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import gui.layout.RelativeLayout;
-
 public class ClientePanel extends JPanel implements ChangeListener, ActionListener {
 	
 	private AniadirOfertaPanel panelAniadirOfertaVacacional;

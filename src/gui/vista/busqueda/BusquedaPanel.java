@@ -2,17 +2,19 @@ package gui.vista.busqueda;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 
-import gui.layout.RelativeLayout;
 import gui.vista.Gui;
 
 public class BusquedaPanel extends JPanel implements ActionListener {
@@ -29,7 +31,9 @@ private ButtonGroup grupoRadioButton = new ButtonGroup();
 
 	public BusquedaPanel(Gui gui) {
 		this.gui = gui;
-		this.setLayout(new RelativeLayout(RelativeLayout.Y_AXIS));
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
 		
 		bsqdVac = new BusquedaVacacionalPanel(gui);
 		bsqdViv = new BusquedaViviendaPanel(gui);
@@ -45,8 +49,8 @@ private ButtonGroup grupoRadioButton = new ButtonGroup();
 		OpcionBusquedaVacacional.addActionListener(this);
 		OpcionBusquedaVivienda.addActionListener(this);
 		
-		this.add(panelRadioBotones);
-		this.add(bsqdVac);
+		this.add(panelRadioBotones, c);
+		this.add(bsqdVac, c);
 	}
 
 	@Override

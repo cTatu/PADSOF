@@ -1,6 +1,8 @@
 package gui.vista;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,8 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import gui.layout.RelativeLayout;
 
 public class LoginPanel extends JPanel implements ActionListener {
 
@@ -31,11 +31,13 @@ public class LoginPanel extends JPanel implements ActionListener {
 	public LoginPanel(Gui gui) {
 		this.gui = gui;
 
-		this.setLayout(new RelativeLayout(RelativeLayout.Y_AXIS));
-			
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
 		JPanel panelNIF = new JPanel(new GridLayout(0, 2));
 			panelNIF.add(etiquetaNIF);
 			panelNIF.add(campoNIF);
+		
 						
 		JPanel panelPasswd = new JPanel(new GridLayout(0, 2));
 			panelPasswd.add(etiquetaContrasenia);
@@ -44,9 +46,9 @@ public class LoginPanel extends JPanel implements ActionListener {
 		JPanel panelBoton = new JPanel();
 		panelBoton.add(botonLogin);
 		
-		this.add(panelNIF);
-		this.add(panelPasswd);
-		this.add(panelBoton);		
+		this.add(panelNIF, c);
+		this.add(panelPasswd, c);
+		this.add(panelBoton, c);		
 		
 		botonLogin.addActionListener( this );
 	}
