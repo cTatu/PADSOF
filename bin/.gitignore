@@ -1,7 +1,13 @@
-/gui/
+/alltest/
 /app/
-/cliente/
-/tipos/
 /busqueda/
-/test/
+/cliente/
+/comparator/
+/fechasimulada/
+/gui/
+/inmueble/
 /oferta/
+/opinion/
+/reserva/
+/test/
+/tipos/

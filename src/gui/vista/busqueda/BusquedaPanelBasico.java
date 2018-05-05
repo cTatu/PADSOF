@@ -49,6 +49,7 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	
 	protected Gui gui;
 	protected JTable tablaOfertas;
+	protected JScrollPane scroll;
 
 	protected Optional<Integer> duracionMeses = Optional.empty();
 	protected Optional<Double> valoracion = Optional.empty();
@@ -102,7 +103,7 @@ public abstract class BusquedaPanelBasico extends JPanel {
 			
 			c.gridx = 0; c.gridy = 6;
 			c.gridwidth = 2;
-			JScrollPane scroll = new JScrollPane(tablaOfertas);
+			scroll = new JScrollPane(tablaOfertas);
 				scroll.setPreferredSize(new Dimension(500, 100));
 			scroll.setVisible(false);
 			this.add(scroll, c);
@@ -122,7 +123,7 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	
 	public void addOfertasTabla(Object... oferta) {
 		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
-		model.insertRow(0,oferta);
+		model.addRow(oferta);
 	}
 	
 	protected void rellenarCamposDemandante() {
@@ -131,5 +132,12 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	}
 	
 	protected abstract void rellenarCampos();
+
+	public void limpiarTabla() {
+		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
+		model.setRowCount(0);
+		
+		
+	}
 
 }

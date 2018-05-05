@@ -73,9 +73,11 @@ public class Controlador {
 			camposOferta.add(oferta.getPrecio());
 			
 			ofertasTabla.put(i, oferta);
+			i++;
 			this.gui.addOfertaTablaBusqueda(camposOferta.toArray());
 		}
-		this.gui.avisoBusquedaVacia();
+		if (i == 0)
+			this.gui.avisoBusquedaVacia();
 	}
 	
 	public void buscar(Integer codigoPostal, LocalDate fechaInicio1, LocalDate fechaInicio2, LocalDate fechaFin,

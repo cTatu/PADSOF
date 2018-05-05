@@ -73,10 +73,6 @@ public class OfertasPendientesPanel extends JPanel{
 	}
 
 	public void limpiarTabla() {
-		for (int i = 0; i < tablaOfertasPendientes.getRowCount(); i++) {
-		      for(int j = 0; j < tablaOfertasPendientes.getColumnCount(); j++)
-		          tablaOfertasPendientes.setValueAt("", i, j);
-		}
 		DefaultTableModel model = (DefaultTableModel) tablaOfertasPendientes.getModel();
 		model.setRowCount(0);
 	}

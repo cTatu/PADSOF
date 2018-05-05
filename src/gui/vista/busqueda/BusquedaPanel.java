@@ -126,11 +126,17 @@ class ListenerBusqueda implements ActionListener{
     		return;
     	}
     	
+    	panelActivo.limpiarTabla();
+    	
     	gui.getControlador().buscar((Integer)panelActivo.campoCP.getValue(), 
     			fecha1, fecha2, fechafin, panelActivo.duracionMeses.orElse(0), 
 				panelActivo.tipoDisponibilidad.orElse("DISPONIBLE"),
 				panelActivo.tipoOferta.orElse("VACACIONAL"), panelActivo.valoracion.orElse(0.0));
     	
+    	panelActivo.scroll.setVisible(true);
+    	
+    	panelActivo.revalidate();
+    	panelActivo.repaint();
 	}
 	
 }

@@ -21,9 +21,10 @@ public class AniadirOfertaPanel extends JPanel {
 	private JLabel descripcion = new JLabel("Descripcion: ");
 	protected JTextField campoDescripcion = new JTextField();		
 	
-	private JLabel etiquetaFechaInicio = new JLabel("Fecha Inicio : (DD.MM.YYYY)");
+	private JLabel etiquetaFechaInicio = new JLabel("Fecha Inicio : (DD.MM.YYYY) ");
 	protected JTextField fechaInicio = new JTextField();
 	
+	private JLabel hueco = new JLabel(" ");
 	protected JButton botonGuardar = new JButton("\nGuardar");
 	
 	protected Gui gui;
@@ -46,6 +47,7 @@ public class AniadirOfertaPanel extends JPanel {
 		this.add(campoDescripcion);
 		this.add(etiquetaFechaInicio);
 		this.add(fechaInicio);
+		this.add(hueco);
 		this.add(botonGuardar);
 	}
 		

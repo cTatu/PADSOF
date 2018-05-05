@@ -27,7 +27,7 @@ public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 		GridBagConstraints c = new GridBagConstraints();
 		
 		super.tablaOfertas.setModel(new DefaultTableModel(
-				new Object[]{"Fecha Inicio", "Descripcion", "Fecha Fin", "Precio", "Accion"}, 5));
+				new Object[]{"Fecha Inicio", "Descripcion", "Fecha Fin", "Precio"}, 0));
 		tablaOfertas.getColumnModel().getColumn(0).setPreferredWidth(1);
 		tablaOfertas.getColumnModel().getColumn(2).setPreferredWidth(1);
 		tablaOfertas.getColumnModel().getColumn(3).setPreferredWidth(1);

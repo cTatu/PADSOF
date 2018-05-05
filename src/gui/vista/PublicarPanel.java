@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import gui.vista.aniadirOferta.PublicarOfertaPanel;
+
 public class PublicarPanel extends JPanel implements ActionListener{
 	
 	private JButton botonInmueble = new JButton("Publicar inmueble\n");;

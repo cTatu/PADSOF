@@ -18,7 +18,7 @@ public enum TipoDisponibilidad {
 	DISPONIBLE;
 	
 	public static TipoDisponibilidad parseString(String texto) {
-		texto.toUpperCase();
+		texto = texto.toUpperCase();
 		
 		if (texto.equals("CONTRATADO"))
 			return CONTRATADO;

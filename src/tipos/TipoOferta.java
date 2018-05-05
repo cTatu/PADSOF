@@ -18,7 +18,7 @@ public enum TipoOferta {
 	VIVIENDA;
 	
 	public static TipoOferta parseString(String texto) {
-		texto.toUpperCase();
+		texto = texto.toUpperCase();
 		
 		if (texto.equals("VACACIONAL"))
 			return VACACIONAL;
