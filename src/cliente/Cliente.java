@@ -41,7 +41,7 @@ public class Cliente implements Serializable{
 		this.tarjetaCredito = tarjetaCredito;
 		this.bloqueado = false;
 	}
-	
+
 	/**
 	 * Checks if is bloqueado.
 	 *
@@ -132,6 +132,32 @@ public class Cliente implements Serializable{
 				 "NIF: " + NIF + "\n" +
 				 "Contrasenia: " + contrasenia				
 				);
+	}
+	
+	/**
+	 * Comprueba si un cliente tiene rol ofertante
+	 * @return boolean
+	 */
+	public boolean isOfertante() {
+		if( rolOfertante != null ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Comprueba si un cliente tiene rol demandante
+	 * @return boolean
+	 */
+	public boolean isDemandante() {
+		if( rolDemandante != null ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**

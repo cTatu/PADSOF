@@ -1,13 +1,12 @@
-package gui.vista;
+package gui.vista.aniadirOferta;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import gui.vista.Gui;
 
 public class AniadirOfertaVacacionalPanel extends AniadirOfertaPanel implements ActionListener {
 	

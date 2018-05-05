@@ -1,8 +1,9 @@
-package gui.vista;
+package gui.vista.aniadirOferta;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
+
+import gui.vista.Gui;
 
 public class AniadirOfertaViviendaPanel extends AniadirOfertaPanel {
 	

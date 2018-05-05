@@ -131,6 +131,14 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
+	 * Devuelve el cliente conectado
+	 * @return clienteConectado
+	 */
+	public Cliente getClienteConectado() {
+		return clienteConectado;
+	}
+
+	/**
 	 * Se comprueban todos los clientes en busca de alguno que tenga un pago pendiente
 	 * y se le intenta pagar la cantidad deudada
 	 *

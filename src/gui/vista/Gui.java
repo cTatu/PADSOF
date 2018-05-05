@@ -1,26 +1,28 @@
 package gui.vista;
-import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import gui.controlador.Controlador;
 import gui.vista.busqueda.BusquedaPanel;
+import gui.vista.usuario.ClienteDualPanel;
+import gui.vista.usuario.DemandantePanel;
+import gui.vista.usuario.GerentePanel;
+import gui.vista.usuario.OfertantePanel;
 
 
 public class Gui extends JFrame implements ChangeListener {
 	private BusquedaPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
-	private ClientePanel panelCliente;
+	private GerentePanel panelGerente;
+	private ClienteDualPanel panelClienteDual;
+	private DemandantePanel panelDemandante;
+	private OfertantePanel panelOfertante;
 	private JTabbedPane tabsInvitado = new JTabbedPane();
 	private Controlador controlador;
 	
@@ -34,18 +36,27 @@ public class Gui extends JFrame implements ChangeListener {
 		// crear componentes
 		panelLogin = new LoginPanel(this);
 		panelBusquedaOfertas = new BusquedaPanel(this);
-		panelCliente = new ClientePanel(this);
+		panelGerente = new GerentePanel(this);
+		panelClienteDual = new ClienteDualPanel(this);
+		panelOfertante = new OfertantePanel(this);
+		panelDemandante = new DemandantePanel(this);
 		
 		tabsInvitado.addTab("Login", panelLogin);
 		tabsInvitado.addTab("Buscar",  panelBusquedaOfertas);
 		
 		// aniadir componentes al contenedor
 		contenedor.add(tabsInvitado);
-		contenedor.add(panelCliente);
+		contenedor.add(panelGerente);
+		contenedor.add(panelClienteDual);
+		contenedor.add(panelOfertante);
+		contenedor.add(panelDemandante);
 		
 		// visibilidad inicial
 		tabsInvitado.setVisible( true );
-		panelCliente.setVisible( false );
+		panelGerente.setVisible( false );
+		panelClienteDual.setVisible( false );
+		panelOfertante.setVisible( false );
+		panelDemandante.setVisible( false );
 		
 		// Para realizar acciones al cambiar de tabs
 		tabsInvitado.addChangeListener(this);
@@ -67,7 +78,19 @@ public class Gui extends JFrame implements ChangeListener {
 	public void loginResult(boolean loginOK) {
 		if (loginOK) { 
 			tabsInvitado.setVisible( false );
-			panelCliente.setVisible( true );	
+			if( this.controlador.isGerente() ) {
+				panelGerente.setVisible( true );
+			}
+			else if( this.controlador.isClienteDual() ) {
+				panelClienteDual.setVisible( true );	
+			}
+			else if( this.controlador.isDemandante() ) {
+				panelDemandante.setVisible( true );
+			}
+			else{
+				panelOfertante.setVisible( true );
+			}
+			
 		} else {
 			JOptionPane.showMessageDialog(this, "NIF o contraseña incorrectos", "Login error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -76,7 +99,7 @@ public class Gui extends JFrame implements ChangeListener {
 	public void cerrarSesionResult(boolean cerrarSesionOK) {
 		if (cerrarSesionOK) {
 			tabsInvitado.setVisible( true );
-			panelCliente.setVisible( false );
+			panelClienteDual.setVisible( false );
 		} 
 	}
 	

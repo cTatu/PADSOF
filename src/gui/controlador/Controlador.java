@@ -20,6 +20,33 @@ public class Controlador {
 		this.gui.loginResult( this.app.iniciarSesion( NIF, password ) );
 	}
 	
+	public boolean isGerente() {
+		if( this.app.getClienteConectado().gerente ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean isClienteDual() {
+		if( this.app.getClienteConectado().isDemandante() && this.app.getClienteConectado().isOfertante() ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean isDemandante() {
+		if( this.app.getClienteConectado().isDemandante() ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public void cerrarSesion(boolean GuardarNoGuardar) {
 		this.gui.cerrarSesionResult( this.app.cerrarSesion( true ));
 	}

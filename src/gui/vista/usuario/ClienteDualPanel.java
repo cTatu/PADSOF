@@ -1,8 +1,7 @@
-package gui.vista;
+package gui.vista.usuario;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +11,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class ClientePanel extends JPanel implements ChangeListener, ActionListener {
+import gui.vista.Gui;
+import gui.vista.aniadirOferta.AniadirOfertaPanel;
+import gui.vista.aniadirOferta.AniadirOfertaVacacionalPanel;
+import gui.vista.aniadirOferta.AniadirOfertaViviendaPanel;
+
+public class ClienteDualPanel extends JPanel implements ChangeListener, ActionListener {
 	
 	private AniadirOfertaPanel panelAniadirOfertaVacacional;
 	private AniadirOfertaPanel panelAniadirOfertaVivienda;
@@ -21,7 +25,7 @@ public class ClientePanel extends JPanel implements ChangeListener, ActionListen
 	
 	private Gui gui;
 	
-	public ClientePanel(Gui gui) {
+	public ClienteDualPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new BorderLayout());
 		
