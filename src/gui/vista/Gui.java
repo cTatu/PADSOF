@@ -77,6 +77,7 @@ public class Gui extends JFrame {
 			tabsInvitado.setVisible( false );
 			if( this.controlador.isGerente() ) {
 				panelGerente.setVisible( true );
+				controlador.rellenarTablaTarjetas();
 			}
 			else if( this.controlador.isClienteDual() ) {
 				panelClienteDual.setVisible( true );	
@@ -103,5 +104,21 @@ public class Gui extends JFrame {
 	
 	public void addOfertaTablaBusqueda(Object[] oferta) {
 		this.panelBusquedaOfertas.addOfertasTabla(oferta);
+	}
+
+
+	public void cambiarTarjetaResult(boolean modificarTarjetaCredito, String nuevaTarjeta) {
+		if (modificarTarjetaCredito)
+			JOptionPane.showMessageDialog(this, "La nueva tarjeta de credito es: " + nuevaTarjeta, "Cambio Correcto", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+
+	public void addTarjetaTabla(Object... tarjetas) {
+		panelGerente.addUsuariosTarejtaTabla(tarjetas);
+	}
+
+
+	public void showInfoOferta(Object... detallesOferta) {
+		panelGerente.showInfoOferta(detallesOferta);
 	}
 }

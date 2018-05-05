@@ -111,4 +111,9 @@ public class OfertaVivienda extends Oferta implements Serializable{
 	public void setFianza(Double fianza) {
 		this.fianza = fianza;
 	}
+
+	@Override
+	public TipoOferta getTipo() {
+		return TipoOferta.VIVIENDA;
+	}
 }

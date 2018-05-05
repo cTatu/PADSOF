@@ -100,4 +100,9 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	public static Double getComision() {
 		return COMISION;
 	}
+
+	@Override
+	public TipoOferta getTipo() {
+		return TipoOferta.VACACIONAL;
+	}
 }

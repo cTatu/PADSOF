@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
@@ -58,12 +60,16 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 		    	if (panelActivo.isDemandate())
 		    		panelActivo.rellenarCamposDemandante();
 		    	panelActivo.rellenarCampos();
+		    	try {
 		    	gui.getControlador().buscar((Integer)panelActivo.campoCP.getValue(), 
 						LocalDate.parse(panelActivo.fechaInicio1.getText(), DateTimeFormatter.ISO_LOCAL_DATE), 
 						LocalDate.parse(panelActivo.fechaInicio2.getText(), DateTimeFormatter.ISO_LOCAL_DATE),
 						LocalDate.parse(panelActivo.fechaFin.orElse(""), DateTimeFormatter.ISO_LOCAL_DATE),
 						panelActivo.duracionMeses.orElse(0), panelActivo.tipoDisponibilidad.orElse("DISPONIBLE"),
-						panelActivo.tipoOferta.orElse("vacacional"), panelActivo.valoracion.orElse(0.0));
+						panelActivo.tipoOferta.orElse("VACACIONAL"), panelActivo.valoracion.orElse(0.0));
+		    	}catch (DateTimeParseException e) {
+		    		JOptionPane.showMessageDialog(null, "La fecha no tienen un formato valido", "Fecha Incorrecta", JOptionPane.ERROR_MESSAGE);
+				}
 		    }
 
 		});

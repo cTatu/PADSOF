@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import oferta.Oferta;
 import oferta.OfertaVivienda;
 import tipos.TipoDisponibilidad;
+import tipos.TipoOferta;
 
 /**
  * Implentacion de BusquedaVivienda que hereda de busqueda y usa el campo duracionMeses.
@@ -70,6 +71,11 @@ public class BusquedaVivienda extends Busqueda implements Serializable{
 		}
 
 		return cumple;
+	}
+
+	@Override
+	public TipoOferta getTipoOferta() {
+		return TipoOferta.VIVIENDA;
 	}
 
 

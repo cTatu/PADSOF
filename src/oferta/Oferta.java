@@ -14,6 +14,7 @@ import opinion.Comentario;
 import opinion.Opinion;
 import opinion.Valoracion;
 import reserva.Reserva;
+import tipos.TipoOferta;
 
 /**
  * Implementacion de oferta (abstracta) y mnitodos para manejarlas.
@@ -363,4 +364,6 @@ public abstract class Oferta implements Serializable{
 	public Reserva getReserva() {
 		return reserva;
 	}
+
+	public abstract TipoOferta getTipo();
 }

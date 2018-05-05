@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 import tipos.TipoDisponibilidad;
+import tipos.TipoOferta;
 
 /**
  * Implentacion de BusquedaVacacional que hereda de busqueda y usa el campo fechaFin.
@@ -70,6 +71,11 @@ public class BusquedaVacacional extends Busqueda implements Serializable{
 		}
 
 		return cumple;
+	}
+
+	@Override
+	public TipoOferta getTipoOferta() {
+		return TipoOferta.VACACIONAL;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import oferta.Oferta;
 import tipos.TipoDisponibilidad;
+import tipos.TipoOferta;
 
 
 /**
@@ -99,6 +100,8 @@ public abstract class Busqueda implements Serializable{
 	 * @return Boolean, true si entra en los criterios de busqueda, false de lo contrario
 	 */
 	public abstract boolean comprobarOferta(Oferta oferta);
+
+	public abstract TipoOferta getTipoOferta();
 }
 
 

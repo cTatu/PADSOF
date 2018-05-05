@@ -12,14 +12,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import gui.vista.Gui;
-import gui.vista.aniadirOferta.AniadirOfertaPanel;
-import gui.vista.aniadirOferta.AniadirOfertaVacacionalPanel;
-import gui.vista.aniadirOferta.AniadirOfertaViviendaPanel;
+import gui.vista.PublicarPanel;
+import gui.vista.busqueda.BusquedaPanel;
 
 public class ClienteDualPanel extends JPanel implements ChangeListener, ActionListener {
 	
-	private AniadirOfertaPanel panelAniadirOfertaVacacional;
-	private AniadirOfertaPanel panelAniadirOfertaVivienda;
+	private BusquedaPanel panelBusqueda;
+	private PublicarPanel panelPublicar;
 	private JTabbedPane tabsCliente = new JTabbedPane();
 	private JButton cerrarSesion = new JButton("Cerrar Sesion\n");
 	
@@ -29,15 +28,14 @@ public class ClienteDualPanel extends JPanel implements ChangeListener, ActionLi
 		this.gui = gui;
 		this.setLayout(new BorderLayout());
 		
-		panelAniadirOfertaVacacional = new AniadirOfertaVacacionalPanel(gui);
-		panelAniadirOfertaVivienda = new AniadirOfertaViviendaPanel(gui);
+		panelBusqueda = new BusquedaPanel(gui);
+		panelPublicar = new PublicarPanel(gui);
 		
-		tabsCliente.addTab("Nueva Oferta vacacional", panelAniadirOfertaVacacional);
-		tabsCliente.addTab("Nueva Oferta vivienda", panelAniadirOfertaVivienda);
+		tabsCliente.addTab("Busqueda", panelBusqueda);
+		tabsCliente.addTab("Publicar", panelPublicar);
 		
-
 		JPanel panelBotonCerrarSesion = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-			panelBotonCerrarSesion.add(cerrarSesion);
+		panelBotonCerrarSesion.add(cerrarSesion);
 			
 		this.add(panelBotonCerrarSesion,BorderLayout.NORTH);
 		this.add(tabsCliente);

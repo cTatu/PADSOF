@@ -86,12 +86,12 @@ public class InmaculadAppTest {
 		
 		Cliente cliente = app.clienteConectado();
 		
-		assertFalse(app.modificarTarjetaCredito(app.clienteConectado(), "777441"));
+		assertFalse(app.modificarTarjetaCredito(app.clienteConectado().getNIF(), "777441"));
 		
 		app.cerrarSesion(false);
 		app.iniciarSesion("", "BD911"); 	// como gerente
 
-		assertTrue(app.modificarTarjetaCredito(cliente, "777441"));
+		assertTrue(app.modificarTarjetaCredito(cliente.getNIF(), "777441"));
 		
 		app.cerrarSesion(false);
 	}

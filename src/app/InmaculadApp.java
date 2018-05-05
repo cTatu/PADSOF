@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -46,7 +47,7 @@ public class InmaculadApp implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/** Lista clientes. */
-	private List<Cliente> clientes; 
+	private Map<String, Cliente> clientes; 
 	
 	/** Lista inmuebles. */
 	private List<Inmueble> inmuebles;
@@ -103,7 +104,7 @@ public class InmaculadApp implements Serializable{
 	 * @param constraseniaGerente La constrasenia gerente
 	 */
 	private InmaculadApp(String filename, String constraseniaGerente) {
-		clientes = new ArrayList<Cliente>();
+		clientes = new HashMap<String, Cliente>();
 		inmuebles = new ArrayList<Inmueble>();
 		setOfertasContratadas(new ArrayList<Oferta>());
 		this.contraseniaGerente = constraseniaGerente;
@@ -145,7 +146,7 @@ public class InmaculadApp implements Serializable{
 	 * @return true si la transaccion ha tenido exito
 	 */
 	public boolean efectuarPagosPendientes() {
-		for (Cliente cliente : clientes) {
+		for (Cliente cliente : clientes.values()) {
 			if (cliente.rolOfertante != null && !cliente.rolOfertante.getSaldoPendiente().equals(0.0) && !cliente.isBloqueado()) {
 				Double cantidad = cliente.rolOfertante.getSaldoPendiente();
 				return transaccionACliente(cantidad, cliente);
@@ -189,11 +190,11 @@ public class InmaculadApp implements Serializable{
 	 * @param tarjetaNueva el nuevo numero de tarjeta
 	 * @return true si es el gerente
 	 */
-	public boolean modificarTarjetaCredito(Cliente cliente,String tarjetaNueva) {
+	public boolean modificarTarjetaCredito(String NIF,String tarjetaNueva) {
 		if (!clienteConectado.gerente)
 			return false;
 		
-		cliente.cambiarTarjeta(tarjetaNueva);
+		clientes.get(NIF).cambiarTarjeta(tarjetaNueva);
 		efectuarPagosPendientes();
 		return true;
 	}
@@ -467,12 +468,11 @@ public class InmaculadApp implements Serializable{
 			return true;
 		}
 		
-		for (Cliente cliente : clientes) {
-			if (cliente.getNIF().equals(NIF) && cliente.getContrasenia().equals(contrasenia)) {
-				clienteConectado = cliente;
-				eliminarOfertasExpiradas();
-				return true;
-			}
+		Cliente cliente = clientes.get(NIF);
+		if (cliente != null && cliente.getNIF().equals(NIF) && cliente.getContrasenia().equals(contrasenia)) {
+			clienteConectado = cliente;
+			eliminarOfertasExpiradas();
+			return true;
 		}
 		
 		return false;
@@ -527,13 +527,13 @@ public class InmaculadApp implements Serializable{
 	        
 	        switch (rol) {
 			case "O":
-	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, new Ofertante(), null));
+	        	clientes.put(NIF,new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, new Ofertante(), null));
 				break;
 			case "D":
-	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, null, new Demandante()));
+	        	clientes.put(NIF,new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, null, new Demandante()));
 				break;
 			case "OD":
-	        	clientes.add(new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, new Ofertante(), new Demandante()));
+	        	clientes.put(NIF,new Cliente(nombreCompleto.split(",")[0], NIF, nombreCompleto.split(",")[1], contrasenia, tarjetaCredito, new Ofertante(), new Demandante()));
 				break;
 			default:
 				break;
@@ -680,6 +680,10 @@ public class InmaculadApp implements Serializable{
 	public boolean setSesionIniciada(boolean sesionIniciada) {
 		this.sesionIniciada = sesionIniciada;
 		return sesionIniciada;
+	}
+
+	public List<Cliente> getClientes() {
+		return Collections.unmodifiableList(new ArrayList<Cliente>(clientes.values()));
 	}
 }
 

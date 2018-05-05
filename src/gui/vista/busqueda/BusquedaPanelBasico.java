@@ -39,13 +39,13 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (YYYY-MM-DD)");
 	protected JTextField fechaInicio2 = new JTextField();
 	
-	/*  Usuario Registrado  */
+	/*** Usuario Registrado ***/
 	private JLabel etiquetaDisponibilidad = new JLabel("Tipo de Disponibilidad: ");
 	protected JComboBox<String> disponibilidad = new JComboBox<String>();
 	
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
 	protected JTextField campoValoracion = new JTextField();	
-	/***********************/
+	/**************************/
 	
 	protected Gui gui;
 	protected JTable tablaOfertas;
@@ -100,9 +100,9 @@ public abstract class BusquedaPanelBasico extends JPanel {
 			
 			c.gridx = 0; c.gridy = 6;
 			c.gridwidth = 2;
-			tablaOfertas.setVisible(true);
 			JScrollPane scroll = new JScrollPane(tablaOfertas);
 				scroll.setPreferredSize(new Dimension(500, 100));
+			scroll.setVisible(false);
 			this.add(scroll, c);
 	}
 	

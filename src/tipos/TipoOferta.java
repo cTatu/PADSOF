@@ -16,4 +16,13 @@ public enum TipoOferta {
 	
 	/** The vivienda. */
 	VIVIENDA;
+	
+	public static TipoOferta parseString(String texto) {
+		texto.toUpperCase();
+		
+		if (texto.equals("VACACIONAL"))
+			return VACACIONAL;
+		else
+			return VIVIENDA;
+	}
 }
