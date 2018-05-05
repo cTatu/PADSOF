@@ -78,6 +78,7 @@ public class Gui extends JFrame {
 			if( this.controlador.isGerente() ) {
 				panelGerente.setVisible( true );
 				controlador.rellenarTablaTarjetas();
+				controlador.rellenarTablaOfertasPendientes();
 			}
 			else if( this.controlador.isClienteDual() ) {
 				panelClienteDual.setVisible( true );	
@@ -117,8 +118,18 @@ public class Gui extends JFrame {
 		panelGerente.addUsuariosTarejtaTabla(tarjetas);
 	}
 
+	public void addOfertaPendienteTabla(Object... ofertas) {
+		panelGerente.addOfertaPendienteTabla(ofertas);
+	}
 
 	public void showInfoOferta(Object... detallesOferta) {
 		panelGerente.showInfoOferta(detallesOferta);
+	}
+
+
+	public void moderarStatus(boolean aprobarOferta) {
+		if (aprobarOferta) {
+			
+		}
 	}
 }

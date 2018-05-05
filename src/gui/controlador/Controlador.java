@@ -31,6 +31,7 @@ public class Controlador {
 	private Gui gui;
 	private InmaculadApp app;
 	private Map<Integer, Oferta> ofertasTabla;
+	private Oferta ofertaSeleccionada;
 	
 	public Controlador(Gui gui, InmaculadApp app) {
 		this.gui = gui; this.app = app;
@@ -109,12 +110,13 @@ public class Controlador {
 				listaOfertaPendientes.add(oferta.getFechaInicio());
 				listaOfertaPendientes.add(oferta.getPrecio());
 				listaOfertaPendientes.add(oferta.getTipo());
-			this.gui.addTarjetaTabla(listaOfertaPendientes.toArray());
+			this.gui.addOfertaPendienteTabla(listaOfertaPendientes.toArray());
 		}
 	}
 	
 	public void showInfoOferta(int fila) {
-		Oferta ofertaSeleccionada = ofertasTabla.get(fila);
+		ofertaSeleccionada = ofertasTabla.get(fila);
+		
 		List<Object> detallesOferta = new ArrayList<>();
 			detallesOferta.add(ofertaSeleccionada.getOfertante().getNIF());
 			detallesOferta.add(ofertaSeleccionada.getOfertante().getNombres());
@@ -154,6 +156,14 @@ public class Controlador {
 		else {
 			return false;
 		}
+	}
+
+	public void aceptarOferta(boolean b) {
+		this.gui.moderarStatus(this.app.aprobarOferta(ofertaSeleccionada));
+	}
+
+	public void enviarRectificacion(Map<String, String> rectificaciones) {
+		this.gui.moderarStatus(this.app.addRectificacion(ofertaSeleccionada, rectificaciones));
 	}
 
 }

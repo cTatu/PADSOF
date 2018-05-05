@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +94,7 @@ public abstract class Oferta implements Serializable{
 	 * @return true
 	 */
 	public boolean aniadirRectificacion(Map<String, String> rectificacion) {
-		this.rectificaciones = rectificacion;
+		this.rectificaciones = new HashMap<>(rectificacion);
 		this.moderada = true;
 		return true;
 	}

@@ -14,6 +14,7 @@ import gui.vista.Gui;
 import gui.vista.gerente.*;
 
 public class GerentePanel extends JPanel {
+	
 	private JTabbedPane tabsGerente = new JTabbedPane();
 	
 	private OfertasPendientesPanel ofertasPendientes;
@@ -47,5 +48,9 @@ public class GerentePanel extends JPanel {
 
 	public void showInfoOferta(Object... detallesOferta) {
 		ofertasPendientes.showInfoOferta(detallesOferta);
+	}
+
+	public void addOfertaPendienteTabla(Object... ofertas) {
+		ofertasPendientes.addOfertaPendienteTabla(ofertas);
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,15 +20,15 @@ import gui.vista.Gui;
 public class OfertasPendientesPanel extends JPanel implements ActionListener{
 
 	private JTable tablaOfertasPendientes;
-	private JPanel detallesOfertaPanel;
-	private GridBagConstraints c = new GridBagConstraints();
+
+	
 	private JButton atras = new JButton("Atras");
 	
 	Gui gui;
 	
 	public OfertasPendientesPanel(Gui gui) {
 		this.gui = gui;
-		this.setLayout(new FlowLayout());
+		this.setLayout(new GridLayout(0,1));
 		
 		tablaOfertasPendientes = new JTable(new DefaultTableModel(
 				new Object[]{"Ofertante", "Fecha", "Precio", "Tipo"}, 5));
@@ -52,12 +53,21 @@ public class OfertasPendientesPanel extends JPanel implements ActionListener{
 		this.remove(0);
 		
 		this.add(new DetallesPanelOferta(gui, detallesOferta));
+		this.repaint();
+		this.revalidate();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.remove(0);
+		this.add(this);
+		this.repaint();
+		this.revalidate();
+	}
+
+	public void addOfertaPendienteTabla(Object... ofertas) {
+		DefaultTableModel model = (DefaultTableModel) tablaOfertasPendientes.getModel();
+		model.insertRow(0,ofertas);
 	}
 
 }
