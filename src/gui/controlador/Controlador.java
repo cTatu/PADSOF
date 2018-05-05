@@ -43,7 +43,7 @@ public class Controlador {
 	
 	
 	public void cerrarSesion(boolean GuardarNoGuardar) {
-		this.gui.cerrarSesionResult( this.app.cerrarSesion( true ));
+		this.gui.cerrarSesionResult( this.app.cerrarSesion( GuardarNoGuardar ));
 	}
 
 	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, 
@@ -117,6 +117,9 @@ public class Controlador {
 	public void showInfoOferta(int fila) {
 		ofertaSeleccionada = ofertasTabla.get(fila);
 		
+		if (ofertaSeleccionada == null)
+			return;
+		
 		List<Object> detallesOferta = new ArrayList<>();
 			detallesOferta.add(ofertaSeleccionada.getOfertante().getNIF());
 			detallesOferta.add(ofertaSeleccionada.getOfertante().getNombres());
@@ -158,8 +161,11 @@ public class Controlador {
 		}
 	}
 
-	public void aceptarOferta(boolean b) {
-		this.gui.moderarStatus(this.app.aprobarOferta(ofertaSeleccionada));
+	public void aceptarOferta(boolean aceptar) {
+		if(aceptar)
+			this.gui.moderarStatus(this.app.aprobarOferta(ofertaSeleccionada));
+		else
+			this.gui.moderarStatus(this.app.rechazarOferta(ofertaSeleccionada));
 	}
 
 	public void enviarRectificacion(Map<String, String> rectificaciones) {

@@ -1,5 +1,6 @@
 package gui.vista.gerente;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -16,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import java.awt.Rectangle;
+
 import gui.vista.Gui;
 
 public class DetallesPanelOferta extends JPanel implements ActionListener{
@@ -25,14 +28,16 @@ public class DetallesPanelOferta extends JPanel implements ActionListener{
 	private JButton aceptar = new JButton("Aceptar");
 	private JButton rechazar = new JButton("Rechazar");
 	private JButton rectificar = new JButton("Enviar Rectificacion");
+	private JButton nuevaLinea = new JButton("Agregar Linea");
 	
-	private JPanel panelRectificaciones;
+	private PanelRectificaciones panelRectificaciones;
 	
-	private Map<JTextField, JTextArea> rectificaciones = new HashMap<>();
+	private Map<JTextField, JTextField> rectificaciones = new HashMap<>();
 	
 	private Gui gui;
 	
 	public DetallesPanelOferta(Gui gui, Object... detallesOferta) {
+		this.gui = gui;
 		this.setLayout(new GridBagLayout());
 		c.gridx = 0;
 		
@@ -60,15 +65,24 @@ public class DetallesPanelOferta extends JPanel implements ActionListener{
 			detallesOfertaPanel.add(new JLabel("Descripcion:"));
 			detallesOfertaPanel.add(new JLabel(String.valueOf(detallesOferta[5])));
 			
-		panelRectificaciones = new PanelRectificaciones(rectificaciones);
+		panelRectificaciones = new PanelRectificaciones(gui, rectificaciones);
+		
 		
 		rectificar.addActionListener(this);
+		
+		nuevaLinea.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelRectificaciones.aniadirFila();
+			}
+		});
 		
 		aceptar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gui.getControlador().aceptarOferta(true);			
+				gui.getControlador().aceptarOferta(true);
 			}
 		});
 		
@@ -80,12 +94,20 @@ public class DetallesPanelOferta extends JPanel implements ActionListener{
 			}
 		});
 		
+		c.gridx = 0; c.gridy = 0;
 		this.add(detallesCliente, c);
+		c.gridx = 0; c.gridy = 1;
 		this.add(detallesOfertaPanel, c);
+		c.gridx = 0; c.gridy = 2;
 		this.add(panelRectificaciones, c);
+		c.gridx = 0; c.gridy = 3;
+		this.add(nuevaLinea, c);
 		
+		c.gridx = 1; c.gridy = 0;
 		this.add(aceptar, c);
+		c.gridx = 1; c.gridy = 1;
 		this.add(rechazar, c);
+		c.gridx = 1; c.gridy = 2;
 		this.add(rectificar, c);
 	}
 	
@@ -96,21 +118,26 @@ public class DetallesPanelOferta extends JPanel implements ActionListener{
 	}
 	
 	protected Map<String, String> getRectificaciones() {
-		return rectificaciones.entrySet().stream().collect(Collectors.toMap(a -> ((JTextField) a).getText(), o -> ((JTextArea) o).getText()));
+		Map<String, String> mapaRectificaciones = new HashMap<>();
+		
+		for (JTextField field : rectificaciones.keySet())
+			mapaRectificaciones.put(field.getText(), rectificaciones.get(field).getText());
+		
+		return mapaRectificaciones;
 	}
 	
 }
 
 
-class PanelRectificaciones extends JPanel implements ActionListener{
+class PanelRectificaciones extends JPanel{
 	
 	private GridBagConstraints c = new GridBagConstraints();
 	
-	JButton nuevaLinea = new JButton("Agregar Linea");
-	private Map<JTextField, JTextArea> rectificaciones;
-	JScrollPane scrollRectificaciones = new JScrollPane();
+	private Map<JTextField, JTextField> rectificaciones;
+	private Gui gui;
 	
-	public PanelRectificaciones(Map<JTextField, JTextArea> rectificaciones) {
+	public PanelRectificaciones(Gui gui, Map<JTextField, JTextField> rectificaciones) {
+		this.gui = gui;
 		this.setLayout(new GridBagLayout());
 		this.rectificaciones = rectificaciones;
 		
@@ -121,27 +148,25 @@ class PanelRectificaciones extends JPanel implements ActionListener{
 		c.gridx = 1; c.gridy = 0;
 		this.add(new JLabel("Observacion"));
 		
-		c.gridx = 0; c.gridy = 1; c.gridwidth = 2;
-		this.add(scrollRectificaciones);
-
-		nuevaLinea.addActionListener(this);
-		
 		c.gridx = 0; c.gridy = 2; c.gridwidth = 1;
-		this.add(nuevaLinea, c);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void aniadirFila() {
 		JTextField asunto = new JTextField();
-		JTextArea observacion = new JTextArea();
+		asunto.setPreferredSize(new Dimension(150, 25));
+		JTextField observacion = new JTextField();
+		observacion.setPreferredSize(new Dimension(150, 25));
 		
-		c.gridx = 0; c.gridy = 1;
-		scrollRectificaciones.add(asunto);
-		c.gridx = 1; c.gridy = 1;
-		scrollRectificaciones.add(observacion);
+		Rectangle rect = this.gui.getBounds();
+		this.gui.setBounds(new Rectangle(rect.x, rect.y, rect.width, rect.height+25)); 
 		
-		scrollRectificaciones.revalidate();
-		scrollRectificaciones.repaint();
+		c.gridx = 0; c.gridy = this.getComponentCount()-1;
+		this.add(asunto, c);
+		c.gridx = 1; c.gridy = this.getComponentCount()-2;
+		this.add(observacion, c);
+		
+		this.revalidate();
+		this.repaint();
 		
 		rectificaciones.put(asunto, observacion);
 		

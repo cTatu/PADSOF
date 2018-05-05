@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.InmaculadApp;
+import fechasimulada.FechaSimulada;
 import gui.controlador.Controlador;
 import gui.vista.Gui;
 
@@ -18,6 +19,10 @@ public class Main {
 		
 		app.crearInmueble(28845, "Barcelona", caracteristicas);
 		app.aniadirOfertaVacacional(880.0, LocalDate.now(), "Descripcion", LocalDate.now().plusDays(20), 1);
+		
+		app.aniadirOfertaVacacional(1200.0, FechaSimulada.getHoy().minusDays(50),
+				"Es mejor que la anterior", 
+				FechaSimulada.getHoy().plusDays(10), 1);
 		
 		Gui gui = new Gui("InmaculadApp");
 		

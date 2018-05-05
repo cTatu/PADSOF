@@ -100,6 +100,7 @@ public class Gui extends JFrame {
 		if (cerrarSesionOK) {
 			tabsInvitado.setVisible( true );
 			panelClienteDual.setVisible( false );
+			panelGerente.setVisible(false);
 		} 
 	}
 	
@@ -129,7 +130,8 @@ public class Gui extends JFrame {
 
 	public void moderarStatus(boolean aprobarOferta) {
 		if (aprobarOferta) {
-			
+			panelGerente.limpiarTabla();
+			controlador.rellenarTablaOfertasPendientes();
 		}
 	}
 }

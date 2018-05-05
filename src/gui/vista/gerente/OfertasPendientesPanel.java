@@ -14,15 +14,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.TabableView;
 
 import gui.vista.Gui;
 
-public class OfertasPendientesPanel extends JPanel implements ActionListener{
+public class OfertasPendientesPanel extends JPanel{
 
 	private JTable tablaOfertasPendientes;
-
-	
-	private JButton atras = new JButton("Atras");
+	private JScrollPane scroll;
 	
 	Gui gui;
 	
@@ -31,7 +30,7 @@ public class OfertasPendientesPanel extends JPanel implements ActionListener{
 		this.setLayout(new GridLayout(0,1));
 		
 		tablaOfertasPendientes = new JTable(new DefaultTableModel(
-				new Object[]{"Ofertante", "Fecha", "Precio", "Tipo"}, 5));
+				new Object[]{"Ofertante", "Fecha", "Precio", "Tipo"}, 0));
 		
 		tablaOfertasPendientes.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
@@ -41,9 +40,7 @@ public class OfertasPendientesPanel extends JPanel implements ActionListener{
 			 }
 			});
 		
-		atras.addActionListener(this);
-		
-		JScrollPane scroll = new JScrollPane(tablaOfertasPendientes);
+		scroll = new JScrollPane(tablaOfertasPendientes);
 		scroll.setPreferredSize(new Dimension(500, 100));
 		scroll.setVisible(true);
 		this.add(scroll);
@@ -57,17 +54,31 @@ public class OfertasPendientesPanel extends JPanel implements ActionListener{
 		this.revalidate();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.remove(0);
-		this.add(this);
-		this.repaint();
-		this.revalidate();
-	}
-
 	public void addOfertaPendienteTabla(Object... ofertas) {
 		DefaultTableModel model = (DefaultTableModel) tablaOfertasPendientes.getModel();
-		model.insertRow(0,ofertas);
+		model.addRow(ofertas);
+	}
+	
+	public boolean atras() {
+		boolean atras = false;
+		if (!this.getComponent(0).equals(scroll)) {
+			this.remove(0);
+			this.add(scroll);
+			atras = true;
+		}
+		
+		this.revalidate();
+		this.repaint();
+		return atras;			
+	}
+
+	public void limpiarTabla() {
+		for (int i = 0; i < tablaOfertasPendientes.getRowCount(); i++) {
+		      for(int j = 0; j < tablaOfertasPendientes.getColumnCount(); j++)
+		          tablaOfertasPendientes.setValueAt("", i, j);
+		}
+		DefaultTableModel model = (DefaultTableModel) tablaOfertasPendientes.getModel();
+		model.setRowCount(0);
 	}
 
 }
