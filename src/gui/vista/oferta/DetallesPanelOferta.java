@@ -18,7 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import gui.vista.Gui;
-import gui.vista.gerente.PanelRectificaciones;
+import gui.vista.gerente.CaracteristicasPanel;
 
 public abstract class DetallesPanelOferta extends JPanel implements ActionListener{
 	

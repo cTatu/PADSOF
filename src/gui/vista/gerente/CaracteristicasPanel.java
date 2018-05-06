@@ -15,14 +15,14 @@ import javax.swing.event.DocumentListener;
 
 import gui.vista.Gui;
 
-public class PanelRectificaciones extends JPanel{
+public class CaracteristicasPanel extends JPanel{
 	
 	private GridBagConstraints c = new GridBagConstraints();
 	
 	private Map<JTextField, JTextField> rectificaciones;
 	private Gui gui;
 	
-	public PanelRectificaciones(Gui gui, Map<JTextField, JTextField> rectificaciones) {
+	public CaracteristicasPanel(Gui gui, Map<JTextField, JTextField> rectificaciones) {
 		this.gui = gui;
 		this.setLayout(new GridBagLayout());
 		this.rectificaciones = rectificaciones;

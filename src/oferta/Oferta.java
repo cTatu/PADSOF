@@ -15,6 +15,7 @@ import opinion.Comentario;
 import opinion.Opinion;
 import opinion.Valoracion;
 import reserva.Reserva;
+import tipos.TipoDisponibilidad;
 import tipos.TipoOferta;
 
 /**
@@ -368,4 +369,12 @@ public abstract class Oferta implements Serializable{
 
 	public abstract TipoOferta getTipo();
 	public abstract boolean isVacacional();
+
+	public TipoDisponibilidad getDisponibilidad() {
+		if(reservada)
+			return TipoDisponibilidad.RESERVADO;
+		if (contratada)
+			return TipoDisponibilidad.CONTRATADO;
+		return TipoDisponibilidad.DISPONIBLE;
+	}
 }

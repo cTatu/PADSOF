@@ -2,6 +2,7 @@ package gui.vista;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -57,13 +58,13 @@ public class Gui extends JFrame {
 		contenedor.add(panelGerente);
 		
 		/***********QUITAR************/
-		panelDemandante = new DemandantePanel(this);
+		/*panelDemandante = new DemandantePanel(this);
 		contenedor.add(panelDemandante);
-		setVisiblePaneles(panelDemandante);
+		setVisiblePaneles(panelDemandante);*/
 		/***********QUITAR************/
 		
 		// visibilidad inicial
-		//setVisiblePaneles(tabsInvitado);
+		setVisiblePaneles(tabsInvitado);
 
 		// mostrar this, en otros ejemplos era ventana, ahora this
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,8 +86,8 @@ public class Gui extends JFrame {
 	public void setControlador(Controlador c) {
 		this.controlador = c;
 		/***********QUITAR************/
-		this.controlador.addTodasOfertas();
-		controlador.login("55555111Z", "NoSeSaBe");
+		/*this.controlador.addTodasOfertas();
+		controlador.login("55555111Z", "NoSeSaBe");*/
 		/***********QUITAR************/
 	}
 	public Controlador getControlador() {
@@ -133,6 +134,10 @@ public class Gui extends JFrame {
 			this.mensajeInfo("La nueva tarjeta de credito es: " + nuevaTarjeta, "Cambio Correcto", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	public void addMisOfertas(Object... ofertas) {
+		this.panelDemandante.addMisOfertas(ofertas);
+	}
+	
 	public void addOfertasTablaGerente(Object... ofertas) {
 		panelGerente.addOfertasTabla(ofertas);
 	}
@@ -168,19 +173,19 @@ public class Gui extends JFrame {
 	
 	public void aniadirOfertaViviendaResult(boolean statusOK) {
 		if( statusOK ) {
-			JOptionPane.showMessageDialog(this, "Oferta guardada, a espera de ser moderada.");
+			mensajeInfo("Oferta guardada, a espera de ser moderada.", "Oferta Agregada", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "Hubo algun error al guardar la oferta (ej. Caracteres invalidos, inmueble no existe, etc)", "Error", JOptionPane.ERROR_MESSAGE);
+			mensajeInfo("Hubo algun error al guardar la oferta (ej. Caracteres invalidos, inmueble no existe, etc)", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	public void aniadirOfertaVacacionalResult(boolean statusOK) {
 		if( statusOK ) {
-			JOptionPane.showMessageDialog(this, "Oferta guardada, a espera de ser moderada para publicarse");
+			mensajeInfo("Oferta guardada, a espera de ser moderada para publicarse", "Oferta Agregada", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "Hubo algun error al guardar la oferta (ej. Campos invalidos, inmueble no existe, etc)", "Error", JOptionPane.ERROR_MESSAGE);
+			mensajeInfo("Hubo algun error al guardar la oferta (ej. Campos invalidos, inmueble no existe, etc)", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -193,5 +198,28 @@ public class Gui extends JFrame {
 			JOptionPane.showMessageDialog(this, "Hubo algun error al crear el inmueble (ej. Carmpos invalidos, etc)", "Error", JOptionPane.ERROR_MESSAGE);
 		}		
 	}
+
+	public void contratarResult(boolean contratarOferta) {
+		if (contratarOferta) {
+			mensajeInfo("La oferta se ha contratado exitosamente. La podras encontrar en el tab 'Mis Ofertas'", "Oferta Contratada", JOptionPane.INFORMATION_MESSAGE);
+			panelDemandante.showMisOfertas();
+		}else {
+			mensajeInfo("Hubo un error al contratar la oferta", "Contratar Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	public void reservarResult(boolean reservarOferta) {
+		if (reservarOferta) {
+			mensajeInfo("La oferta se ha reservado exitosamente. La podras encontrar en el tab 'Mis Ofertas'", "Oferta Contratada", JOptionPane.INFORMATION_MESSAGE);
+			panelDemandante.showMisOfertas();
+		}else {
+			mensajeInfo("Hubo un error al reservar la oferta", "Contratar Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	public void showInfoComentario(Object[] detallesComentario) {
+		panelDemandante.showInfoComentario(detallesComentario);
+	}
+
 
 }

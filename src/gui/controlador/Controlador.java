@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
@@ -176,6 +177,19 @@ public class Controlador {
 		return arbol(ofertaSeleccionada.getOpiniones());
 	}
 	
+	public void rellenarMisOfertas() {
+		List<Oferta> ofertas = app.getOfertasContratadas();
+
+		for (Oferta oferta : ofertas) {
+			List<Object> misOfertas = new ArrayList<>();
+				misOfertas.add(oferta.getFechaInicio());
+				misOfertas.add(oferta.getPrecio());
+				misOfertas.add(oferta.getTipo());
+				misOfertas.add(oferta.getDisponibilidad());
+			this.gui.addMisOfertas(misOfertas.toArray());
+		}
+	}
+	
 	public void rellenarTablaOfertasPendientes() {
 		List<Oferta> ofPendientes = this.app.getOfertasPendientes();
 		
@@ -234,6 +248,18 @@ public class Controlador {
 			detallesOferta.add(ofertaSeleccionada.getDescripcion());
 		this.gui.showInfoOferta(atributoUnico, detallesExtra, detallesOferta.toArray());
 	}
+	
+	public void showInfoComentario(Object textoComentario) {
+		String texto = String.valueOf(textoComentario);
+		String valoracion = texto.substring(texto.length()-3, texto.length());
+		
+		texto = texto.substring(0, texto.length() - 3);
+		
+		List<Object> detallesComentario = new ArrayList<>();
+			detallesComentario.add(texto);
+			detallesComentario.add(valoracion);
+		gui.showInfoComentario(detallesComentario.toArray());
+	}
 
 	public void cambiarTarjeta(String usuarioNIF, String nuevaTarjeta) {
 		this.gui.cambiarTarjetaResult(this.app.modificarTarjetaCredito(usuarioNIF, nuevaTarjeta), nuevaTarjeta);
@@ -285,5 +311,16 @@ public class Controlador {
 		}
 	}
 
+	public boolean isOfertaReservable() {
+		return this.app.sePuedeReservar(ofertaSeleccionada);
+	}
+
+	public void contratarOferta() {
+		gui.contratarResult(this.app.contratarOferta(ofertaSeleccionada));
+	}
+
+	public void reservarOferta() {
+		gui.reservarResult(this.app.reservarOferta(ofertaSeleccionada));
+	}
 
 }

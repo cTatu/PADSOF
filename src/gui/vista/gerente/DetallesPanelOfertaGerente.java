@@ -28,14 +28,14 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 	private JButton rectificar = new JButton("Enviar Rectificacion");
 	private JButton nuevaLinea = new JButton("Agregar Linea");
 	
-	private PanelRectificaciones panelRectificaciones;
+	private CaracteristicasPanel panelRectificaciones;
 	
 	private Map<JTextField, JTextField> rectificaciones = new HashMap<>();
 
 	public DetallesPanelOfertaGerente(Gui gui, String atributoUnico, Object[] detallesClientes , Object... detallesOferta) {
 		super(gui, atributoUnico, detallesOferta);
 		
-		panelRectificaciones = new PanelRectificaciones(gui, rectificaciones);
+		panelRectificaciones = new CaracteristicasPanel(gui, rectificaciones);
 
 		
 		rectificar.addActionListener(this);

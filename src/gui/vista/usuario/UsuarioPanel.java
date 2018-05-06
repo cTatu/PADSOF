@@ -24,8 +24,9 @@ public abstract class UsuarioPanel extends JPanel implements ActionListener{
 		JPanel panelBotonAtras = new JPanel(new FlowLayout());
 			panelBotonAtras.add(botonAtras);
 	
-		c.gridx = 0; c.anchor = GridBagConstraints.WEST;
+		c.gridx = 0; c.anchor = GridBagConstraints.WEST; c.gridy = 0;
 		this.add(panelBotonAtras, c);
+		c.gridy = 1;
 		this.add(tabsUsuario, c);	
 		
 		botonAtras.addActionListener(this);	

@@ -402,7 +402,7 @@ public class InmaculadApp implements Serializable{
 		else
 			reserva = new ReservaVivienda(oferta);
 		
-		if (clienteConectado.rolDemandante.puedeReservar(reserva)) {
+		if (sePuedeReservar(oferta, reserva)) {
 			return oferta.reservar(reserva, clienteConectado);
 		}else
 			return false;
@@ -680,6 +680,20 @@ public class InmaculadApp implements Serializable{
 	public boolean isGerente() {
 		return clienteConectado.gerente;
 	}
+	
+	public boolean sePuedeReservar(Oferta ofertaSeleccionada) {
+		Reserva reserva;
+		if (ofertaSeleccionada.isVacacional())
+			reserva = new ReservaVacacional(ofertaSeleccionada);
+		else
+			reserva = new ReservaVivienda(ofertaSeleccionada);
+		return clienteConectado.rolDemandante.puedeReservar(reserva) && !ofertaSeleccionada.getReservada();
+	}
+	
+	public boolean sePuedeReservar(Oferta ofertaSeleccionada, Reserva reserva) {
+		return clienteConectado.rolDemandante.puedeReservar(reserva) 
+				&& !ofertaSeleccionada.getReservada() && !ofertaSeleccionada.getContratada();
+	}
 
 	public boolean setSesionIniciada(boolean sesionIniciada) {
 		this.sesionIniciada = sesionIniciada;
@@ -689,6 +703,7 @@ public class InmaculadApp implements Serializable{
 	public List<Cliente> getClientes() {
 		return Collections.unmodifiableList(new ArrayList<Cliente>(clientes.values()));
 	}
+
 }
 
 

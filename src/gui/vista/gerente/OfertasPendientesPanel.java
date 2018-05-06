@@ -50,10 +50,10 @@ public class OfertasPendientesPanel extends JPanel{
 		this.add(scroll);
 	}
 
-	public void showInfoOferta(String atributoUnico, Object... detallesOferta) {
+	public void showInfoOferta(String atributoUnico,Object[] detallesCliente, Object... detallesOferta) {
 		this.remove(0);
 		
-		this.add(new DetallesPanelOfertaGerente(gui, atributoUnico, detallesOferta));
+		this.add(new DetallesPanelOfertaGerente(gui, atributoUnico, detallesCliente, detallesOferta));
 		this.repaint();
 		this.revalidate();
 	}
