@@ -14,10 +14,11 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
 import gui.vista.gerente.*;
+import gui.vista.oferta.ConsultanteOferta;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-public class GerentePanel extends JPanel implements ActionListener{
+public class GerentePanel extends JPanel implements ActionListener, ConsultanteOferta{
 	
 	private JTabbedPane tabsGerente = new JTabbedPane();
 	
@@ -52,13 +53,10 @@ public class GerentePanel extends JPanel implements ActionListener{
 		cambiarTarjetaPanel.addUsuariosTarejtaTabla(tarjetas);
 	}
 
+	@Override
 	public void showInfoOferta(String atributoUnico, Object... detallesOferta) {
 		botonAtras.setText("Atras");
 		ofertasPendientes.showInfoOferta(atributoUnico, detallesOferta);
-	}
-
-	public void addOfertaPendienteTabla(Object... ofertas) {
-		ofertasPendientes.addOfertaPendienteTabla(ofertas);
 	}
 
 	@Override
@@ -69,6 +67,12 @@ public class GerentePanel extends JPanel implements ActionListener{
 			botonAtras.setText("Cerrar Sesion");
 	}
 
+	@Override
+	public void addElementosTabla(Object... ofertas) {
+		ofertasPendientes.addOfertaPendienteTabla(ofertas);		
+	}
+
+	@Override
 	public void limpiarTabla() {
 		ofertasPendientes.atras();
 		botonAtras.setText("Cerrar Sesion");

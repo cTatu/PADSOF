@@ -119,7 +119,7 @@ public class Controlador {
 				listaTarjetas.add(cliente.getNIF());
 				listaTarjetas.add(cliente.getNombres());
 				listaTarjetas.add(cliente.getTarjetaCredito());
-			this.gui.addTarjetaTabla(listaTarjetas.toArray());
+			this.gui.addElementosTablaGerente(listaTarjetas.toArray());
 		}
 	}
 	
@@ -134,7 +134,7 @@ public class Controlador {
 				listaOfertaPendientes.add(oferta.getFechaInicio());
 				listaOfertaPendientes.add(oferta.getPrecio());
 				listaOfertaPendientes.add(oferta.getTipo());
-			this.gui.addOfertaPendienteTabla(listaOfertaPendientes.toArray());
+			this.gui.addElementosTablaGerente(listaOfertaPendientes.toArray());
 		}
 	}
 	

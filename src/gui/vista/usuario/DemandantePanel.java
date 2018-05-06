@@ -3,10 +3,11 @@ package gui.vista.usuario;
 import javax.swing.JPanel;
 
 import gui.vista.Gui;
+import gui.vista.oferta.ConsultanteOferta;
 import gui.vista.oferta.DetallesPanelOferta;
 import gui.vista.usuario.demandante.DetallesPanelOfertaDemandante;
 
-public class DemandantePanel extends JPanel{
+public class DemandantePanel extends JPanel implements ConsultanteOferta{
 
 	private Gui gui;
 
@@ -20,6 +21,18 @@ public class DemandantePanel extends JPanel{
 		this.add(new DetallesPanelOfertaDemandante(gui, atributoUnico, detallesOferta));
 		this.repaint();
 		this.revalidate();
+	}
+
+	@Override
+	public void addElementosTabla(Object... elementos) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void limpiarTabla() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,9 +1,11 @@
 package gui.vista;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,6 +14,7 @@ import javax.swing.table.TableModel;
 
 import gui.controlador.Controlador;
 import gui.vista.busqueda.BusquedaPanel;
+import gui.vista.oferta.ConsultanteOferta;
 import gui.vista.usuario.ClienteDualPanel;
 import gui.vista.usuario.DemandantePanel;
 import gui.vista.usuario.GerentePanel;
@@ -27,6 +30,8 @@ public class Gui extends JFrame {
 	private OfertantePanel panelOfertante;
 	private JTabbedPane tabsInvitado = new JTabbedPane();
 	private Controlador controlador;
+	
+	private ConsultanteOferta panelActivo;
 	
 	public Gui(String titulo) {
 		super(titulo); // antes: JFrame ventana = new JFrame("Mi GUI");
@@ -54,11 +59,7 @@ public class Gui extends JFrame {
 		contenedor.add(panelDemandante);
 		
 		// visibilidad inicial
-		tabsInvitado.setVisible( true );
-		panelGerente.setVisible( false );
-		panelClienteDual.setVisible( false );
-		panelOfertante.setVisible( false );
-		panelDemandante.setVisible( false );
+		setVisiblePaneles(tabsInvitado);
 
 		// mostrar this, en otros ejemplos era ventana, ahora this
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,6 +67,16 @@ public class Gui extends JFrame {
 		this.setVisible(true);	
 	}
 
+	private void setVisiblePaneles(Component panel) {
+		for (Component component : this.getComponents()) {
+			if (component.equals(panel)) {
+				component.setVisible(true);
+				if (component instanceof ConsultanteOferta)
+					panelActivo = (ConsultanteOferta) component;
+			}else
+				component.setVisible(false);
+		}
+	}
 	
 	public void setControlador(Controlador c) {
 		this.controlador = c;
@@ -78,32 +89,26 @@ public class Gui extends JFrame {
 		if (loginOK) { 
 			tabsInvitado.setVisible( false );
 			if( this.controlador.isGerente() ) {
-				panelGerente.setVisible( true );
+				setVisiblePaneles(panelGerente);
 				controlador.rellenarTablaTarjetas();
 				controlador.rellenarTablaOfertasPendientes();
 			}
-			else if( this.controlador.isClienteDual() ) {
-				panelClienteDual.setVisible( true );	
-			}
+			else if( this.controlador.isClienteDual() )
+				setVisiblePaneles(panelClienteDual);	
 			else if( this.controlador.isDemandante() ) {
-				panelDemandante.setVisible( true );
+				setVisiblePaneles(panelDemandante);	
 				panelBusquedaOfertas.setVisibleUsuarioRegistrado(true);
 			}
-			else{
-				panelOfertante.setVisible( true );
-			}
-			
+			else
+				setVisiblePaneles(panelOfertante);	
 		} else {
 			this.mensajeInfo("NIF o contraseña incorrectos", "Login error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	public void cerrarSesionResult(boolean cerrarSesionOK) {
-		if (cerrarSesionOK) {
-			tabsInvitado.setVisible( true );
-			panelClienteDual.setVisible( false );
-			panelGerente.setVisible(false);
-		} 
+		if (cerrarSesionOK)
+			setVisiblePaneles(tabsInvitado);
 	}
 	
 	public void addOfertaTablaBusqueda(Object... ofertas) {
@@ -116,20 +121,13 @@ public class Gui extends JFrame {
 			this.mensajeInfo("La nueva tarjeta de credito es: " + nuevaTarjeta, "Cambio Correcto", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-
-	public void addTarjetaTabla(Object... tarjetas) {
-		panelGerente.addUsuariosTarejtaTabla(tarjetas);
-	}
-
-	public void addOfertaPendienteTabla(Object... ofertas) {
-		panelGerente.addOfertaPendienteTabla(ofertas);
+	public void addElementosTablaGerente(Object... elementos) {
+		panelGerente.addElementosTabla(elementos);
 	}
 
 	public void showInfoOferta(String atributoUnico, Object... detallesOferta) {
-		if (controlador.isDemandante())
-			panelDemandante.showInfoOferta(atributoUnico, detallesOferta);
-		if (controlador.isGerente())
-			panelGerente.showInfoOferta(atributoUnico, detallesOferta);
+		if (controlador.isDemandante() || controlador.isGerente())
+			panelActivo.showInfoOferta(atributoUnico, detallesOferta);
 		else {
 			tabsInvitado.setSelectedIndex(0);
 			this.mensajeInfo("Tienes que iniciar sesion para ver los detalles de la oferta", "Login Necesario", JOptionPane.INFORMATION_MESSAGE);
@@ -144,7 +142,6 @@ public class Gui extends JFrame {
 		}
 	}
 
-	
 	public void limpiarTabla(DefaultTableModel model) {
 		model.setRowCount(0);
 	}
