@@ -21,8 +21,11 @@ public class AniadirOfertaPanel extends JPanel {
 	private JLabel descripcion = new JLabel("Descripcion: ");
 	protected JTextField campoDescripcion = new JTextField();		
 	
-	private JLabel etiquetaFechaInicio = new JLabel("Fecha Inicio : (DD.MM.YYYY) ");
+	private JLabel etiquetaFechaInicio = new JLabel("Fecha Inicio: (DD/MM/YYYY) ");
 	protected JTextField fechaInicio = new JTextField();
+	
+	private JLabel etiquetaID = new JLabel("Id del inmueble: ");
+	protected JTextField campoID = new JTextField();
 	
 	private JLabel hueco = new JLabel(" ");
 	protected JButton botonGuardar = new JButton("\nGuardar");
@@ -38,13 +41,14 @@ public class AniadirOfertaPanel extends JPanel {
 		descripcion.setPreferredSize( new Dimension( 24, 24 ) );
 		precio.setPreferredSize( new Dimension( 24, 24 ) );
 		
-		// añadir componentes al panel
 		this.add(precio);
 		this.add(campoPrecio);
 		this.add(fianza);
 		this.add(campoFianza);
 		this.add(descripcion);
 		this.add(campoDescripcion);
+		this.add(etiquetaID);
+		this.add(campoID);
 		this.add(etiquetaFechaInicio);
 		this.add(fechaInicio);
 		this.add(hueco);

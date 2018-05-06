@@ -1,4 +1,4 @@
-package gui.vista;
+package gui.vista.cliente;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import gui.vista.aniadirOferta.PublicarOfertaPanel;
+import gui.vista.Gui;
+import gui.vista.publicar.PublicarInmueblePanel;
+import gui.vista.publicar.PublicarOfertaPanel;
 
 public class PublicarPanel extends JPanel implements ActionListener{
 	

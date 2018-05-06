@@ -1,6 +1,8 @@
-package gui.vista;
+package gui.vista.publicar;
 
 import javax.swing.JPanel;
+
+import gui.vista.Gui;
 
 public class PublicarInmueblePanel extends JPanel{
 

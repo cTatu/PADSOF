@@ -149,4 +149,32 @@ public class Gui extends JFrame {
 	public void mensajeInfo(String descripcion, String asunto, int tipo) {
 		JOptionPane.showMessageDialog(this, descripcion, asunto, tipo);
 	}
+	
+	public void aniadirOfertaViviendaResult(boolean statusOK) {
+		if( statusOK ) {
+			JOptionPane.showMessageDialog(this, "Oferta guardada, a espera de ser moderada.");
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Hubo algun error al guardar la oferta (ej. Caracteres invalidos, inmueble no existe, etc)", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void aniadirOfertaVacacionalResult(boolean statusOK) {
+		if( statusOK ) {
+			JOptionPane.showMessageDialog(this, "Oferta guardada, a espera de ser moderada para publicarse");
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Hubo algun error al guardar la oferta (ej. Campos invalidos, inmueble no existe, etc)", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+
+	public void aniadirInmuebleResult(boolean statusOK) {
+		if( statusOK ) {
+			JOptionPane.showMessageDialog(this, "Inmueble creado");
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Hubo algun error al crear el inmueble (ej. Carmpos invalidos, etc)", "Error", JOptionPane.ERROR_MESSAGE);
+		}		
+	}
 }

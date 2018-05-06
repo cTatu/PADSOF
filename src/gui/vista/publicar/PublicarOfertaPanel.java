@@ -1,4 +1,4 @@
-package gui.vista.aniadirOferta;
+package gui.vista.publicar;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import gui.vista.Gui;
+import gui.vista.aniadirOferta.AniadirOfertaPanel;
+import gui.vista.aniadirOferta.AniadirOfertaVacacionalPanel;
+import gui.vista.aniadirOferta.AniadirOfertaViviendaPanel;
 
 public class PublicarOfertaPanel extends JPanel implements ActionListener{
 	

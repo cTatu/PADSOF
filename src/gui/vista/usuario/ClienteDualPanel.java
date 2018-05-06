@@ -8,17 +8,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import gui.vista.Gui;
-import gui.vista.PublicarPanel;
 import gui.vista.busqueda.BusquedaPanel;
+import gui.vista.cliente.PerfilPanel;
+import gui.vista.cliente.PublicarPanel;
 
-public class ClienteDualPanel extends JPanel implements ChangeListener, ActionListener {
+public class ClienteDualPanel extends JPanel implements ActionListener {
 	
 	private BusquedaPanel panelBusqueda;
 	private PublicarPanel panelPublicar;
+	private PerfilPanel panelPerfil;
 	private JTabbedPane tabsCliente = new JTabbedPane();
 	private JButton cerrarSesion = new JButton("Cerrar Sesion\n");
 	
@@ -30,9 +30,11 @@ public class ClienteDualPanel extends JPanel implements ChangeListener, ActionLi
 		
 		panelBusqueda = new BusquedaPanel(gui);
 		panelPublicar = new PublicarPanel(gui);
+		panelPerfil = new PerfilPanel(gui);
 		
 		tabsCliente.addTab("Busqueda", panelBusqueda);
 		tabsCliente.addTab("Publicar", panelPublicar);
+		tabsCliente.addTab("Perfil", panelPerfil);
 		
 		JPanel panelBotonCerrarSesion = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelBotonCerrarSesion.add(cerrarSesion);
@@ -40,18 +42,12 @@ public class ClienteDualPanel extends JPanel implements ChangeListener, ActionLi
 		this.add(panelBotonCerrarSesion,BorderLayout.NORTH);
 		this.add(tabsCliente);
 
-		cerrarSesion.addChangeListener(this);
 		cerrarSesion.addActionListener( this );
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		gui.getControlador().cerrarSesion( true );
-	}
-
-	@Override
-	public void stateChanged(ChangeEvent arg0) {
-		
 	}
 
 }
