@@ -1,13 +1,17 @@
 package gui.vista.gerente;
 
 import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -28,7 +32,7 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 	
 	private Map<JTextField, JTextField> rectificaciones = new HashMap<>();
 
-	public DetallesPanelOfertaGerente(Gui gui, String atributoUnico, Object[] detallesOferta) {
+	public DetallesPanelOfertaGerente(Gui gui, String atributoUnico, Object[] detallesClientes , Object... detallesOferta) {
 		super(gui, atributoUnico, detallesOferta);
 		
 		panelRectificaciones = new PanelRectificaciones(gui, rectificaciones);
@@ -54,6 +58,18 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 				gui.getControlador().aceptarOferta(false);				
 			}
 		});
+		
+		JPanel detallesCliente = new JPanel(new GridLayout(0, 2));
+			detallesCliente.setBorder(BorderFactory.createTitledBorder("Cliente"));
+	
+			detallesCliente.add(new JLabel("NIF:"));
+			detallesCliente.add(new JLabel(String.valueOf(detallesClientes[0])));
+			
+			detallesCliente.add(new JLabel("Nombre:"));
+			detallesCliente.add(new JLabel(String.valueOf(detallesClientes[1])));
+		
+		c.gridx = 0; c.gridy = 0;
+		this.add(detallesCliente, c);
 		
 		c.gridx = 0; c.gridy = 2;
 		this.add(panelRectificaciones, c);

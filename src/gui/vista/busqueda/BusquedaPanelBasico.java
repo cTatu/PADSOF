@@ -45,24 +45,24 @@ public abstract class BusquedaPanelBasico extends JPanel{
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
 	protected JTextField campoValoracion = new JTextField();	
 	/**************************/
-	DefaultTableModel model;
+	private boolean usuarioRegistrado;
 	
 	protected Gui gui;
 	protected JTable tablaOfertas;
 	protected JScrollPane scroll;
 
-	protected Optional<Integer> duracionMeses = Optional.empty();
-	protected Optional<Double> valoracion = Optional.empty();
-	protected Optional<String> fechaFin = Optional.of("1/01/1970"),
-							   tipoDisponibilidad = Optional.empty(), 
-							   tipoOferta = Optional.empty();
+	protected Integer duracionMeses;
+	protected String valoracion;
+	protected String fechaFin; 
+	protected Object tipoDisponibilidad, tipoOferta;
 
-	public BusquedaPanelBasico(Gui gui, boolean visible) {
+	public BusquedaPanelBasico(Gui gui, boolean usuarioRegistrado) {
+			this.gui = gui;
+			this.usuarioRegistrado = usuarioRegistrado;
 			this.setLayout(new GridBagLayout());
 			GridBagConstraints c = new GridBagConstraints();
 			
 			tablaOfertas = new JTable();
-			model = (DefaultTableModel) tablaOfertas.getModel();
 			
 			tablaOfertas.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
@@ -76,14 +76,16 @@ public abstract class BusquedaPanelBasico extends JPanel{
 			fechaInicio2.setPreferredSize( new Dimension( 250, 24 ) );
 			campoCP.setPreferredSize( new Dimension( 250, 24 ) );
 			
-			disponibilidad.setVisible(visible);
-			etiquetaDisponibilidad.setVisible(visible);
+			disponibilidad.setVisible(usuarioRegistrado);
+			etiquetaDisponibilidad.setVisible(usuarioRegistrado);
 			disponibilidad.addItem("CONTRATADO");
 			disponibilidad.addItem("RESERVADO");
 			disponibilidad.addItem("DISPONIBLE");
+			disponibilidad.setPreferredSize( new Dimension( 250, 24 ) );
 			
-			etiquetaValoracion.setVisible(visible);
-			campoValoracion.setVisible(visible);
+			etiquetaValoracion.setVisible(usuarioRegistrado);
+			campoValoracion.setVisible(usuarioRegistrado);
+			campoValoracion.setPreferredSize( new Dimension( 250, 24 ) );
 			
 			c.gridx = 0; c.gridy = 0;  
 			this.add(etiquetaCP, c);
@@ -118,30 +120,36 @@ public abstract class BusquedaPanelBasico extends JPanel{
 			this.add(scroll, c);
 	}
 	
-	protected boolean isDemandate() {
-		return disponibilidad.isVisible();
+	protected boolean usuarioRegistrado() {
+		return usuarioRegistrado;
 	}
 	
-	public void setVisibleUsuarioRegistrado(boolean visible) {
-		disponibilidad.setVisible(visible);
-		etiquetaDisponibilidad.setVisible(visible);
+	public void setVisibleUsuarioRegistrado() {
+		disponibilidad.setVisible(true);
+		etiquetaDisponibilidad.setVisible(true);
 		
-		campoValoracion.setVisible(visible);
-		etiquetaValoracion.setVisible(visible);
+		campoValoracion.setVisible(true);
+		etiquetaValoracion.setVisible(true);
+
+		usuarioRegistrado = true;
 	}
 	
 	public void addOfertasTabla(Object... oferta) {
+		scroll.setVisible(true);
+		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
 		model.addRow(oferta);
 	}
-	
+
 	protected void rellenarCamposDemandante() {
-		tipoDisponibilidad = Optional.of(String.valueOf(disponibilidad.getSelectedItem()));
-		valoracion = Optional.of(Double.parseDouble(campoValoracion.getText()));
+		tipoDisponibilidad = disponibilidad.getSelectedItem();
+		valoracion = campoValoracion.getText();
+
 	}
 	
 	protected abstract void rellenarCampos();
 
 	public void limpiarTabla() {
+		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
 		gui.limpiarTabla(model);
 	}
 

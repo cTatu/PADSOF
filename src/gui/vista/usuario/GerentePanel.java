@@ -14,39 +14,20 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
 import gui.vista.gerente.*;
-import gui.vista.oferta.ConsultanteOferta;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
-public class GerentePanel extends JPanel implements ActionListener, ConsultanteOferta{
-	
-	private JTabbedPane tabsGerente = new JTabbedPane();
-	
+public class GerentePanel extends UsuarioPanel{
+
 	private OfertasPendientesPanel ofertasPendientes;
 	private CambiarTarjetaPanel cambiarTarjetaPanel;
-	private JButton botonAtras = new JButton("Cerrar Sesion");
-	
-	Gui gui;
-	
+
 	public GerentePanel(Gui gui) {
-		this.gui = gui;
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		
+		super(gui);
+	
 		ofertasPendientes = new OfertasPendientesPanel(gui);
 		cambiarTarjetaPanel = new CambiarTarjetaPanel(gui);
 		
-		tabsGerente.addTab("Ofertas Pendiente", ofertasPendientes);
-		tabsGerente.addTab("Cambiar Tarjeta", cambiarTarjetaPanel);
-		
-		botonAtras.addActionListener(this);
-		
-		JPanel panelBotonAtras = new JPanel(new FlowLayout());
-			panelBotonAtras.add(botonAtras);
-		
-		c.gridx = 0; c.anchor = GridBagConstraints.WEST;
-		this.add(panelBotonAtras, c);
-		this.add(tabsGerente, c);		
+		tabsUsuario.addTab("Ofertas Pendiente", ofertasPendientes);
+		tabsUsuario.addTab("Cambiar Tarjeta", cambiarTarjetaPanel);
 	}
 	
 	public void addUsuariosTarejtaTabla(Object... tarjetas) {
@@ -54,9 +35,9 @@ public class GerentePanel extends JPanel implements ActionListener, ConsultanteO
 	}
 
 	@Override
-	public void showInfoOferta(String atributoUnico, Object... detallesOferta) {
+	public void showInfoOferta(String atributoUnico, Object[] detallesCliente, Object... detallesOferta) {
 		botonAtras.setText("Atras");
-		ofertasPendientes.showInfoOferta(atributoUnico, detallesOferta);
+		ofertasPendientes.showInfoOferta(atributoUnico, detallesCliente, detallesOferta);
 	}
 
 	@Override
@@ -66,9 +47,12 @@ public class GerentePanel extends JPanel implements ActionListener, ConsultanteO
 		else
 			botonAtras.setText("Cerrar Sesion");
 	}
+	
+	public void addTarjetasTabla(Object... tarjetas) {
+		cambiarTarjetaPanel.addUsuariosTarejtaTabla(tarjetas);		
+	}
 
-	@Override
-	public void addElementosTabla(Object... ofertas) {
+	public void addOfertasTabla(Object... ofertas) {
 		ofertasPendientes.addOfertaPendienteTabla(ofertas);		
 	}
 

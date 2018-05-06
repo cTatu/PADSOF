@@ -28,7 +28,7 @@ public class ClienteDualPanel extends JPanel implements ActionListener {
 		this.gui = gui;
 		this.setLayout(new BorderLayout());
 		
-		panelBusqueda = new BusquedaPanel(gui);
+		panelBusqueda = new BusquedaPanel(gui, true);
 		panelPublicar = new PublicarPanel(gui);
 		panelPerfil = new PerfilPanel(gui);
 		

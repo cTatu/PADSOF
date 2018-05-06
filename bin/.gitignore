@@ -1,9 +1,3 @@
-/alltest/
-/app/
-/busqueda/
-/cliente/
-/comparator/
-/fechasimulada/
 /gui/
 /inmueble/
 /oferta/
@@ -11,3 +5,4 @@
 /reserva/
 /test/
 /tipos/
+/app/

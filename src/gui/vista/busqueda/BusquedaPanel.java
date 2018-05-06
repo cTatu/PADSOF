@@ -29,19 +29,20 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 	private JRadioButton OpcionBusquedaVivienda = new JRadioButton("Vivienda");
 	private JRadioButton OpcionBusquedaVacacional = new JRadioButton("Vacacional");
 	
-	protected static BusquedaPanelBasico panelActivo;
+	protected BusquedaPanelBasico panelActivo;
 	protected static Gui gui;
 
 	private JButton botonBuscar = new JButton("\nBuscar");
 	private boolean usuarioRegistrado;
 
-	public BusquedaPanel(Gui gui) {
-		this.gui = gui;
+	public BusquedaPanel(Gui gui, boolean usuarioRegistrado) {
+		BusquedaPanel.gui = gui;
+		this.usuarioRegistrado = usuarioRegistrado;
 		this.setLayout(new GridBagLayout());
 		
 		c.gridx = 0;
 
-		panelActivo = new BusquedaVacacionalPanel(gui, false);
+		panelActivo = new BusquedaVacacionalPanel(gui, usuarioRegistrado);
 		
 		grupoRadioButton.add(OpcionBusquedaVacacional);
 		grupoRadioButton.add(OpcionBusquedaVivienda);
@@ -51,7 +52,7 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 		OpcionBusquedaVacacional.addActionListener(this);
 		OpcionBusquedaVivienda.addActionListener(this);
 		
-		botonBuscar.addActionListener(new ListenerBusqueda());
+		botonBuscar.addActionListener(new ListenerBusqueda(panelActivo));
 		
 		JPanel panelRadioBotones = new JPanel(new GridLayout(0,2));
 			panelRadioBotones.add(OpcionBusquedaVacacional);
@@ -64,9 +65,8 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 		this.add(botonBuscar, c);
 	}
 	
-	public void setVisibleUsuarioRegistrado(boolean visible) {
-		usuarioRegistrado = visible;
-		panelActivo.setVisibleUsuarioRegistrado(usuarioRegistrado);
+	public void setVisibleUsuarioRegistrado() {
+		panelActivo.setVisibleUsuarioRegistrado();
 		panelActivo.tablaOfertas.setVisible(true);
 	}
 	
@@ -93,13 +93,17 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 
 
 class ListenerBusqueda implements ActionListener{
-	
+
+	private BusquedaPanelBasico panelActivo;
+
+	public ListenerBusqueda(BusquedaPanelBasico panelActivo) {
+		this.panelActivo = panelActivo;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		BusquedaPanelBasico panelActivo = BusquedaPanel.panelActivo;
-		
 		panelActivo.tablaOfertas.setVisible(true);
-    	if (panelActivo.isDemandate())
+    	if (panelActivo.usuarioRegistrado())
     		panelActivo.rellenarCamposDemandante();
     	panelActivo.rellenarCampos();
 
@@ -107,9 +111,9 @@ class ListenerBusqueda implements ActionListener{
     	
     	BusquedaPanel.gui.getControlador().buscar((Integer)panelActivo.campoCP.getValue(), 
     			panelActivo.fechaInicio1.getText(), panelActivo.fechaInicio2.getText(), 
-    			panelActivo.fechaFin.get(), panelActivo.duracionMeses.orElse(0), 
-    			panelActivo.tipoDisponibilidad.orElse("DISPONIBLE"),
-    			panelActivo.tipoOferta.orElse("VACACIONAL"), panelActivo.valoracion.orElse(0.0));
+    			panelActivo.fechaFin, panelActivo.duracionMeses, 
+    			panelActivo.tipoDisponibilidad,
+    			panelActivo.tipoOferta, panelActivo.valoracion);
     	
     	panelActivo.scroll.setVisible(true);
     	

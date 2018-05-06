@@ -589,6 +589,15 @@ public class InmaculadApp implements Serializable{
 		return Collections.unmodifiableList(inmuebles);
 	}
 	
+	public Inmueble getInmuebleByOferta(Oferta oferta) {
+		for (Inmueble inmueble : inmuebles) {
+			if (inmueble.getOfertas().contains(oferta))
+				return inmueble;
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Gets the ofertas pendientes.
 	 *

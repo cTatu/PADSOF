@@ -48,4 +48,9 @@ public class Valoracion extends Opinion implements Serializable{
 	public Double getNumero() {
 		return Numero;
 	}
+
+	@Override
+	public boolean isComentario() {
+		return false;
+	}
 }

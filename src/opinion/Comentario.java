@@ -86,4 +86,9 @@ public class Comentario extends Opinion implements Serializable{
 		return texto;
 	}
 
+	@Override
+	public boolean isComentario() {
+		return true;
+	}
+
 }

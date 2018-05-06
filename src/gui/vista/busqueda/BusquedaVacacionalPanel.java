@@ -22,8 +22,8 @@ public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 	private JLabel etiquetaFechaFin = new JLabel("Fecha Fin: (d/MM/YYY)");
 	private JTextField fechaFin = new JTextField();
 	
-	public BusquedaVacacionalPanel(Gui gui, boolean visible) {
-		super(gui, visible);
+	public BusquedaVacacionalPanel(Gui gui, boolean usuarioRegistrado) {
+		super(gui, usuarioRegistrado);
 		GridBagConstraints c = new GridBagConstraints();
 		
 		super.tablaOfertas.setModel(new DefaultTableModel(
@@ -42,8 +42,8 @@ public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 
 	@Override
 	protected void rellenarCampos() {
-		super.fechaFin.orElse(fechaFin.getText());
-		super.tipoOferta = Optional.of("vacacional");
+		super.fechaFin = this.fechaFin.getText();
+		super.tipoOferta = "vacacional";
 	}
 
 }

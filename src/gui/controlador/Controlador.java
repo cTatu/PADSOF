@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import app.InmaculadApp;
 import busqueda.Busqueda;
@@ -24,9 +25,12 @@ import busqueda.BusquedaVacacional;
 import busqueda.BusquedaVivienda;
 import cliente.Cliente;
 import gui.vista.Gui;
+import inmueble.Inmueble;
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 import oferta.OfertaVivienda;
+import opinion.Comentario;
+import opinion.Opinion;
 import tipos.TipoDisponibilidad;
 import tipos.TipoOferta;
 import tipos.TipoOrdenar;
@@ -63,6 +67,34 @@ public class Controlador {
 		return this.app.aniadirOfertaVacacional(precio, fechaInicio, descripcion, fechaFin, ID);
 	}
 	
+	public void aniadirInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
+		
+		this.gui.aniadirInmuebleResult( this.app.crearInmueble(CP, localizacion, caracteristicas));
+	}
+	/*************************QUITAR*******************/
+	
+	public void addTodasOfertas() {
+		ofertasTabla = new HashMap<>();
+		
+		int i = 0;
+		for (Oferta oferta : app.getOfertas()) {
+			List<Object> camposOferta = new ArrayList<>();
+
+			camposOferta.add(oferta.getFechaInicio());
+			camposOferta.add(oferta.getDescripcion());
+			if (oferta.isVacacional())
+				camposOferta.add(((OfertaVacacional) oferta).getFechaFin());
+			else
+				camposOferta.add(((OfertaVivienda) oferta).getDuracionMeses());
+			camposOferta.add(oferta.getPrecio());
+			
+			ofertasTabla.put(i, oferta);
+			i++;
+			this.gui.addOfertaTablaBusqueda(camposOferta.toArray());
+		}	
+	}
+	/*************************QUITAR*******************/
+	
 	public void buscarCriterios(Busqueda criteriosBusqueda) {
 		ofertasTabla = new HashMap<>();
 
@@ -72,7 +104,7 @@ public class Controlador {
 
 			camposOferta.add(oferta.getFechaInicio());
 			camposOferta.add(oferta.getDescripcion());
-			if (criteriosBusqueda.getTipoOferta().equals(TipoOferta.VACACIONAL))
+			if (oferta.isVacacional())
 				camposOferta.add(((OfertaVacacional) oferta).getFechaFin());
 			else
 				camposOferta.add(((OfertaVivienda) oferta).getDuracionMeses());
@@ -87,10 +119,15 @@ public class Controlador {
 	}
 	
 	public void buscar(Integer codigoPostal, String fechaInicio1, String fechaInicio2, String fechaFin,
-			Integer duracionMeses, String tipoDisponibilidad, String tipoOferta, Double valoracion) {
+			Integer duracionMeses, Object tipoDisponibilidad, Object tipoOferta, String valoracion) {
 		LocalDate fecha1 = null, fecha2 = null, fechafin = null;
 		String fechaError = null;
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		
+		if (tipoDisponibilidad == null)
+			tipoDisponibilidad = "DISPONIBLE";
+		if (valoracion == null ||valoracion.isEmpty())
+			valoracion = "0.0";
 		
     	try {
     		fechaError = "Fecha Inicio 1";
@@ -98,19 +135,19 @@ public class Controlador {
     		fechaError = "Fecha Inicio 2";
     		fecha2 = LocalDate.parse(fechaInicio2, format);
     		fechaError = "Fecha Fin";
-    		fechafin = LocalDate.parse(fechaFin, format);
+    		if (fechaFin != null)
+    			fechafin = LocalDate.parse(fechaFin, format);
     	}catch (DateTimeParseException exception) {
     		this.gui.mensajeInfo(fechaError + " no tienen un formato valido!", "Fecha Incorrecta", JOptionPane.ERROR_MESSAGE);
     		return;
     	}
 		
-		if (TipoOferta.parseString(tipoOferta).equals(TipoOferta.VACACIONAL))
-			buscarCriterios(new BusquedaVacacional(codigoPostal, valoracion, fecha1, fecha2, 
-				TipoDisponibilidad.parseString(tipoDisponibilidad), fechafin));
+		if (TipoOferta.parseString(String.valueOf(tipoOferta)).equals(TipoOferta.VACACIONAL))
+			buscarCriterios(new BusquedaVacacional(codigoPostal, Double.parseDouble(valoracion), fecha1, fecha2, 
+				TipoDisponibilidad.parseString(String.valueOf(tipoDisponibilidad)), fechafin));
 		else
-			buscarCriterios(new BusquedaVivienda(codigoPostal, valoracion, fecha1, fecha2, 
-					TipoDisponibilidad.parseString(tipoDisponibilidad), duracionMeses));
-		
+			buscarCriterios(new BusquedaVivienda(codigoPostal, Double.parseDouble(valoracion), fecha1, fecha2, 
+					TipoDisponibilidad.parseString(String.valueOf(tipoDisponibilidad)), duracionMeses));
 	}
 	
 	public void rellenarTablaTarjetas() {
@@ -119,8 +156,24 @@ public class Controlador {
 				listaTarjetas.add(cliente.getNIF());
 				listaTarjetas.add(cliente.getNombres());
 				listaTarjetas.add(cliente.getTarjetaCredito());
-			this.gui.addElementosTablaGerente(listaTarjetas.toArray());
+			this.gui.addTarjetasTablaGerente(listaTarjetas.toArray());
 		}
+	}
+	
+	private DefaultMutableTreeNode arbol(List<Opinion> opiniones) {
+		DefaultMutableTreeNode nodo = new DefaultMutableTreeNode();
+		for (Opinion opns : opiniones) {
+			if (opns.isComentario()) {
+				Comentario comentario = (Comentario) opns;
+				nodo = new DefaultMutableTreeNode(comentario.getTexto() + comentario.calcularMedia());
+				nodo.add(arbol(comentario.getOpiniones()));
+			}
+		}
+		return nodo;
+	}
+	
+	public DefaultMutableTreeNode getComentariosOferta() {
+		return arbol(ofertaSeleccionada.getOpiniones());
 	}
 	
 	public void rellenarTablaOfertasPendientes() {
@@ -134,20 +187,40 @@ public class Controlador {
 				listaOfertaPendientes.add(oferta.getFechaInicio());
 				listaOfertaPendientes.add(oferta.getPrecio());
 				listaOfertaPendientes.add(oferta.getTipo());
-			this.gui.addElementosTablaGerente(listaOfertaPendientes.toArray());
+			this.gui.addOfertasTablaGerente(listaOfertaPendientes.toArray());
 		}
+	}
+	
+	private List<Object> getInfoOfertaInmueble(Oferta ofertaSeleccionada){
+		List<Object> lista = new ArrayList<>();
+		Inmueble inmueble = app.getInmuebleByOferta(ofertaSeleccionada);
+			lista.add(inmueble.getCodigoPostal());
+			lista.add(inmueble.getLocalizacion());
+			inmueble.getCaracteristicas().forEach((c, v) -> {lista.add(c); lista.add(v);});
+		return lista;
+	}
+	
+	private List<Object> getInfoOfertaCliente(Oferta ofertaSeleccionada){
+		List<Object> lista = new ArrayList<>();
+			lista.add(ofertaSeleccionada.getOfertante().getNIF());
+			lista.add(ofertaSeleccionada.getOfertante().getNombres());
+		return lista;
 	}
 	
 	public void showInfoOferta(int fila) {
 		ofertaSeleccionada = ofertasTabla.get(fila);
+		Object[] detallesExtra = null;
 		String atributoUnico;
 		
 		if (ofertaSeleccionada == null)
 			return;
 		
+		if (app.isGerente())
+			detallesExtra = getInfoOfertaCliente(ofertaSeleccionada).toArray();
+		else
+			detallesExtra = getInfoOfertaInmueble(ofertaSeleccionada).toArray();
+		
 		List<Object> detallesOferta = new ArrayList<>();
-			detallesOferta.add(ofertaSeleccionada.getOfertante().getNIF());
-			detallesOferta.add(ofertaSeleccionada.getOfertante().getNombres());
 			detallesOferta.add(ofertaSeleccionada.getFechaInicio());
 			if (ofertaSeleccionada.isVacacional()) {
 				detallesOferta.add(((OfertaVacacional)ofertaSeleccionada).getFechaFin());
@@ -159,7 +232,7 @@ public class Controlador {
 			detallesOferta.add(ofertaSeleccionada.getPrecio());
 			detallesOferta.add(ofertaSeleccionada.getTipo().toString());
 			detallesOferta.add(ofertaSeleccionada.getDescripcion());
-		this.gui.showInfoOferta(atributoUnico, detallesOferta.toArray());
+		this.gui.showInfoOferta(atributoUnico, detallesExtra, detallesOferta.toArray());
 	}
 
 	public void cambiarTarjeta(String usuarioNIF, String nuevaTarjeta) {
@@ -211,4 +284,6 @@ public class Controlador {
 			return false;
 		}
 	}
+
+
 }

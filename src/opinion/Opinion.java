@@ -50,4 +50,6 @@ public abstract class Opinion implements Serializable{
 	public void setDemandante(Demandante demandante) {
 		this.demandante = demandante;
 	}
+
+	public abstract boolean isComentario();
 }

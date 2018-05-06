@@ -17,8 +17,8 @@ public class BusquedaViviendaPanel extends BusquedaPanelBasico {
 	private JLabel etiquetaMeses = new JLabel("Duracion Meses:");
 	private JSpinner duracionMeses = new JSpinner();
 	
-	public BusquedaViviendaPanel(Gui gui, boolean visible) {
-		super(gui, visible);
+	public BusquedaViviendaPanel(Gui gui, boolean usuarioRegistrado) {
+		super(gui, usuarioRegistrado);
 		GridBagConstraints c = new GridBagConstraints();
 		
 		super.tablaOfertas.setModel(new DefaultTableModel(
@@ -37,8 +37,8 @@ public class BusquedaViviendaPanel extends BusquedaPanelBasico {
 
 	@Override
 	protected void rellenarCampos() {
-		super.duracionMeses = Optional.of((Integer)duracionMeses.getValue());
-		super.tipoOferta = Optional.of("vivienda");
+		super.duracionMeses = (Integer) duracionMeses.getValue();
+		super.tipoOferta = "vivienda";
 	}
 
 }
