@@ -17,11 +17,13 @@ import javax.swing.table.TableModel;
 import javax.swing.text.TabableView;
 
 import gui.vista.Gui;
+import gui.vista.oferta.DetallesPanelOferta;
 
 public class OfertasPendientesPanel extends JPanel{
 
 	private JTable tablaOfertasPendientes;
 	private JScrollPane scroll;
+	private DefaultTableModel model;
 	
 	Gui gui;
 	
@@ -29,9 +31,11 @@ public class OfertasPendientesPanel extends JPanel{
 		this.gui = gui;
 		this.setLayout(new GridLayout(0,1));
 		
+		
 		tablaOfertasPendientes = new JTable(new DefaultTableModel(
 				new Object[]{"Ofertante", "Fecha", "Precio", "Tipo"}, 0));
 		
+		this.model = (DefaultTableModel) tablaOfertasPendientes.getModel();
 		tablaOfertasPendientes.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			 public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -46,17 +50,16 @@ public class OfertasPendientesPanel extends JPanel{
 		this.add(scroll);
 	}
 
-	public void showInfoOferta(Object... detallesOferta) {
+	public void showInfoOferta(String atributoUnico, Object... detallesOferta) {
 		this.remove(0);
 		
-		this.add(new DetallesPanelOferta(gui, detallesOferta));
+		this.add(new DetallesPanelOfertaGerente(gui, atributoUnico, detallesOferta));
 		this.repaint();
 		this.revalidate();
 	}
 
 	public void addOfertaPendienteTabla(Object... ofertas) {
-		DefaultTableModel model = (DefaultTableModel) tablaOfertasPendientes.getModel();
-		model.addRow(ofertas);
+		 model.addRow(ofertas);
 	}
 	
 	public boolean atras() {
@@ -73,8 +76,6 @@ public class OfertasPendientesPanel extends JPanel{
 	}
 
 	public void limpiarTabla() {
-		DefaultTableModel model = (DefaultTableModel) tablaOfertasPendientes.getModel();
-		model.setRowCount(0);
+		gui.limpiarTabla(model);
 	}
-
 }

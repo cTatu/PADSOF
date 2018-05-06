@@ -5,8 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -27,16 +26,16 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
 
-public abstract class BusquedaPanelBasico extends JPanel {
+public abstract class BusquedaPanelBasico extends JPanel{
 
 	
 	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
 	protected JSpinner campoCP = new JSpinner();
 
-	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1: (DD/MM/YYYY)");
+	private JLabel etiquetaFechaInicio1 = new JLabel("Fecha Inicio 1: (d/MM/YYY)");
 	protected JTextField fechaInicio1 = new JTextField();
 	
-	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (DD/MM/YYYY)");
+	private JLabel etiquetaFechaInicio2 = new JLabel("Fecha Inicio 2: (d/MM/YYY)");
 	protected JTextField fechaInicio2 = new JTextField();
 	
 	/*** Usuario Registrado ***/
@@ -46,6 +45,7 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	private JLabel etiquetaValoracion = new JLabel("Valoracion:");
 	protected JTextField campoValoracion = new JTextField();	
 	/**************************/
+	DefaultTableModel model;
 	
 	protected Gui gui;
 	protected JTable tablaOfertas;
@@ -53,7 +53,7 @@ public abstract class BusquedaPanelBasico extends JPanel {
 
 	protected Optional<Integer> duracionMeses = Optional.empty();
 	protected Optional<Double> valoracion = Optional.empty();
-	protected Optional<String> fechaFin = Optional.empty(),
+	protected Optional<String> fechaFin = Optional.of("1/01/1970"),
 							   tipoDisponibilidad = Optional.empty(), 
 							   tipoOferta = Optional.empty();
 
@@ -62,6 +62,15 @@ public abstract class BusquedaPanelBasico extends JPanel {
 			GridBagConstraints c = new GridBagConstraints();
 			
 			tablaOfertas = new JTable();
+			model = (DefaultTableModel) tablaOfertas.getModel();
+			
+			tablaOfertas.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			 public void mouseClicked(java.awt.event.MouseEvent evt) {
+			    int fila = tablaOfertas.rowAtPoint(evt.getPoint());
+			    gui.getControlador().showInfoOferta(fila);
+			 }
+			});
 
 			fechaInicio1.setPreferredSize( new Dimension( 250, 24 ) );
 			fechaInicio2.setPreferredSize( new Dimension( 250, 24 ) );
@@ -122,7 +131,6 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	}
 	
 	public void addOfertasTabla(Object... oferta) {
-		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
 		model.addRow(oferta);
 	}
 	
@@ -134,10 +142,7 @@ public abstract class BusquedaPanelBasico extends JPanel {
 	protected abstract void rellenarCampos();
 
 	public void limpiarTabla() {
-		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
-		model.setRowCount(0);
-		
-		
+		gui.limpiarTabla(model);
 	}
 
 }

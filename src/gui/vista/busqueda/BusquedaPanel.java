@@ -29,13 +29,12 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 	private JRadioButton OpcionBusquedaVivienda = new JRadioButton("Vivienda");
 	private JRadioButton OpcionBusquedaVacacional = new JRadioButton("Vacacional");
 	
-	protected BusquedaPanelBasico panelActivo;
+	protected static BusquedaPanelBasico panelActivo;
+	protected static Gui gui;
 
 	private JButton botonBuscar = new JButton("\nBuscar");
 	private boolean usuarioRegistrado;
-	
-	protected Gui gui;
-	
+
 	public BusquedaPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridBagLayout());
@@ -52,7 +51,7 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 		OpcionBusquedaVacacional.addActionListener(this);
 		OpcionBusquedaVivienda.addActionListener(this);
 		
-		botonBuscar.addActionListener(new ListenerBusqueda(panelActivo, gui));
+		botonBuscar.addActionListener(new ListenerBusqueda());
 		
 		JPanel panelRadioBotones = new JPanel(new GridLayout(0,2));
 			panelRadioBotones.add(OpcionBusquedaVacacional);
@@ -95,43 +94,22 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 
 class ListenerBusqueda implements ActionListener{
 	
-	private BusquedaPanelBasico panelActivo;
-	private Gui gui;
-	
-	public ListenerBusqueda(BusquedaPanelBasico panelActivo, Gui gui) {
-		this.panelActivo = panelActivo;
-		this.gui = gui;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		LocalDate fecha1 = null, fecha2 = null, fechafin = null;
-		String fechaError = null;
+		BusquedaPanelBasico panelActivo = BusquedaPanel.panelActivo;
 		
 		panelActivo.tablaOfertas.setVisible(true);
     	if (panelActivo.isDemandate())
     		panelActivo.rellenarCamposDemandante();
     	panelActivo.rellenarCampos();
-    	
-    	
-    	try {
-    		fechaError = "Fecha Inicio 1";
-    		fecha1 = LocalDate.parse(panelActivo.fechaInicio1.getText(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
-    		fechaError = "Fecha Inicio 2";
-    		fecha2 = LocalDate.parse(panelActivo.fechaInicio2.getText(), DateTimeFormatter.ofPattern("d/MM/yyyy"));
-    		fechaError = "Fecha Fin";
-    		fechafin = LocalDate.parse(panelActivo.fechaFin.orElse(""), DateTimeFormatter.ofPattern("d/MM/yyyy"));
-    	}catch (DateTimeParseException exception) {
-    		JOptionPane.showMessageDialog(null, fechaError + " no tienen un formato valido", "Fecha Incorrecta", JOptionPane.ERROR_MESSAGE);
-    		return;
-    	}
-    	
+
     	panelActivo.limpiarTabla();
     	
-    	gui.getControlador().buscar((Integer)panelActivo.campoCP.getValue(), 
-    			fecha1, fecha2, fechafin, panelActivo.duracionMeses.orElse(0), 
-				panelActivo.tipoDisponibilidad.orElse("DISPONIBLE"),
-				panelActivo.tipoOferta.orElse("VACACIONAL"), panelActivo.valoracion.orElse(0.0));
+    	BusquedaPanel.gui.getControlador().buscar((Integer)panelActivo.campoCP.getValue(), 
+    			panelActivo.fechaInicio1.getText(), panelActivo.fechaInicio2.getText(), 
+    			panelActivo.fechaFin.get(), panelActivo.duracionMeses.orElse(0), 
+    			panelActivo.tipoDisponibilidad.orElse("DISPONIBLE"),
+    			panelActivo.tipoOferta.orElse("VACACIONAL"), panelActivo.valoracion.orElse(0.0));
     	
     	panelActivo.scroll.setVisible(true);
     	

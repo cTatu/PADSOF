@@ -116,4 +116,9 @@ public class OfertaVivienda extends Oferta implements Serializable{
 	public TipoOferta getTipo() {
 		return TipoOferta.VIVIENDA;
 	}
+
+	@Override
+	public boolean isVacacional() {
+		return false;
+	}
 }

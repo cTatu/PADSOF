@@ -105,4 +105,9 @@ public class OfertaVacacional extends Oferta implements Serializable{
 	public TipoOferta getTipo() {
 		return TipoOferta.VACACIONAL;
 	}
+
+	@Override
+	public boolean isVacacional() {
+		return true;
+	}
 }

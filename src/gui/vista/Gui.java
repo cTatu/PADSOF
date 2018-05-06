@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import gui.controlador.Controlador;
 import gui.vista.busqueda.BusquedaPanel;
@@ -92,7 +94,7 @@ public class Gui extends JFrame {
 			}
 			
 		} else {
-			JOptionPane.showMessageDialog(this, "NIF o contraseña incorrectos", "Login error", JOptionPane.ERROR_MESSAGE);
+			this.mensajeInfo("NIF o contraseña incorrectos", "Login error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -111,7 +113,7 @@ public class Gui extends JFrame {
 
 	public void cambiarTarjetaResult(boolean modificarTarjetaCredito, String nuevaTarjeta) {
 		if (modificarTarjetaCredito)
-			JOptionPane.showMessageDialog(this, "La nueva tarjeta de credito es: " + nuevaTarjeta, "Cambio Correcto", JOptionPane.INFORMATION_MESSAGE);
+			this.mensajeInfo("La nueva tarjeta de credito es: " + nuevaTarjeta, "Cambio Correcto", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 
@@ -123,8 +125,15 @@ public class Gui extends JFrame {
 		panelGerente.addOfertaPendienteTabla(ofertas);
 	}
 
-	public void showInfoOferta(Object... detallesOferta) {
-		panelGerente.showInfoOferta(detallesOferta);
+	public void showInfoOferta(String atributoUnico, Object... detallesOferta) {
+		if (controlador.isDemandante())
+			panelDemandante.showInfoOferta(atributoUnico, detallesOferta);
+		if (controlador.isGerente())
+			panelGerente.showInfoOferta(atributoUnico, detallesOferta);
+		else {
+			tabsInvitado.setSelectedIndex(0);
+			this.mensajeInfo("Tienes que iniciar sesion para ver los detalles de la oferta", "Login Necesario", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 
@@ -135,8 +144,12 @@ public class Gui extends JFrame {
 		}
 	}
 
+	
+	public void limpiarTabla(DefaultTableModel model) {
+		model.setRowCount(0);
+	}
 
-	public void avisoBusquedaVacia() {
-		JOptionPane.showMessageDialog(this, "La busqueda no ha tenido ningun resultado", "Busqueda Fallida", JOptionPane.INFORMATION_MESSAGE);
+	public void mensajeInfo(String descripcion, String asunto, int tipo) {
+		JOptionPane.showMessageDialog(this, descripcion, asunto, tipo);
 	}
 }

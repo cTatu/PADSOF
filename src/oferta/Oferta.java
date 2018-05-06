@@ -367,4 +367,5 @@ public abstract class Oferta implements Serializable{
 	}
 
 	public abstract TipoOferta getTipo();
+	public abstract boolean isVacacional();
 }

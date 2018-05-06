@@ -19,7 +19,7 @@ import tipos.TipoDisponibilidad;
 
 public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 
-	private JLabel etiquetaFechaFin = new JLabel("Fecha Fin: (YYYY-MM-DD)");
+	private JLabel etiquetaFechaFin = new JLabel("Fecha Fin: (d/MM/YYY)");
 	private JTextField fechaFin = new JTextField();
 	
 	public BusquedaVacacionalPanel(Gui gui, boolean visible) {
@@ -42,7 +42,7 @@ public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 
 	@Override
 	protected void rellenarCampos() {
-		super.fechaFin = Optional.of(fechaFin.getText());
+		super.fechaFin.orElse(fechaFin.getText());
 		super.tipoOferta = Optional.of("vacacional");
 	}
 

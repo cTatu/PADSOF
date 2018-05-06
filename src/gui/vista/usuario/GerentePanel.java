@@ -52,9 +52,9 @@ public class GerentePanel extends JPanel implements ActionListener{
 		cambiarTarjetaPanel.addUsuariosTarejtaTabla(tarjetas);
 	}
 
-	public void showInfoOferta(Object... detallesOferta) {
+	public void showInfoOferta(String atributoUnico, Object... detallesOferta) {
 		botonAtras.setText("Atras");
-		ofertasPendientes.showInfoOferta(detallesOferta);
+		ofertasPendientes.showInfoOferta(atributoUnico, detallesOferta);
 	}
 
 	public void addOfertaPendienteTabla(Object... ofertas) {
