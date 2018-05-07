@@ -4,6 +4,7 @@
 package opinion;
 import java.io.Serializable;
 
+import cliente.Cliente;
 import cliente.Demandante;
 
 /**

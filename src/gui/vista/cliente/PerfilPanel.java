@@ -20,13 +20,11 @@ public class PerfilPanel extends JPanel implements ActionListener{
 	private JButton botonInmuebles = new JButton("Inmuebles\n");
 	private JButton botonOfertas = new JButton("Ofertas\n");
 	private JButton botonReservas = new JButton("Reservas\n");
-	private JButton botonOpinar = new JButton("Opinar\n");
 	private JPanel panelBotones;
 	private MisDatosPanel panelMisDatos;
 	private InmueblesPanel panelInmuebles;
 	private OfertasPanel panelOfertas;
 	private ReservasPanel panelReservas;
-	private OpinarPanel panelOpinar;
 	
 	private Gui gui;
 	
@@ -41,7 +39,6 @@ public class PerfilPanel extends JPanel implements ActionListener{
 		panelBotones.add(botonInmuebles);
 		panelBotones.add(botonOfertas);
 		panelBotones.add(botonReservas);
-		panelBotones.add(botonOpinar);
 		
 		panelMisDatos = new MisDatosPanel(gui);
 		panelMisDatos.setVisible(false);
@@ -51,21 +48,17 @@ public class PerfilPanel extends JPanel implements ActionListener{
 		panelOfertas.setVisible(false);
 		panelReservas = new ReservasPanel(gui);
 		panelReservas.setVisible(false);
-		panelOpinar = new OpinarPanel(gui);
-		panelOpinar.setVisible(false);
 		
 		this.add(panelBotones);
 		this.add(panelMisDatos);
 		this.add(panelInmuebles);
 		this.add(panelOfertas);
 		this.add(panelReservas);
-		this.add(panelOpinar);
 		
 		botonMisDatos.addActionListener(this);
 		botonInmuebles.addActionListener(this);
 		botonOfertas.addActionListener(this);
 		botonReservas.addActionListener(this);
-		botonOpinar.addActionListener(this);
 	}
 
 	@Override
@@ -85,10 +78,6 @@ public class PerfilPanel extends JPanel implements ActionListener{
 	    else if (e.getSource() == botonReservas) {
 	    	panelBotones.setVisible( false );
 	    	panelReservas.setVisible( true );
-	    }
-	    else if (e.getSource() == botonOpinar) {
-	    	panelBotones.setVisible( false );
-	    	panelOpinar.setVisible( true );
 	    }
 	}
 

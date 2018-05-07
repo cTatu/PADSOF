@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import gui.vista.Gui;
+import gui.vista.publicar.CrearOfertaPanel;
 import gui.vista.publicar.PublicarInmueblePanel;
 import gui.vista.publicar.PublicarOfertaPanel;
 
@@ -16,7 +17,7 @@ public class PublicarPanel extends JPanel implements ActionListener{
 	private JButton botonInmueble = new JButton("Publicar inmueble\n");;
 	private JButton botonOferta = new JButton("Publicar oferta\n");
 	private JPanel panelBotones;
-	private PublicarOfertaPanel panelPublicarOferta;
+	private CrearOfertaPanel panelCrearOferta;
 	private PublicarInmueblePanel panelPublicarInmueble;
 	
 	private Gui gui;
@@ -30,13 +31,13 @@ public class PublicarPanel extends JPanel implements ActionListener{
 		panelBotones.add(botonInmueble);
 		panelBotones.add(botonOferta);
 		
-		panelPublicarOferta = new PublicarOfertaPanel(gui);
-		panelPublicarOferta.setVisible(false);
+		panelCrearOferta = new CrearOfertaPanel(gui);
+		panelCrearOferta.setVisible(false);
 		panelPublicarInmueble = new PublicarInmueblePanel(gui);
 		panelPublicarInmueble.setVisible(false);
 		
 		this.add(panelBotones);
-		this.add(panelPublicarOferta);
+		this.add(panelCrearOferta);
 		this.add(panelPublicarInmueble);
 		
 		botonInmueble.addActionListener(this);
@@ -51,8 +52,12 @@ public class PublicarPanel extends JPanel implements ActionListener{
 	    }
 	    if (e.getSource() == botonOferta) {
 	    	panelBotones.setVisible( false );
-	    	panelPublicarOferta.setVisible( true );
+	    	panelCrearOferta.setVisible( true );
 	    }
+	}
+
+	public CrearOfertaPanel getPanelCrearOferta() {
+		return panelCrearOferta;
 	}
 
 }

@@ -95,4 +95,8 @@ public class Ofertante implements Serializable{
 		return ofertas;
 	}
 
+	public List<Inmueble> getInmuebles() {
+		return inmuebles;
+	}
+
 }

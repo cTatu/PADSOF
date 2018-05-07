@@ -186,6 +186,15 @@ public class Cliente implements Serializable{
 	public String getApellidos() {
 		return apellidos;
 	}
+	
+	/**
+	 * Gets the rolOfertante.
+	 *
+	 * @return apellidos del cliente
+	 */
+	public Ofertante getRolOfertante() {
+		return rolOfertante;
+	}
 
 	/**
 	 * Sets the apellidos.

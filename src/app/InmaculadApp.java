@@ -32,6 +32,8 @@ import inmueble.Inmueble;
 import oferta.Oferta;
 import oferta.OfertaVacacional;
 import oferta.OfertaVivienda;
+import opinion.Comentario;
+import opinion.Valoracion;
 import reserva.Reserva;
 import reserva.ReservaVacacional;
 import reserva.ReservaVivienda;
@@ -703,6 +705,23 @@ public class InmaculadApp implements Serializable{
 	public List<Cliente> getClientes() {
 		return Collections.unmodifiableList(new ArrayList<Cliente>(clientes.values()));
 	}
+
+	public Map<Integer, Comentario> getTodosComentarios() {
+		return Comentario.getTodosComentarios();
+	}
+
+	public void opinar(Comentario comentario, String textoRespuesta) {
+		comentario.opinar(new Comentario(clienteConectado.rolDemandante, textoRespuesta));
+	}
+	
+	public void opinar(Oferta oferta, String textoRespuesta) {
+		oferta.aniadirOpinion( new Comentario(clienteConectado.rolDemandante, textoRespuesta));
+	}
+
+	public void opinar(Comentario comentario, Double valoracion) {
+		comentario.opinar( new Valoracion(clienteConectado.rolDemandante, valoracion));
+	}
+	
 
 }
 

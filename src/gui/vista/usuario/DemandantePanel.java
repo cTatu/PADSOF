@@ -26,11 +26,12 @@ import gui.vista.usuario.demandante.DetallesPanelOfertaDemandante;
 
 public class DemandantePanel extends UsuarioPanel implements ActionListener{
 
+	/*protected Tabs del Super*/
+	
 	private JTable tablaMisOfertas;
 	private JScrollPane scroll;
 	private DetallesPanelOfertaDemandante panelOfertaDemandante;
-	private DetallesPanelComentario panelComentario;
-
+	
 	public DemandantePanel(Gui gui) {
 		super(gui);
 		
@@ -47,20 +48,21 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 			 }
 			});
 		
-		tabsUsuario.addTab("Busqueda", Gui.panelBusquedaOfertas);
+		super.tabsUsuario.addTab("Busqueda", Gui.panelBusquedaOfertas);
 		scroll = new JScrollPane(tablaMisOfertas);
 		scroll.setPreferredSize(new Dimension(500, 100));
-		tabsUsuario.addTab("Mis Ofertas", scroll);
+		super.tabsUsuario.addTab("Mis Ofertas", scroll);
 	}
 
 	@Override
 	public void showInfoOferta(String atributoUnico, Object[] detallesInmueble, Object... detallesOferta) {
 		this.remove(1);
 		
-		panelOfertaDemandante = new DetallesPanelOfertaDemandante(gui, atributoUnico, gui.getControlador().getComentariosOferta(), detallesInmueble,detallesOferta);
+		panelOfertaDemandante = new DetallesPanelOfertaDemandante(gui, atributoUnico, detallesInmueble, detallesOferta);
 		this.add(panelOfertaDemandante);
 		this.repaint();
 		this.revalidate();
+		this.gui.getControlador().showComentariosOferta();
 	}
 
 	@Override
@@ -78,7 +80,7 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 		DefaultTableModel model = (DefaultTableModel) tablaMisOfertas.getModel();
 		model.addRow(ofertas);
 	}
-
+	
 	public void showMisOfertas() {
 		this.remove(1);
 		
@@ -93,13 +95,8 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 		scroll.repaint();
 		scroll.revalidate();
 	}
-
+	
 	public void showInfoComentario(Object[] detallesComentario) {
-		this.remove(1);
-		
-		panelComentario = new DetallesPanelComentario(gui, detallesComentario);
-		this.add(panelComentario);
-		this.repaint();
-		this.revalidate();
+		panelOfertaDemandante.addComentario(detallesComentario);
 	}
 }

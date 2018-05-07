@@ -2,6 +2,7 @@ package gui.vista.usuario.demandante;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -20,27 +22,24 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import gui.vista.Gui;
+import gui.vista.comentario.AddComentarioPanel;
+import gui.vista.comentario.DetallesPanelComentario;
 import gui.vista.gerente.DetallesPanelOfertaGerente;
-import gui.vista.gerente.CaracteristicasPanel;
+import gui.vista.gerente.PanelRectificaciones;
 import gui.vista.oferta.DetallesPanelOferta;
 
-public class DetallesPanelOfertaDemandante extends DetallesPanelOferta implements TreeSelectionListener{
+public class DetallesPanelOfertaDemandante extends DetallesPanelOferta{
 	
-private GridBagConstraints c = new GridBagConstraints();
-	
+	private GridBagConstraints c = new GridBagConstraints();
+	private JPanel panelComentarios = new JPanel(new GridLayout(0, 1));
 	private JButton contratar = new JButton("Contratar");
 	private JButton reservar = new JButton("Reservar");
-	
-	private JTree treeComentarios;
+	private JTabbedPane comentariosTabs = new JTabbedPane();
+	private JPanel addComentario;
 
-	public DetallesPanelOfertaDemandante(Gui gui, String atributoUnico, 
-			DefaultMutableTreeNode raiz, Object[] detallesInmueble, Object... detallesOferta) {
+	public DetallesPanelOfertaDemandante(Gui gui, String atributoUnico, Object[] detallesInmueble, Object... detallesOferta) {
 		
 		super(gui, atributoUnico, detallesOferta);
-		
-		treeComentarios = new JTree(raiz);
-		treeComentarios.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		treeComentarios.addTreeSelectionListener(this);
 		
 		contratar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -57,7 +56,7 @@ private GridBagConstraints c = new GridBagConstraints();
 					gui.getControlador().reservarOferta();				
 			}
 		});
-		
+				
 		JPanel detallesInmueblePanel = new JPanel(new GridLayout(0, 2));
 			detallesInmueblePanel.setBorder(BorderFactory.createTitledBorder("Inmueble"));
 		
@@ -73,16 +72,23 @@ private GridBagConstraints c = new GridBagConstraints();
 				detallesInmueblePanel.add(new JLabel(String.valueOf(detallesInmueble[i])));
 			}
 			
-	
+		addComentario = new AddComentarioPanel(gui, this);
+		addComentario.setVisible(false);
+		
 		reservar.setEnabled(gui.getControlador().isOfertaReservable());
 			
 		c.gridx = 0; c.gridy = 0;
 		this.add(detallesInmueblePanel, c);
 		
-		c.gridx = 0; c.gridy = 2;
-		JScrollPane scroll = new JScrollPane(treeComentarios);
-		scroll.setPreferredSize(new Dimension(250, 100));
-		this.add(scroll, c);
+	
+		JScrollPane scroll = new JScrollPane(panelComentarios);
+		scroll.setPreferredSize(new Dimension(400, 100));
+		
+		comentariosTabs.addTab("Comentar", addComentario);
+		comentariosTabs.addTab("Comentarios", scroll);
+		
+		c.gridx = 0; c.gridy = 2;	
+		this.add(comentariosTabs, c);
 		
 		c.gridx = 1; c.gridy = 1;
 		this.add(contratar, c);
@@ -94,14 +100,25 @@ private GridBagConstraints c = new GridBagConstraints();
 	public void actionPerformed(ActionEvent e) {
 		
 	}
+	
+	public void limpiarComentarios() {
+		panelComentarios.removeAll();
+		
+		panelComentarios.revalidate();
+		panelComentarios.repaint();
+	}
 
-	@Override
-	public void valueChanged(TreeSelectionEvent e) {
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeComentarios.getLastSelectedPathComponent();
+	public void addComentario(Object... detallesComentario) {
+		panelComentarios.add(new DetallesPanelComentario(gui, detallesComentario, this));
+		
+		panelComentarios.revalidate();
+		panelComentarios.repaint();
+		
+		this.revalidate();
+		this.repaint();
+	}
 
-	    if (node == null)
-	    	return;
-
-	    gui.getControlador().showInfoComentario(node.getUserObject());	    
+	public void showComentarios() {
+		comentariosTabs.setSelectedIndex(1);;
 	}
 }

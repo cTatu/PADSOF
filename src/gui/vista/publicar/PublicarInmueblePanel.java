@@ -2,7 +2,7 @@ package gui.vista.publicar;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
-import gui.vista.gerente.CaracteristicasPanel;
 
 public class PublicarInmueblePanel extends JPanel implements ActionListener, DocumentListener{
 	
@@ -26,8 +26,8 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 	private JLabel localizacion = new JLabel("Localizacion: ");
 	private JTextField campoLocalizacion = new JTextField();
 	
-	private CaracteristicasPanel panelcaracteristicas;
-	private Map<JTextField, JTextField> rectificaciones = new HashMap<>();
+	private CaracteristicasPanel panelCaracteristicas;
+	private Map<JTextField, JTextField> caracteristicas = new HashMap<>();
 	private JButton nuevaLinea = new JButton("Agregar Linea");
 	
 	private JLabel hueco = new JLabel(" ");
@@ -36,48 +36,75 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 	protected Gui gui;
 	private GridBagConstraints c = new GridBagConstraints();
 	
+	private DefaultTableModel model;
+	
 	public PublicarInmueblePanel(Gui gui) {
 		this.gui = gui;
-		this.setLayout(new GridLayout(0,2));	
+		this.setLayout(new GridBagLayout());
+		c.gridx = 0;	
 		
-		panelcaracteristicas = new CaracteristicasPanel(gui, rectificaciones);
+		panelCaracteristicas = new CaracteristicasPanel(gui, caracteristicas);
 	
-		campoCP.setPreferredSize( new Dimension( 24, 24 ) );
-		campoLocalizacion.setPreferredSize( new Dimension( 24, 50 ) );
+		campoCP.setPreferredSize( new Dimension( 250, 24 ) );
+		campoLocalizacion.setPreferredSize( new Dimension( 250, 24 ) );
 		
-		this.add(CP);
-		this.add(campoCP);
-		this.add(localizacion);
-		this.add(campoLocalizacion);
+		c.gridx = 0; c.gridy = 0; 
+		this.add(CP, c);
+		c.gridx = 1; c.gridy = 0; 
+		this.add(campoCP, c);
+		c.gridx = 0; c.gridy = 1; 
+		this.add(localizacion, c);
+		c.gridx = 1; c.gridy = 1; 
+		this.add(campoLocalizacion, c);
 		
-		c.gridx = 0; c.gridy = 2;
-		this.add(panelcaracteristicas, c);
-		c.gridx = 0; c.gridy = 3;
+		c.gridx = 1; c.gridy = 2;
+		this.add(panelCaracteristicas, c);
+		c.gridx = 1; c.gridy = 3;
 		this.add(nuevaLinea, c);
 		
-		this.add(hueco);
-		this.add(botonGuardar);
+		c.gridx = 1; c.gridy = 4;
+		this.add(hueco, c);
+		c.gridx = 1; c.gridy = 5;
+		this.add(botonGuardar, c);
 		
 		botonGuardar.addActionListener( this );
 		
 		nuevaLinea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelcaracteristicas.aniadirFila(PublicarInmueblePanel.this);
+				panelCaracteristicas.aniadirFila(PublicarInmueblePanel.this);
 			}
 		});
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Map<String, String> mapaCaracteristicas;
+		mapaCaracteristicas = this.getCaracteristicas();
 		
 		this.gui.getControlador().aniadirInmueble( Integer.parseInt(this.campoCP.getText()), 
 				this.campoLocalizacion.getText(), 
-				Map.of("cambiar","esto"));
+				mapaCaracteristicas);
+		
+		this.limpiarTabla();
+		this.gui.getControlador().rellenarTablaInmuebles();
 	}
-
+	
+	public void limpiarTabla() {
+		gui.limpiarTabla(model);
+	}	
+	
+	private Map<String, String> getCaracteristicas() {
+		Map<String, String> mapaCaracteristicas = new HashMap<>();
+		
+		for (JTextField field : caracteristicas.keySet())
+			mapaCaracteristicas.put(field.getText(), caracteristicas.get(field).getText());
+		
+		return mapaCaracteristicas;
+	}
+	
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-		rectificar.setVisible(true);
+		//rectificar.setVisible(true);
 	}
 
 	@Override

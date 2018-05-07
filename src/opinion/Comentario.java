@@ -3,9 +3,9 @@
  */
 package opinion;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import cliente.Demandante;
 
@@ -16,7 +16,11 @@ public class Comentario extends Opinion implements Serializable{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 7106442786135209718L;
-
+	private static Integer LastId = 1;
+	private final Integer ID;
+	private final static Map<Integer,Comentario> todosComentarios = new HashMap<>();
+	
+	private Comentario padre = null;
 	private String texto;
 	private List<Opinion> opiniones;
 	
@@ -28,8 +32,11 @@ public class Comentario extends Opinion implements Serializable{
 	 */
 	public Comentario(Demandante demandante, String texto) {
 		super(demandante);
+		this.ID = LastId;
+		Comentario.todosComentarios.put(this.ID,this);
 		this.texto = texto;
 		this.opiniones = new ArrayList<Opinion>();
+		LastId ++;
 	}
 
 	/**
@@ -40,6 +47,8 @@ public class Comentario extends Opinion implements Serializable{
 	 */
 	@Override
 	public boolean opinar(Opinion o) {
+		if (o.isComentario())
+			((Comentario)o).setPadre(this);
 		opiniones.add(o);
 		return true;
 	}
@@ -78,6 +87,18 @@ public class Comentario extends Opinion implements Serializable{
 	}
 
 	/**
+	 * Gets the comentarios.
+	 *
+	 * @return los comentarios
+	 */
+	public List<Comentario> getComentarios() {
+		return Collections.unmodifiableList(opiniones.stream()
+                .filter(o -> o.isComentario())
+                .map(o -> (Comentario) o)
+                .collect(Collectors.toList()));
+	}
+	
+	/**
 	 * Getter del texto del comentario
 	 *
 	 * @return texto
@@ -89,6 +110,22 @@ public class Comentario extends Opinion implements Serializable{
 	@Override
 	public boolean isComentario() {
 		return true;
+	}
+
+	public Integer getID() {
+		return ID;
+	}
+
+	public Comentario getPadre() {
+		return padre;
+	}
+	
+	public void setPadre(Comentario comentario) {
+		this.padre = comentario;
+	}
+
+	public static Map<Integer,Comentario> getTodosComentarios() {
+	    return Collections.unmodifiableMap(todosComentarios);
 	}
 
 }

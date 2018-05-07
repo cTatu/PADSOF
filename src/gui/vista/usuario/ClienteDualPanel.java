@@ -50,4 +50,12 @@ public class ClienteDualPanel extends JPanel implements ActionListener {
 		gui.getControlador().cerrarSesion( true );
 	}
 
+	public void addInmueblesTabla(Object[] inmuebles) {
+		panelPublicar.getPanelCrearOferta().getPanelSeleccionarInmueble().addInmueblesTabla(inmuebles);
+	}
+
+	public PublicarPanel getPanelPublicar() {
+		return panelPublicar;
+	}
+
 }

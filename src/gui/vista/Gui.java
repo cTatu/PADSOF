@@ -105,7 +105,8 @@ public class Gui extends JFrame {
 			else if( this.controlador.isClienteDual() ) {
 				panelClienteDual = new ClienteDualPanel(this);
 				contenedor.add(panelClienteDual);
-				setVisiblePaneles(panelClienteDual);	
+				setVisiblePaneles(panelClienteDual);
+				controlador.rellenarTablaInmuebles();
 			}else if( this.controlador.isDemandante() ) {
 				panelDemandante = new DemandantePanel(this);
 				contenedor.add(panelDemandante);
@@ -171,6 +172,14 @@ public class Gui extends JFrame {
 		JOptionPane.showMessageDialog(this, descripcion, asunto, tipo);
 	}
 	
+	public void addInmueblesTabla(Object... inmuebles) {
+		panelClienteDual.addInmueblesTabla(inmuebles);		
+	}
+	
+	public void showInfoInmueble(Object[] detallesExtra) {
+		panelClienteDual.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().showInfoInmueble(detallesExtra);
+	}
+
 	public void aniadirOfertaViviendaResult(boolean statusOK) {
 		if( statusOK ) {
 			mensajeInfo("Oferta guardada, a espera de ser moderada.", "Oferta Agregada", JOptionPane.INFORMATION_MESSAGE);
@@ -198,6 +207,10 @@ public class Gui extends JFrame {
 			JOptionPane.showMessageDialog(this, "Hubo algun error al crear el inmueble (ej. Carmpos invalidos, etc)", "Error", JOptionPane.ERROR_MESSAGE);
 		}		
 	}
+	
+	public void seleccionarInmueble() {
+		panelClienteDual.getPanelPublicar().getPanelCrearOferta().seleccionarInmueble();		
+	}
 
 	public void contratarResult(boolean contratarOferta) {
 		if (contratarOferta) {
@@ -217,9 +230,18 @@ public class Gui extends JFrame {
 		}
 	}
 
-	public void showInfoComentario(Object[] detallesComentario) {
+	public void showInfoComentario(Object... detallesComentario) {
 		panelDemandante.showInfoComentario(detallesComentario);
 	}
 
+	public void comentarioOfertaResult(boolean status) {
+		if (!status)
+			mensajeInfo("La oferta seleccionada no tiene comentarios", "Oferta sin comentarios", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public void subComentariosResult(boolean status) {
+		if (!status)
+			mensajeInfo("El comentario seleccionado no tiene respuestas", "Comentario sin respuestas", JOptionPane.ERROR_MESSAGE);
+	}
 
 }

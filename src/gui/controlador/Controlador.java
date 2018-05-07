@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.swing.JOptionPane;
+import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import app.InmaculadApp;
@@ -42,7 +44,9 @@ public class Controlador {
 	private Gui gui;
 	private InmaculadApp app;
 	private Map<Integer, Oferta> ofertasTabla;
+	private Map<Integer, Inmueble> inmueblesTabla;
 	private Oferta ofertaSeleccionada;
+	private Inmueble inmuebleSeleccionado;
 	
 	public Controlador(Gui gui, InmaculadApp app) {
 		this.gui = gui; this.app = app;
@@ -55,6 +59,39 @@ public class Controlador {
 	
 	public void cerrarSesion(boolean GuardarNoGuardar) {
 		this.gui.cerrarSesionResult( this.app.cerrarSesion( GuardarNoGuardar ));
+	}
+	
+	public void rellenarTablaInmuebles() {
+		List<Inmueble> inmuebles = this.app.getClienteConectado().getRolOfertante().getInmuebles();
+		
+		inmueblesTabla = IntStream.range(0, inmuebles.size()).boxed().collect(Collectors.toMap(Function.identity(), inmuebles::get));
+	
+		for (Inmueble inmueble : inmuebles) {
+			List<Object> listaInmuebles = new ArrayList<>();
+				listaInmuebles.add(inmueble.getCodigoPostal());
+				listaInmuebles.add(inmueble.getLocalizacion());
+			this.gui.addInmueblesTabla(listaInmuebles.toArray());
+		}
+	}
+	
+	private List<Object> getInfoInmueble(Inmueble inmueble){
+		List<Object> lista = new ArrayList<>();
+			lista.add(inmueble.getCodigoPostal());
+			lista.add(inmueble.getLocalizacion());
+			inmueble.getCaracteristicas().forEach((c, v) -> {lista.add(c); lista.add(v);});
+		return lista;
+	}
+	
+	public void showInfoInmueble(int fila) {
+		inmuebleSeleccionado = inmueblesTabla.get(fila);
+		Object[] detallesExtra = null;
+		
+		if (inmuebleSeleccionado == null)
+			return;
+
+		detallesExtra = getInfoInmueble(inmuebleSeleccionado).toArray();
+		
+		this.gui.showInfoInmueble(detallesExtra);
 	}
 
 	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, 
@@ -72,6 +109,7 @@ public class Controlador {
 		
 		this.gui.aniadirInmuebleResult( this.app.crearInmueble(CP, localizacion, caracteristicas));
 	}
+	
 	/*************************QUITAR*******************/
 	
 	public void addTodasOfertas() {
@@ -161,22 +199,7 @@ public class Controlador {
 		}
 	}
 	
-	private DefaultMutableTreeNode arbol(List<Opinion> opiniones) {
-		DefaultMutableTreeNode nodo = new DefaultMutableTreeNode();
-		for (Opinion opns : opiniones) {
-			if (opns.isComentario()) {
-				Comentario comentario = (Comentario) opns;
-				nodo = new DefaultMutableTreeNode(comentario.getTexto() + comentario.calcularMedia());
-				nodo.add(arbol(comentario.getOpiniones()));
-			}
-		}
-		return nodo;
-	}
-	
-	public DefaultMutableTreeNode getComentariosOferta() {
-		return arbol(ofertaSeleccionada.getOpiniones());
-	}
-	
+
 	public void rellenarMisOfertas() {
 		List<Oferta> ofertas = app.getOfertasContratadas();
 
@@ -203,6 +226,10 @@ public class Controlador {
 				listaOfertaPendientes.add(oferta.getTipo());
 			this.gui.addOfertasTablaGerente(listaOfertaPendientes.toArray());
 		}
+	}
+	
+	public void seleccionarInmueble() {
+		this.gui.seleccionarInmueble();		
 	}
 	
 	private List<Object> getInfoOfertaInmueble(Oferta ofertaSeleccionada){
@@ -249,16 +276,67 @@ public class Controlador {
 		this.gui.showInfoOferta(atributoUnico, detallesExtra, detallesOferta.toArray());
 	}
 	
-	public void showInfoComentario(Object textoComentario) {
-		String texto = String.valueOf(textoComentario);
-		String valoracion = texto.substring(texto.length()-3, texto.length());
+	private void showInfoComentario(Comentario comentario) {
+		gui.showInfoComentario(new Object[] {comentario.getTexto(), comentario.calcularMedia(), comentario.getID()});
+	}
+	
+	public void showComentariosOferta() {
+		List<Comentario> comentarios = ofertaSeleccionada.getComentarios();
+		if (comentarios.isEmpty()) {
+			gui.comentarioOfertaResult(false);
+			return;
+		}
 		
-		texto = texto.substring(0, texto.length() - 3);
+		comentarios.forEach(this::showInfoComentario);
+		gui.comentarioOfertaResult(true);
+	}
+	
+	public void addComentario(Integer comentarioID, String textoComentario) {
+		if (comentarioID.equals(-1))
+			app.opinar(ofertaSeleccionada, textoComentario);
+		else {
+			Comentario comentario = app.getTodosComentarios().get(comentarioID);
+			app.opinar(comentario, textoComentario);
+		}
+	}
+	
+	public void addComentario(Integer comentarioID, String textoRespuesta, String textoValoracion) {
+		if (!textoRespuesta.isEmpty()) {
+			addComentario(comentarioID, textoRespuesta);
+		}
 		
-		List<Object> detallesComentario = new ArrayList<>();
-			detallesComentario.add(texto);
-			detallesComentario.add(valoracion);
-		gui.showInfoComentario(detallesComentario.toArray());
+		if (!textoValoracion.isEmpty()) {
+			Double valoracion;
+			try {
+				valoracion = Double.parseDouble(textoValoracion);
+			}catch (NumberFormatException e) {
+				gui.mensajeInfo("La valoracion introducida no es valida", "Formato valoracion invalida", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			Comentario comentario = app.getTodosComentarios().get(comentarioID);
+			app.opinar(comentario, valoracion);
+		}
+		if (textoRespuesta.isEmpty() && textoValoracion.isEmpty()) {
+			gui.mensajeInfo("Debes rellenar al menos un campo para opinar.", "Campos Vacios", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		gui.mensajeInfo("Tu opinion ha sido registrada correctamente.", "Opinion enviada", JOptionPane.INFORMATION_MESSAGE);
+		showComentariosOferta();
+	}
+	
+	public void showSubComentarios(Integer ID) {
+		if (ID.equals(-1)) {
+			showComentariosOferta();
+			return;
+		}
+		
+		List<Comentario> comentarios = app.getTodosComentarios().get(ID).getComentarios();
+		if (comentarios.isEmpty()) {
+			gui.subComentariosResult(false);
+			return;
+		}
+		comentarios.forEach(this::showInfoComentario);
+		gui.subComentariosResult(true);
 	}
 
 	public void cambiarTarjeta(String usuarioNIF, String nuevaTarjeta) {
