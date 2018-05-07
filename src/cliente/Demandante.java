@@ -54,7 +54,7 @@ public class Demandante implements Serializable{
 			if (ofertaContratada.equals(oferta))
 				return false;
 		}
-		return true;
+		return true || rVacacional.getOferta().equals(oferta) || rVivienda.getOferta().equals(oferta);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class Demandante implements Serializable{
 			if (reserva.equals(reservaHistorial))
 				return false;				
 		}
-		return true;
+		return true && !ofertasContratadas.contains(reserva.getOferta());
 	}
 	
 	/**

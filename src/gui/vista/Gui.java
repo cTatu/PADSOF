@@ -2,6 +2,8 @@ package gui.vista;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -24,7 +26,7 @@ import gui.vista.usuario.UsuarioPanel;
 import opinion.Comentario;
 
 
-public class Gui extends JFrame {
+public class Gui extends JFrame implements WindowListener{
 	public static BusquedaPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
 	private GerentePanel panelGerente;
@@ -49,6 +51,7 @@ public class Gui extends JFrame {
 		panelBusquedaOfertas = new BusquedaPanel(this, false);
 		panelGerente = new GerentePanel(this);
 		
+		this.addWindowListener(this);
 		
 		tabsInvitado.addTab("Login", panelLogin);
 		tabsInvitado.addTab("Buscar",  panelBusquedaOfertas);
@@ -58,16 +61,16 @@ public class Gui extends JFrame {
 		contenedor.add(panelGerente);
 		
 		/***********QUITAR************/
-		/*panelDemandante = new DemandantePanel(this);
+		panelDemandante = new DemandantePanel(this);
 		contenedor.add(panelDemandante);
-		setVisiblePaneles(panelDemandante);*/
+		setVisiblePaneles(panelDemandante);
 		/***********QUITAR************/
 		
 		// visibilidad inicial
 		setVisiblePaneles(tabsInvitado);
 
 		// mostrar this, en otros ejemplos era ventana, ahora this
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(400,250,600,400); 
 		this.setVisible(true);	
 	}
@@ -86,8 +89,8 @@ public class Gui extends JFrame {
 	public void setControlador(Controlador c) {
 		this.controlador = c;
 		/***********QUITAR************/
-		/*this.controlador.addTodasOfertas();
-		controlador.login("55555111Z", "NoSeSaBe");*/
+		this.controlador.addTodasOfertas();
+		controlador.login("55555111Z", "NoSeSaBe");
 		/***********QUITAR************/
 	}
 	public Controlador getControlador() {
@@ -242,6 +245,53 @@ public class Gui extends JFrame {
 	public void subComentariosResult(boolean status) {
 		if (!status)
 			mensajeInfo("El comentario seleccionado no tiene respuestas", "Comentario sin respuestas", JOptionPane.ERROR_MESSAGE);
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		int result = JOptionPane.showConfirmDialog(this,"Quieres guardar al salir?","Confirmar Guardar", JOptionPane.YES_NO_CANCEL_OPTION);
+
+		if(result == JOptionPane.YES_OPTION){
+			controlador.cerrarSesion(true); 	 
+			System.exit(0);
+		}else if(result == JOptionPane.NO_OPTION)
+			System.exit(0);
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

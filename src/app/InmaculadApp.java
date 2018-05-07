@@ -362,7 +362,7 @@ public class InmaculadApp implements Serializable{
 			return false;
 		
 		clienteConectado.rolDemandante.aniadirOfertaContratada(oferta);
-		
+		oferta.contratar(clienteConectado);
 		return transaccionACliente(oferta.getPrecio(), oferta.getOfertante());
 	}
 	
@@ -663,7 +663,7 @@ public class InmaculadApp implements Serializable{
 	 * @return the ofertas contratadas
 	 */
 	public List<Oferta> getOfertasContratadas() {
-		return Collections.unmodifiableList(ofertasContratadas);
+		return Collections.unmodifiableList(clienteConectado.rolDemandante.getOfertasContratadas());
 	}
 
 	/**
@@ -696,6 +696,11 @@ public class InmaculadApp implements Serializable{
 		return clienteConectado.rolDemandante.puedeReservar(reserva) 
 				&& !ofertaSeleccionada.getReservada() && !ofertaSeleccionada.getContratada();
 	}
+	
+	public boolean sePuedeContratar(Oferta ofertaSeleccionada) {
+		return clienteConectado.rolDemandante.puedeContratar(ofertaSeleccionada) 
+				&& !ofertaSeleccionada.getContratada();
+	}
 
 	public boolean setSesionIniciada(boolean sesionIniciada) {
 		this.sesionIniciada = sesionIniciada;
@@ -721,8 +726,6 @@ public class InmaculadApp implements Serializable{
 	public void opinar(Comentario comentario, Double valoracion) {
 		comentario.opinar( new Valoracion(clienteConectado.rolDemandante, valoracion));
 	}
-	
-
 }
 
 

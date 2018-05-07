@@ -381,16 +381,17 @@ public class Controlador {
 	}
 	
 	public boolean isDemandante() {
-		if( this.app.getClienteConectado().isDemandante() ) {
+		if( this.app.getClienteConectado().isDemandante() )
 			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	}
 
 	public boolean isOfertaReservable() {
 		return this.app.sePuedeReservar(ofertaSeleccionada);
+	}
+	
+	public boolean isOfertaContratable() {
+		return this.app.sePuedeContratar(ofertaSeleccionada);
 	}
 
 	public void contratarOferta() {
@@ -400,5 +401,7 @@ public class Controlador {
 	public void reservarOferta() {
 		gui.reservarResult(this.app.reservarOferta(ofertaSeleccionada));
 	}
+
+	
 
 }

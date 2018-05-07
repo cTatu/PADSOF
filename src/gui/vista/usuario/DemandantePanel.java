@@ -31,6 +31,7 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 	private JTable tablaMisOfertas;
 	private JScrollPane scroll;
 	private DetallesPanelOfertaDemandante panelOfertaDemandante;
+	protected GridBagConstraints c = new GridBagConstraints();
 	
 	public DemandantePanel(Gui gui) {
 		super(gui);
@@ -48,6 +49,8 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 			 }
 			});
 		
+		super.botonAtras.setText("Atras");
+		
 		super.tabsUsuario.addTab("Busqueda", Gui.panelBusquedaOfertas);
 		scroll = new JScrollPane(tablaMisOfertas);
 		scroll.setPreferredSize(new Dimension(500, 100));
@@ -59,7 +62,8 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 		this.remove(1);
 		
 		panelOfertaDemandante = new DetallesPanelOfertaDemandante(gui, atributoUnico, detallesInmueble, detallesOferta);
-		this.add(panelOfertaDemandante);
+		c.gridx = 0; c.anchor = GridBagConstraints.CENTER; c.gridy = 1;
+		this.add(panelOfertaDemandante, c);
 		this.repaint();
 		this.revalidate();
 		this.gui.getControlador().showComentariosOferta();
@@ -73,7 +77,15 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		gui.getControlador().cerrarSesion(true);
+		if (botonAtras.getText().equals("Atras")) {
+			this.remove(1);
+			c.gridx = 0; c.anchor = GridBagConstraints.CENTER; c.gridy = 1;
+			this.add(tabsUsuario, c);
+			
+			this.repaint();
+			this.revalidate();
+		}if (botonAtras.getText().equals("Cerrar Sesion"))
+			gui.getControlador().cerrarSesion(true);
 	}
 	
 	public void addMisOfertas(Object... ofertas) {

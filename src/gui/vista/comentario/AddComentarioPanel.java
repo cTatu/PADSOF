@@ -1,6 +1,9 @@
 package gui.vista.comentario;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,9 +27,10 @@ public class AddComentarioPanel extends JPanel implements ActionListener{
 	public AddComentarioPanel(Gui gui, DetallesPanelOfertaDemandante panelPadre) {
 		this.gui = gui;
 		this.panelPadre = panelPadre;
+		this.setLayout(new GridBagLayout());
 		
 		enviarComentario.addActionListener(this);
-		textoComentario.
+		textoComentario.setPreferredSize(new Dimension(400, 100));
 		
 		c.gridx = 0; c.gridy = 0; 
 		c.gridwidth = 3;

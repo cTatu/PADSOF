@@ -73,8 +73,8 @@ public class DetallesPanelOfertaDemandante extends DetallesPanelOferta{
 			}
 			
 		addComentario = new AddComentarioPanel(gui, this);
-		addComentario.setVisible(false);
 		
+		contratar.setEnabled(gui.getControlador().isOfertaContratable());
 		reservar.setEnabled(gui.getControlador().isOfertaReservable());
 			
 		c.gridx = 0; c.gridy = 0;
@@ -119,6 +119,7 @@ public class DetallesPanelOfertaDemandante extends DetallesPanelOferta{
 	}
 
 	public void showComentarios() {
-		comentariosTabs.setSelectedIndex(1);;
+		comentariosTabs.setSelectedIndex(1);
+		this.gui.getControlador().showComentariosOferta();
 	}
 }
