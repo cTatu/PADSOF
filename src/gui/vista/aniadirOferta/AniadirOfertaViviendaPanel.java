@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -19,24 +20,26 @@ public class AniadirOfertaViviendaPanel extends AniadirOfertaPanel implements Ac
 	private JLabel etiquetaFianza = new JLabel("Fianza: (Euros) ");
 	private JTextField fianza = new JTextField();
 	
+	protected JButton botonGuardar = new JButton("\nGuardar");
+	
 	public AniadirOfertaViviendaPanel(Gui gui) {
 		super(gui);
 		
-		this.add(etiquetaDuracionMeses, 10);
-		this.add(duracionMeses, 11);
-		this.add(etiquetaFianza, 12);
-		this.add(fianza, 13);
+		this.add(etiquetaDuracionMeses, 6);
+		this.add(duracionMeses, 7);
+		this.add(etiquetaFianza, 8);
+		this.add(fianza, 9);
+		this.add(botonGuardar);
 		
 		botonGuardar.addActionListener( this );
 	}
 	
 	public void actionPerformed(ActionEvent ev) {
 		
-		this.gui.getControlador().aniadirOfertaVivienda( Double.parseDouble(this.campoPrecio.getText()), 
+		super.gui.getControlador().aniadirOfertaVivienda( Double.parseDouble(this.campoPrecio.getText()), 
 				LocalDate.parse(super.fechaInicio.getText(), DateTimeFormatter.ofPattern("d/MM/yyyy")), 
 				this.campoDescripcion.getText(), 
 				(Integer) this.duracionMeses.getValue(), 
-				Integer.parseInt(this.campoID.getText()),
 				Double.parseDouble(this.fianza.getText()));
 	}
 

@@ -175,8 +175,12 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 			this.mensajeInfo("La nueva tarjeta de credito es: " + nuevaTarjeta, "Cambio Correcto", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	public void addMisOfertas(Object... ofertas) {
+	public void addMisOfertasDemandante(Object... ofertas) {
 		this.panelDemandante.addMisOfertas(ofertas);
+	}
+	
+	public void addMisOfertasOfertante(Object... ofertas) {
+		this.panelOfertante.addMisOfertas(ofertas);
 	}
 	
 	public void addOfertasTablaGerente(Object... ofertas) {

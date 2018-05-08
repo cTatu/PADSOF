@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		InmaculadApp app = InmaculadApp.getInstancia("Recursos\\ClientesEjemplo.txt", "BD911");
 		/*28845  01/05/2010 10/05/2020  21/05/2020               11/04/2015 24*/
-		app.iniciarSesion("51999111X", "pezEspada"); // como ofertante
+		app.iniciarSesion("X1130055", "secreta"); // como ofertante
 		
 		Map<String, String> caracteristicas = new HashMap<String, String>();
 		caracteristicas.put("Soleado", "Mucho");

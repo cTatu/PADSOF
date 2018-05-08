@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -21,7 +22,7 @@ public class PublicarPanel extends JPanel implements ActionListener{
 	
 	private Gui gui;
 	
-	public PublicarPanel(Gui gui) {
+	public PublicarPanel(Gui gui, ActionListener alPadre) {
 		this.gui = gui;
 		this.setLayout(new FlowLayout());
 		
@@ -40,23 +41,26 @@ public class PublicarPanel extends JPanel implements ActionListener{
 		this.add(panelPublicarInmueble);
 		
 		botonInmueble.addActionListener(this);
-		botonOferta.addActionListener(this);
+		botonOferta.addActionListener(alPadre);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	    if (e.getSource() == botonInmueble) {
-	    	panelBotones.setVisible( false );
-	    	panelPublicarInmueble.setVisible( true );
-	    }
-	    if (e.getSource() == botonOferta) {
-	    	panelBotones.setVisible( false );
-	    	panelCrearOferta.setVisible( true );
-	    }
+	    panelBotones.setVisible( false );
+	    panelPublicarInmueble.setVisible( true );
+	    
 	}
 
 	public CrearOfertaPanel getPanelCrearOferta() {
 		return panelCrearOferta;
 	}
 
+	public AbstractButton getBotonOferta() {
+		return botonOferta;
+	}
+
+	public void showPublicarOferta() {
+		panelBotones.setVisible(false);
+		panelCrearOferta.setVisible(true);
+	}
 }

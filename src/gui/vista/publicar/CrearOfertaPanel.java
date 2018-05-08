@@ -26,14 +26,17 @@ public class CrearOfertaPanel extends JPanel implements ActionListener{
 	private Gui gui;
 	
 	private AniadirOfertaPanel panelActivo;
-	private AniadirOfertaVacacionalPanel panelAniadirVacacional = new AniadirOfertaVacacionalPanel(this.gui);
-	private AniadirOfertaViviendaPanel panelAniadirVivienda = new AniadirOfertaViviendaPanel(this.gui);
+	private AniadirOfertaVacacionalPanel panelAniadirVacacional;
+	private AniadirOfertaViviendaPanel panelAniadirVivienda;
 	
 	public CrearOfertaPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridBagLayout());
 		
 		c.gridx = 0;
+		
+		panelAniadirVacacional = new AniadirOfertaVacacionalPanel(this.gui);
+		panelAniadirVivienda = new AniadirOfertaViviendaPanel(this.gui);
 		
 		panelActivo = panelAniadirVacacional;
 		
@@ -43,8 +46,8 @@ public class CrearOfertaPanel extends JPanel implements ActionListener{
 		grupoRadioButton.setSelected(OpcionOfertaVacacional.getModel(), true);
 		
 		JPanel panelRadioBotones = new JPanel(new GridLayout(0,2));
-		panelRadioBotones.add(OpcionOfertaVacacional);
-		panelRadioBotones.add(OpcionOfertaVivienda);
+			panelRadioBotones.add(OpcionOfertaVacacional);
+			panelRadioBotones.add(OpcionOfertaVivienda);
 		
 		this.add(panelRadioBotones, c);
 		this.add(panelActivo, c);	
@@ -58,9 +61,9 @@ public class CrearOfertaPanel extends JPanel implements ActionListener{
 		this.remove(1);
 		
 		if (grupoRadioButton.getSelection().equals(OpcionOfertaVacacional.getModel()))
-	    	this.add(panelAniadirVacacional);
+	    	this.add(panelAniadirVacacional, c);
 	    else
-	    	this.add(panelAniadirVivienda);
+	    	this.add(panelAniadirVivienda, c);
 		
 		panelActivo = (AniadirOfertaPanel) this.getComponent(1);
 		

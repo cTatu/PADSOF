@@ -220,6 +220,7 @@ public class InmaculadApp implements Serializable{
 			if (inmueble.getID().equals(ID)) {
 				Oferta nuevaOferta = new OfertaVivienda(precio, fechaInicio, descripcion, duracionMeses, clienteConectado, fianza);
 				inmueble.addOfertas(nuevaOferta);
+				clienteConectado.rolOfertante.aniadirOfertas(nuevaOferta);
 				return true;
 			}
 		}
@@ -246,6 +247,7 @@ public class InmaculadApp implements Serializable{
 			if (inmueble.getID().equals(ID)) {
 				Oferta nuevaOferta = new OfertaVacacional(precio, fechaInicio, descripcion, fechaFin, clienteConectado);
 				inmueble.addOfertas(nuevaOferta);
+				clienteConectado.rolOfertante.aniadirOfertas(nuevaOferta);
 				return true;
 			}
 		}

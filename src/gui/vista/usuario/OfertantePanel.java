@@ -24,7 +24,7 @@ import gui.vista.cliente.PublicarPanel;
 import gui.vista.inmueble.DetallesPanelInmueble;
 import gui.vista.usuario.demandante.DetallesPanelOfertaInmueble;
 
-public class OfertantePanel extends UsuarioPanel implements ChangeListener {
+public class OfertantePanel extends UsuarioPanel implements ChangeListener, ActionListener {
 
 	private PublicarPanel panelPublicar;
 	private JScrollPane panelMisOfertas;
@@ -38,18 +38,24 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener {
 	public OfertantePanel(Gui gui) {
 		super(gui);
 		
-		panelPublicar = new PublicarPanel(gui);
+		panelPublicar = new PublicarPanel(gui, this);
 		
 		tablaMisOfertas = new JTable(new DefaultTableModel(
 				new Object[]{"Fecha Inicio", "Precio", "Tipo", "Disponibilidad"}, 0));
 		
 		super.tabsUsuario.addChangeListener(this);
 		
+		super.botonAtras.removeActionListener(this);
+		super.botonAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gui.getControlador().cerrarSesion(true);
+			}
+		});
+		
 		tablaMisOfertas.addMouseListener(new java.awt.event.MouseAdapter() {
-			@Override
 			 public void mouseClicked(java.awt.event.MouseEvent evt) {
 			    int fila = tablaMisOfertas.rowAtPoint(evt.getPoint());
-			    gui.getControlador().showInfoOferta(fila);
+			    gui.getControlador().showInfoOferta(fila);			    
 			 }
 			});
 		
@@ -57,10 +63,15 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener {
 				new Object[]{"Codigo Postal", "Localizacion"}, 0));
 		
 		tablaMisInmuebles.addMouseListener(new java.awt.event.MouseAdapter() {
-			@Override
 			 public void mouseClicked(java.awt.event.MouseEvent evt) {
 			    int fila = tablaMisInmuebles.rowAtPoint(evt.getPoint());
-			    gui.getControlador().showInfoInmueble(fila);
+			    if (gui.getControlador().isPublicandoOferta()) {
+			    	gui.getControlador().setInmuebleSeleccionado(fila);
+			    	tabsUsuario.setSelectedComponent(panelPublicar);
+			    	panelPublicar.getBotonOferta().doClick();
+			    	gui.getControlador().setPublicarOferta(false);
+			    }else
+			    	gui.getControlador().showInfoInmueble(fila);
 			 }
 			});
 		
@@ -75,8 +86,17 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		gui.getControlador().cerrarSesion(true);
+	public void actionPerformed(ActionEvent ev) {
+		if (gui.getControlador().isPublicandoOferta()) {
+			panelPublicar.showPublicarOferta();
+		}else {
+			limpiarTablaInmuebles();
+			if(this.gui.getControlador().rellenarMisInmuebles()) {
+				super.tabsUsuario.setSelectedComponent(panelMisInmuebles);
+				gui.getControlador().setPublicarOferta(true);
+			}else
+				gui.mensajeInfo("Todavia no tienes ningun inmueble creado", "Sin inmuebles", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	public void addMisOfertas(Object... ofertas) {
@@ -85,7 +105,7 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener {
 	}
 
 	public void addMisInmuebles(Object... inmuebles) {
-		model = (DefaultTableModel) tablaMisOfertas.getModel();
+		model = (DefaultTableModel) tablaMisInmuebles.getModel();
 		model.addRow(inmuebles);
 	}
 
@@ -116,8 +136,13 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener {
 
 	@Override
 	public void limpiarTablaOfertas() {
-		// TODO Auto-generated method stub
-		
+		model = (DefaultTableModel) tablaMisOfertas.getModel();
+		model.setRowCount(0);
+	}
+	
+	public void limpiarTablaInmuebles() {
+		model = (DefaultTableModel) tablaMisInmuebles.getModel();
+		model.setRowCount(0);
 	}
 
 	@Override
@@ -127,12 +152,14 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent ev) {
-		if (super.tabsUsuario.getSelectedIndex() == 2) {
+		if (super.tabsUsuario.getSelectedComponent().equals(panelMisOfertas)) {
+			limpiarTablaOfertas();
 			if(!this.gui.getControlador().rellenarMisOfertas()) {
 				super.tabsUsuario.setSelectedIndex(0);
 				gui.mensajeInfo("Todavia no tienes ninguna oferta creada", "Sin ofertas", JOptionPane.INFORMATION_MESSAGE);
 			}
-		}else if (super.tabsUsuario.getSelectedIndex() == 1) {
+		}else if (super.tabsUsuario.getSelectedComponent().equals(panelMisInmuebles)) {
+			limpiarTablaInmuebles();
 			if(!this.gui.getControlador().rellenarMisInmuebles()) {
 				super.tabsUsuario.setSelectedIndex(0);
 				gui.mensajeInfo("Todavia no tienes ningun inmueble creado", "Sin inmuebles", JOptionPane.INFORMATION_MESSAGE);

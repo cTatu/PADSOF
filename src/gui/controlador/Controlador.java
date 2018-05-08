@@ -47,6 +47,7 @@ public class Controlador {
 	private Map<Integer, Inmueble> inmueblesTabla;
 	private Oferta ofertaSeleccionada;
 	private Inmueble inmuebleSeleccionado;
+	private boolean isPublicandoOferta;
 	
 	public Controlador(Gui gui, InmaculadApp app) {
 		this.gui = gui; this.app = app;
@@ -63,6 +64,7 @@ public class Controlador {
 	
 	public boolean rellenarMisInmuebles() {
 		List<Inmueble> inmuebles = this.app.getInmueblesOfertante();
+		inmueblesTabla = new HashMap<>();
 		
 		if (inmuebles.isEmpty())
 			return false;
@@ -96,14 +98,14 @@ public class Controlador {
 	}
 
 	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, 
-			String descripcion, Integer duracionMeses, Integer ID, Double fianza) {
+			String descripcion, Integer duracionMeses, Double fianza) {
 		
-		return this.app.aniadirOfertaVivienda(precio, fechaInicio, descripcion, duracionMeses, ID, fianza);
+		return this.app.aniadirOfertaVivienda(precio, fechaInicio, descripcion, duracionMeses, inmuebleSeleccionado.getID(), fianza);
 	}
 	
-	public boolean aniadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin, Integer ID) {
+	public boolean aniadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin) {
 		
-		return this.app.aniadirOfertaVacacional(precio, fechaInicio, descripcion, fechaFin, ID);
+		return this.app.aniadirOfertaVacacional(precio, fechaInicio, descripcion, fechaFin, inmuebleSeleccionado.getID());
 	}
 	
 	public void aniadirInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
@@ -202,6 +204,7 @@ public class Controlador {
 	
 
 	public boolean rellenarMisOfertas() {
+		ofertasTabla = new HashMap<>();
 		List<Oferta> ofertas;
 		if (gui.getPanelActivo().isDemandante())
 			ofertas = app.getOfertasDemandante();
@@ -210,6 +213,8 @@ public class Controlador {
 		
 		if (ofertas.isEmpty())
 			return false;
+		
+		ofertasTabla = IntStream.range(0, ofertas.size()).boxed().collect(Collectors.toMap(Function.identity(), ofertas::get));
 
 		for (Oferta oferta : ofertas) {
 			List<Object> misOfertas = new ArrayList<>();
@@ -217,7 +222,10 @@ public class Controlador {
 				misOfertas.add(oferta.getPrecio());
 				misOfertas.add(oferta.getTipo());
 				misOfertas.add(oferta.getDisponibilidad());
-			this.gui.addMisOfertas(misOfertas.toArray());
+			if (gui.getPanelActivo().isDemandante())
+				this.gui.addMisOfertasDemandante(misOfertas.toArray());
+			else
+				this.gui.addMisOfertasOfertante(misOfertas.toArray());
 		}
 		
 		return true;
@@ -403,6 +411,19 @@ public class Controlador {
 
 	public void reservarOferta() {
 		gui.reservarResult(this.app.reservarOferta(ofertaSeleccionada));
+	}
+
+	public void setPublicarOferta(boolean b) {
+		
+		this.isPublicandoOferta = b;
+	}
+
+	public boolean isPublicandoOferta() {
+		return isPublicandoOferta;
+	}
+
+	public void setInmuebleSeleccionado(int fila) {
+		this.inmuebleSeleccionado = inmueblesTabla.get(fila);
 	}
 
 	
