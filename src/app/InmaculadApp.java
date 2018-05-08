@@ -129,7 +129,6 @@ public class InmaculadApp implements Serializable{
 		
 		Inmueble inmueble = new Inmueble(CP, localizacion, caracteristicas);
 		inmuebles.add(inmueble);
-		setSesionIniciada(false);
 		return clienteConectado.rolOfertante.aniadirInmuebles(inmueble);
 	}
 	
@@ -462,6 +461,7 @@ public class InmaculadApp implements Serializable{
 			this.clienteConectado.setContrasenia(contrasenia);
 			this.clienteConectado.gerente = true;
 			eliminarOfertasExpiradas();
+			this.sesionIniciada = true;
 			return true;
 		}
 		
@@ -469,6 +469,7 @@ public class InmaculadApp implements Serializable{
 		if (cliente != null && cliente.getNIF().equals(NIF) && cliente.getContrasenia().equals(contrasenia)) {
 			clienteConectado = cliente;
 			eliminarOfertasExpiradas();
+			this.sesionIniciada = true;
 			return true;
 		}
 		
@@ -484,6 +485,8 @@ public class InmaculadApp implements Serializable{
 	 */
 	public boolean cerrarSesion(boolean GuardarNoGuardar) {
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
+		if (!sesionIniciada)
+			return false;
 		
 		if (GuardarNoGuardar) {
 			try {

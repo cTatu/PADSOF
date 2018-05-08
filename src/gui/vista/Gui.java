@@ -2,13 +2,18 @@ package gui.vista;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -18,7 +23,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import gui.controlador.Controlador;
 import gui.vista.busqueda.BusquedaPanel;
-import gui.vista.usuario.ClienteDualPanel;
+import gui.vista.busqueda.BusquedaPanelBasico;
+import gui.vista.busqueda.BusquedaVacacionalPanel;
+import gui.vista.busqueda.BusquedaViviendaPanel;
 import gui.vista.usuario.DemandantePanel;
 import gui.vista.usuario.GerentePanel;
 import gui.vista.usuario.OfertantePanel;
@@ -26,11 +33,10 @@ import gui.vista.usuario.UsuarioPanel;
 import opinion.Comentario;
 
 
-public class Gui extends JFrame implements WindowListener{
+public class Gui extends JFrame implements WindowListener, ActionListener{
 	public static BusquedaPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
 	private GerentePanel panelGerente;
-	private ClienteDualPanel panelClienteDual;
 	private DemandantePanel panelDemandante;
 	private OfertantePanel panelOfertante;
 	private JTabbedPane tabsInvitado = new JTabbedPane();
@@ -39,6 +45,12 @@ public class Gui extends JFrame implements WindowListener{
 	
 	private UsuarioPanel panelActivo;
 	
+	private ButtonGroup grupoRadioButton = new ButtonGroup();
+	private JRadioButton OpcionDemandante = new JRadioButton("Demandante");
+	private JRadioButton OpcionOfertante = new JRadioButton("Ofertante");
+	
+	private JPanel panelRadioBotonesRol = new JPanel(new GridLayout(0,2));
+	
 	public Gui(String titulo) {
 		super(titulo); // antes: JFrame ventana = new JFrame("Mi GUI");
 		
@@ -46,10 +58,22 @@ public class Gui extends JFrame implements WindowListener{
 		contenedor = this.getContentPane(); 
 		contenedor.setLayout(new FlowLayout());
 		
+		grupoRadioButton.add(OpcionDemandante);
+		grupoRadioButton.add(OpcionOfertante);
+		
+		OpcionDemandante.addActionListener(this);
+		OpcionOfertante.addActionListener(this);
+		
+		panelRadioBotonesRol.setVisible(false);
+			panelRadioBotonesRol.add(OpcionDemandante);
+			panelRadioBotonesRol.add(OpcionOfertante);
+			
+		grupoRadioButton.setSelected(OpcionOfertante.getModel(), true);
+		
 		// crear componentes
 		panelLogin = new LoginPanel(this);
 		panelBusquedaOfertas = new BusquedaPanel(this, false);
-		panelGerente = new GerentePanel(this);
+		
 		
 		this.addWindowListener(this);
 		
@@ -57,13 +81,13 @@ public class Gui extends JFrame implements WindowListener{
 		tabsInvitado.addTab("Buscar",  panelBusquedaOfertas);
 		
 		// aniadir componentes al contenedor
+		contenedor.add(panelRadioBotonesRol);
 		contenedor.add(tabsInvitado);
-		contenedor.add(panelGerente);
-		
+
 		/***********QUITAR************/
-		panelDemandante = new DemandantePanel(this);
-		contenedor.add(panelDemandante);
-		setVisiblePaneles(panelDemandante);
+		/*panelOfertante = new OfertantePanel(this);
+		contenedor.add(panelOfertante);
+		setVisiblePaneles(panelOfertante);*/
 		/***********QUITAR************/
 		
 		// visibilidad inicial
@@ -81,7 +105,7 @@ public class Gui extends JFrame implements WindowListener{
 				component.setVisible(true);
 				if (component instanceof UsuarioPanel)
 					panelActivo = (UsuarioPanel) component;
-			}else
+			}else if (!component.equals(panelRadioBotonesRol))
 				component.setVisible(false);
 		}
 	}
@@ -89,8 +113,8 @@ public class Gui extends JFrame implements WindowListener{
 	public void setControlador(Controlador c) {
 		this.controlador = c;
 		/***********QUITAR************/
-		this.controlador.addTodasOfertas();
-		controlador.login("55555111Z", "NoSeSaBe");
+		/*this.controlador.addTodasOfertas();*/
+		controlador.login("X1130055", "secreta");
 		/***********QUITAR************/
 	}
 	public Controlador getControlador() {
@@ -101,14 +125,17 @@ public class Gui extends JFrame implements WindowListener{
 		if (loginOK) { 
 			tabsInvitado.setVisible( false );
 			if( this.controlador.isGerente() ) {
+				panelGerente = new GerentePanel(this);
+				contenedor.add(panelGerente);
 				setVisiblePaneles(panelGerente);
 				controlador.rellenarTablaTarjetas();
 				controlador.rellenarTablaOfertasPendientes();
 			}
 			else if( this.controlador.isClienteDual() ) {
-				panelClienteDual = new ClienteDualPanel(this);
-				contenedor.add(panelClienteDual);
-				setVisiblePaneles(panelClienteDual);
+				panelRadioBotonesRol.setVisible(true);
+				panelOfertante = new OfertantePanel(this);
+				contenedor.add(panelOfertante);
+				setVisiblePaneles(panelOfertante);
 				controlador.rellenarTablaInmuebles();
 			}else if( this.controlador.isDemandante() ) {
 				panelDemandante = new DemandantePanel(this);
@@ -125,8 +152,17 @@ public class Gui extends JFrame implements WindowListener{
 	}
 	
 	public void cerrarSesionResult(boolean cerrarSesionOK) {
-		if (cerrarSesionOK)
-			setVisiblePaneles(tabsInvitado);
+		if (cerrarSesionOK) {
+			if (panelRadioBotonesRol.isVisible())
+				panelRadioBotonesRol.setVisible(false);
+			setVisiblePaneles(tabsInvitado);			
+
+			contenedor.revalidate();
+			contenedor.repaint();
+			
+			this.revalidate();
+			this.repaint();
+		}
 	}
 	
 	public void addOfertaTablaBusqueda(Object... ofertas) {
@@ -170,17 +206,21 @@ public class Gui extends JFrame implements WindowListener{
 	public void limpiarTabla(DefaultTableModel model) {
 		model.setRowCount(0);
 	}
+	
+	public void limpiarTabla() {
+		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().limpiarTabla();
+	}
 
 	public void mensajeInfo(String descripcion, String asunto, int tipo) {
 		JOptionPane.showMessageDialog(this, descripcion, asunto, tipo);
 	}
 	
 	public void addInmueblesTabla(Object... inmuebles) {
-		panelClienteDual.addInmueblesTabla(inmuebles);		
+		panelOfertante.addInmueblesTabla(inmuebles);		
 	}
 	
 	public void showInfoInmueble(Object[] detallesExtra) {
-		panelClienteDual.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().showInfoInmueble(detallesExtra);
+		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().showInfoInmueble(detallesExtra);
 	}
 
 	public void aniadirOfertaViviendaResult(boolean statusOK) {
@@ -211,8 +251,9 @@ public class Gui extends JFrame implements WindowListener{
 		}		
 	}
 	
-	public void seleccionarInmueble() {
-		panelClienteDual.getPanelPublicar().getPanelCrearOferta().seleccionarInmueble();		
+	public void seleccionarInmuebleResult() {
+		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().setVisible(false);
+		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelPublicarOferta().setVisible(true);
 	}
 
 	public void contratarResult(boolean contratarOferta) {
@@ -245,6 +286,26 @@ public class Gui extends JFrame implements WindowListener{
 	public void subComentariosResult(boolean status) {
 		if (!status)
 			mensajeInfo("El comentario seleccionado no tiene respuestas", "Comentario sin respuestas", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		contenedor.remove(2);
+		
+		if(grupoRadioButton.getSelection().equals(OpcionDemandante.getModel())) {
+			panelDemandante = new DemandantePanel(this);
+			contenedor.add(panelDemandante);
+			setVisiblePaneles(panelDemandante);
+		}else {
+			panelOfertante = new OfertantePanel(this);
+			contenedor.add(panelOfertante);
+			setVisiblePaneles(panelOfertante);
+		}
+		
+		panelActivo = (UsuarioPanel) contenedor.getComponent(2);
+		
+		contenedor.revalidate();
+		contenedor.repaint();
 	}
 
 	@Override
@@ -293,5 +354,4 @@ public class Gui extends JFrame implements WindowListener{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

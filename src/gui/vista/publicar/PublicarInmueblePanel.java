@@ -90,7 +90,7 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 	}
 	
 	public void limpiarTabla() {
-		gui.limpiarTabla(model);
+		gui.limpiarTabla();
 	}	
 	
 	private Map<String, String> getCaracteristicas() {

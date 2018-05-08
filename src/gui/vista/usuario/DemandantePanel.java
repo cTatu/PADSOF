@@ -21,7 +21,6 @@ import gui.vista.busqueda.BusquedaPanel;
 import gui.vista.gerente.CambiarTarjetaPanel;
 import gui.vista.gerente.OfertasPendientesPanel;
 import gui.vista.oferta.DetallesPanelOferta;
-import gui.vista.usuario.demandante.DetallesPanelComentario;
 import gui.vista.usuario.demandante.DetallesPanelOfertaDemandante;
 
 public class DemandantePanel extends UsuarioPanel implements ActionListener{

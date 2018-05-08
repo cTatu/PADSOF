@@ -1,5 +1,7 @@
 package gui.vista.inmueble;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import gui.vista.Gui;
@@ -18,26 +21,38 @@ import gui.vista.Gui;
 public class DetallesPanelInmueble extends JPanel implements ActionListener{
 
 	private Gui gui;
-	private GridBagConstraints c = new GridBagConstraints();
-	
-	private JLabel hueco = new JLabel(" ");
-	private JButton seleccionar = new JButton("Seleccionar");
+	protected GridBagConstraints c = new GridBagConstraints();
+	private JButton seleccionar = new JButton("Seleccionar inmueble");
 	
 	public DetallesPanelInmueble(Gui gui, Object[] detallesInmueble) {
 		this.gui = gui;
-		this.setLayout(new GridLayout(0,2));	
+		this.setLayout(new GridBagLayout());	
+		this.gui.setPreferredSize(new Dimension(600, 400));
 		
-		this.add(new JLabel("Codigo Postal: "));
-		this.add(new JLabel(String.valueOf(detallesInmueble[0])));
+		JPanel detallesInmueblePanel = new JPanel(new GridLayout(0, 2));
+		detallesInmueblePanel.setBorder(BorderFactory.createTitledBorder("Detalles del Inmueble"));
+	
+		detallesInmueblePanel.add(new JLabel("CP:"));
+		detallesInmueblePanel.add(new JLabel(String.valueOf(detallesInmueble[0])));
+			
+		detallesInmueblePanel.add(new JLabel("Localizacion:"));
+		detallesInmueblePanel.add(new JLabel(String.valueOf(detallesInmueble[1])));
+			
+		detallesInmueblePanel.add(new JLabel("Caracteristicas:"));
+		detallesInmueblePanel.add(new JPanel());
+		for (int i = 2; i < detallesInmueble.length; i++) {
+			detallesInmueblePanel.add(new JLabel(String.valueOf(detallesInmueble[i])));
+		}
+		detallesInmueblePanel.setPreferredSize( new Dimension( 250, 140 ) );
 		
-		this.add(new JLabel("Localizacion: "));
-		this.add(new JLabel(String.valueOf(detallesInmueble[1])));
+		JPanel panelSeleccionar = new JPanel(new FlowLayout());
+		panelSeleccionar.add(seleccionar);
 		
-		
-		
-		this.add(hueco);
-		this.add(seleccionar);
-		
+		c.gridheight = 2; c.gridx = 0;
+		this.add(detallesInmueblePanel, c);
+		c.gridheight = 1;
+		this.add(panelSeleccionar, c);
+	
 		seleccionar.addActionListener(this);
 	}
 

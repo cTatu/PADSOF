@@ -229,7 +229,7 @@ public class Controlador {
 	}
 	
 	public void seleccionarInmueble() {
-		this.gui.seleccionarInmueble();		
+		this.gui.seleccionarInmuebleResult();		
 	}
 	
 	private List<Object> getInfoOfertaInmueble(Oferta ofertaSeleccionada){
@@ -372,12 +372,9 @@ public class Controlador {
 	}
 	
 	public boolean isClienteDual() {
-		if( this.app.getClienteConectado().isDemandante() && this.app.getClienteConectado().isOfertante() ) {
+		if( this.app.getClienteConectado().isDemandante() && this.app.getClienteConectado().isOfertante() )
 			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	public boolean isDemandante() {

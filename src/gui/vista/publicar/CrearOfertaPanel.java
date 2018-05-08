@@ -31,4 +31,8 @@ public class CrearOfertaPanel extends JPanel{
 		return panelSeleccionarInmueble;
 	}
 
+	public PublicarOfertaPanel getPanelPublicarOferta() {
+		return panelPublicarOferta;
+	}
+
 }

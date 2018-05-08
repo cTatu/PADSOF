@@ -57,9 +57,7 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 		JPanel panelRadioBotones = new JPanel(new GridLayout(0,2));
 			panelRadioBotones.add(OpcionBusquedaVacacional);
 			panelRadioBotones.add(OpcionBusquedaVivienda);
-			
-		
-			
+
 		this.add(panelRadioBotones, c);
 		this.add(panelActivo, c);	
 		this.add(botonBuscar, c);
