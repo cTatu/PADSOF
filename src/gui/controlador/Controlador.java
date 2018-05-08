@@ -364,6 +364,15 @@ public class Controlador {
 		else
 			this.gui.moderarStatus(this.app.rechazarOferta(ofertaSeleccionada));
 	}
+	
+	public void checkRectificaciones() {
+		
+		for (Oferta oferta : app.getOfertasOfertante()) {
+			if (oferta.tieneRectificaciones())
+				gui.mensajeInfo("En la oferta " + oferta.GET+ " tiene una nueva rectificacion.", "Oferta con rectidicacion", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
 
 	public void enviarRectificacion(Map<String, String> rectificaciones) {
 		BiPredicate<String, String> vacio = (key,valor)-> key.isEmpty() && valor.isEmpty();
@@ -426,6 +435,5 @@ public class Controlador {
 		this.inmuebleSeleccionado = inmueblesTabla.get(fila);
 	}
 
-	
 
 }

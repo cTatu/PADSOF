@@ -155,6 +155,7 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 		if (super.tabsUsuario.getSelectedComponent().equals(panelMisOfertas)) {
 			limpiarTablaOfertas();
 			if(!this.gui.getControlador().rellenarMisOfertas()) {
+				gui.getControlador().checkRectificaciones();
 				super.tabsUsuario.setSelectedIndex(0);
 				gui.mensajeInfo("Todavia no tienes ninguna oferta creada", "Sin ofertas", JOptionPane.INFORMATION_MESSAGE);
 			}

@@ -37,6 +37,9 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 	private JButton reservar = new JButton("Reservar");
 	private JTabbedPane comentariosTabs = new JTabbedPane();
 	private JPanel addComentario;
+	
+	BOTON CANCELAR Y EDITAR
+	ENSEÑAR ESTADO
 
 	public DetallesPanelOfertaInmueble(Gui gui, String atributoUnico, boolean isDemandante, 
 			              			   Object[] detallesInmueble, Object... detallesOferta) {
@@ -73,9 +76,11 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 		JScrollPane scroll = new JScrollPane(panelComentarios);
 		scroll.setPreferredSize(new Dimension(400, 100));
 		
-		if (isDemandante)
+		if (isDemandante) {
 			comentariosTabs.addTab("Comentar", addComentario);
-		comentariosTabs.addTab("Comentarios", scroll);
+			reservar.setVisible(false);
+			contratar.setVisible(false);
+		}comentariosTabs.addTab("Comentarios", scroll);
 		
 		c.gridx = 0; c.gridy = 2;	
 		this.add(comentariosTabs, c);
