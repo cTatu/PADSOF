@@ -35,7 +35,7 @@ public class DemandantePanel extends UsuarioPanel implements ActionListener{
 	public DemandantePanel(Gui gui) {
 		super(gui);
 		
-		Gui.panelBusquedaOfertas.setVisibleUsuarioRegistrado();
+		Gui.panelBusquedaOfertas.setVisibleUsuarioRegistrado(true);
 		
 		tablaMisOfertas = new JTable(new DefaultTableModel(
 				new Object[]{"Fecha Inicio", "Precio", "Tipo", "Disponibilidad"}, 0));

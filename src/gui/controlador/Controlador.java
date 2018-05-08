@@ -371,16 +371,16 @@ public class Controlador {
 		return false;
 	}
 	
+	public boolean isOfertante() {
+		return this.app.getClienteConectado().isOfertante();
+	}
+	
 	public boolean isClienteDual() {
-		if( this.app.getClienteConectado().isDemandante() && this.app.getClienteConectado().isOfertante() )
-			return true;
-		return false;
+		return ( this.app.getClienteConectado().isDemandante() &&  this.app.getClienteConectado().isOfertante());
 	}
 	
 	public boolean isDemandante() {
-		if( this.app.getClienteConectado().isDemandante() )
-			return true;
-		return false;
+		return this.app.getClienteConectado().isDemandante();
 	}
 
 	public boolean isOfertaReservable() {

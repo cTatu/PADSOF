@@ -63,8 +63,8 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 		this.add(botonBuscar, c);
 	}
 	
-	public void setVisibleUsuarioRegistrado() {
-		panelActivo.setVisibleUsuarioRegistrado();
+	public void setVisibleUsuarioRegistrado(boolean visible) {
+		panelActivo.setVisibleUsuarioRegistrado(visible);
 		panelActivo.tablaOfertas.setVisible(true);
 	}
 	

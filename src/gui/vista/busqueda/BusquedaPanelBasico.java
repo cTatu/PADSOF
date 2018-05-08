@@ -124,14 +124,14 @@ public abstract class BusquedaPanelBasico extends JPanel{
 		return usuarioRegistrado;
 	}
 	
-	public void setVisibleUsuarioRegistrado() {
-		disponibilidad.setVisible(true);
-		etiquetaDisponibilidad.setVisible(true);
+	public void setVisibleUsuarioRegistrado(boolean visible) {
+		disponibilidad.setVisible(visible);
+		etiquetaDisponibilidad.setVisible(visible);
 		
-		campoValoracion.setVisible(true);
-		etiquetaValoracion.setVisible(true);
+		campoValoracion.setVisible(visible);
+		etiquetaValoracion.setVisible(visible);
 
-		usuarioRegistrado = true;
+		usuarioRegistrado = visible;
 	}
 	
 	public void addOfertasTabla(Object... oferta) {

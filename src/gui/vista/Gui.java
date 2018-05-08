@@ -114,7 +114,9 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 		this.controlador = c;
 		/***********QUITAR************/
 		/*this.controlador.addTodasOfertas();*/
-		controlador.login("X1130055", "secreta");
+		controlador.login("X1130055", "secreta"); // OD
+		//controlador.login("55555111Z", "NoSeSaBe"); // D
+		//controlador.login("51999111X", "pezEspada"); // O
 		/***********QUITAR************/
 	}
 	public Controlador getControlador() {
@@ -130,36 +132,34 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 				setVisiblePaneles(panelGerente);
 				controlador.rellenarTablaTarjetas();
 				controlador.rellenarTablaOfertasPendientes();
-			}
-			else if( this.controlador.isClienteDual() ) {
-				panelRadioBotonesRol.setVisible(true);
-				panelOfertante = new OfertantePanel(this);
-				contenedor.add(panelOfertante);
-				setVisiblePaneles(panelOfertante);
-				controlador.rellenarTablaInmuebles();
-			}else if( this.controlador.isDemandante() ) {
+			}if( this.controlador.isDemandante() ) {
 				panelDemandante = new DemandantePanel(this);
 				contenedor.add(panelDemandante);
 				setVisiblePaneles(panelDemandante);	
-			}else {
+			}if( this.controlador.isOfertante() ){
 				panelOfertante = new OfertantePanel(this);
 				contenedor.add(panelOfertante);
 				setVisiblePaneles(panelOfertante);					
+			}if (this.controlador.isClienteDual()) {
+				panelRadioBotonesRol.setVisible(true);
+				setVisiblePaneles(panelOfertante);
 			}
-		} else {
+		} else
 			this.mensajeInfo("NIF o contraseña incorrectos", "Login error", JOptionPane.ERROR_MESSAGE);
-		}
+		
+		contenedor.revalidate();
+		contenedor.repaint();
 	}
 	
 	public void cerrarSesionResult(boolean cerrarSesionOK) {
 		if (cerrarSesionOK) {
-			if (panelRadioBotonesRol.isVisible())
+			if (panelRadioBotonesRol.isVisible() || panelDemandante.isVisible()) {
+				tabsInvitado.addTab("Buscar",  panelBusquedaOfertas);
+				Gui.panelBusquedaOfertas.setVisibleUsuarioRegistrado(false);
+			}if (panelRadioBotonesRol.isVisible())
 				panelRadioBotonesRol.setVisible(false);
 			setVisiblePaneles(tabsInvitado);			
 
-			contenedor.revalidate();
-			contenedor.repaint();
-			
 			this.revalidate();
 			this.repaint();
 		}
@@ -290,22 +290,16 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		contenedor.remove(2);
-		
 		if(grupoRadioButton.getSelection().equals(OpcionDemandante.getModel())) {
-			panelDemandante = new DemandantePanel(this);
-			contenedor.add(panelDemandante);
 			setVisiblePaneles(panelDemandante);
+			panelActivo = panelDemandante;
 		}else {
-			panelOfertante = new OfertantePanel(this);
-			contenedor.add(panelOfertante);
 			setVisiblePaneles(panelOfertante);
+			panelActivo = panelOfertante;
 		}
-		
-		panelActivo = (UsuarioPanel) contenedor.getComponent(2);
-		
-		contenedor.revalidate();
-		contenedor.repaint();
+	
+		this.revalidate();
+		this.repaint();
 	}
 
 	@Override
