@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import gui.vista.Gui;
-import gui.vista.usuario.demandante.DetallesPanelOfertaDemandante;
+import gui.vista.usuario.demandante.DetallesPanelOfertaInmueble;
 
 public class AddComentarioPanel extends JPanel implements ActionListener{
 
@@ -22,9 +22,9 @@ public class AddComentarioPanel extends JPanel implements ActionListener{
 	
 	private JTextArea textoComentario = new JTextArea();
 	private JButton enviarComentario = new JButton("Comentar");
-	private DetallesPanelOfertaDemandante panelPadre;
+	private DetallesPanelOfertaInmueble panelPadre;
 
-	public AddComentarioPanel(Gui gui, DetallesPanelOfertaDemandante panelPadre) {
+	public AddComentarioPanel(Gui gui, DetallesPanelOfertaInmueble panelPadre) {
 		this.gui = gui;
 		this.panelPadre = panelPadre;
 		this.setLayout(new GridBagLayout());

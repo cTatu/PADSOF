@@ -33,6 +33,7 @@ public abstract class UsuarioPanel extends JPanel implements ActionListener{
 	}
 	
 	public abstract void showInfoOferta(String atributoUnico, Object[] detallesExtra, Object... detallesOferta);
-	public abstract void limpiarTabla();
+	public abstract void limpiarTablaOfertas();
+	public abstract boolean isDemandante();
 
 }

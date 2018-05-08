@@ -4,6 +4,9 @@
 package cliente;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import oferta.Oferta;
@@ -188,6 +191,15 @@ public class Demandante implements Serializable{
 	public List<Oferta> getOfertasContratadas() {
 		return ofertasContratadas;
 	}
+	
+	public List<Oferta> getOfertasReservadas() {
+		List<Oferta> ofertas = new ArrayList<>();
+		if (rVacacional != null)
+			ofertas.add(rVacacional.getOferta());
+		if (rVivienda != null)
+			ofertas.add(rVivienda.getOferta());
+		return Collections.unmodifiableList(ofertas);
+	}
 
 	/**
 	 * Gets the historial reservas.
@@ -215,4 +227,5 @@ public class Demandante implements Serializable{
 	public ReservaVivienda getrVivienda() {
 		return rVivienda;
 	}
+
 }

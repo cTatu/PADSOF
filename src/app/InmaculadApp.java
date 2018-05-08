@@ -594,6 +594,10 @@ public class InmaculadApp implements Serializable{
 		return Collections.unmodifiableList(inmuebles);
 	}
 	
+	public List<Inmueble> getInmueblesOfertante(){
+		return Collections.unmodifiableList(clienteConectado.rolOfertante.getInmuebles());
+	}
+	
 	public Inmueble getInmuebleByOferta(Oferta oferta) {
 		for (Inmueble inmueble : inmuebles) {
 			if (inmueble.getOfertas().contains(oferta))
@@ -661,13 +665,20 @@ public class InmaculadApp implements Serializable{
 	}
 
 	/**
-	 * Gets the ofertas contratadas.
+	 * Gets the ofertas del demandante.
 	 *
-	 * @return the ofertas contratadas
+	 * @return the ofertas del demandante.
 	 */
-	public List<Oferta> getOfertasContratadas() {
-		return Collections.unmodifiableList(clienteConectado.rolDemandante.getOfertasContratadas());
+	public List<Oferta> getOfertasDemandante() {
+		List<Oferta> ofertasContratadas = clienteConectado.rolDemandante.getOfertasContratadas();
+		ofertasContratadas.addAll(clienteConectado.rolDemandante.getOfertasReservadas());
+		return Collections.unmodifiableList(ofertasContratadas);
 	}
+	
+	public List<Oferta> getOfertasOfertante() {
+		return Collections.unmodifiableList(clienteConectado.rolOfertante.getOfertas());
+	}
+
 
 	/**
 	 * Sets the ofertas contratadas.

@@ -86,11 +86,11 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 				mapaCaracteristicas);
 		
 		this.limpiarTabla();
-		this.gui.getControlador().rellenarTablaInmuebles();
+		this.gui.getControlador().rellenarMisInmuebles();
 	}
 	
 	public void limpiarTabla() {
-		gui.limpiarTabla();
+		
 	}	
 	
 	private Map<String, String> getCaracteristicas() {

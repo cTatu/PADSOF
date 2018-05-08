@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import gui.vista.Gui;
 import gui.vista.publicar.CrearOfertaPanel;
 import gui.vista.publicar.PublicarInmueblePanel;
-import gui.vista.publicar.PublicarOfertaPanel;
 
 public class PublicarPanel extends JPanel implements ActionListener{
 	

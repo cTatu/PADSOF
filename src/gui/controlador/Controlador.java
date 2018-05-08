@@ -61,8 +61,11 @@ public class Controlador {
 		this.gui.cerrarSesionResult( this.app.cerrarSesion( GuardarNoGuardar ));
 	}
 	
-	public void rellenarTablaInmuebles() {
-		List<Inmueble> inmuebles = this.app.getClienteConectado().getRolOfertante().getInmuebles();
+	public boolean rellenarMisInmuebles() {
+		List<Inmueble> inmuebles = this.app.getInmueblesOfertante();
+		
+		if (inmuebles.isEmpty())
+			return false;
 		
 		inmueblesTabla = IntStream.range(0, inmuebles.size()).boxed().collect(Collectors.toMap(Function.identity(), inmuebles::get));
 	
@@ -70,8 +73,9 @@ public class Controlador {
 			List<Object> listaInmuebles = new ArrayList<>();
 				listaInmuebles.add(inmueble.getCodigoPostal());
 				listaInmuebles.add(inmueble.getLocalizacion());
-			this.gui.addInmueblesTabla(listaInmuebles.toArray());
+			this.gui.addMisInmuebles(listaInmuebles.toArray());
 		}
+		return true;
 	}
 	
 	private List<Object> getInfoInmueble(Inmueble inmueble){
@@ -84,14 +88,11 @@ public class Controlador {
 	
 	public void showInfoInmueble(int fila) {
 		inmuebleSeleccionado = inmueblesTabla.get(fila);
-		Object[] detallesExtra = null;
-		
+
 		if (inmuebleSeleccionado == null)
 			return;
 
-		detallesExtra = getInfoInmueble(inmuebleSeleccionado).toArray();
-		
-		this.gui.showInfoInmueble(detallesExtra);
+		this.gui.showInfoInmueble(getInfoInmueble(inmuebleSeleccionado).toArray());
 	}
 
 	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, 
@@ -200,8 +201,15 @@ public class Controlador {
 	}
 	
 
-	public void rellenarMisOfertas() {
-		List<Oferta> ofertas = app.getOfertasContratadas();
+	public boolean rellenarMisOfertas() {
+		List<Oferta> ofertas;
+		if (gui.getPanelActivo().isDemandante())
+			ofertas = app.getOfertasDemandante();
+		else
+			ofertas = app.getOfertasOfertante();
+		
+		if (ofertas.isEmpty())
+			return false;
 
 		for (Oferta oferta : ofertas) {
 			List<Object> misOfertas = new ArrayList<>();
@@ -211,6 +219,8 @@ public class Controlador {
 				misOfertas.add(oferta.getDisponibilidad());
 			this.gui.addMisOfertas(misOfertas.toArray());
 		}
+		
+		return true;
 	}
 	
 	public void rellenarTablaOfertasPendientes() {
@@ -226,10 +236,6 @@ public class Controlador {
 				listaOfertaPendientes.add(oferta.getTipo());
 			this.gui.addOfertasTablaGerente(listaOfertaPendientes.toArray());
 		}
-	}
-	
-	public void seleccionarInmueble() {
-		this.gui.seleccionarInmuebleResult();		
 	}
 	
 	private List<Object> getInfoOfertaInmueble(Oferta ofertaSeleccionada){

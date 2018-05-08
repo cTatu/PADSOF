@@ -26,9 +26,10 @@ import gui.vista.comentario.AddComentarioPanel;
 import gui.vista.comentario.DetallesPanelComentario;
 import gui.vista.gerente.DetallesPanelOfertaGerente;
 import gui.vista.gerente.PanelRectificaciones;
+import gui.vista.inmueble.DetallesPanelInmueble;
 import gui.vista.oferta.DetallesPanelOferta;
 
-public class DetallesPanelOfertaDemandante extends DetallesPanelOferta{
+public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 	
 	private GridBagConstraints c = new GridBagConstraints();
 	private JPanel panelComentarios = new JPanel(new GridLayout(0, 1));
@@ -37,7 +38,8 @@ public class DetallesPanelOfertaDemandante extends DetallesPanelOferta{
 	private JTabbedPane comentariosTabs = new JTabbedPane();
 	private JPanel addComentario;
 
-	public DetallesPanelOfertaDemandante(Gui gui, String atributoUnico, Object[] detallesInmueble, Object... detallesOferta) {
+	public DetallesPanelOfertaInmueble(Gui gui, String atributoUnico, boolean isDemandante, 
+			              			   Object[] detallesInmueble, Object... detallesOferta) {
 		
 		super(gui, atributoUnico, detallesOferta);
 		
@@ -57,20 +59,7 @@ public class DetallesPanelOfertaDemandante extends DetallesPanelOferta{
 			}
 		});
 				
-		JPanel detallesInmueblePanel = new JPanel(new GridLayout(0, 2));
-			detallesInmueblePanel.setBorder(BorderFactory.createTitledBorder("Inmueble"));
-		
-			detallesInmueblePanel.add(new JLabel("CP:"));
-			detallesInmueblePanel.add(new JLabel(String.valueOf(detallesInmueble[0])));
-				
-			detallesInmueblePanel.add(new JLabel("Localizacion:"));
-			detallesInmueblePanel.add(new JLabel(String.valueOf(detallesInmueble[1])));
-				
-			detallesInmueblePanel.add(new JLabel("Caracteristicas:"));
-			detallesInmueblePanel.add(new JPanel());
-			for (int i = 2; i < detallesInmueble.length; i++) {
-				detallesInmueblePanel.add(new JLabel(String.valueOf(detallesInmueble[i])));
-			}
+		JPanel detallesInmueblePanel = new DetallesPanelInmueble(gui, detallesInmueble);
 			
 		addComentario = new AddComentarioPanel(gui, this);
 		
@@ -84,7 +73,8 @@ public class DetallesPanelOfertaDemandante extends DetallesPanelOferta{
 		JScrollPane scroll = new JScrollPane(panelComentarios);
 		scroll.setPreferredSize(new Dimension(400, 100));
 		
-		comentariosTabs.addTab("Comentar", addComentario);
+		if (isDemandante)
+			comentariosTabs.addTab("Comentar", addComentario);
 		comentariosTabs.addTab("Comentarios", scroll);
 		
 		c.gridx = 0; c.gridy = 2;	

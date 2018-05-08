@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import gui.vista.Gui;
-import gui.vista.usuario.demandante.DetallesPanelOfertaDemandante;
+import gui.vista.usuario.demandante.DetallesPanelOfertaInmueble;
 
 public class DetallesPanelComentario extends JPanel implements ActionListener{
 
@@ -32,9 +32,9 @@ public class DetallesPanelComentario extends JPanel implements ActionListener{
 	private JButton subComentarios = new JButton("Ver Comentarios");
 	
 	private Integer comentarioID ;
-	private DetallesPanelOfertaDemandante panelPadre;
+	private DetallesPanelOfertaInmueble panelPadre;
 
-	public DetallesPanelComentario(Gui gui, Object[] detallesComentario, DetallesPanelOfertaDemandante detallesPanelOfertaDemandante) {
+	public DetallesPanelComentario(Gui gui, Object[] detallesComentario, DetallesPanelOfertaInmueble detallesPanelOfertaDemandante) {
 		this.gui = gui;
 		this.panelPadre = detallesPanelOfertaDemandante;
 		this.setLayout(new GridBagLayout());

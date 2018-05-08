@@ -57,9 +57,14 @@ public class GerentePanel extends UsuarioPanel{
 	}
 
 	@Override
-	public void limpiarTabla() {
+	public void limpiarTablaOfertas() {
 		ofertasPendientes.atras();
 		botonAtras.setText("Cerrar Sesion");
 		ofertasPendientes.limpiarTabla();
+	}
+
+	@Override
+	public boolean isDemandante() {
+		return false;
 	}
 }

@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import cliente.Cliente;
 import gui.controlador.Controlador;
 import gui.vista.busqueda.BusquedaPanel;
 import gui.vista.busqueda.BusquedaPanelBasico;
@@ -198,7 +199,7 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 
 	public void moderarStatus(boolean aprobarOferta) {
 		if (aprobarOferta) {
-			panelGerente.limpiarTabla();
+			panelGerente.limpiarTablaOfertas();
 			controlador.rellenarTablaOfertasPendientes();
 		}
 	}
@@ -206,21 +207,17 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	public void limpiarTabla(DefaultTableModel model) {
 		model.setRowCount(0);
 	}
-	
-	public void limpiarTabla() {
-		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().limpiarTabla();
-	}
 
 	public void mensajeInfo(String descripcion, String asunto, int tipo) {
 		JOptionPane.showMessageDialog(this, descripcion, asunto, tipo);
 	}
 	
-	public void addInmueblesTabla(Object... inmuebles) {
-		panelOfertante.addInmueblesTabla(inmuebles);		
+	public void addMisInmuebles(Object... inmuebles) {
+		panelOfertante.addMisInmuebles(inmuebles);		
 	}
 	
-	public void showInfoInmueble(Object[] detallesExtra) {
-		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().showInfoInmueble(detallesExtra);
+	public void showInfoInmueble(Object... infoInmueble) {
+		panelOfertante.showInfoInmueble(infoInmueble);
 	}
 
 	public void aniadirOfertaViviendaResult(boolean statusOK) {
@@ -251,11 +248,6 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 		}		
 	}
 	
-	public void seleccionarInmuebleResult() {
-		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelSeleccionarInmueble().setVisible(false);
-		panelOfertante.getPanelPublicar().getPanelCrearOferta().getPanelPublicarOferta().setVisible(true);
-	}
-
 	public void contratarResult(boolean contratarOferta) {
 		if (contratarOferta) {
 			mensajeInfo("La oferta se ha contratado exitosamente. La podras encontrar en el tab 'Mis Ofertas'", "Oferta Contratada", JOptionPane.INFORMATION_MESSAGE);
@@ -286,6 +278,10 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	public void subComentariosResult(boolean status) {
 		if (!status)
 			mensajeInfo("El comentario seleccionado no tiene respuestas", "Comentario sin respuestas", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public UsuarioPanel getPanelActivo() {
+		return panelActivo;
 	}
 	
 	@Override

@@ -27,30 +27,25 @@ public abstract class DetallesPanelOferta extends JPanel implements ActionListen
 	
 	public DetallesPanelOferta(Gui gui, String atributoUnico, Object... detallesOferta) {
 		this.gui = gui;
-		this.setLayout(new GridBagLayout());
+		this.setLayout(new GridLayout(0, 2));
 		c.gridx = 0;
 		
-	
-		JPanel detallesOfertaPanel = new JPanel(new GridLayout(0, 2));
-			detallesOfertaPanel.setBorder(BorderFactory.createTitledBorder("Oferta"));
+			this.setBorder(BorderFactory.createTitledBorder("Oferta"));
 			
-			detallesOfertaPanel.add(new JLabel("Fecha Inicio:"));
-			detallesOfertaPanel.add(new JLabel(String.valueOf(detallesOferta[0])));
+			this.add(new JLabel("Fecha Inicio:"));
+			this.add(new JLabel(String.valueOf(detallesOferta[0])));
 			
-			detallesOfertaPanel.add(new JLabel(atributoUnico + ":"));
-			detallesOfertaPanel.add(new JLabel(String.valueOf(detallesOferta[1])));
+			this.add(new JLabel(atributoUnico + ":"));
+			this.add(new JLabel(String.valueOf(detallesOferta[1])));
 			
-			detallesOfertaPanel.add(new JLabel("Precio:"));
-			detallesOfertaPanel.add(new JLabel(String.valueOf(detallesOferta[2])));
+			this.add(new JLabel("Precio:"));
+			this.add(new JLabel(String.valueOf(detallesOferta[2])));
 			
-			detallesOfertaPanel.add(new JLabel("Tipo:"));
-			detallesOfertaPanel.add(new JLabel(String.valueOf(detallesOferta[3])));
+			this.add(new JLabel("Tipo:"));
+			this.add(new JLabel(String.valueOf(detallesOferta[3])));
 			
-			detallesOfertaPanel.add(new JLabel("Descripcion:"));
-			detallesOfertaPanel.add(new JLabel(String.valueOf(detallesOferta[4])));
-			
-		c.gridx = 0; c.gridy = 1;
-		this.add(detallesOfertaPanel, c);
+			this.add(new JLabel("Descripcion:"));
+			this.add(new JLabel(String.valueOf(detallesOferta[4])));
 	}
 
 	@Override
