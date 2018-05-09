@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.busqueda;
 
 import java.awt.Color;
@@ -56,6 +59,14 @@ public abstract class BusquedaPanelBasico extends JPanel{
 	protected String fechaFin; 
 	protected Object tipoDisponibilidad, tipoOferta;
 
+	/**
+	 * Instantiates a new busqueda panel basico.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param usuarioRegistrado
+	 *            the usuario registrado
+	 */
 	public BusquedaPanelBasico(Gui gui, boolean usuarioRegistrado) {
 			this.gui = gui;
 			this.usuarioRegistrado = usuarioRegistrado;
@@ -120,10 +131,21 @@ public abstract class BusquedaPanelBasico extends JPanel{
 			this.add(scroll, c);
 	}
 	
+	/**
+	 * Usuario registrado.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean usuarioRegistrado() {
 		return usuarioRegistrado;
 	}
 	
+	/**
+	 * Sets the visible usuario registrado.
+	 *
+	 * @param visible
+	 *            the new visible usuario registrado
+	 */
 	public void setVisibleUsuarioRegistrado(boolean visible) {
 		disponibilidad.setVisible(visible);
 		etiquetaDisponibilidad.setVisible(visible);
@@ -134,20 +156,35 @@ public abstract class BusquedaPanelBasico extends JPanel{
 		usuarioRegistrado = visible;
 	}
 	
+	/**
+	 * Adds the ofertas tabla.
+	 *
+	 * @param oferta
+	 *            the oferta
+	 */
 	public void addOfertasTabla(Object... oferta) {
 		scroll.setVisible(true);
 		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
 		model.addRow(oferta);
 	}
 
+	/**
+	 * Rellenar campos demandante.
+	 */
 	protected void rellenarCamposDemandante() {
 		tipoDisponibilidad = disponibilidad.getSelectedItem();
 		valoracion = campoValoracion.getText();
 
 	}
 	
+	/**
+	 * Rellenar campos.
+	 */
 	protected abstract void rellenarCampos();
 
+	/**
+	 * Limpiar tabla.
+	 */
 	public void limpiarTabla() {
 		DefaultTableModel model = (DefaultTableModel) tablaOfertas.getModel();
 		gui.limpiarTabla(model);

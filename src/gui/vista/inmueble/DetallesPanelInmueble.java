@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.inmueble;
 
 import java.awt.Dimension;
@@ -23,6 +26,14 @@ public class DetallesPanelInmueble extends JPanel{
 	private Gui gui;
 	protected GridBagConstraints c = new GridBagConstraints();
 	
+	/**
+	 * Instantiates a new detalles panel inmueble.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param detallesInmueble
+	 *            the detalles inmueble
+	 */
 	public DetallesPanelInmueble(Gui gui, Object... detallesInmueble) {
 		this.gui = gui;
 		this.setLayout(new GridLayout(0, 2));	

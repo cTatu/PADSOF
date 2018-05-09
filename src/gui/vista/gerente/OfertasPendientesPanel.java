@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.gerente;
 
 import java.awt.Dimension;
@@ -27,6 +30,12 @@ public class OfertasPendientesPanel extends JPanel{
 	
 	Gui gui;
 	
+	/**
+	 * Instantiates a new ofertas pendientes panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public OfertasPendientesPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridLayout(0,1));
@@ -50,6 +59,16 @@ public class OfertasPendientesPanel extends JPanel{
 		this.add(scroll);
 	}
 
+	/**
+	 * Show info oferta.
+	 *
+	 * @param atributoUnico
+	 *            the atributo unico
+	 * @param detallesCliente
+	 *            the detalles cliente
+	 * @param detallesOferta
+	 *            the detalles oferta
+	 */
 	public void showInfoOferta(String atributoUnico,Object[] detallesCliente, Object... detallesOferta) {
 		this.remove(0);
 		
@@ -58,10 +77,21 @@ public class OfertasPendientesPanel extends JPanel{
 		this.revalidate();
 	}
 
+	/**
+	 * Adds the oferta pendiente tabla.
+	 *
+	 * @param ofertas
+	 *            the ofertas
+	 */
 	public void addOfertaPendienteTabla(Object... ofertas) {
 		 model.addRow(ofertas);
 	}
 	
+	/**
+	 * Atras.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean atras() {
 		boolean atras = false;
 		if (!this.getComponent(0).equals(scroll)) {
@@ -75,6 +105,9 @@ public class OfertasPendientesPanel extends JPanel{
 		return atras;			
 	}
 
+	/**
+	 * Limpiar tabla.
+	 */
 	public void limpiarTabla() {
 		gui.limpiarTabla(model);
 	}

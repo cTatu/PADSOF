@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.controlador;
 
 import java.time.LocalDate;
@@ -49,19 +52,46 @@ public class Controlador {
 	private Inmueble inmuebleSeleccionado;
 	private boolean isPublicandoOferta;
 	
+	/**
+	 * Instantiates a new controlador.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param app
+	 *            the app
+	 */
 	public Controlador(Gui gui, InmaculadApp app) {
 		this.gui = gui; this.app = app;
 	}
 	
+	/**
+	 * Login.
+	 *
+	 * @param NIF
+	 *            the nif
+	 * @param password
+	 *            the password
+	 */
 	public void login(String NIF, String password) {
 		this.gui.loginResult( this.app.iniciarSesion( NIF, password ) );
 	}
 	
 	
+	/**
+	 * Cerrar sesion.
+	 *
+	 * @param GuardarNoGuardar
+	 *            the guardar no guardar
+	 */
 	public void cerrarSesion(boolean GuardarNoGuardar) {
 		this.gui.cerrarSesionResult( this.app.cerrarSesion( GuardarNoGuardar ));
 	}
 	
+	/**
+	 * Rellenar mis inmuebles.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean rellenarMisInmuebles() {
 		List<Inmueble> inmuebles = this.app.getInmueblesOfertante();
 		inmueblesTabla = new HashMap<>();
@@ -80,6 +110,13 @@ public class Controlador {
 		return true;
 	}
 	
+	/**
+	 * Gets the info inmueble.
+	 *
+	 * @param inmueble
+	 *            the inmueble
+	 * @return the info inmueble
+	 */
 	private List<Object> getInfoInmueble(Inmueble inmueble){
 		List<Object> lista = new ArrayList<>();
 			lista.add(inmueble.getCodigoPostal());
@@ -88,6 +125,12 @@ public class Controlador {
 		return lista;
 	}
 	
+	/**
+	 * Show info inmueble.
+	 *
+	 * @param fila
+	 *            the fila
+	 */
 	public void showInfoInmueble(int fila) {
 		inmuebleSeleccionado = inmueblesTabla.get(fila);
 
@@ -97,23 +140,63 @@ public class Controlador {
 		this.gui.showInfoInmueble(getInfoInmueble(inmuebleSeleccionado).toArray());
 	}
 
+	/**
+	 * Aniadir oferta vivienda.
+	 *
+	 * @param precio
+	 *            the precio
+	 * @param fechaInicio
+	 *            the fecha inicio
+	 * @param descripcion
+	 *            the descripcion
+	 * @param duracionMeses
+	 *            the duracion meses
+	 * @param fianza
+	 *            the fianza
+	 * @return true, if successful
+	 */
 	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, 
 			String descripcion, Integer duracionMeses, Double fianza) {
 		
 		return this.app.aniadirOfertaVivienda(precio, fechaInicio, descripcion, duracionMeses, inmuebleSeleccionado.getID(), fianza);
 	}
 	
+	/**
+	 * Aniadir oferta vacacional.
+	 *
+	 * @param precio
+	 *            the precio
+	 * @param fechaInicio
+	 *            the fecha inicio
+	 * @param descripcion
+	 *            the descripcion
+	 * @param fechaFin
+	 *            the fecha fin
+	 * @return true, if successful
+	 */
 	public boolean aniadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin) {
 		
 		return this.app.aniadirOfertaVacacional(precio, fechaInicio, descripcion, fechaFin, inmuebleSeleccionado.getID());
 	}
 	
+	/**
+	 * Aniadir inmueble.
+	 *
+	 * @param CP
+	 *            the cp
+	 * @param localizacion
+	 *            the localizacion
+	 * @param caracteristicas
+	 *            the caracteristicas
+	 */
 	public void aniadirInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
 		
 		this.gui.aniadirInmuebleResult( this.app.crearInmueble(CP, localizacion, caracteristicas));
 	}
 	
-	/*************************QUITAR*******************/
+	/**
+	 * ***********************QUITAR******************.
+	 */
 	
 	public void addTodasOfertas() {
 		ofertasTabla = new HashMap<>();
@@ -135,7 +218,13 @@ public class Controlador {
 			this.gui.addOfertaTablaBusqueda(camposOferta.toArray());
 		}	
 	}
-	/*************************QUITAR*******************/
+	
+	/**
+	 * ***********************QUITAR******************.
+	 *
+	 * @param criteriosBusqueda
+	 *            the criterios busqueda
+	 */
 	
 	public void buscarCriterios(Busqueda criteriosBusqueda) {
 		ofertasTabla = new HashMap<>();
@@ -160,6 +249,26 @@ public class Controlador {
 			this.gui.mensajeInfo("La busqueda no ha tenido ningun resultado", "Busqueda Fallida", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	/**
+	 * Buscar.
+	 *
+	 * @param codigoPostal
+	 *            the codigo postal
+	 * @param fechaInicio1
+	 *            the fecha inicio 1
+	 * @param fechaInicio2
+	 *            the fecha inicio 2
+	 * @param fechaFin
+	 *            the fecha fin
+	 * @param duracionMeses
+	 *            the duracion meses
+	 * @param tipoDisponibilidad
+	 *            the tipo disponibilidad
+	 * @param tipoOferta
+	 *            the tipo oferta
+	 * @param valoracion
+	 *            the valoracion
+	 */
 	public void buscar(Integer codigoPostal, String fechaInicio1, String fechaInicio2, String fechaFin,
 			Integer duracionMeses, Object tipoDisponibilidad, Object tipoOferta, String valoracion) {
 		LocalDate fecha1 = null, fecha2 = null, fechafin = null;
@@ -192,6 +301,9 @@ public class Controlador {
 					TipoDisponibilidad.parseString(String.valueOf(tipoDisponibilidad)), duracionMeses));
 	}
 	
+	/**
+	 * Rellenar tabla tarjetas.
+	 */
 	public void rellenarTablaTarjetas() {
 		for (Cliente cliente : this.app.getClientes()) {
 			List<Object> listaTarjetas = new ArrayList<>();
@@ -203,6 +315,11 @@ public class Controlador {
 	}
 	
 
+	/**
+	 * Rellenar mis ofertas.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean rellenarMisOfertas() {
 		ofertasTabla = new HashMap<>();
 		List<Oferta> ofertas;
@@ -231,6 +348,9 @@ public class Controlador {
 		return true;
 	}
 	
+	/**
+	 * Rellenar tabla ofertas pendientes.
+	 */
 	public void rellenarTablaOfertasPendientes() {
 		List<Oferta> ofPendientes = this.app.getOfertasPendientes();
 		
@@ -246,6 +366,13 @@ public class Controlador {
 		}
 	}
 	
+	/**
+	 * Gets the info oferta inmueble.
+	 *
+	 * @param ofertaSeleccionada
+	 *            the oferta seleccionada
+	 * @return the info oferta inmueble
+	 */
 	private List<Object> getInfoOfertaInmueble(Oferta ofertaSeleccionada){
 		List<Object> lista = new ArrayList<>();
 		Inmueble inmueble = app.getInmuebleByOferta(ofertaSeleccionada);
@@ -255,6 +382,13 @@ public class Controlador {
 		return lista;
 	}
 	
+	/**
+	 * Gets the info oferta cliente.
+	 *
+	 * @param ofertaSeleccionada
+	 *            the oferta seleccionada
+	 * @return the info oferta cliente
+	 */
 	private List<Object> getInfoOfertaCliente(Oferta ofertaSeleccionada){
 		List<Object> lista = new ArrayList<>();
 			lista.add(ofertaSeleccionada.getOfertante().getNIF());
@@ -262,6 +396,12 @@ public class Controlador {
 		return lista;
 	}
 	
+	/**
+	 * Show info oferta.
+	 *
+	 * @param fila
+	 *            the fila
+	 */
 	public void showInfoOferta(int fila) {
 		ofertaSeleccionada = ofertasTabla.get(fila);
 		Object[] detallesExtra = null;
@@ -290,10 +430,19 @@ public class Controlador {
 		this.gui.showInfoOferta(atributoUnico, detallesExtra, detallesOferta.toArray());
 	}
 	
+	/**
+	 * Show info comentario.
+	 *
+	 * @param comentario
+	 *            the comentario
+	 */
 	private void showInfoComentario(Comentario comentario) {
 		gui.showInfoComentario(new Object[] {comentario.getTexto(), comentario.calcularMedia(), comentario.getID()});
 	}
 	
+	/**
+	 * Show comentarios oferta.
+	 */
 	public void showComentariosOferta() {
 		List<Comentario> comentarios = ofertaSeleccionada.getComentarios();
 		if (comentarios.isEmpty()) {
@@ -305,6 +454,14 @@ public class Controlador {
 		gui.comentarioOfertaResult(true);
 	}
 	
+	/**
+	 * Adds the comentario.
+	 *
+	 * @param comentarioID
+	 *            the comentario ID
+	 * @param textoComentario
+	 *            the texto comentario
+	 */
 	public void addComentario(Integer comentarioID, String textoComentario) {
 		if (comentarioID.equals(-1))
 			app.opinar(ofertaSeleccionada, textoComentario);
@@ -314,6 +471,16 @@ public class Controlador {
 		}
 	}
 	
+	/**
+	 * Adds the comentario.
+	 *
+	 * @param comentarioID
+	 *            the comentario ID
+	 * @param textoRespuesta
+	 *            the texto respuesta
+	 * @param textoValoracion
+	 *            the texto valoracion
+	 */
 	public void addComentario(Integer comentarioID, String textoRespuesta, String textoValoracion) {
 		if (!textoRespuesta.isEmpty()) {
 			addComentario(comentarioID, textoRespuesta);
@@ -338,6 +505,12 @@ public class Controlador {
 		showComentariosOferta();
 	}
 	
+	/**
+	 * Show sub comentarios.
+	 *
+	 * @param ID
+	 *            the id
+	 */
 	public void showSubComentarios(Integer ID) {
 		if (ID.equals(-1)) {
 			showComentariosOferta();
@@ -353,11 +526,25 @@ public class Controlador {
 		gui.subComentariosResult(true);
 	}
 
+	/**
+	 * Cambiar tarjeta.
+	 *
+	 * @param usuarioNIF
+	 *            the usuario NIF
+	 * @param nuevaTarjeta
+	 *            the nueva tarjeta
+	 */
 	public void cambiarTarjeta(String usuarioNIF, String nuevaTarjeta) {
 		this.gui.cambiarTarjetaResult(this.app.modificarTarjetaCredito(usuarioNIF, nuevaTarjeta), nuevaTarjeta);
 	}
 
 
+	/**
+	 * Aceptar oferta.
+	 *
+	 * @param aceptar
+	 *            the aceptar
+	 */
 	public void aceptarOferta(boolean aceptar) {
 		if(aceptar)
 			this.gui.moderarStatus(this.app.aprobarOferta(ofertaSeleccionada));
@@ -365,6 +552,9 @@ public class Controlador {
 			this.gui.moderarStatus(this.app.rechazarOferta(ofertaSeleccionada));
 	}
 	
+	/**
+	 * Check rectificaciones.
+	 */
 	public void checkRectificaciones() {
 		
 		for (Oferta oferta : app.getOfertasOfertante()) {
@@ -374,6 +564,12 @@ public class Controlador {
 		
 	}
 
+	/**
+	 * Enviar rectificacion.
+	 *
+	 * @param rectificaciones
+	 *            the rectificaciones
+	 */
 	public void enviarRectificacion(Map<String, String> rectificaciones) {
 		BiPredicate<String, String> vacio = (key,valor)-> key.isEmpty() && valor.isEmpty();
 		rectificaciones.forEach(new BiConsumer<String, String>() {
@@ -387,6 +583,11 @@ public class Controlador {
 		this.gui.moderarStatus(this.app.addRectificacion(ofertaSeleccionada, rectificaciones));
 	}
 
+	/**
+	 * Checks if is gerente.
+	 *
+	 * @return true, if is gerente
+	 */
 	public boolean isGerente() {
 		if(this.app.getClienteConectado().gerente)
 			return true;
@@ -394,43 +595,91 @@ public class Controlador {
 		return false;
 	}
 	
+	/**
+	 * Checks if is ofertante.
+	 *
+	 * @return true, if is ofertante
+	 */
 	public boolean isOfertante() {
 		return this.app.getClienteConectado().isOfertante();
 	}
 	
+	/**
+	 * Checks if is cliente dual.
+	 *
+	 * @return true, if is cliente dual
+	 */
 	public boolean isClienteDual() {
 		return ( this.app.getClienteConectado().isDemandante() &&  this.app.getClienteConectado().isOfertante());
 	}
 	
+	/**
+	 * Checks if is demandante.
+	 *
+	 * @return true, if is demandante
+	 */
 	public boolean isDemandante() {
 		return this.app.getClienteConectado().isDemandante();
 	}
 
+	/**
+	 * Checks if is oferta reservable.
+	 *
+	 * @return true, if is oferta reservable
+	 */
 	public boolean isOfertaReservable() {
 		return this.app.sePuedeReservar(ofertaSeleccionada);
 	}
 	
+	/**
+	 * Checks if is oferta contratable.
+	 *
+	 * @return true, if is oferta contratable
+	 */
 	public boolean isOfertaContratable() {
 		return this.app.sePuedeContratar(ofertaSeleccionada);
 	}
 
+	/**
+	 * Contratar oferta.
+	 */
 	public void contratarOferta() {
 		gui.contratarResult(this.app.contratarOferta(ofertaSeleccionada));
 	}
 
+	/**
+	 * Reservar oferta.
+	 */
 	public void reservarOferta() {
 		gui.reservarResult(this.app.reservarOferta(ofertaSeleccionada));
 	}
 
+	/**
+	 * Sets the publicar oferta.
+	 *
+	 * @param b
+	 *            the new publicar oferta
+	 */
 	public void setPublicarOferta(boolean b) {
 		
 		this.isPublicandoOferta = b;
 	}
 
+	/**
+	 * Checks if is publicando oferta.
+	 *
+	 * @return true, if is publicando oferta
+	 */
 	public boolean isPublicandoOferta() {
 		return isPublicandoOferta;
 	}
 
+	/**
+	 * Sets the inmueble seleccionado.
+	 *
+	 * @param fila
+	 *            the new inmueble seleccionado
+	 */
 	public void setInmuebleSeleccionado(int fila) {
 		this.inmuebleSeleccionado = inmueblesTabla.get(fila);
 	}

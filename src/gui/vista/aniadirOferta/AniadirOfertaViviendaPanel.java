@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.aniadirOferta;
 
 import java.awt.event.ActionEvent;
@@ -22,6 +25,12 @@ public class AniadirOfertaViviendaPanel extends AniadirOfertaPanel implements Ac
 	
 	protected JButton botonGuardar = new JButton("\nGuardar");
 	
+	/**
+	 * Instantiates a new aniadir oferta vivienda panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public AniadirOfertaViviendaPanel(Gui gui) {
 		super(gui);
 		
@@ -34,6 +43,9 @@ public class AniadirOfertaViviendaPanel extends AniadirOfertaPanel implements Ac
 		botonGuardar.addActionListener( this );
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent ev) {
 		
 		super.gui.getControlador().aniadirOfertaVivienda( Double.parseDouble(this.campoPrecio.getText()), 

@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.main;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -10,6 +13,13 @@ import gui.vista.Gui;
 import opinion.Comentario;
 
 public class Main {
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args
+	 *            the arguments
+	 */
 	public static void main(String[] args) {
 		InmaculadApp app = InmaculadApp.getInstancia("Recursos\\ClientesEjemplo.txt", "BD911");
 		/*28845  01/05/2010 10/05/2020  21/05/2020               11/04/2015 24*/

@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.usuario;
 
 import java.awt.FlowLayout;
@@ -18,6 +21,12 @@ public abstract class UsuarioPanel extends JPanel implements ActionListener{
 	protected GridBagConstraints c = new GridBagConstraints();
 	protected Gui gui;
 	
+	/**
+	 * Instantiates a new usuario panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public UsuarioPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridBagLayout());
@@ -32,8 +41,28 @@ public abstract class UsuarioPanel extends JPanel implements ActionListener{
 		botonAtras.addActionListener(this);	
 	}
 	
+	/**
+	 * Show info oferta.
+	 *
+	 * @param atributoUnico
+	 *            the atributo unico
+	 * @param detallesExtra
+	 *            the detalles extra
+	 * @param detallesOferta
+	 *            the detalles oferta
+	 */
 	public abstract void showInfoOferta(String atributoUnico, Object[] detallesExtra, Object... detallesOferta);
+	
+	/**
+	 * Limpiar tabla ofertas.
+	 */
 	public abstract void limpiarTablaOfertas();
+	
+	/**
+	 * Checks if is demandante.
+	 *
+	 * @return true, if is demandante
+	 */
 	public abstract boolean isDemandante();
 
 }

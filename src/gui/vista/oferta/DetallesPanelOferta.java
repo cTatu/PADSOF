@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.oferta;
 
 import java.awt.GridBagConstraints;
@@ -25,6 +28,16 @@ public abstract class DetallesPanelOferta extends JPanel implements ActionListen
 	private GridBagConstraints c = new GridBagConstraints();	
 	protected Gui gui;
 	
+	/**
+	 * Instantiates a new detalles panel oferta.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param atributoUnico
+	 *            the atributo unico
+	 * @param detallesOferta
+	 *            the detalles oferta
+	 */
 	public DetallesPanelOferta(Gui gui, String atributoUnico, Object... detallesOferta) {
 		this.gui = gui;
 		this.setLayout(new GridLayout(0, 2));
@@ -48,6 +61,9 @@ public abstract class DetallesPanelOferta extends JPanel implements ActionListen
 			this.add(new JLabel(String.valueOf(detallesOferta[4])));
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public abstract void actionPerformed(ActionEvent e);
 	

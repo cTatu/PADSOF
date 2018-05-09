@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.publicar;
 
 import java.awt.FlowLayout;
@@ -29,6 +32,12 @@ public class CrearOfertaPanel extends JPanel implements ActionListener{
 	private AniadirOfertaVacacionalPanel panelAniadirVacacional;
 	private AniadirOfertaViviendaPanel panelAniadirVivienda;
 	
+	/**
+	 * Instantiates a new crear oferta panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public CrearOfertaPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridBagLayout());
@@ -56,6 +65,9 @@ public class CrearOfertaPanel extends JPanel implements ActionListener{
 		OpcionOfertaVivienda.addActionListener(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.remove(1);

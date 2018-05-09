@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.usuario;
 
 import java.awt.FlowLayout;
@@ -20,6 +23,12 @@ public class GerentePanel extends UsuarioPanel{
 	private OfertasPendientesPanel ofertasPendientes;
 	private CambiarTarjetaPanel cambiarTarjetaPanel;
 
+	/**
+	 * Instantiates a new gerente panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public GerentePanel(Gui gui) {
 		super(gui);
 	
@@ -30,16 +39,28 @@ public class GerentePanel extends UsuarioPanel{
 		tabsUsuario.addTab("Cambiar Tarjeta", cambiarTarjetaPanel);
 	}
 	
+	/**
+	 * Adds the usuarios tarejta tabla.
+	 *
+	 * @param tarjetas
+	 *            the tarjetas
+	 */
 	public void addUsuariosTarejtaTabla(Object... tarjetas) {
 		cambiarTarjetaPanel.addUsuariosTarejtaTabla(tarjetas);
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#showInfoOferta(java.lang.String, java.lang.Object[], java.lang.Object[])
+	 */
 	@Override
 	public void showInfoOferta(String atributoUnico, Object[] detallesCliente, Object... detallesOferta) {
 		botonAtras.setText("Atras");
 		ofertasPendientes.showInfoOferta(atributoUnico, detallesCliente, detallesOferta);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!ofertasPendientes.atras())
@@ -48,14 +69,29 @@ public class GerentePanel extends UsuarioPanel{
 			botonAtras.setText("Cerrar Sesion");
 	}
 	
+	/**
+	 * Adds the tarjetas tabla.
+	 *
+	 * @param tarjetas
+	 *            the tarjetas
+	 */
 	public void addTarjetasTabla(Object... tarjetas) {
 		cambiarTarjetaPanel.addUsuariosTarejtaTabla(tarjetas);		
 	}
 
+	/**
+	 * Adds the ofertas tabla.
+	 *
+	 * @param ofertas
+	 *            the ofertas
+	 */
 	public void addOfertasTabla(Object... ofertas) {
 		ofertasPendientes.addOfertaPendienteTabla(ofertas);		
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#limpiarTablaOfertas()
+	 */
 	@Override
 	public void limpiarTablaOfertas() {
 		ofertasPendientes.atras();
@@ -63,6 +99,9 @@ public class GerentePanel extends UsuarioPanel{
 		ofertasPendientes.limpiarTabla();
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#isDemandante()
+	 */
 	@Override
 	public boolean isDemandante() {
 		return false;

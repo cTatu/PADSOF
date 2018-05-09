@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.busqueda;
 
 import java.awt.Dimension;
@@ -17,6 +20,14 @@ public class BusquedaViviendaPanel extends BusquedaPanelBasico {
 	private JLabel etiquetaMeses = new JLabel("Duracion Meses:");
 	private JSpinner duracionMeses = new JSpinner();
 	
+	/**
+	 * Instantiates a new busqueda vivienda panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param usuarioRegistrado
+	 *            the usuario registrado
+	 */
 	public BusquedaViviendaPanel(Gui gui, boolean usuarioRegistrado) {
 		super(gui, usuarioRegistrado);
 		GridBagConstraints c = new GridBagConstraints();
@@ -35,6 +46,9 @@ public class BusquedaViviendaPanel extends BusquedaPanelBasico {
 		this.add(duracionMeses, c);
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.busqueda.BusquedaPanelBasico#rellenarCampos()
+	 */
 	@Override
 	protected void rellenarCampos() {
 		super.duracionMeses = (Integer) duracionMeses.getValue();

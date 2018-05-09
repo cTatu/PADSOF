@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.gerente;
 
 import java.awt.Dimension;
@@ -24,6 +27,12 @@ public class CambiarTarjetaPanel extends JPanel implements TableModelListener{
 	
 	Gui gui;
 	
+	/**
+	 * Instantiates a new cambiar tarjeta panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public CambiarTarjetaPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new FlowLayout());
@@ -49,11 +58,20 @@ public class CambiarTarjetaPanel extends JPanel implements TableModelListener{
 		this.add(scroll);
 	}
 	
+	/**
+	 * Adds the usuarios tarejta tabla.
+	 *
+	 * @param tarjetas
+	 *            the tarjetas
+	 */
 	public void addUsuariosTarejtaTabla(Object... tarjetas) {
 		DefaultTableModel model = (DefaultTableModel) tablaUsuariosTarjeta.getModel();
 		model.insertRow(0,tarjetas);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.TableModelListener#tableChanged(javax.swing.event.TableModelEvent)
+	 */
 	@Override
 	public void tableChanged(TableModelEvent e) {
 		int row = e.getFirstRow();

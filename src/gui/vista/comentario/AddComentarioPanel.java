@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.comentario;
 
 import java.awt.Dimension;
@@ -24,6 +27,14 @@ public class AddComentarioPanel extends JPanel implements ActionListener{
 	private JButton enviarComentario = new JButton("Comentar");
 	private DetallesPanelOfertaInmueble panelPadre;
 
+	/**
+	 * Instantiates a new adds the comentario panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param panelPadre
+	 *            the panel padre
+	 */
 	public AddComentarioPanel(Gui gui, DetallesPanelOfertaInmueble panelPadre) {
 		this.gui = gui;
 		this.panelPadre = panelPadre;
@@ -43,6 +54,9 @@ public class AddComentarioPanel extends JPanel implements ActionListener{
 		this.add(panelEnviarComment, c);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int respuesta = JOptionPane.showConfirmDialog(null, "Estas seguro/a de querer enviar este comentario?", "Confirmacion Comentario", JOptionPane.YES_NO_OPTION);

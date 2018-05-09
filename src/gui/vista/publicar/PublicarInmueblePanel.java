@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.publicar;
 
 import java.awt.Dimension;
@@ -38,6 +41,12 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 	
 	private DefaultTableModel model;
 	
+	/**
+	 * Instantiates a new publicar inmueble panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public PublicarInmueblePanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridBagLayout());
@@ -76,6 +85,9 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Map<String, String> mapaCaracteristicas;
@@ -89,10 +101,18 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 		this.gui.getControlador().rellenarMisInmuebles();
 	}
 	
+	/**
+	 * Limpiar tabla.
+	 */
 	public void limpiarTabla() {
 		
 	}	
 	
+	/**
+	 * Gets the caracteristicas.
+	 *
+	 * @return the caracteristicas
+	 */
 	private Map<String, String> getCaracteristicas() {
 		Map<String, String> mapaCaracteristicas = new HashMap<>();
 		
@@ -102,13 +122,23 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 		return mapaCaracteristicas;
 	}
 	
+	/* (non-Javadoc)
+	 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
+	 */
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		//rectificar.setVisible(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
+	 */
 	@Override
 	public void changedUpdate(DocumentEvent e) {}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
+	 */
 	@Override
 	public void removeUpdate(DocumentEvent e) {}
 

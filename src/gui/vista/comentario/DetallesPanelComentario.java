@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.comentario;
 
 import java.awt.Dimension;
@@ -34,6 +37,16 @@ public class DetallesPanelComentario extends JPanel implements ActionListener{
 	private Integer comentarioID ;
 	private DetallesPanelOfertaInmueble panelPadre;
 
+	/**
+	 * Instantiates a new detalles panel comentario.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param detallesComentario
+	 *            the detalles comentario
+	 * @param detallesPanelOfertaDemandante
+	 *            the detalles panel oferta demandante
+	 */
 	public DetallesPanelComentario(Gui gui, Object[] detallesComentario, DetallesPanelOfertaInmueble detallesPanelOfertaDemandante) {
 		this.gui = gui;
 		this.panelPadre = detallesPanelOfertaDemandante;
@@ -93,6 +106,9 @@ public class DetallesPanelComentario extends JPanel implements ActionListener{
 		this.add(subComentarios, c);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!respueta.isVisible() && !valorar.isVisible()) {

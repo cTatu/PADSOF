@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.gerente;
 
 import java.awt.GridBagConstraints;
@@ -32,6 +35,18 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 	
 	private Map<JTextField, JTextField> rectificaciones = new HashMap<>();
 
+	/**
+	 * Instantiates a new detalles panel oferta gerente.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param atributoUnico
+	 *            the atributo unico
+	 * @param detallesClientes
+	 *            the detalles clientes
+	 * @param detallesOferta
+	 *            the detalles oferta
+	 */
 	public DetallesPanelOfertaGerente(Gui gui, String atributoUnico, Object[] detallesClientes , Object... detallesOferta) {
 		super(gui, atributoUnico, detallesOferta);
 		
@@ -84,6 +99,9 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see gui.vista.oferta.DetallesPanelOferta#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (rectificaciones.size() != 0)
@@ -92,6 +110,11 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 			super.gui.mensajeInfo("Los campos de rectificar no pueden estar vacios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
 	}
 		
+	/**
+	 * Gets the rectificaciones.
+	 *
+	 * @return the rectificaciones
+	 */
 	private Map<String, String> getRectificaciones() {
 		Map<String, String> mapaRectificaciones = new HashMap<>();
 		
@@ -101,13 +124,23 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 		return mapaRectificaciones;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
+	 */
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		rectificar.setVisible(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
+	 */
 	@Override
 	public void changedUpdate(DocumentEvent e) {}
+	
+	/* (non-Javadoc)
+	 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
+	 */
 	@Override
 	public void removeUpdate(DocumentEvent e) {}
 

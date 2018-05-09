@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.usuario;
 
 import java.awt.BorderLayout;
@@ -35,6 +38,12 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 	private DetallesPanelOfertaInmueble panelOfertaOfertante;
 	private DetallesPanelInmueble panelInfoInmueble;
 	
+	/**
+	 * Instantiates a new ofertante panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public OfertantePanel(Gui gui) {
 		super(gui);
 		
@@ -85,6 +94,9 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 		super.tabsUsuario.addTab("Mis inmuebles", panelMisInmuebles);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		if (gui.getControlador().isPublicandoOferta()) {
@@ -99,20 +111,40 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 		}
 	}
 	
+	/**
+	 * Adds the mis ofertas.
+	 *
+	 * @param ofertas
+	 *            the ofertas
+	 */
 	public void addMisOfertas(Object... ofertas) {
 		model = (DefaultTableModel) tablaMisOfertas.getModel();
 		model.addRow(ofertas);
 	}
 
+	/**
+	 * Adds the mis inmuebles.
+	 *
+	 * @param inmuebles
+	 *            the inmuebles
+	 */
 	public void addMisInmuebles(Object... inmuebles) {
 		model = (DefaultTableModel) tablaMisInmuebles.getModel();
 		model.addRow(inmuebles);
 	}
 
+	/**
+	 * Gets the panel publicar.
+	 *
+	 * @return the panel publicar
+	 */
 	public PublicarPanel getPanelPublicar() {
 		return panelPublicar;
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#showInfoOferta(java.lang.String, java.lang.Object[], java.lang.Object[])
+	 */
 	@Override
 	public void showInfoOferta(String atributoUnico, Object[] detallesInmueble, Object... detallesOferta) {
 		this.remove(1);
@@ -124,6 +156,12 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 		this.revalidate();
 	}
 	
+	/**
+	 * Show info inmueble.
+	 *
+	 * @param detallesInmueble
+	 *            the detalles inmueble
+	 */
 	public void showInfoInmueble(Object... detallesInmueble) {
 		this.remove(1);
 		
@@ -134,22 +172,34 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 		this.revalidate();
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#limpiarTablaOfertas()
+	 */
 	@Override
 	public void limpiarTablaOfertas() {
 		model = (DefaultTableModel) tablaMisOfertas.getModel();
 		model.setRowCount(0);
 	}
 	
+	/**
+	 * Limpiar tabla inmuebles.
+	 */
 	public void limpiarTablaInmuebles() {
 		model = (DefaultTableModel) tablaMisInmuebles.getModel();
 		model.setRowCount(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#isDemandante()
+	 */
 	@Override
 	public boolean isDemandante() {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+	 */
 	@Override
 	public void stateChanged(ChangeEvent ev) {
 		if (super.tabsUsuario.getSelectedComponent().equals(panelMisOfertas)) {

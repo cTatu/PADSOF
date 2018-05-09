@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.cliente;
 
 import java.awt.FlowLayout;
@@ -28,6 +31,12 @@ public class PerfilPanel extends JPanel implements ActionListener{
 	
 	private Gui gui;
 	
+	/**
+	 * Instantiates a new perfil panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public PerfilPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new FlowLayout());
@@ -61,6 +70,9 @@ public class PerfilPanel extends JPanel implements ActionListener{
 		botonReservas.addActionListener(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	    if (e.getSource() == botonMisDatos) {

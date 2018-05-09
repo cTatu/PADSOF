@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista;
 
 import java.awt.BorderLayout;
@@ -29,6 +32,12 @@ public class LoginPanel extends JPanel implements ActionListener {
 	
 	private Gui gui;
 	
+	/**
+	 * Instantiates a new login panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public LoginPanel(Gui gui) {
 		this.gui = gui;
 
@@ -54,12 +63,21 @@ public class LoginPanel extends JPanel implements ActionListener {
 		botonLogin.addActionListener( this );
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		gui.getControlador().login( campoNIF.getText(), campoContrasenia.getText() );
 	}
 	
 	// Propuesta: CAMBIA LA FORMA/LUGAR/MECANISMO PARA MOSTRAR ERROR
+	/**
+	 * Sets the error.
+	 *
+	 * @param error
+	 *            the new error
+	 */
 	// Proposed work: CHANGE THE WAY/PLACE/MECHANISM TO DISPLAY ERROR
 	public void setError(String error) {	
 		campoContrasenia.setText(error);

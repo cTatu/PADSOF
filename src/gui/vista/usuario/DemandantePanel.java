@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.usuario;
 
 import java.awt.Dimension;
@@ -35,6 +38,12 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 	private DetallesPanelOfertaInmueble panelOfertaDemandante;
 	protected GridBagConstraints c = new GridBagConstraints();
 	
+	/**
+	 * Instantiates a new demandante panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public DemandantePanel(Gui gui) {
 		super(gui);
 		
@@ -59,6 +68,9 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 		super.tabsUsuario.addTab("Mis Ofertas", scroll);
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#showInfoOferta(java.lang.String, java.lang.Object[], java.lang.Object[])
+	 */
 	@Override
 	public void showInfoOferta(String atributoUnico, Object[] detallesInmueble, Object... detallesOferta) {
 		this.remove(1);
@@ -71,12 +83,18 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 		this.gui.getControlador().showComentariosOferta();
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#limpiarTablaOfertas()
+	 */
 	@Override
 	public void limpiarTablaOfertas() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (botonAtras.getText().equals("Atras")) {
@@ -90,11 +108,20 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 			gui.getControlador().cerrarSesion(true);
 	}
 	
+	/**
+	 * Adds the mis ofertas.
+	 *
+	 * @param ofertas
+	 *            the ofertas
+	 */
 	public void addMisOfertas(Object... ofertas) {
 		DefaultTableModel model = (DefaultTableModel) tablaMisOfertas.getModel();
 		model.addRow(ofertas);
 	}
 	
+	/**
+	 * Show mis ofertas.
+	 */
 	public void showMisOfertas() {
 		this.remove(1);
 		
@@ -110,15 +137,27 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 		scroll.revalidate();
 	}
 	
+	/**
+	 * Show info comentario.
+	 *
+	 * @param detallesComentario
+	 *            the detalles comentario
+	 */
 	public void showInfoComentario(Object[] detallesComentario) {
 		panelOfertaDemandante.addComentario(detallesComentario);
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.usuario.UsuarioPanel#isDemandante()
+	 */
 	@Override
 	public boolean isDemandante() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+	 */
 	@Override
 	public void stateChanged(ChangeEvent ev) {
 		if (super.tabsUsuario.getSelectedIndex() == 1) {

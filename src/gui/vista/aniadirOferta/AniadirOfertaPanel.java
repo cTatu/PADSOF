@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.aniadirOferta;
 
 import java.awt.Dimension;
@@ -23,6 +26,12 @@ public class AniadirOfertaPanel extends JPanel {
 	
 	protected Gui gui;
 	
+	/**
+	 * Instantiates a new aniadir oferta panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 */
 	public AniadirOfertaPanel(Gui gui) {
 		this.gui = gui;
 		this.setLayout(new GridLayout(0,2));	

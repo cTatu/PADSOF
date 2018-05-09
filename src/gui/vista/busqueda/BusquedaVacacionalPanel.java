@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.busqueda;
 
 import java.awt.Dimension;
@@ -22,6 +25,14 @@ public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 	private JLabel etiquetaFechaFin = new JLabel("Fecha Fin: (d/MM/YYY)");
 	private JTextField fechaFin = new JTextField();
 	
+	/**
+	 * Instantiates a new busqueda vacacional panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param usuarioRegistrado
+	 *            the usuario registrado
+	 */
 	public BusquedaVacacionalPanel(Gui gui, boolean usuarioRegistrado) {
 		super(gui, usuarioRegistrado);
 		GridBagConstraints c = new GridBagConstraints();
@@ -40,6 +51,9 @@ public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 		this.add(fechaFin, c);
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.busqueda.BusquedaPanelBasico#rellenarCampos()
+	 */
 	@Override
 	protected void rellenarCampos() {
 		super.fechaFin = this.fechaFin.getText();

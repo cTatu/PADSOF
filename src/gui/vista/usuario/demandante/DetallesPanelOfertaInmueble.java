@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.usuario.demandante;
 
 import java.awt.Dimension;
@@ -41,6 +44,20 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 	BOTON CANCELAR Y EDITAR
 	ENSEÑAR ESTADO
 
+	/**
+	 * Instantiates a new detalles panel oferta inmueble.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param atributoUnico
+	 *            the atributo unico
+	 * @param isDemandante
+	 *            the is demandante
+	 * @param detallesInmueble
+	 *            the detalles inmueble
+	 * @param detallesOferta
+	 *            the detalles oferta
+	 */
 	public DetallesPanelOfertaInmueble(Gui gui, String atributoUnico, boolean isDemandante, 
 			              			   Object[] detallesInmueble, Object... detallesOferta) {
 		
@@ -91,11 +108,17 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 		this.add(reservar, c);
 	}
 
+	/* (non-Javadoc)
+	 * @see gui.vista.oferta.DetallesPanelOferta#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 	}
 	
+	/**
+	 * Limpiar comentarios.
+	 */
 	public void limpiarComentarios() {
 		panelComentarios.removeAll();
 		
@@ -103,6 +126,12 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 		panelComentarios.repaint();
 	}
 
+	/**
+	 * Adds the comentario.
+	 *
+	 * @param detallesComentario
+	 *            the detalles comentario
+	 */
 	public void addComentario(Object... detallesComentario) {
 		panelComentarios.add(new DetallesPanelComentario(gui, detallesComentario, this));
 		
@@ -113,6 +142,9 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 		this.repaint();
 	}
 
+	/**
+	 * Show comentarios.
+	 */
 	public void showComentarios() {
 		comentariosTabs.setSelectedIndex(1);
 		this.gui.getControlador().showComentariosOferta();

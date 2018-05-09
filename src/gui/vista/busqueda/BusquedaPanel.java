@@ -1,3 +1,6 @@
+/*
+ * @author David Pascual y Cristian Tatu
+ */
 package gui.vista.busqueda;
 
 import java.awt.GridBagConstraints;
@@ -35,6 +38,14 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 	private JButton botonBuscar = new JButton("\nBuscar");
 	private boolean usuarioRegistrado;
 
+	/**
+	 * Instantiates a new busqueda panel.
+	 *
+	 * @param gui
+	 *            the gui
+	 * @param usuarioRegistrado
+	 *            the usuario registrado
+	 */
 	public BusquedaPanel(Gui gui, boolean usuarioRegistrado) {
 		BusquedaPanel.gui = gui;
 		this.usuarioRegistrado = usuarioRegistrado;
@@ -63,15 +74,30 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 		this.add(botonBuscar, c);
 	}
 	
+	/**
+	 * Sets the visible usuario registrado.
+	 *
+	 * @param visible
+	 *            the new visible usuario registrado
+	 */
 	public void setVisibleUsuarioRegistrado(boolean visible) {
 		panelActivo.setVisibleUsuarioRegistrado(visible);
 		panelActivo.tablaOfertas.setVisible(true);
 	}
 	
+	/**
+	 * Adds the ofertas tabla.
+	 *
+	 * @param oferta
+	 *            the oferta
+	 */
 	public void addOfertasTabla(Object... oferta) {
 		panelActivo.addOfertasTabla(oferta);
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.remove(1);
