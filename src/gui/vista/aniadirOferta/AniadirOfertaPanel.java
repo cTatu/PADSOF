@@ -1,4 +1,5 @@
-/*
+/**
+ * Panel padre en donde tiene un formulario para aniadir una oferta
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.aniadirOferta;
@@ -6,7 +7,6 @@ package gui.vista.aniadirOferta;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import gui.vista.Gui;
 
 public class AniadirOfertaPanel extends JPanel {
+	
+	private static final long serialVersionUID = -3863038224581979537L;
 	
 	private JLabel precio = new JLabel("Precio: (Euros)");
 	protected JTextField campoPrecio = new JTextField();
@@ -27,10 +29,10 @@ public class AniadirOfertaPanel extends JPanel {
 	protected Gui gui;
 	
 	/**
-	 * Instantiates a new aniadir oferta panel.
+	 * Constructor
 	 *
 	 * @param gui
-	 *            the gui
+	 *           
 	 */
 	public AniadirOfertaPanel(Gui gui) {
 		this.gui = gui;

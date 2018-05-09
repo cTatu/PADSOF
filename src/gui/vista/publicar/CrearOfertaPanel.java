@@ -1,9 +1,8 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.publicar;
 
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -19,8 +18,12 @@ import gui.vista.aniadirOferta.AniadirOfertaPanel;
 import gui.vista.aniadirOferta.AniadirOfertaVacacionalPanel;
 import gui.vista.aniadirOferta.AniadirOfertaViviendaPanel;
 
+/**
+ * Clase panel que contiene al panel seleccionarInmueble y a publicar oferta
+ */
 public class CrearOfertaPanel extends JPanel implements ActionListener{
 
+	private static final long serialVersionUID = 8507840517616278846L;
 	private GridBagConstraints c = new GridBagConstraints();
 	private ButtonGroup grupoRadioButton = new ButtonGroup();
 	private JRadioButton OpcionOfertaVacacional = new JRadioButton("Vacacional");
@@ -33,10 +36,9 @@ public class CrearOfertaPanel extends JPanel implements ActionListener{
 	private AniadirOfertaViviendaPanel panelAniadirVivienda;
 	
 	/**
-	 * Instantiates a new crear oferta panel.
+	 * Contructor
 	 *
 	 * @param gui
-	 *            the gui
 	 */
 	public CrearOfertaPanel(Gui gui) {
 		this.gui = gui;
@@ -65,7 +67,8 @@ public class CrearOfertaPanel extends JPanel implements ActionListener{
 		OpcionOfertaVivienda.addActionListener(this);
 	}
 
-	/* (non-Javadoc)
+	/** 
+	 * Boton para alternar entre crear oferta vacacional y oferta vivienda
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override

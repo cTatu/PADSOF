@@ -377,4 +377,8 @@ public abstract class Oferta implements Serializable{
 			return TipoDisponibilidad.CONTRATADO;
 		return TipoDisponibilidad.DISPONIBLE;
 	}
+
+	public boolean tieneRectificaciones() {
+		return !rectificaciones.isEmpty();
+	}
 }

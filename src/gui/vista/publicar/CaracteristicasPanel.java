@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.publicar;
@@ -17,20 +17,25 @@ import javax.swing.event.DocumentListener;
 
 import gui.vista.Gui;
 
+/**
+ *	Clase panel, que sirve para rellenar los campos de caracteristicas al aniadir un inmueble
+ */
 public class CaracteristicasPanel extends JPanel{
 	
+	private static final long serialVersionUID = 380054162609196591L;
+
 	private GridBagConstraints c = new GridBagConstraints();
 	
 	private Map<JTextField, JTextField> caracteristicas;
 	private Gui gui;
 	
 	/**
-	 * Instantiates a new caracteristicas panel.
+	 * Constructor
 	 *
 	 * @param gui
-	 *            the gui
-	 * @param rectificaciones
-	 *            the rectificaciones
+	 *           
+	 * @param textFields del panel
+	 *            
 	 */
 	public CaracteristicasPanel(Gui gui, Map<JTextField, JTextField> rectificaciones) {
 		this.gui = gui;
@@ -48,7 +53,7 @@ public class CaracteristicasPanel extends JPanel{
 	}
 
 	/**
-	 * Aniadir fila.
+	 * Aniade una nueva fila para añadir una nueva caracteristica
 	 *
 	 * @param docList
 	 *            the doc list

@@ -1,38 +1,34 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.usuario.demandante;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
 
-import javax.swing.BorderFactory;
+
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeSelectionModel;
 
 import gui.vista.Gui;
 import gui.vista.comentario.AddComentarioPanel;
 import gui.vista.comentario.DetallesPanelComentario;
-import gui.vista.gerente.DetallesPanelOfertaGerente;
-import gui.vista.gerente.PanelRectificaciones;
 import gui.vista.inmueble.DetallesPanelInmueble;
 import gui.vista.oferta.DetallesPanelOferta;
 
+/**
+ * Panel que muestra los detalles de un inmueble dado
+ */
 public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
+	
+	private static final long serialVersionUID = -8574447427528427389L;
 	
 	private GridBagConstraints c = new GridBagConstraints();
 	private JPanel panelComentarios = new JPanel(new GridLayout(0, 1));
@@ -40,28 +36,28 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 	private JButton reservar = new JButton("Reservar");
 	private JTabbedPane comentariosTabs = new JTabbedPane();
 	private JPanel addComentario;
-	
-	BOTON CANCELAR Y EDITAR
-	ENSEÑAR ESTADO
 
 	/**
-	 * Instantiates a new detalles panel oferta inmueble.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param atributoUnico
-	 *            the atributo unico
+	 *            el atributo propio del tipo de oferta, fecha fin o duracion meses
 	 * @param isDemandante
-	 *            the is demandante
+	 *            si el panel es para un demandante
 	 * @param detallesInmueble
-	 *            the detalles inmueble
+	 *            las caracteristicas del inmueble
 	 * @param detallesOferta
-	 *            the detalles oferta
+	 *            las caracteristicas de la oferta
 	 */
 	public DetallesPanelOfertaInmueble(Gui gui, String atributoUnico, boolean isDemandante, 
 			              			   Object[] detallesInmueble, Object... detallesOferta) {
 		
 		super(gui, atributoUnico, detallesOferta);
+		
+		Rectangle rect = this.gui.getBounds();
+		this.gui.setBounds(new Rectangle(rect.x, rect.y, rect.width, rect.height+150));
 		
 		contratar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,8 +79,12 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 			
 		addComentario = new AddComentarioPanel(gui, this);
 		
-		contratar.setEnabled(gui.getControlador().isOfertaContratable());
-		reservar.setEnabled(gui.getControlador().isOfertaReservable());
+		JPanel contratarBoton = new JPanel();
+			contratarBoton.add(contratar);
+		contratarBoton.setVisible(gui.getControlador().isOfertaContratable());
+		JPanel reservarBoton = new JPanel();
+			reservarBoton.add(reservar);
+		reservarBoton.setVisible(gui.getControlador().isOfertaReservable());
 			
 		c.gridx = 0; c.gridy = 0;
 		this.add(detallesInmueblePanel, c);
@@ -95,17 +95,17 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 		
 		if (isDemandante) {
 			comentariosTabs.addTab("Comentar", addComentario);
-			reservar.setVisible(false);
-			contratar.setVisible(false);
+			reservarBoton.setVisible(false);
+			contratarBoton.setVisible(false);
 		}comentariosTabs.addTab("Comentarios", scroll);
 		
 		c.gridx = 0; c.gridy = 2;	
 		this.add(comentariosTabs, c);
 		
 		c.gridx = 1; c.gridy = 1;
-		this.add(contratar, c);
+		this.add(contratarBoton, c);
 		c.gridx = 1; c.gridy = 2;
-		this.add(reservar, c);
+		this.add(reservarBoton, c);
 	}
 
 	/* (non-Javadoc)
@@ -127,10 +127,10 @@ public class DetallesPanelOfertaInmueble extends DetallesPanelOferta{
 	}
 
 	/**
-	 * Adds the comentario.
+	 * Aniade un comentario a la lista de comentarios del panel
 	 *
 	 * @param detallesComentario
-	 *            the detalles comentario
+	 *            caracteristicas del comentario como la valoracion y el texto
 	 */
 	public void addComentario(Object... detallesComentario) {
 		panelComentarios.add(new DetallesPanelComentario(gui, detallesComentario, this));

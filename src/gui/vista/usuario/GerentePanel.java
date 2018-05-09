@@ -3,28 +3,23 @@
  */
 package gui.vista.usuario;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
 import gui.vista.gerente.*;
 
+/**
+ * Clase panel que soporta e instancia a todas las demas que usa un usuario gerente 
+ */
 public class GerentePanel extends UsuarioPanel{
 
+	private static final long serialVersionUID = 1039636624570442052L;
+	
 	private OfertasPendientesPanel ofertasPendientes;
 	private CambiarTarjetaPanel cambiarTarjetaPanel;
 
 	/**
-	 * Instantiates a new gerente panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
@@ -40,7 +35,7 @@ public class GerentePanel extends UsuarioPanel{
 	}
 	
 	/**
-	 * Adds the usuarios tarejta tabla.
+	 * Aniade una tarjeta a la tabla de tarjetas
 	 *
 	 * @param tarjetas
 	 *            the tarjetas
@@ -70,7 +65,7 @@ public class GerentePanel extends UsuarioPanel{
 	}
 	
 	/**
-	 * Adds the tarjetas tabla.
+	 * Aniade una tarjeta a la tabla de tarjetas
 	 *
 	 * @param tarjetas
 	 *            the tarjetas

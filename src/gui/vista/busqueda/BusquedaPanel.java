@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.busqueda;
@@ -8,24 +8,21 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
-import oferta.Oferta;
 
+/**
+ * Panel contenedor de busqueda, contiene botones para tipo de busqueda, y Busqueda basica
+ */
 public class BusquedaPanel extends JPanel implements ActionListener{
 
+	private static final long serialVersionUID = 9158073980294784853L;
+	
 	private GridBagConstraints c = new GridBagConstraints();
 	private ButtonGroup grupoRadioButton = new ButtonGroup();
 	
@@ -39,12 +36,12 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 	private boolean usuarioRegistrado;
 
 	/**
-	 * Instantiates a new busqueda panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param usuarioRegistrado
-	 *            the usuario registrado
+	 *            usuario que busca
 	 */
 	public BusquedaPanel(Gui gui, boolean usuarioRegistrado) {
 		BusquedaPanel.gui = gui;
@@ -75,7 +72,7 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 	}
 	
 	/**
-	 * Sets the visible usuario registrado.
+	 * Sets visible usuario registrado.
 	 *
 	 * @param visible
 	 *            the new visible usuario registrado
@@ -115,7 +112,9 @@ public class BusquedaPanel extends JPanel implements ActionListener{
 
 }
 
-
+/**
+ * ActionListener para buscar
+ */
 class ListenerBusqueda implements ActionListener{
 
 	private BusquedaPanelBasico panelActivo;

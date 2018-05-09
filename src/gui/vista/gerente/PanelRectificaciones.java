@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.gerente;
@@ -13,25 +13,26 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import gui.vista.Gui;
 
 public class PanelRectificaciones extends JPanel{
 	
+	private static final long serialVersionUID = 1867390682363532628L;
+
 	private GridBagConstraints c = new GridBagConstraints();
 	
 	private Map<JTextField, JTextField> rectificaciones;
 	private Gui gui;
 	
 	/**
-	 * Instantiates a new panel rectificaciones.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param rectificaciones
-	 *            the rectificaciones
+	 *            rectificaciones a introducir
 	 */
 	public PanelRectificaciones(Gui gui, Map<JTextField, JTextField> rectificaciones) {
 		this.gui = gui;
@@ -49,10 +50,10 @@ public class PanelRectificaciones extends JPanel{
 	}
 
 	/**
-	 * Aniadir fila.
+	 * Aniadir fila al panel de rectificaciones.
 	 *
 	 * @param docList
-	 *            the doc list
+	 *            docList
 	 */
 	public void aniadirFila(DocumentListener docList) {
 		JTextField asunto = new JTextField();

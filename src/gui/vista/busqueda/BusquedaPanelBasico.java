@@ -1,26 +1,15 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.busqueda;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
@@ -29,8 +18,12 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
 
+/**
+ * Clase panel que contiene formulario de busqueda
+ */
 public abstract class BusquedaPanelBasico extends JPanel{
 
+	private static final long serialVersionUID = 3452292749938534955L;
 	
 	private JLabel etiquetaCP = new JLabel("Codigo Postal:");
 	protected JSpinner campoCP = new JSpinner();
@@ -60,12 +53,12 @@ public abstract class BusquedaPanelBasico extends JPanel{
 	protected Object tipoDisponibilidad, tipoOferta;
 
 	/**
-	 * Instantiates a new busqueda panel basico.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param usuarioRegistrado
-	 *            the usuario registrado
+	 *            usuario que busca
 	 */
 	public BusquedaPanelBasico(Gui gui, boolean usuarioRegistrado) {
 			this.gui = gui;
@@ -132,7 +125,7 @@ public abstract class BusquedaPanelBasico extends JPanel{
 	}
 	
 	/**
-	 * Usuario registrado.
+	 * getter Usuario registrado.
 	 *
 	 * @return true, if successful
 	 */

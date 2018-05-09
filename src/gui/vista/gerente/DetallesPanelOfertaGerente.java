@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.gerente;
@@ -22,8 +22,13 @@ import javax.swing.event.DocumentListener;
 import gui.vista.Gui;
 import gui.vista.oferta.DetallesPanelOferta;
 
+/**
+ * Panel donde el gerente puede ver la oferta y aceptarla, rechazarla o enviar modificaciones
+ */
 public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements DocumentListener{
 	
+	private static final long serialVersionUID = 7977344500008889383L;
+
 	private GridBagConstraints c = new GridBagConstraints();
 	
 	private JButton aceptar = new JButton("Aceptar");
@@ -36,16 +41,16 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 	private Map<JTextField, JTextField> rectificaciones = new HashMap<>();
 
 	/**
-	 * Instantiates a new detalles panel oferta gerente.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param atributoUnico
-	 *            the atributo unico
+	 *            atributo unico de los tipos de oferta
 	 * @param detallesClientes
-	 *            the detalles clientes
+	 *            detalles de los clientes a mostrar
 	 * @param detallesOferta
-	 *            the detalles oferta
+	 *            detalles de la oferta a mostrar
 	 */
 	public DetallesPanelOfertaGerente(Gui gui, String atributoUnico, Object[] detallesClientes , Object... detallesOferta) {
 		super(gui, atributoUnico, detallesOferta);
@@ -111,7 +116,7 @@ public class DetallesPanelOfertaGerente extends DetallesPanelOferta implements D
 	}
 		
 	/**
-	 * Gets the rectificaciones.
+	 * Recoge las rectificaciones introducidas
 	 *
 	 * @return the rectificaciones
 	 */

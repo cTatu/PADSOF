@@ -1,12 +1,10 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.gerente;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,7 +18,12 @@ import javax.swing.table.TableModel;
 
 import gui.vista.Gui;
 
+/**
+ * Clase panel que contiene la tabla de tarjetas de usuario que necesitan ser cambiadas
+ */
 public class CambiarTarjetaPanel extends JPanel implements TableModelListener{
+	
+	private static final long serialVersionUID = 2755379506961717179L;
 	
 	protected JTable tablaUsuariosTarjeta;
 	private String tarjetaVieja;
@@ -28,7 +31,7 @@ public class CambiarTarjetaPanel extends JPanel implements TableModelListener{
 	Gui gui;
 	
 	/**
-	 * Instantiates a new cambiar tarjeta panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
@@ -59,7 +62,7 @@ public class CambiarTarjetaPanel extends JPanel implements TableModelListener{
 	}
 	
 	/**
-	 * Adds the usuarios tarejta tabla.
+	 * Aniade usuarios de tarjetas a la tabla
 	 *
 	 * @param tarjetas
 	 *            the tarjetas

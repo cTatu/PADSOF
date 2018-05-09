@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista;
@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -18,26 +17,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
 
-import cliente.Cliente;
 import gui.controlador.Controlador;
 import gui.vista.busqueda.BusquedaPanel;
-import gui.vista.busqueda.BusquedaPanelBasico;
-import gui.vista.busqueda.BusquedaVacacionalPanel;
-import gui.vista.busqueda.BusquedaViviendaPanel;
 import gui.vista.usuario.DemandantePanel;
 import gui.vista.usuario.GerentePanel;
 import gui.vista.usuario.OfertantePanel;
 import gui.vista.usuario.UsuarioPanel;
-import opinion.Comentario;
 
-
+/**
+ * Clase Gui para organizar la vista
+ */
 public class Gui extends JFrame implements WindowListener, ActionListener{
+	private static final long serialVersionUID = 2035338612908110043L;
 	public static BusquedaPanel panelBusquedaOfertas;
 	private LoginPanel panelLogin;
 	private GerentePanel panelGerente;
@@ -56,15 +49,14 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	private JPanel panelRadioBotonesRol = new JPanel(new GridLayout(0,2));
 	
 	/**
-	 * Instantiates a new gui.
+	 * Constructor
 	 *
 	 * @param titulo
-	 *            the titulo
+	 *            Nombre de la app
 	 */
 	public Gui(String titulo) {
-		super(titulo); // antes: JFrame ventana = new JFrame("Mi GUI");
+		super(titulo); 
 		
-		// obtener contenedor, asignar layout
 		contenedor = this.getContentPane(); 
 		contenedor.setLayout(new FlowLayout());
 		
@@ -94,11 +86,6 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 		contenedor.add(panelRadioBotonesRol);
 		contenedor.add(tabsInvitado);
 
-		/***********QUITAR************/
-		/*panelOfertante = new OfertantePanel(this);
-		contenedor.add(panelOfertante);
-		setVisiblePaneles(panelOfertante);*/
-		/***********QUITAR************/
 		
 		// visibilidad inicial
 		setVisiblePaneles(tabsInvitado);
@@ -134,12 +121,6 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	 */
 	public void setControlador(Controlador c) {
 		this.controlador = c;
-		/***********QUITAR************/
-		/*this.controlador.addTodasOfertas();*/
-		controlador.login("X1130055", "secreta"); // OD
-		//controlador.login("55555111Z", "NoSeSaBe"); // D
-		//controlador.login("51999111X", "pezEspada"); // O
-		/***********QUITAR************/
 	}
 	
 	/**
@@ -152,10 +133,18 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	}
 
 	/**
-	 * Login result.
+	 * Comprueba el estado del login del sistema.
+	 * Dependiendo del rol del usaurio se muestra un panel u otro.
+	 * Si el usaurio es gerente se muestra solo el panel de gerente con
+	 * las pestanias de ofertas pendeintes y cambio de tarjetas.
+	 * 
+	 * Si el usuario tiene rol de ofertante se aniade el panel
+	 * ofertante y si tiene rol demandante tambien se aniade el 
+	 * panel demandante. Asi, si tiene los dos roles podra ver 
+	 * los dos paneles.
 	 *
 	 * @param loginOK
-	 *            the login OK
+	 *            estado de login
 	 */
 	public void loginResult(boolean loginOK) {
 		if (loginOK) { 
@@ -186,14 +175,17 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	}
 	
 	/**
-	 * Cerrar sesion result.
+	 * Cambia los paneles en funcion del resultado del boton de cerrar sesion.
+	 * Si el usaurio tenia los dos roles, quita el panel de los botones radiales
+	 * que le dejan elegir entre los roles y muestra de vuelta las pestanias
+	 * de login y busqueda simple.
 	 *
 	 * @param cerrarSesionOK
-	 *            the cerrar sesion OK
+	 *            estado de cerrar sesion
 	 */
 	public void cerrarSesionResult(boolean cerrarSesionOK) {
 		if (cerrarSesionOK) {
-			if (panelRadioBotonesRol.isVisible() || panelDemandante.isVisible()) {
+			if (panelDemandante != null && (panelRadioBotonesRol.isVisible() || panelDemandante.isVisible())) {
 				tabsInvitado.addTab("Buscar",  panelBusquedaOfertas);
 				Gui.panelBusquedaOfertas.setVisibleUsuarioRegistrado(false);
 			}if (panelRadioBotonesRol.isVisible())
@@ -206,10 +198,10 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	}
 	
 	/**
-	 * Adds the oferta tabla busqueda.
+	 * Aniade una oferta a la tabla de busquedas
 	 *
 	 * @param ofertas
-	 *            the ofertas
+	 *            detalles de la oferta
 	 */
 	public void addOfertaTablaBusqueda(Object... ofertas) {
 		panelBusquedaOfertas.addOfertasTabla(ofertas);
@@ -269,7 +261,7 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	}
 
 	/**
-	 * Show info oferta.
+	 * Muestra los detalles de la oferta seleccionada
 	 *
 	 * @param atributoUnico
 	 *            the atributo unico
@@ -289,7 +281,7 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 
 
 	/**
-	 * Moderar status.
+	 * Rellena la tabla con las ofertas pendientes de aprobar
 	 *
 	 * @param aprobarOferta
 	 *            the aprobar oferta
@@ -462,7 +454,8 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 		return panelActivo;
 	}
 	
-	/* (non-Javadoc)
+	/* Controladores de los botones radiales de los roles.
+	 * Cambia los paneles del demandante en funcion del boton seleccionado.
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
@@ -497,7 +490,7 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 		
 	}
 
-	/* (non-Javadoc)
+	/* Al cerrar la ventana preguntar si se desea guardar los datos de la app.
 	 * @see java.awt.event.WindowListener#windowClosing(java.awt.event.WindowEvent)
 	 */
 	@Override
@@ -545,5 +538,14 @@ public class Gui extends JFrame implements WindowListener, ActionListener{
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * Gets the panel ofertante.
+	 *
+	 * @return the panel ofertante
+	 */
+	public OfertantePanel getPanelOfertante() {
+		return panelOfertante;
 	}
 }

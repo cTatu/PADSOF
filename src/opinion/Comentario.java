@@ -4,7 +4,6 @@
 package opinion;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import cliente.Demandante;
@@ -20,7 +19,6 @@ public class Comentario extends Opinion implements Serializable{
 	private final Integer ID;
 	private final static Map<Integer,Comentario> todosComentarios = new HashMap<>();
 	
-	private Comentario padre = null;
 	private String texto;
 	private List<Opinion> opiniones;
 	
@@ -47,8 +45,6 @@ public class Comentario extends Opinion implements Serializable{
 	 */
 	@Override
 	public boolean opinar(Opinion o) {
-		if (o.isComentario())
-			((Comentario)o).setPadre(this);
 		opiniones.add(o);
 		return true;
 	}
@@ -107,23 +103,30 @@ public class Comentario extends Opinion implements Serializable{
 		return texto;
 	}
 
+	/**
+	 * Comprueba que la clase sea un Comentario
+	 *
+	 * @return verdadero
+	 */
 	@Override
 	public boolean isComentario() {
 		return true;
 	}
 
+	/**
+	 * Devuelve ID del comentario
+	 *
+	 * @return ID
+	 */
 	public Integer getID() {
 		return ID;
 	}
 
-	public Comentario getPadre() {
-		return padre;
-	}
-	
-	public void setPadre(Comentario comentario) {
-		this.padre = comentario;
-	}
-
+	/**
+	 * Devuelve la lista de todos los comentarios del sistema
+	 *
+	 * @return lista comentarios
+	 */
 	public static Map<Integer,Comentario> getTodosComentarios() {
 	    return Collections.unmodifiableMap(todosComentarios);
 	}

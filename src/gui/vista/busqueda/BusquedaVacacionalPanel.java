@@ -1,37 +1,34 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.busqueda;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 import javax.swing.JLabel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import busqueda.BusquedaVacacional;
 import gui.vista.Gui;
-import tipos.TipoDisponibilidad;
 
+/**
+ * Clase panel que contiene formulario de busqueda vacacional
+ */
 public class BusquedaVacacionalPanel extends BusquedaPanelBasico {
 
+	private static final long serialVersionUID = -2265957649276708106L;
+	
 	private JLabel etiquetaFechaFin = new JLabel("Fecha Fin: (d/MM/YYY)");
 	private JTextField fechaFin = new JTextField();
 	
 	/**
-	 * Instantiates a new busqueda vacacional panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param usuarioRegistrado
-	 *            the usuario registrado
+	 *            usuario que busca
 	 */
 	public BusquedaVacacionalPanel(Gui gui, boolean usuarioRegistrado) {
 		super(gui, usuarioRegistrado);

@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.comentario;
@@ -19,8 +19,13 @@ import javax.swing.JTextField;
 import gui.vista.Gui;
 import gui.vista.usuario.demandante.DetallesPanelOfertaInmueble;
 
+/**
+ * Clase que contiene los detalles de un comentario
+ */
 public class DetallesPanelComentario extends JPanel implements ActionListener{
 
+	private static final long serialVersionUID = -4940410480155977952L;
+	
 	private Gui gui;
 	private GridBagConstraints c = new GridBagConstraints();
 	private JLabel texto = new JLabel();
@@ -38,12 +43,12 @@ public class DetallesPanelComentario extends JPanel implements ActionListener{
 	private DetallesPanelOfertaInmueble panelPadre;
 
 	/**
-	 * Instantiates a new detalles panel comentario.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param detallesComentario
-	 *            the detalles comentario
+	 *             detalles comentario a mostrar
 	 * @param detallesPanelOfertaDemandante
 	 *            the detalles panel oferta demandante
 	 */

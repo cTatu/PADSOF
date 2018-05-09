@@ -7,23 +7,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Stack;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.swing.JOptionPane;
-import javax.swing.text.StyledEditorKit.BoldAction;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import app.InmaculadApp;
 import busqueda.Busqueda;
@@ -36,7 +29,6 @@ import oferta.Oferta;
 import oferta.OfertaVacacional;
 import oferta.OfertaVivienda;
 import opinion.Comentario;
-import opinion.Opinion;
 import tipos.TipoDisponibilidad;
 import tipos.TipoOferta;
 import tipos.TipoOrdenar;
@@ -65,12 +57,14 @@ public class Controlador {
 	}
 	
 	/**
-	 * Login.
+	 * Acciona el inicio de sesion. Si es correcto notifica
+	 * al GUI para mostrar los paneles pertinentes. Si es
+	 * incorrecto se mostrara un dialogo de error.
 	 *
 	 * @param NIF
-	 *            the nif
+	 *            el NIF del usuario
 	 * @param password
-	 *            the password
+	 *            la contrasenia
 	 */
 	public void login(String NIF, String password) {
 		this.gui.loginResult( this.app.iniciarSesion( NIF, password ) );
@@ -78,19 +72,21 @@ public class Controlador {
 	
 	
 	/**
-	 * Cerrar sesion.
+	 * Hace la accion de cerrar la sesion abierta por el usuario
+	 * y le lleva al panel inicial de login.
 	 *
 	 * @param GuardarNoGuardar
-	 *            the guardar no guardar
+	 *            Si es True el programa guarda su estado, si es Falso no.
 	 */
 	public void cerrarSesion(boolean GuardarNoGuardar) {
 		this.gui.cerrarSesionResult( this.app.cerrarSesion( GuardarNoGuardar ));
 	}
 	
 	/**
-	 * Rellenar mis inmuebles.
+	 * Rellenar la tabla de mis inmuebles.
+	 * Con el codigo postal y la localizacion
 	 *
-	 * @return true, if successful
+	 * @return true si ha podido introducir al menos un elemento en la tabla. Falso si no hay inmuebles
 	 */
 	public boolean rellenarMisInmuebles() {
 		List<Inmueble> inmuebles = this.app.getInmueblesOfertante();
@@ -111,7 +107,8 @@ public class Controlador {
 	}
 	
 	/**
-	 * Gets the info inmueble.
+	 * Recopila la informacion de un inmueble.
+	 * Como el codigo postal, la localizacion y las caracteristicas.
 	 *
 	 * @param inmueble
 	 *            the inmueble
@@ -126,10 +123,10 @@ public class Controlador {
 	}
 	
 	/**
-	 * Show info inmueble.
+	 * Muestra un panel con la informacion del inmueble selccionado.
 	 *
 	 * @param fila
-	 *            the fila
+	 *           la fila de la tabla que se ha pinchado
 	 */
 	public void showInfoInmueble(int fila) {
 		inmuebleSeleccionado = inmueblesTabla.get(fila);
@@ -141,19 +138,19 @@ public class Controlador {
 	}
 
 	/**
-	 * Aniadir oferta vivienda.
+	 * Aniade una oferta de tipo Vivienda al sistema.
 	 *
 	 * @param precio
-	 *            the precio
+	 *            el precio
 	 * @param fechaInicio
-	 *            the fecha inicio
+	 *            la fecha de inicio
 	 * @param descripcion
-	 *            the descripcion
+	 *            la descripcion
 	 * @param duracionMeses
-	 *            the duracion meses
+	 *            la duracion de meses de la oferta
 	 * @param fianza
-	 *            the fianza
-	 * @return true, if successful
+	 *            la fianza
+	 * @return true si se ha producido con exito, falso en caso contrario
 	 */
 	public boolean aniadirOfertaVivienda(Double precio, LocalDate fechaInicio, 
 			String descripcion, Integer duracionMeses, Double fianza) {
@@ -162,17 +159,17 @@ public class Controlador {
 	}
 	
 	/**
-	 * Aniadir oferta vacacional.
+	 * Aniade una oferta de tipo Vacacional al sistema.
 	 *
 	 * @param precio
-	 *            the precio
+	 *            el precio
 	 * @param fechaInicio
-	 *            the fecha inicio
+	 *            la fecha de inicio
 	 * @param descripcion
-	 *            the descripcion
+	 *            la descripcion
 	 * @param fechaFin
-	 *            the fecha fin
-	 * @return true, if successful
+	 *            la fecha de fin
+	 * @return true si se ha producido con exito, falso en caso contrario
 	 */
 	public boolean aniadirOfertaVacacional(Double precio, LocalDate fechaInicio, String descripcion, LocalDate fechaFin) {
 		
@@ -180,47 +177,31 @@ public class Controlador {
 	}
 	
 	/**
-	 * Aniadir inmueble.
+	 *  Aniade un inmueble al sistema.
+	 *  Intenta parsear los parametros introducidos, si alguno fallase
+	 *  mostraria un mensaje de error.
 	 *
 	 * @param CP
-	 *            the cp
+	 *           el codigo postal
 	 * @param localizacion
-	 *            the localizacion
+	 *            la localizacion
 	 * @param caracteristicas
-	 *            the caracteristicas
+	 *            el mapa de caracteristicas
 	 */
-	public void aniadirInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
+	public void aniadirInmueble(String CP, String localizacion, Map<String,String> caracteristicas) {
 		
-		this.gui.aniadirInmuebleResult( this.app.crearInmueble(CP, localizacion, caracteristicas));
+		try {
+		this.gui.aniadirInmuebleResult( this.app.crearInmueble(Integer.parseInt(CP), localizacion, caracteristicas));
+		}catch (NumberFormatException e) {
+			gui.mensajeInfo("Debes rellenar todos los campos para publicar un inmueble", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	/**
-	 * ***********************QUITAR******************.
-	 */
-	
-	public void addTodasOfertas() {
-		ofertasTabla = new HashMap<>();
-		
-		int i = 0;
-		for (Oferta oferta : app.getOfertas()) {
-			List<Object> camposOferta = new ArrayList<>();
-
-			camposOferta.add(oferta.getFechaInicio());
-			camposOferta.add(oferta.getDescripcion());
-			if (oferta.isVacacional())
-				camposOferta.add(((OfertaVacacional) oferta).getFechaFin());
-			else
-				camposOferta.add(((OfertaVivienda) oferta).getDuracionMeses());
-			camposOferta.add(oferta.getPrecio());
-			
-			ofertasTabla.put(i, oferta);
-			i++;
-			this.gui.addOfertaTablaBusqueda(camposOferta.toArray());
-		}	
-	}
-	
-	/**
-	 * ***********************QUITAR******************.
+	 * Realiza una busqueda de ofertas en el sistema con los criterios
+	 * de busqueda propocionados. Puede ser de tipo Vacacional o Vivienda.
+	 * Las ofertas que encuentra las aniade a la tabla de busqueda.
+	 * Si no encuentra ninguna oferta lanza un dialogo mostrando la falta de resultados.
 	 *
 	 * @param criteriosBusqueda
 	 *            the criterios busqueda
@@ -250,24 +231,32 @@ public class Controlador {
 	}
 	
 	/**
-	 * Buscar.
+	 * Realiza una busqueda de ofertas en el sistema
+	 * parseando los parametros de entrada y creando un objeto de criterio
+	 * de busqueda. Este objeto se lo pasa a 'buscarCriterios' para
+	 * introducir en la tabla los resultados.
+	 * Si alguna de las fechas tiene un valor o formato erroneo
+	 * o si la valoracion tiene un valor invalido
+	 * muestra un mensaje de error con la fecha en cuestion.
+	 * 
+	 * 
 	 *
 	 * @param codigoPostal
-	 *            the codigo postal
+	 *            el codigo postal
 	 * @param fechaInicio1
-	 *            the fecha inicio 1
+	 *            el extremo bajo del rango de fechas de incio
 	 * @param fechaInicio2
-	 *            the fecha inicio 2
+	 *            el extremo alto del rango de fechas de incio
 	 * @param fechaFin
-	 *            the fecha fin
+	 *            la fecha fin de la oferta vacacional
 	 * @param duracionMeses
-	 *            the duracion meses
+	 *            la duracion en meses de la oferta Vivienda
 	 * @param tipoDisponibilidad
-	 *            the tipo disponibilidad
+	 *            el tipo de  disponibilidad
 	 * @param tipoOferta
-	 *            the tipo oferta
+	 *            el tipo de oferta
 	 * @param valoracion
-	 *            the valoracion
+	 *            la valoracion
 	 */
 	public void buscar(Integer codigoPostal, String fechaInicio1, String fechaInicio2, String fechaFin,
 			Integer duracionMeses, Object tipoDisponibilidad, Object tipoOferta, String valoracion) {
@@ -293,16 +282,20 @@ public class Controlador {
     		return;
     	}
 		
+    	try {
 		if (TipoOferta.parseString(String.valueOf(tipoOferta)).equals(TipoOferta.VACACIONAL))
 			buscarCriterios(new BusquedaVacacional(codigoPostal, Double.parseDouble(valoracion), fecha1, fecha2, 
 				TipoDisponibilidad.parseString(String.valueOf(tipoDisponibilidad)), fechafin));
 		else
 			buscarCriterios(new BusquedaVivienda(codigoPostal, Double.parseDouble(valoracion), fecha1, fecha2, 
 					TipoDisponibilidad.parseString(String.valueOf(tipoDisponibilidad)), duracionMeses));
+    	}catch (NumberFormatException e) {
+    		this.gui.mensajeInfo("La valoracion introducida no es valida", "Valoracion invalida", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	/**
-	 * Rellenar tabla tarjetas.
+	 * Rellenar la tabla del gerente con las tarjetas de credito de los clientes para que las pueda cambiar.
 	 */
 	public void rellenarTablaTarjetas() {
 		for (Cliente cliente : this.app.getClientes()) {
@@ -316,9 +309,12 @@ public class Controlador {
 	
 
 	/**
-	 * Rellenar mis ofertas.
+	 * Rellena la tabla de Mis Ofertas.
+	 * Dependiendo de si el rol es de ofertante
+	 * o demandante muestra las ofertas creadas o
+	 * contratadas o reservadas respectivamente.
 	 *
-	 * @return true, if successful
+	 * @return true si el cliente tiene al menos una oferta, false de lo contrario
 	 */
 	public boolean rellenarMisOfertas() {
 		ofertasTabla = new HashMap<>();
@@ -349,7 +345,8 @@ public class Controlador {
 	}
 	
 	/**
-	 * Rellenar tabla ofertas pendientes.
+	 * Rellena la tabla de ofertas pendientes para el gerente.
+	 * 
 	 */
 	public void rellenarTablaOfertasPendientes() {
 		List<Oferta> ofPendientes = this.app.getOfertasPendientes();
@@ -367,11 +364,15 @@ public class Controlador {
 	}
 	
 	/**
-	 * Gets the info oferta inmueble.
+	 * Devuelve una lista con los detalles del inmueble
+	 * al que pertenece la oferta seleccionada.
+	 * Detalles como el codigo postal, la localizacion
+	 * y las caracteristicas.
 	 *
 	 * @param ofertaSeleccionada
-	 *            the oferta seleccionada
-	 * @return the info oferta inmueble
+	 *            la oferta seleccionada de la tabla
+	 * @return lista con el codigo postal, la localizacion
+	 * y las caracteristicas.
 	 */
 	private List<Object> getInfoOfertaInmueble(Oferta ofertaSeleccionada){
 		List<Object> lista = new ArrayList<>();
@@ -383,11 +384,12 @@ public class Controlador {
 	}
 	
 	/**
-	 * Gets the info oferta cliente.
+	 * Devuelve una lista con los detalles del ofertante
+	 * que creo la oferta seleccionada.
 	 *
 	 * @param ofertaSeleccionada
-	 *            the oferta seleccionada
-	 * @return the info oferta cliente
+	 *            la oferta seleccionada de la tabla
+	 * @return el NIF y el nombre de ofertante propietario de la oferta
 	 */
 	private List<Object> getInfoOfertaCliente(Oferta ofertaSeleccionada){
 		List<Object> lista = new ArrayList<>();
@@ -397,10 +399,14 @@ public class Controlador {
 	}
 	
 	/**
-	 * Show info oferta.
+	 * Envia una lista de detalles con los campos de 
+	 * la oferta seleccionada de una tabla en la fila proporcionada
+	 * por parametro.
+	 * Muestra detalles como el tipo de oferta,el precio, las fechas,
+	 * la descripcion.
 	 *
 	 * @param fila
-	 *            the fila
+	 *          la fila de la tabla que se pincho
 	 */
 	public void showInfoOferta(int fila) {
 		ofertaSeleccionada = ofertasTabla.get(fila);
@@ -431,17 +437,19 @@ public class Controlador {
 	}
 	
 	/**
-	 * Show info comentario.
+	 * Muestra un panel con la informacion de un comentario.
+	 * La informacion es el texto del comentario y la valoracion que tiene.
 	 *
 	 * @param comentario
-	 *            the comentario
+	 *            el comentario del que se quiere ver los detalles
 	 */
 	private void showInfoComentario(Comentario comentario) {
 		gui.showInfoComentario(new Object[] {comentario.getTexto(), comentario.calcularMedia(), comentario.getID()});
 	}
 	
 	/**
-	 * Show comentarios oferta.
+	 * Muestra todos los comentarios de una oferta.
+	 * Creando de cada uno un panel disinto donde guardar sus detalles.
 	 */
 	public void showComentariosOferta() {
 		List<Comentario> comentarios = ofertaSeleccionada.getComentarios();
@@ -455,12 +463,14 @@ public class Controlador {
 	}
 	
 	/**
-	 * Adds the comentario.
+	 * Si comentarioID es negativo, aniade el comentario
+	 * a la oferta seleccionada, si es positivo aniade el comentario
+	 * como una respuesta al comentario que tiene ese ID.
 	 *
 	 * @param comentarioID
-	 *            the comentario ID
+	 *            el ID del comentario al que se quiere responder. <0 si es para la oferta.
 	 * @param textoComentario
-	 *            the texto comentario
+	 *            el texto del nuevo comentario que se quiere aniadir
 	 */
 	public void addComentario(Integer comentarioID, String textoComentario) {
 		if (comentarioID.equals(-1))
@@ -472,14 +482,16 @@ public class Controlador {
 	}
 	
 	/**
-	 * Adds the comentario.
+	 * Aniade una respuesta a un comentario y ademas valora el comentario.
+	 * Los dos ultimos parametros son opcionales independientemetne, pero es obligatorio
+	 * rellenar al menos uno de ellos.
 	 *
 	 * @param comentarioID
-	 *            the comentario ID
+	 *            el ID del comentario al que se quiere opinar
 	 * @param textoRespuesta
-	 *            the texto respuesta
+	 *            l texto del nuevo comentario que se quiere aniadir
 	 * @param textoValoracion
-	 *            the texto valoracion
+	 *            la valoracion que se quiere dar al comentario 
 	 */
 	public void addComentario(Integer comentarioID, String textoRespuesta, String textoValoracion) {
 		if (!textoRespuesta.isEmpty()) {
@@ -506,10 +518,12 @@ public class Controlador {
 	}
 	
 	/**
-	 * Show sub comentarios.
+	 * Muestra los comentarios que tiene un cometario.
+	 * Si el comentario con el ID proporciondo no tiene
+	 * ningun comentario se muestra un dialogo de informacion.
 	 *
 	 * @param ID
-	 *            the id
+	 *        el ID del comentario del que se quieren ver las respuestas
 	 */
 	public void showSubComentarios(Integer ID) {
 		if (ID.equals(-1)) {
@@ -527,12 +541,13 @@ public class Controlador {
 	}
 
 	/**
-	 * Cambiar tarjeta.
+	 * Cambia la tarjeta de credito del usuario con el NIF proporicionado
+	 * por la nueva tarjeta en el segundo parametro.
 	 *
 	 * @param usuarioNIF
-	 *            the usuario NIF
+	 *            el NIF del usaurio al que se quiere cambiar la tarjeta
 	 * @param nuevaTarjeta
-	 *            the nueva tarjeta
+	 *            la nueva tarjeta
 	 */
 	public void cambiarTarjeta(String usuarioNIF, String nuevaTarjeta) {
 		this.gui.cambiarTarjetaResult(this.app.modificarTarjetaCredito(usuarioNIF, nuevaTarjeta), nuevaTarjeta);
@@ -540,10 +555,10 @@ public class Controlador {
 
 
 	/**
-	 * Aceptar oferta.
+	 * Acepta o rechaza la oferta seleccionada por el gerente.
 	 *
 	 * @param aceptar
-	 *            the aceptar
+	 *            si es true acepta la oferta, de lo contrario la rechaza
 	 */
 	public void aceptarOferta(boolean aceptar) {
 		if(aceptar)
@@ -553,22 +568,22 @@ public class Controlador {
 	}
 	
 	/**
-	 * Check rectificaciones.
+	 * Muestra un mensaje de aviso si alguna oferta tiene una rectificacion pendiente
 	 */
 	public void checkRectificaciones() {
 		
 		for (Oferta oferta : app.getOfertasOfertante()) {
 			if (oferta.tieneRectificaciones())
-				gui.mensajeInfo("En la oferta " + oferta.GET+ " tiene una nueva rectificacion.", "Oferta con rectidicacion", JOptionPane.ERROR_MESSAGE);
+				gui.mensajeInfo("Hay una oferta con una nueva rectificacion.", "Oferta con rectificacion", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
 
 	/**
-	 * Enviar rectificacion.
+	 * El gerente envia una rectificacion a la oferta seleccionada.
 	 *
 	 * @param rectificaciones
-	 *            the rectificaciones
+	 *            el mapa con las rectificaciones
 	 */
 	public void enviarRectificacion(Map<String, String> rectificaciones) {
 		BiPredicate<String, String> vacio = (key,valor)-> key.isEmpty() && valor.isEmpty();

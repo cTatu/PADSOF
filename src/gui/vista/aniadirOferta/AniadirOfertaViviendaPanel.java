@@ -1,4 +1,5 @@
-/*
+/**
+ * Panel en donde tiene un formulario para aniadir una oferta de tipo vivienda
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.aniadirOferta;
@@ -7,15 +8,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import gui.vista.Gui;
 
 public class AniadirOfertaViviendaPanel extends AniadirOfertaPanel implements ActionListener{
+	
+	private static final long serialVersionUID = 4449367185902313770L;
 	
 	private JLabel etiquetaDuracionMeses = new JLabel("Duracion Meses: ");
 	private JSpinner duracionMeses = new JSpinner();
@@ -26,10 +31,9 @@ public class AniadirOfertaViviendaPanel extends AniadirOfertaPanel implements Ac
 	protected JButton botonGuardar = new JButton("\nGuardar");
 	
 	/**
-	 * Instantiates a new aniadir oferta vivienda panel.
+	 * Constructor
 	 *
 	 * @param gui
-	 *            the gui
 	 */
 	public AniadirOfertaViviendaPanel(Gui gui) {
 		super(gui);
@@ -43,16 +47,26 @@ public class AniadirOfertaViviendaPanel extends AniadirOfertaPanel implements Ac
 		botonGuardar.addActionListener( this );
 	}
 	
-	/* (non-Javadoc)
+	/**
+	 * Envia los datos del formulario para aniadir una nueva oferta
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	public void actionPerformed(ActionEvent ev) {
 		
-		super.gui.getControlador().aniadirOfertaVivienda( Double.parseDouble(this.campoPrecio.getText()), 
+		try {
+		if(super.gui.getControlador().aniadirOfertaVivienda( Double.parseDouble(this.campoPrecio.getText()), 
 				LocalDate.parse(super.fechaInicio.getText(), DateTimeFormatter.ofPattern("d/MM/yyyy")), 
 				this.campoDescripcion.getText(), 
 				(Integer) this.duracionMeses.getValue(), 
-				Double.parseDouble(this.fianza.getText()));
+				Double.parseDouble(this.fianza.getText())))
+			gui.mensajeInfo("La oferta se ha aniadido con exito", "Oferta aniadida", JOptionPane.INFORMATION_MESSAGE);
+		}catch (NumberFormatException e) {
+			gui.mensajeInfo("El precio introducido es invalido", "Precio invalido", JOptionPane.ERROR_MESSAGE);
+		}catch (DateTimeParseException e) {
+			gui.mensajeInfo("La fecha no tiene un formato correcto", "Fecha invalido", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		gui.getPanelOfertante().getPanelPublicar().showPanelBotones();
 	}
 
 }

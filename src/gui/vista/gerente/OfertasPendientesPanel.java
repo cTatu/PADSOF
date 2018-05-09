@@ -1,29 +1,25 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.gerente;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.text.TabableView;
 
 import gui.vista.Gui;
-import gui.vista.oferta.DetallesPanelOferta;
 
+/**
+ * Panel donde esta la tabla de ofertas pendientes de ser moderadas
+ */
 public class OfertasPendientesPanel extends JPanel{
 
+	private static final long serialVersionUID = -4512296898435005115L;
+	
 	private JTable tablaOfertasPendientes;
 	private JScrollPane scroll;
 	private DefaultTableModel model;
@@ -31,7 +27,7 @@ public class OfertasPendientesPanel extends JPanel{
 	Gui gui;
 	
 	/**
-	 * Instantiates a new ofertas pendientes panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
@@ -78,7 +74,7 @@ public class OfertasPendientesPanel extends JPanel{
 	}
 
 	/**
-	 * Adds the oferta pendiente tabla.
+	 * Aniade una oferta pendiente de moderarse a la tabla
 	 *
 	 * @param ofertas
 	 *            the ofertas

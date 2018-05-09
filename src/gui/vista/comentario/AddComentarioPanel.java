@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.comentario;
@@ -6,7 +6,6 @@ package gui.vista.comentario;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,8 +17,13 @@ import javax.swing.JTextArea;
 import gui.vista.Gui;
 import gui.vista.usuario.demandante.DetallesPanelOfertaInmueble;
 
+/**
+ * Clase panel add comentario que contiene formulario para enviar un nuevo comentario *
+ */
 public class AddComentarioPanel extends JPanel implements ActionListener{
 
+	private static final long serialVersionUID = -6419214555347077964L;
+	
 	private Gui gui;
 	private GridBagConstraints c = new GridBagConstraints();
 	
@@ -28,12 +32,12 @@ public class AddComentarioPanel extends JPanel implements ActionListener{
 	private DetallesPanelOfertaInmueble panelPadre;
 
 	/**
-	 * Instantiates a new adds the comentario panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
 	 * @param panelPadre
-	 *            the panel padre
+	 *            el panel padre
 	 */
 	public AddComentarioPanel(Gui gui, DetallesPanelOfertaInmueble panelPadre) {
 		this.gui = gui;

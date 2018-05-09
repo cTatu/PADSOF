@@ -4,8 +4,6 @@
 package cliente;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,7 +55,11 @@ public class Demandante implements Serializable{
 			if (ofertaContratada.equals(oferta))
 				return false;
 		}
-		return true || rVacacional.getOferta().equals(oferta) || rVivienda.getOferta().equals(oferta);
+		if (oferta.isVacacional() && rVacacional == null)
+			return true;
+		if (!oferta.isVacacional() && rVivienda == null)
+			return true;
+		return false;
 	}
 	
 	/**

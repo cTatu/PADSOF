@@ -1,4 +1,4 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.usuario;
@@ -14,7 +14,15 @@ import javax.swing.JTabbedPane;
 
 import gui.vista.Gui;
 
+/**
+ * Panel abstracto que tiene los atributos comunes entre los 3 tipos de usuarios.
+ * Todos los usuarios tienen que tener un boton de Cerrar Sesion o Ir hacia atras
+ * y una tabla de pestanias donde se agregan los diferentes paneles propios de cada uno.
+ */
 public abstract class UsuarioPanel extends JPanel implements ActionListener{
+	
+	
+	private static final long serialVersionUID = -1785002343902878799L;
 	
 	protected JTabbedPane tabsUsuario = new JTabbedPane();
 	protected JButton botonAtras = new JButton("Cerrar Sesion");
@@ -22,7 +30,7 @@ public abstract class UsuarioPanel extends JPanel implements ActionListener{
 	protected Gui gui;
 	
 	/**
-	 * Instantiates a new usuario panel.
+	 * Contructor
 	 *
 	 * @param gui
 	 *            the gui
@@ -45,7 +53,9 @@ public abstract class UsuarioPanel extends JPanel implements ActionListener{
 	 * Show info oferta.
 	 *
 	 * @param atributoUnico
-	 *            the atributo unico
+	 *            el atributo unico que tiene cada oferta dependiendo de su tipo
+	 *            Para Oferta Vacacional es Fecha Fin
+	 *            Para Oferta Vivienda es duracion meses
 	 * @param detallesExtra
 	 *            the detalles extra
 	 * @param detallesOferta

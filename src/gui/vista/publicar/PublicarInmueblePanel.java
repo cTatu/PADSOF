@@ -1,4 +1,5 @@
-/*
+/**
+ * Clase panel con formulario para publicar un nuevo inmueble
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.publicar;
@@ -17,11 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
 
 public class PublicarInmueblePanel extends JPanel implements ActionListener, DocumentListener{
+	
+	private static final long serialVersionUID = 771115172123143189L;
 	
 	private JLabel CP = new JLabel("Codigo Postal: ");
 	private JTextField campoCP = new JTextField();
@@ -39,13 +41,10 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 	protected Gui gui;
 	private GridBagConstraints c = new GridBagConstraints();
 	
-	private DefaultTableModel model;
-	
 	/**
-	 * Instantiates a new publicar inmueble panel.
+	 * Constructor
 	 *
 	 * @param gui
-	 *            the gui
 	 */
 	public PublicarInmueblePanel(Gui gui) {
 		this.gui = gui;
@@ -85,7 +84,9 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 		});
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Envia los datos a la app para publicar el nuevo inmueble
+	 *  (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
@@ -93,12 +94,13 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 		Map<String, String> mapaCaracteristicas;
 		mapaCaracteristicas = this.getCaracteristicas();
 		
-		this.gui.getControlador().aniadirInmueble( Integer.parseInt(this.campoCP.getText()), 
+		this.gui.getControlador().aniadirInmueble( this.campoCP.getText(), 
 				this.campoLocalizacion.getText(), 
 				mapaCaracteristicas);
 		
-		this.limpiarTabla();
+		gui.getPanelOfertante().limpiarTablaInmuebles();
 		this.gui.getControlador().rellenarMisInmuebles();
+		this.gui.getPanelOfertante().getPanelPublicar().showPanelBotones();
 	}
 	
 	/**
@@ -109,7 +111,7 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 	}	
 	
 	/**
-	 * Gets the caracteristicas.
+	 * Recoge los datos de los campos de caracteristicas
 	 *
 	 * @return the caracteristicas
 	 */
@@ -126,9 +128,7 @@ public class PublicarInmueblePanel extends JPanel implements ActionListener, Doc
 	 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
 	 */
 	@Override
-	public void insertUpdate(DocumentEvent e) {
-		//rectificar.setVisible(true);
-	}
+	public void insertUpdate(DocumentEvent e) {}
 
 	/* (non-Javadoc)
 	 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)

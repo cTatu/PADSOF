@@ -1,34 +1,31 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.usuario;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
-import gui.vista.busqueda.BusquedaPanel;
-import gui.vista.cliente.PerfilPanel;
-import gui.vista.cliente.PublicarPanel;
 import gui.vista.inmueble.DetallesPanelInmueble;
+import gui.vista.publicar.PublicarPanel;
 import gui.vista.usuario.demandante.DetallesPanelOfertaInmueble;
 
+/**
+ * Clase soporte y que instancia los paneles que usa un usuario ofertante *
+ */
 public class OfertantePanel extends UsuarioPanel implements ChangeListener, ActionListener {
 
+	private static final long serialVersionUID = -8986027446295986698L;
 	private PublicarPanel panelPublicar;
 	private JScrollPane panelMisOfertas;
 	private JScrollPane panelMisInmuebles;
@@ -39,7 +36,7 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 	private DetallesPanelInmueble panelInfoInmueble;
 	
 	/**
-	 * Instantiates a new ofertante panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
@@ -57,14 +54,23 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 		super.botonAtras.removeActionListener(this);
 		super.botonAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gui.getControlador().cerrarSesion(true);
+				if (botonAtras.getText().equals("Cerrar Sesion"))
+					gui.getControlador().cerrarSesion(true);
+				else {
+					remove(1);
+					add(tabsUsuario, c);
+					botonAtras.setText("Cerrar Sesion");
+					revalidate();
+					repaint();
+				}					
 			}
 		});
 		
 		tablaMisOfertas.addMouseListener(new java.awt.event.MouseAdapter() {
 			 public void mouseClicked(java.awt.event.MouseEvent evt) {
 			    int fila = tablaMisOfertas.rowAtPoint(evt.getPoint());
-			    gui.getControlador().showInfoOferta(fila);			    
+			    gui.getControlador().showInfoOferta(fila);
+			    botonAtras.setText("Atras");
 			 }
 			});
 		
@@ -81,6 +87,7 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 			    	gui.getControlador().setPublicarOferta(false);
 			    }else
 			    	gui.getControlador().showInfoInmueble(fila);
+			    botonAtras.setText("Atras");
 			 }
 			});
 		
@@ -112,10 +119,10 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 	}
 	
 	/**
-	 * Adds the mis ofertas.
+	 * Aniade los detalles de una oferta a la tabla
 	 *
 	 * @param ofertas
-	 *            the ofertas
+	 *            caracteristicas de oferta
 	 */
 	public void addMisOfertas(Object... ofertas) {
 		model = (DefaultTableModel) tablaMisOfertas.getModel();
@@ -123,10 +130,10 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 	}
 
 	/**
-	 * Adds the mis inmuebles.
+	 * Aniade los detalles de un inmuebles a la tabla .
 	 *
 	 * @param inmuebles
-	 *            the inmuebles
+	 *            caracteristicas de inmuebles
 	 */
 	public void addMisInmuebles(Object... inmuebles) {
 		model = (DefaultTableModel) tablaMisInmuebles.getModel();
@@ -157,10 +164,11 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 	}
 	
 	/**
-	 * Show info inmueble.
+	 * Muestra la info del inmueble, caracteristicas como el codigo
+	 * postal, la descripcion, las caracteristicas
 	 *
 	 * @param detallesInmueble
-	 *            the detalles inmueble
+	 *            lista con carcateristicas del inmueble
 	 */
 	public void showInfoInmueble(Object... detallesInmueble) {
 		this.remove(1);
@@ -175,7 +183,6 @@ public class OfertantePanel extends UsuarioPanel implements ChangeListener, Acti
 	/* (non-Javadoc)
 	 * @see gui.vista.usuario.UsuarioPanel#limpiarTablaOfertas()
 	 */
-	@Override
 	public void limpiarTablaOfertas() {
 		model = (DefaultTableModel) tablaMisOfertas.getModel();
 		model.setRowCount(0);

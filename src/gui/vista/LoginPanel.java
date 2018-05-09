@@ -1,27 +1,27 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista;
 
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+/**
+ * Panel para introducir login
+ */
 public class LoginPanel extends JPanel implements ActionListener {
 
+	private static final long serialVersionUID = 559383746152479919L;
+	
 	private JLabel etiquetaNIF = new JLabel("NIF:");
 	private JTextField campoNIF = new JTextField(10);
 	
@@ -33,7 +33,7 @@ public class LoginPanel extends JPanel implements ActionListener {
 	private Gui gui;
 	
 	/**
-	 * Instantiates a new login panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
@@ -71,14 +71,12 @@ public class LoginPanel extends JPanel implements ActionListener {
 		gui.getControlador().login( campoNIF.getText(), campoContrasenia.getText() );
 	}
 	
-	// Propuesta: CAMBIA LA FORMA/LUGAR/MECANISMO PARA MOSTRAR ERROR
 	/**
 	 * Sets the error.
 	 *
 	 * @param error
 	 *            the new error
 	 */
-	// Proposed work: CHANGE THE WAY/PLACE/MECHANISM TO DISPLAY ERROR
 	public void setError(String error) {	
 		campoContrasenia.setText(error);
 		campoContrasenia.setForeground(java.awt.Color.red);

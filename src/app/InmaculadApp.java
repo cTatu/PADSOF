@@ -54,9 +54,6 @@ public class InmaculadApp implements Serializable{
 	/** Lista inmuebles. */
 	private List<Inmueble> inmuebles;
 	
-	/** Lista ofertas contratadas. */
-	private List<Oferta> ofertasContratadas;
-	
 	/** Contrasenia gerente. */
 	private String contraseniaGerente;
 	
@@ -69,11 +66,13 @@ public class InmaculadApp implements Serializable{
 	private static InmaculadApp iApp = null;
 	
 	/**
-	 * Devuelve la unico instancia que se puede crear en la aplicacion
-	 * implementando el patron singleton
+	 * Devuelve la unico instancia que se puede crear en la aplicacion implementando
+	 * el patron singleton.
 	 *
-	 * @param filename Fichero de con los clientes
-	 * @param constraseniaGerente La constrasenia gerente
+	 * @param filename
+	 *            Fichero de con los clientes
+	 * @param constraseniaGerente
+	 *            La constrasenia gerente
 	 * @return unica instancia singleton
 	 */
 	public static InmaculadApp getInstancia(String filename, String constraseniaGerente) {
@@ -91,7 +90,7 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Devuelve la instancia sin crear
+	 * Devuelve la instancia sin crear.
 	 *
 	 * @return instancia
 	 */
@@ -100,26 +99,30 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Constructor de la aplicacion que inicializa los atributos
+	 * Constructor de la aplicacion que inicializa los atributos.
 	 *
-	 * @param filename Fichero de con los clientes
-	 * @param constraseniaGerente La constrasenia gerente
+	 * @param filename
+	 *            Fichero de con los clientes
+	 * @param constraseniaGerente
+	 *            La constrasenia gerente
 	 */
 	private InmaculadApp(String filename, String constraseniaGerente) {
 		clientes = new HashMap<String, Cliente>();
 		inmuebles = new ArrayList<Inmueble>();
-		setOfertasContratadas(new ArrayList<Oferta>());
 		this.contraseniaGerente = constraseniaGerente;
 		this.clienteConectado = new Cliente("", "", "", "", "", null, null);
 	}
 	
 	/**
-	 * Crear un nuevo inmueble a partir de los parametros
-	 * y lo aniade a la lista de los inmuebles de la App y a la del ofertante
+	 * Crear un nuevo inmueble a partir de los parametros y lo aniade a la lista de
+	 * los inmuebles de la App y a la del ofertante.
 	 *
-	 * @param CP codigo postal
-	 * @param localizacion localizacion del inmueble
-	 * @param caracteristicas mapa de caracteristicas del inmueble
+	 * @param CP
+	 *            codigo postal
+	 * @param localizacion
+	 *            localizacion del inmueble
+	 * @param caracteristicas
+	 *            mapa de caracteristicas del inmueble
 	 * @return true si se ha aniadido correctamente
 	 */
 	public boolean crearInmueble(int CP, String localizacion, Map<String,String> caracteristicas) {
@@ -133,7 +136,8 @@ public class InmaculadApp implements Serializable{
 	}
 	
 	/**
-	 * Devuelve el cliente conectado
+	 * Devuelve el cliente conectado.
+	 *
 	 * @return clienteConectado
 	 */
 	public Cliente getClienteConectado() {
@@ -141,8 +145,8 @@ public class InmaculadApp implements Serializable{
 	}
 
 	/**
-	 * Se comprueban todos los clientes en busca de alguno que tenga un pago pendiente
-	 * y se le intenta pagar la cantidad deudada
+	 * Se comprueban todos los clientes en busca de alguno que tenga un pago
+	 * pendiente y se le intenta pagar la cantidad deudada.
 	 *
 	 * @return true si la transaccion ha tenido exito
 	 */
@@ -187,8 +191,10 @@ public class InmaculadApp implements Serializable{
 	/**
 	 * Modificar tarjeta credito. Solo el gerente puede hacerlo
 	 *
-	 * @param cliente el cliente al que se le va a modificar la tarjeta
-	 * @param tarjetaNueva el nuevo numero de tarjeta
+	 * @param NIF
+	 *            the nif
+	 * @param tarjetaNueva
+	 *            el nuevo numero de tarjeta
 	 * @return true si es el gerente
 	 */
 	public boolean modificarTarjetaCredito(String NIF,String tarjetaNueva) {
@@ -596,10 +602,22 @@ public class InmaculadApp implements Serializable{
 		return Collections.unmodifiableList(inmuebles);
 	}
 	
+	/**
+	 * Gets the inmuebles ofertante.
+	 *
+	 * @return the inmuebles ofertante
+	 */
 	public List<Inmueble> getInmueblesOfertante(){
 		return Collections.unmodifiableList(clienteConectado.rolOfertante.getInmuebles());
 	}
 	
+	/**
+	 * Gets the inmueble by oferta.
+	 *
+	 * @param oferta
+	 *            the oferta
+	 * @return the inmueble by oferta
+	 */
 	public Inmueble getInmuebleByOferta(Oferta oferta) {
 		for (Inmueble inmueble : inmuebles) {
 			if (inmueble.getOfertas().contains(oferta))
@@ -677,30 +695,45 @@ public class InmaculadApp implements Serializable{
 		return Collections.unmodifiableList(ofertasContratadas);
 	}
 	
+	/**
+	 * Gets the ofertas ofertante.
+	 *
+	 * @return the ofertas ofertante
+	 */
 	public List<Oferta> getOfertasOfertante() {
 		return Collections.unmodifiableList(clienteConectado.rolOfertante.getOfertas());
 	}
 
 
 	/**
-	 * Sets the ofertas contratadas.
+	 * Checks if is sesion iniciada.
 	 *
-	 * @param ofertasContratadas the new ofertas contratadas
+	 * @return true, if is sesion iniciada
 	 */
-	public void setOfertasContratadas(List<Oferta> ofertasContratadas) {
-		this.ofertasContratadas = ofertasContratadas;
-	}
-
 	public boolean isSesionIniciada() {
 		return sesionIniciada;
 	}
 	
+	/**
+	 * Checks if is gerente.
+	 *
+	 * @return true, if is gerente
+	 */
 	public boolean isGerente() {
 		return clienteConectado.gerente;
 	}
 	
+	/**
+	 * Se puede reservar.
+	 *
+	 * @param ofertaSeleccionada
+	 *            the oferta seleccionada
+	 * @return true, if successful
+	 */
 	public boolean sePuedeReservar(Oferta ofertaSeleccionada) {
 		Reserva reserva;
+		if (clienteConectado.isOfertante())
+			return false;
 		if (ofertaSeleccionada.isVacacional())
 			reserva = new ReservaVacacional(ofertaSeleccionada);
 		else
@@ -708,37 +741,97 @@ public class InmaculadApp implements Serializable{
 		return clienteConectado.rolDemandante.puedeReservar(reserva) && !ofertaSeleccionada.getReservada();
 	}
 	
+	/**
+	 * Se puede reservar.
+	 *
+	 * @param ofertaSeleccionada
+	 *            the oferta seleccionada
+	 * @param reserva
+	 *            the reserva
+	 * @return true, if successful
+	 */
 	public boolean sePuedeReservar(Oferta ofertaSeleccionada, Reserva reserva) {
 		return clienteConectado.rolDemandante.puedeReservar(reserva) 
 				&& !ofertaSeleccionada.getReservada() && !ofertaSeleccionada.getContratada();
 	}
 	
+	/**
+	 * Se puede contratar.
+	 *
+	 * @param ofertaSeleccionada
+	 *            the oferta seleccionada
+	 * @return true, if successful
+	 */
 	public boolean sePuedeContratar(Oferta ofertaSeleccionada) {
+		if (clienteConectado.isOfertante())
+			return false;
+		
 		return clienteConectado.rolDemandante.puedeContratar(ofertaSeleccionada) 
 				&& !ofertaSeleccionada.getContratada();
 	}
 
+	/**
+	 * Sets the sesion iniciada.
+	 *
+	 * @param sesionIniciada
+	 *            the sesion iniciada
+	 * @return true, if successful
+	 */
 	public boolean setSesionIniciada(boolean sesionIniciada) {
 		this.sesionIniciada = sesionIniciada;
 		return sesionIniciada;
 	}
 
+	/**
+	 * Gets the clientes.
+	 *
+	 * @return the clientes
+	 */
 	public List<Cliente> getClientes() {
 		return Collections.unmodifiableList(new ArrayList<Cliente>(clientes.values()));
 	}
 
+	/**
+	 * Devuelve una lista con todos los comentarios de un comentario
+	 *
+	 * @return the todos comentarios
+	 */
 	public Map<Integer, Comentario> getTodosComentarios() {
 		return Comentario.getTodosComentarios();
 	}
 
+	/**
+	 * Aniade una respuesta a un comentario
+	 *
+	 * @param comentario
+	 *            the comentario
+	 * @param textoRespuesta
+	 *            the texto respuesta
+	 */
 	public void opinar(Comentario comentario, String textoRespuesta) {
 		comentario.opinar(new Comentario(clienteConectado.rolDemandante, textoRespuesta));
 	}
 	
+	/**
+	 * Aniade un comentario a una oferta
+	 *
+	 * @param oferta
+	 *            the oferta
+	 * @param textoRespuesta
+	 *            the texto respuesta
+	 */
 	public void opinar(Oferta oferta, String textoRespuesta) {
 		oferta.aniadirOpinion( new Comentario(clienteConectado.rolDemandante, textoRespuesta));
 	}
 
+	/**
+	 * Aniade una valoracion a un comentario
+	 *
+	 * @param comentario
+	 *            the comentario
+	 * @param valoracion
+	 *            the valoracion
+	 */
 	public void opinar(Comentario comentario, Double valoracion) {
 		comentario.opinar( new Valoracion(clienteConectado.rolDemandante, valoracion));
 	}

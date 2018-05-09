@@ -1,36 +1,28 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.usuario;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import gui.vista.Gui;
-import gui.vista.busqueda.BusquedaPanel;
-import gui.vista.gerente.CambiarTarjetaPanel;
-import gui.vista.gerente.OfertasPendientesPanel;
-import gui.vista.oferta.DetallesPanelOferta;
 import gui.vista.usuario.demandante.DetallesPanelOfertaInmueble;
 
+/**
+ * Clase panel que contiene el soporte para los demas paneles de demandante
+ */
 public class DemandantePanel extends UsuarioPanel implements ChangeListener {
-
+	private static final long serialVersionUID = -3000666218379715271L;
+	
 	/*protected Tabs del Super*/
 	
 	private JTable tablaMisOfertas;
@@ -39,7 +31,7 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 	protected GridBagConstraints c = new GridBagConstraints();
 	
 	/**
-	 * Instantiates a new demandante panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
@@ -68,7 +60,7 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 		super.tabsUsuario.addTab("Mis Ofertas", scroll);
 	}
 
-	/* (non-Javadoc)
+	/*
 	 * @see gui.vista.usuario.UsuarioPanel#showInfoOferta(java.lang.String, java.lang.Object[], java.lang.Object[])
 	 */
 	@Override
@@ -87,9 +79,7 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 	 * @see gui.vista.usuario.UsuarioPanel#limpiarTablaOfertas()
 	 */
 	@Override
-	public void limpiarTablaOfertas() {
-		// TODO Auto-generated method stub
-		
+	public void limpiarTablaOfertas() {		
 	}
 
 	/* (non-Javadoc)
@@ -109,10 +99,10 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 	}
 	
 	/**
-	 * Adds the mis ofertas.
+	 * Aniade las cracteristicas de una oferta a la tabla
 	 *
 	 * @param ofertas
-	 *            the ofertas
+	 *            lista de caracteristicas
 	 */
 	public void addMisOfertas(Object... ofertas) {
 		DefaultTableModel model = (DefaultTableModel) tablaMisOfertas.getModel();
@@ -120,7 +110,7 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 	}
 	
 	/**
-	 * Show mis ofertas.
+	 * Ensenia la pestania de las ofertas
 	 */
 	public void showMisOfertas() {
 		this.remove(1);
@@ -138,10 +128,11 @@ public class DemandantePanel extends UsuarioPanel implements ChangeListener {
 	}
 	
 	/**
-	 * Show info comentario.
+	 * Muestra los detalles de los comentarios como
+	 * responder o valoraciones
 	 *
 	 * @param detallesComentario
-	 *            the detalles comentario
+	 *            informacion del comentario, como el texto y la valoracion
 	 */
 	public void showInfoComentario(Object[] detallesComentario) {
 		panelOfertaDemandante.addComentario(detallesComentario);

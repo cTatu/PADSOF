@@ -1,27 +1,26 @@
-/*
+/**
  * @author David Pascual y Cristian Tatu
  */
 package gui.vista.busqueda;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.util.Optional;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import gui.vista.Gui;
 
 public class BusquedaViviendaPanel extends BusquedaPanelBasico {
 	
+	private static final long serialVersionUID = 2116594334009660917L;
+	
 	private JLabel etiquetaMeses = new JLabel("Duracion Meses:");
 	private JSpinner duracionMeses = new JSpinner();
 	
 	/**
-	 * Instantiates a new busqueda vivienda panel.
+	 * Constructor
 	 *
 	 * @param gui
 	 *            the gui
